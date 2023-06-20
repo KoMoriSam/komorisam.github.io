@@ -8,7 +8,7 @@
 	src: url("../media/font/unifont-15.0.01.otf");
 }
 
-div {	
+div {
 	font-family: Minecraft, Unifont;
 	font-size: 18px;
 	font-weight: normal;
@@ -19,6 +19,7 @@ div {
 	text-shadow: 1px 1px black;
 	transition: font-size 0.2s ease-out;
 }
+
 body {
 	margin: 0;
 	padding: 0;
@@ -78,10 +79,10 @@ h1 {
 }
 
 .foot {
-	position:fixed;
-	bottom:0px;
-	text-align: center;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
+	text-align: center;
 }
 
 a {
@@ -465,4 +466,4 @@ img#musicico {
 
 #animation-container {
 	font-size: 1em;
-  }
+}

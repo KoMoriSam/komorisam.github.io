@@ -54,8 +54,3 @@ window.addEventListener('resize', function () {
 });
 
 window.dispatchEvent(new Event('resize'));
-
-// 关闭网页
-function closeOpenedWindow() {
-	openedWindow.close();
-  }
