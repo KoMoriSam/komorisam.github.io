@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>终末之诗 | Minecraft Space!</title>
+	<style>
+		html {
+			background: rgba(0, 0, 0, 0.7) url('../media/image/background/end.png');
+			background-size: 10%;
+			background-attachment: fixed;
+			background-blend-mode: darken;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script type="text/javascript" src="./js/script.js"></script>
+	<script type="text/javascript" src="./js/getText.js"></script>
+</head>
+
+<body>
+
+	<audio autoplay="autoplay">
+		<source src="./media/audio/click.wav" type="audio/ogg" />
+	</audio>
+
+	<audio autoplay="autoplay" loop="loop">
+		<source src="./media/audio/C418 - Minecraft.mp3" type="audio/ogg" />
+	</audio>
+
+	<div class="main">
+
+		<p><img src="./media/image/title/end_poem.png" width="540"></p>
+		<p id="splash" class='shiningText'></p>
+
+
+		<h1>终末之诗</h1>
+
+		<input type="text" id="playername" name="playername" placeholder="请输入您的名字">
+		<button class="vButton" onclick="playSound(); setPlayerName()">Set</button>
+
+		<p>
+		<div id="text"></div>
+		</p>
+
+		<p><button class="button" onclick="playSound(); location.href='./'">返回主页</button></p>
+
+		<div class="foot">
+			<p><audio id="music" autoplay="autoplay" loop="loop" src="./media/audio/C418 - Minecraft.mp3"></audio>
+
+				<img id="musicico" onclick="musicStop()" src="./media/image/icon/jukebox.png" width="16px">
+				C418 - Minecraft<br> --&gt; <a href="./poem_test.html">测试版终末之诗 !</a> &lt;-- <br>by KoMoriSam!!
+			</p>
+
+
+			<p> --&gt; <img src="./media/image/icon/github.svg" width="16px"> <a
+					href="https://github.com/KoMoriSam">GitHub</a> &lt;--
+				<br> --&gt; <img src="https://www.bilibili.com/favicon.ico" width="16px"> <a
+					href="https://space.bilibili.com/71104942">Bilibili</a> &lt;--
+			</p>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
