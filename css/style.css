@@ -1,0 +1,204 @@
+/* 全局重置样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 自适应 */
+html {
+    color-scheme: light dark;
+    transition: font-size 0.2s ease-out;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: lightgray;
+        color: #1a1a1a;
+    }
+
+    a {
+        color: #1a1a1a;
+        text-decoration: none;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: whitesmoke;
+        text-shadow: 1px 1px black;
+    }
+
+    a {
+        color: whitesmoke;
+        text-decoration: none;
+    }
+}
+
+/* 页面布局 */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+}
+
+/* 导航菜单 */
+nav ul {
+    margin: 0;
+    padding: 0;
+    width: 16rem;
+    height: 100%;
+    position: fixed;
+    background-color: rgb(100, 56, 72, 0.75);
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul img.title {
+    margin-left: 1rem;
+    width: 14rem;
+}
+
+nav ul a {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+}
+
+ul a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+}
+
+ul a:hover:not(.active) {
+    color: #4CAF50;
+    background-color: #555;
+    font-weight: bold;
+}
+
+ul a.active {
+    background-color: #4CAF50;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+}
+
+/* 下拉菜单 */
+li a,
+.dropbtn {
+    text-decoration: none;
+}
+
+.dropdown {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 0.5rem 0.75rem;
+    background-color: #555;
+}
+
+.dropdown-content a {
+    padding: 0.5rem 1.75rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #343434;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 页面主体内容 */
+.container {
+    padding: 2rem 1rem;
+    margin-left: 18rem;
+    margin-right: 2rem;
+}
+
+h1,
+h2,
+h3 {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+h1,
+h2,
+h3 img {
+    margin-top: 1.5rem;
+    margin-bottom: 0rem;
+    width: 16em;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+img,
+svg,
+video {
+    display: block;
+    margin-bottom: 1rem;
+    max-width: 100%;
+}
+
+img.ico {
+    display: inline-block;
+    margin: 0 0.5rem 0 0;
+}
+
+/* 按钮 */
+button {
+    border: none;
+    background-color: #555;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+button:hover {
+    color: #4CAF50;
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+button:focus {
+    color: whitesmoke;
+    background-color: #4CAF50;
+    font-weight: bold;
+}
+
+/* 版权信息 */
+footer {
+    position: fixed;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    width: 16rem;
+}
+
+footer li {
+    margin: 0 1rem;
+}
+
+footer a {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+}
+
+footer a:hover {
+    display: block;
+    color: #4CAF50;
+    background-color: #555;
+    font-weight: bold;
+}

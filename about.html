@@ -4,33 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>关于我 | KoMoriSam</title>
-    <link rel="shortcut icon" href="./media/image/icon/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="./css/newStyle.css">
+    <link rel="shortcut icon" href="media/image/icon/favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <h1><img class="title" src="./media/image/title/komorisam.png" alt="KoMoriSam"></h1>
-            <li><a href="./"><i class="fa fa-home fa-fw"></i> 主页</a></li>
-            <li><a class="active" href="./about.html"><i class="fa fa-drivers-license fa-fw"></i> 关于我</a></li>
-            <li><a href="./project.html"><i class="fa fa-file fa-fw"></i> 项目</a></li>
-            <li><a href="./contact.html"><i class="fa fa-commenting fa-fw"></i> 联系我</a></li>
-        </ul>
-    </nav>
+    <div class="sidebar-menu">
+        <div id="side"></div>
+    </div>
+
+    <script>
+        $("#side").load("com/side.html");
+    </script>
+
     <div class="container">
-        <img src="./media/image/me2.png" alt="me!" height="256">
+        <img src="media/image/me2.png" alt="me!" height="256">
         <h2>关于我</h2>
         <p>我只是一个喜欢玩 Minecraft 的大学生罢了~</p>
     </div>
-    <footer>
-        <li><a href="https://github.com/KoMoriSam" target="_blank"><img class="ico" src="./media/image/icon/github.svg"
-                    width="16rem" alt="GitHub">GitHub</a></li>
-        <li><a href="https://space.bilibili.com/71104942" target="_blank"><img class="ico"
-                    src="https://www.bilibili.com/favicon.ico" width="16rem" alt="Bilibili">Bilibili</a></li>
-        <li><a>&copy; 2023 KoMoriSam. All rights reserved.</a></li>
-    </footer>
+
 </body>
 
 </html>
