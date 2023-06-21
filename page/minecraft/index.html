@@ -69,7 +69,7 @@
             backface-visibility: hidden
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/mineStyle.css">
     <script type="text/javascript" src="../../js/script.js"></script>
     <script type="text/javascript" src="../../js/getText.js"></script>
 </head>
@@ -97,12 +97,13 @@
 
         <p><button class="button" onclick="playSound(); location.href='http://www.minecraft.net'">现在开始</button></p>
 
-        <p><button class="button" onclick="playSound(); location.replace('./about_game.html')">游戏简介</button></p>
+        <p><button class="button" onclick="playSound(); location.replace('./about.html')">游戏简介</button></p>
 
         <p><button class="buttonLocked">网易官网</button></p>
 
         <p><button class="hButton" onclick="playSound()" style="margin: 0 0.5em 0 0">网页选项</button><button
-                class="hButton" onclick="playSound(); location.replace('../../');" style="margin: 0 0 0 0.5em">退出网页</button>
+                class="hButton" onclick="playSound(); location.replace('../../');"
+                style="margin: 0 0 0 0.5em">退出网页</button>
         </p>
 
         <audio id="music" autoplay="autoplay" loop="loop" src="../../media/audio/C418 - Wet Hands.mp3"></audio>

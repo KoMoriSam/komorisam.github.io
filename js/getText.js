@@ -1,5 +1,5 @@
 // 获取 json 文件中 splashes 数组内的字符串数据
-fetch('../media/text/splashes.json')
+fetch('../../media/text/splashes.json')
     .then(response => response.json())
     .then(data => {
         const splashes = data.splashes;
@@ -16,7 +16,7 @@ async function readTextFile(file) {
 }
 
 // 读取 ./media/text/end.txt 文件
-readTextFile("../media/text/end.txt").then(text => {
+readTextFile("../../media/text/end.txt").then(text => {
     const outputDiv = document.getElementById("output");
 });
 
