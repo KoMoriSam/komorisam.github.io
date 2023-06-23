@@ -35,79 +35,86 @@ body {
 }
 
 #sidebar-menu {
-    float: left;
     display: flex;
     flex-direction: column;
-    width: 16rem;
-    height: 100%;
-    margin-right: 2rem;
+    width: 100%;
+    height: 20rem;
+    margin-bottom: 2rem;
 }
 
 #sidebar-menu .bg {
-    position: fixed;
+    position: absolute;
     background-color: rgb(100, 56, 72, 0.75);
-    width: 16rem;
-    height: 100%;
+    width: 100%;
+    height: 22rem;
     z-index: 0;
 }
 
 #sidebar-menu header {
+    text-align: center;
     margin-top: 2rem;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     flex: 0 0 auto;
     z-index: 1;
 }
 
 #sidebar-menu header img {
-    width: 14rem;
+    width: 75%;    
 }
 
 #sidebar-menu .navbody {
-    flex: 1 0 auto;
+    text-align: center;
+    flex: 0 0 auto;
     z-index: 1;
 }
 
 #sidebar-menu .navbody a {
     display: block;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem;
     text-decoration: none;
 }
 
 #sidebar-menu .navbody a:hover {
-    display: block;
     color: #4CAF50;
     background-color: #555;
     font-weight: bold;
 }
 
 #sidebar-menu footer {
-    margin-bottom: 2rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    flex: 0 0 auto;
-    z-index: 1;
+    display: none;
 }
 
-#sidebar-menu footer a {
-    display: block;
-    padding: 0.75rem 1rem;
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 22rem);
+    text-align: center;
+    padding: 2rem 2rem 2rem 2rem;    
+}
+
+.container #container-body {
+    flex: 1 0 auto;
+}
+
+.container #container-foot {    
+    flex: 0 0 auto;
+}
+
+.container #container-foot a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
     text-decoration: none;
 }
 
-#sidebar-menu footer a:hover {
-    display: block;
+.container #container-foot a:hover {
     color: #4CAF50;
     background-color: #555;
     font-weight: bold;
 }
 
-.container {
-    padding: 2rem 2rem 2rem 2rem;
-}
-
-.container #container-foot {
-    display: none;
+.container img {
+    width: 35%;
+    height: auto;
 }
 
 li {

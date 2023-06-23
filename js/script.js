@@ -10,5 +10,7 @@ $(document).ready(function() {    // 等待页面加载完成
       $('#project').addClass('active');
     } else if (path === '/contact.html') {
       $('#contact').addClass('active');
+    } else if (path === '/test.html') {
+      $('#test').addClass('active');
     }
   });
