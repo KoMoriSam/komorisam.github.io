@@ -26,8 +26,8 @@ function toggleThemeByUser() {
     if (root.hasAttribute('data-theme')) {
         // 如果网页是暗模式，切换为亮模式
         root.removeAttribute('data-theme');
-        darkToggle.classList.toggle('header-active');
         lightToggle.classList.toggle('header-active');
+        darkToggle.classList.toggle('header-active');        
     } else {
         // 如果网页是亮模式，切换为暗模式
         root.setAttribute('data-theme', 'dark');
