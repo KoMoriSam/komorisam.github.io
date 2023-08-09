@@ -1,16 +1,115 @@
-<script src="../js/script.js"></script>
-<div class="bg"></div>
-<header><img class="title" src="media/image/title/komorisam_website.png" alt="KoMoriSam"></header>
-<section class="navbody">
-    <a id="home" href="/"><i class="fa fa-home fa-fw"></i> 主　页</a>
-    <a id="about" href="about.html"><i class="fa fa-drivers-license fa-fw"></i> 关于我</a>
-    <a id="project" href="project.html"><i class="fa fa-file fa-fw"></i> 项　目</a>
-    <a id="contact" href="contact.html"><i class="fa fa-commenting fa-fw"></i> 联系我</a>
-    <a id="test" href="test.html"><i class="fa fa-wrench fa-fw"></i> 测试页</a>
-</section>
-<footer>
-    <li><a href="https://github.com/KoMoriSam" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
-    <li><a href="https://space.bilibili.com/71104942" target="_blank"><img class="ico"
-                src="https://www.bilibili.com/favicon.ico" width="16rem" alt="Bilibili">Bilibili</a></li>
-    <li><a>&copy; 2023 KoMoriSam. <br>All rights reserved.</a></li>
-</footer>
+<script src="../js/sider.js"></script>
+<script src="../js/mode.js"></script>
+
+<!--=============== BACKGROUND ===============-->
+<div class="my-bg"></div>
+
+<!--=============== HEADER ===============-->
+<header class="header">
+    <div class="header_container container">
+        <div>
+            <i class="header_toggle ri-menu-line" id="header-toggle"></i>
+            <i class="header_toggle ri-sun-line" id="light-toggle"></i>
+            <i class="header_toggle ri-moon-line" id="dark-toggle"></i>
+        </div>
+
+        <a href="/" class="header_logo">
+            <img src="media/image/title/komorisam_website.png" alt="">
+        </a>
+
+        <div>
+            <a href="https://github.com/KoMoriSam">
+                <i class="header_toggle ri-github-fill"></i>
+            </a>
+
+            <a href="https://space.bilibili.com/71104942">
+                <i class="header_toggle ri-bilibili-fill"></i>
+            </a>
+
+            <a href="https://weibo.com/u/5281976456">
+                <i class="header_toggle ri-weibo-fill"></i>
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<!--=============== SIDEBAR ===============-->
+<div class="sidebar" id="sidebar">
+    <nav class="sidebar_container">
+        <div class="sidebar_logo">
+            <img src="media/image/title/website_nav_small.png" alt="" class="sidebar_logo-img">
+            <img src="media/image/title/welcome.png" alt="" class="sidebar_logo-text">
+        </div>
+
+        <div class="sidebar_content">
+            <div class="sidebar_list">
+                <a id="home" href="/" class="sidebar_link">
+                    <i class="ri-home-5-line"></i>
+                    <span class="sidebar_link-name">主页</span>
+                    <span class="sidebar_link-floating">主页</span>
+                </a>
+            </div>
+
+            <h3 class="sidebar_title">
+                <span>项 目</span>
+            </h3>
+
+            <div class="sidebar_list">
+                <a id="minecraft" href="page/minecraft" class="sidebar_link">
+                    <i class="ri-gamepad-line"></i>
+                    <span class="sidebar_link-name">复现 Minecraft UI</span>
+                    <span class="sidebar_link-floating">复现 Minecraft UI</span>
+                </a>
+            </div>
+
+            <div class="sidebar_list">
+                <a id="flask" href="#" class="sidebar_link">
+                    <i class="ri-pages-line"></i>
+                    <span class="sidebar_link-name">flask 博客</span>
+                    <span class="sidebar_link-floating">flask 博客</span>
+                </a>
+            </div>
+
+            <h3 class="sidebar_title">
+                <span>简 介</span>
+            </h3>
+            <div class="sidebar_list">
+                <a id="about" href="about.html" class="sidebar_link">
+                    <i class="ri-contacts-line"></i>
+                    <span class="sidebar_link-name">关于我</span>
+                    <span class="sidebar_link-floating">关于我</span>
+                </a>
+
+                <a id="contact" href="contact.html" class="sidebar_link">
+                    <i class="ri-discuss-line"></i>
+                    <span class="sidebar_link-name">联系我</span>
+                    <span class="sidebar_link-floating">联系我</span>
+                </a>
+            </div>
+
+            <h3 class="sidebar_title">
+                <span>其 他</span>
+            </h3>
+
+            <div class="sidebar_list">
+                <a id="test" href="test.html" class="sidebar_link">
+                    <i class="ri-terminal-box-line"></i>
+                    <span class="sidebar_link-name">测试页</span>
+                    <span class="sidebar_link-floating">测试页</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar_account">
+            <i class="sidebar_perfil ri-user-line"></i>
+
+            <div class="sidebar_names">
+                <h3 class="sidebar_name">KoMoriSam</h3>
+                <span class="sidebar_email">3593516798@qq.com</span>
+            </div>
+
+            <i class="ri-arrow-right-s-line"></i>
+        </div>
+    </nav>
+</div>

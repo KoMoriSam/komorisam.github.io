@@ -1,54 +1,98 @@
-<!DOCTYPE HTML>
 <html>
 
 <head>
-    <title>Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="media/image/icon/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <link rel="stylesheet" href="css/miniStyle.css" type="text/css" media="screen and (max-width: 512px)" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen and (min-width: 512px)" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css" crossorigin="">
+    <style>
+        :root {
+            --white-color: rgba(225, 225, 225, 0.8);
+            --white-color-light: whitesmoke;
+            --dark-color: rgba(17, 17, 17, 0.8);
+            --dark-color-light: #1f1f1f;
+            --active-color: #4CAF50;
+            --text-color: var(--dark-color);
+            --bg-color: var(--white-color-light);
+            --bg-second-color: var(--white-color);
+        }
+
+        [data-theme="dark"] {
+            --text-color: var(--white-color-light);
+            --bg-color: var(--dark-color-light);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>亮暗模式切换示例</h1>
+    <p>这是一个简单的网页，它可以根据系统亮暗模式自动切换网页亮暗模式，也可以让用户手动切换亮暗模式。</p>
+    <i class="ri-moon-line" id="dark-toggle"></i>
+    <i class="ri-sun-line" id="light-toggle"></i>
+    <script>
+        // 获取系统亮暗模式
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-    <div id="sidebar-menu">
-        <div class="bg"></div>
-        <header><img class="title" src="media/image/title/komorisam_website.png" alt="KoMoriSam"></header>
-        <section class="navbody">
-            <a id="home" href="/"><i class="fa fa-home fa-fw"></i> 主页</a>
-            <a id="about" href="about.html"><i class="fa fa-drivers-license fa-fw"></i> 关于我</a>
-            <div class="dropdown">
-                <a id="project" href="project.html"><i class="fa fa-file fa-fw"></i> 项目</a>
-                <div class="dropdown-content">
-                    <a href="page/minecraft/">Minecraft UI</a>
-                    <a href="#">Flask 博客</a>
-                </div>
-            </div>
-            <a id="contact" href="contact.html"><i class="fa fa-commenting fa-fw"></i> 联系我</a>
-            <a id="test" href="test.html"><i class="fa fa-wrench fa-fw"></i> 测试页</a>
-        </section>
-        <footer>
-            <li><a href="https://github.com/KoMoriSam" target="_blank"><img class="ico"
-                        src="media/image/icon/github.svg" width="16rem" alt="GitHub">GitHub</a></li>
-            <li><a href="https://space.bilibili.com/71104942" target="_blank"><img class="ico"
-                        src="https://www.bilibili.com/favicon.ico" width="16rem" alt="Bilibili">Bilibili</a></li>
-            <li><a>&copy; 2023 KoMoriSam. All rights reserved.</a></li>
-        </footer>
-    </div>
+        // 获取网页根元素
+        const root = document.documentElement;
 
-    <div class="container">
-        <img src="media/image/me1.png" alt="me!" height="256">
-        <h2>你好！</h2>
-        <button>Push this button</button>
-        <p>这里是 KoMoriSam 的网站，在这里我会分享一些正在做的项目~</p>
-    </div>
+        // 获取切换按钮
+        const darkToggle = document.getElementById('dark-toggle');
+        const lightToggle = document.getElementById('light-toggle');
 
+        // 定义一个函数，根据系统亮暗模式设置网页亮暗模式
+        function setThemeBySystem() {
+            if (systemTheme.matches) {
+                // 如果系统是暗模式，设置网页为暗模式
+                root.setAttribute('data-theme', 'dark');
+                darkToggle.classList.toggle('active');
+            } else {
+                // 如果系统是亮模式，设置网页为亮模式
+                root.removeAttribute('data-theme');
+                lightToggle.classList.toggle('active');
+            }
+        }
+
+        // 定义一个函数，根据用户点击切换网页亮暗模式
+        function toggleThemeByUser() {            
+            if (root.hasAttribute('data-theme')) {
+                // 如果网页是暗模式，切换为亮模式
+                root.removeAttribute('data-theme');
+                darkToggle.classList.toggle('active');
+                lightToggle.classList.toggle('active');
+            } else {
+                // 如果网页是亮模式，切换为暗模式
+                root.setAttribute('data-theme', 'dark');                
+                darkToggle.classList.toggle('active');
+                lightToggle.classList.toggle('active');
+            }
+        }
+
+        // 在网页加载时，根据系统亮暗模式设置网页亮暗模式
+        window.addEventListener('load', setThemeBySystem);
+
+        // 当系统亮暗模式改变时，根据系统亮暗模式设置网页亮暗模式
+        systemTheme.addEventListener('change', setThemeBySystem);
+
+        // 当用户点击切换按钮时，根据用户点击切换网页亮暗模式
+        darkToggle.addEventListener('click', toggleThemeByUser);
+        lightToggle.addEventListener('click', toggleThemeByUser);
+    </script>
 </body>
 
 </html>
