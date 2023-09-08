@@ -5,8 +5,10 @@
     /*========== Colors ==========*/
     /*Color mode HSL(hue, saturation, lightness)*/
     --white-color: rgba(225, 225, 225, 0.8);
+    --pure-white-color: white;
     --white-color-light: whitesmoke;
     --dark-color: rgba(17, 17, 17, 0.8);
+    --pure-dark-color: rgb(17, 17, 17);
     --dark-color-light: #1f1f1f;
     --active-color: #4CAF50;
     --gradient-x: linear-gradient(90deg,
@@ -22,10 +24,12 @@
     --text-color: var(--dark-color);
     --bg-color: var(--white-color-light);
     --bg-second-color: var(--white-color);
+    --bg-pure-color: var(--pure-white-color);
 
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
     --body-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --big-font-size: 1.15rem;
     --normal-font-size: .938rem;
     --small-font-size: .813rem;
 
@@ -41,8 +45,9 @@
 /*========== Responsive typography ==========*/
 @media screen and (min-width: 1024px) {
     :root {
+        --big-font-size: 1.25rem;
         --normal-font-size: 1rem;
-        --small-font-size: .875rem;
+        --small-font-size: 0.75rem;
     }
 }
 
@@ -50,6 +55,7 @@
     --text-color: var(--white-color-light);
     --bg-color: var(--dark-color-light);
     --bg-second-color: var(--dark-color);
+    --bg-pure-color: var(--pure-dark-color);
 }
 
 /*=============== BASE ===============*/
@@ -57,6 +63,25 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+}
+
+html::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--bg-second-color);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: var(--active-color);
+}
+
+html::-webkit-scrollbar-track {
+    background: var(--bg-color);
 }
 
 body {
@@ -97,6 +122,69 @@ img {
 
 .me {
     height: 16rem;
+}
+
+.output {
+    padding: 0 1rem 0 1rem;
+}
+
+.output h1 {
+    font-size: var(--big-font-size);
+    padding: 1rem;
+    margin: 2rem 0 1rem 0;
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+.output p {
+    line-height: 2;
+    text-indent: 2.5rem;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    font-size: var(--normal-font-size);
+    padding: 1rem;
+    margin-bottom: -1rem;
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+select {
+    color: var(--text-color);
+    background-color: var(--bg-second-color);
+    padding: 0.75rem;
+    border: 1px solid gray;
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+button {
+    color: var(--text-color);
+    background-color: var(--bg-second-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid gray;
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+button:hover {
+    font-weight: bold;
+    border: 1px solid var(--text-color);
+    background-color: var(--active-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+button:focus {
+    border: 1px solid var(--bg-second-color);
+    background-color: var(--text-color);
+    color: var(--bg-second-color);
 }
 
 /*=============== HEADER ===============*/
@@ -143,7 +231,7 @@ img {
     font-weight: bold;
 }
 
-.header-active { 
+.header-active {
     background-color: var(--active-color);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);

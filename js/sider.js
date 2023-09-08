@@ -34,8 +34,8 @@ $(document).ready(function () {    // 等待页面加载完成
     $('#home').addClass('active-link');
   } else if (path === '/about.html') {
     $('#about').addClass('active-link');
-  } else if (path === '/project.html') {
-    $('#project').addClass('active-link');
+  } else if (path === '/novel.html') {
+    $('#novel').addClass('active-link');
   } else if (path === '/contact.html') {
     $('#contact').addClass('active-link');
   } else if (path === '/test.html') {
