@@ -19,10 +19,11 @@
 
 const fileSelect = document.getElementById("fileSelect");
 const loadFileButton = document.getElementById("loadFile");
+const latestFileSelect = document.getElementById("latestFileSelect");
+const latestFileButton = document.getElementById("latestFile");
 const output = document.getElementById("output");
 
-// Fetch the list of available Markdown files from the server
-fetch("media/novel/list.json") // Replace with the actual endpoint to fetch the list
+fetch("media/novel/list.json") 
     .then((response) => response.json())
     .then((fileList) => {
         fileList.forEach((fileName) => {
@@ -31,19 +32,25 @@ fetch("media/novel/list.json") // Replace with the actual endpoint to fetch the 
             option.textContent = fileName;
             fileSelect.appendChild(option);
         });
+        latestFile = fileList.slice(-1)[0];
+        const option = document.createElement("option");
+        option.value = latestFile;
+        option.textContent = latestFile;
+        latestFileSelect.appendChild(option);
     })
     .catch((error) => {
-        console.error("Error fetching the list of Markdown files:", error);
+        output.innerHTML = marked.parse('# *⚠️未找到章节列表⚠️*');
+        console.error("找不到章节列表！", error);
     });
 
 loadFileButton.addEventListener("click", () => {
-    const selectedFileName = 'media/novel/' + fileSelect.value;
+    const selectedFileName = 'media/novel/' + fileSelect.value + '.md';
 
     if (selectedFileName) {
         fetch(selectedFileName)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    throw new Error("服务器未存档");
                 }
                 return response.text();
             })
@@ -51,7 +58,31 @@ loadFileButton.addEventListener("click", () => {
                 output.innerHTML = marked.parse(markdownContent);
             })
             .catch((error) => {
-                console.error("Error fetching or parsing the Markdown file:", error);
+                output.innerHTML = marked.parse('# *⚠️未找到该章节 请重新选择⚠️*');
+                console.error("未找到该章节！", error);
+            });
+    } else {
+        output.innerHTML = "";
+    }
+});
+
+latestFileButton.addEventListener("click", () => {
+    const latestFileName = 'media/novel/' + latestFile + '.md';
+
+    if (latestFileName) {
+        fetch(latestFileName)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("服务器未存档");
+                }
+                return response.text();
+            })
+            .then((markdownContent) => {
+                output.innerHTML = marked.parse(markdownContent);
+            })
+            .catch((error) => {
+                output.innerHTML = marked.parse('# *⚠️获取最新章节失败⚠️*');
+                console.error("获取最新章节失败！", error);
             });
     } else {
         output.innerHTML = "";
