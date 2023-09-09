@@ -1,22 +1,3 @@
-// const fileInput = document.getElementById("fileInput");
-// const output = document.getElementById("output");
-
-// fileInput.addEventListener("change", (e) => {
-//     const selectedFile = e.target.files[0];
-//     if (selectedFile) {
-//         const reader = new FileReader();
-
-//         reader.onload = function (event) {
-//             const markdownContent = event.target.result;
-//             output.innerHTML = marked.parse(markdownContent);
-//         };
-
-//         reader.readAsText(selectedFile);
-//     } else {
-//         output.innerHTML = "";
-//     }
-// });
-
 const fileSelect = document.getElementById("fileSelect");
 const loadFileButton = document.getElementById("loadFile");
 const latestFileSelect = document.getElementById("latestFileSelect");
@@ -47,6 +28,7 @@ fetch("media/novel/list.json")
 
 function loadFile() {
     var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+    document.title = fileSelect.value + ' | KoMoriSam';
 
     if (selectedFileName) {
         fetch(selectedFileName)
@@ -71,6 +53,7 @@ function loadFile() {
 function latestFile() {
     var latestFileName = 'media/novel/' + latestOption + '.md';
     fileSelect.value = latestOption;
+    document.title = fileSelect.value + ' | KoMoriSam';
 
     if (latestFileName) {
         fetch(latestFileName)
@@ -95,6 +78,7 @@ function latestFile() {
 function firstFile() {
     fileSelect.value = fileSelect.options[1].value;
     var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+    document.title = fileSelect.value + ' | KoMoriSam';
     if (selectedFileName) {
         fetch(selectedFileName)
             .then((response) => {
@@ -120,6 +104,7 @@ function nextFile() {
     try {
         fileSelect.value = fileSelect.options[index + 1].value;
         var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+        document.title = fileSelect.value + ' | KoMoriSam';
         if (selectedFileName) {
             fetch(selectedFileName)
                 .then((response) => {
@@ -149,6 +134,7 @@ function previousFile() {
     try {
         fileSelect.value = fileSelect.options[index - 1].value;
         var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+        document.title = fileSelect.value + ' | KoMoriSam';
         if (selectedFileName) {
             fetch(selectedFileName)
                 .then((response) => {

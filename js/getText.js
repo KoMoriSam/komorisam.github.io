@@ -8,17 +8,13 @@ fetch('../../media/text/splashes.json')
         splashElem.innerHTML = splashes[Math.floor(Math.random() * splashes.length)];
     })
     .catch(error => console.error(error));
+    
 // 声明一个读取 TXT 文件内容的函数
 async function readTextFile(file) {
     const response = await fetch(file);
     const text = await response.text();
     return text;
 }
-
-// 读取 ./media/text/end.txt 文件
-readTextFile("../../media/text/end.txt").then(text => {
-    const outputDiv = document.getElementById("output");
-});
 
 // 将前缀转换成对应的样式
 function convertStyleCode(str) {
@@ -88,3 +84,8 @@ function convertText() {
         outputDiv.innerHTML = processedText;
     });
 }
+
+// 读取 ./media/text/end.txt 文件
+readTextFile('../../media/text/end.txt').then(text => {
+    const outputDiv = document.getElementById("output");
+});
