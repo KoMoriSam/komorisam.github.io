@@ -171,7 +171,8 @@ img {
 select {
     color: var(--text-color);
     background-color: var(--bg-second-color);
-    padding: 0.6rem;
+    width: 14rem;
+    padding: 0.8rem;
     margin: 0.5rem;
     border: 1px solid gray;
     border-radius: .25rem;
@@ -184,7 +185,7 @@ button {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     align-items: center;
-    padding: 0.6rem;
+    padding: 0.8rem;
     margin: 0.5rem;
     border: 1px solid gray;
     border-radius: .25rem;
@@ -214,15 +215,23 @@ button:focus {
     height: 3rem;
     right: 1.5rem; 
     bottom: 6rem; 
+    font-size: 1rem;
+    padding-bottom: 2rem;
     transition: right .3s;
     align-items: center;
 }
 
 #topBtn:hover {
-    font-size: 1rem;
-    padding-bottom: 2rem;
     align-items: center;
     transition: all .1s;
+}
+
+#topBtn:hover .ri-skip-up-line {
+    display: none;
+}
+
+#topBtn span {
+    margin-bottom: 0.4rem;
 }
 
 /*=============== HEADER ===============*/
@@ -564,7 +573,7 @@ button:focus {
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 4px;
+        bottom: 0;
         transition: color .4s, opacity .4s;
         opacity: 0;
     }
