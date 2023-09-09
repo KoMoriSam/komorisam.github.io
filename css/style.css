@@ -126,19 +126,34 @@ img {
     height: 16rem;
 }
 
+.novel-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
 .output {
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
 }
 
 .output h1 {
     font-size: var(--huge-font-size);
     padding: 1rem;
-    margin: 1.25rem 0 1rem 0;
+    margin: 1.75rem 0 1rem 0;
     text-align: center;
     color: var(--text-color);
     background-color: var(--bg-pure-color);
     border-radius: .25rem;
-    transition: background .3s;
+}
+
+.output h2 {
+    font-size: var(--big-font-size);
+    padding: 1rem;
+    margin: 1.75rem 0 1rem 0;
+    text-align: right;
+    color: var(--text-color);
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
 }
 
 .output p {
@@ -148,17 +163,16 @@ img {
     text-justify: inter-ideograph;
     font-size: var(--big-font-size);
     padding: 1rem 2rem 0.5rem 2rem;
-    margin-bottom: -1rem;
+    margin-bottom: -0.75rem;
     background-color: var(--bg-pure-color);
     border-radius: .25rem;
-    transition: background .3s;
 }
 
 select {
     color: var(--text-color);
     background-color: var(--bg-second-color);
-    padding: 0.75rem;
-    margin-top: 1rem;
+    padding: 0.6rem;
+    margin: 0.5rem;
     border: 1px solid gray;
     border-radius: .25rem;
     transition: background .3s;
@@ -170,7 +184,8 @@ button {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     align-items: center;
-    padding: 0.8rem;
+    padding: 0.6rem;
+    margin: 0.5rem;
     border: 1px solid gray;
     border-radius: .25rem;
     transition: background .3s;
@@ -189,6 +204,25 @@ button:focus {
     background-color: var(--text-color);
     color: var(--active-color);
     font-weight: bold;
+}
+
+#topBtn {
+    display: none;
+    position: fixed;
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    right: 1.5rem; 
+    bottom: 6rem; 
+    transition: right .3s;
+    align-items: center;
+}
+
+#topBtn:hover {
+    font-size: 1rem;
+    padding-bottom: 2rem;
+    align-items: center;
+    transition: all .1s;
 }
 
 /*=============== HEADER ===============*/
@@ -524,7 +558,7 @@ button:focus {
 
     .sidebar_link-floating {
         display: block;
-        font-size: 10px;
+        font-size: 0.25rem;
         width: max-content;
         margin: 0 auto;
         position: absolute;
@@ -567,6 +601,11 @@ button:focus {
     .show-sidebar .sidebar_link:hover .sidebar_link-floating {
         opacity: 1;
         color: var(--active-color);
+    }
+
+    #topBtn:hover .sidebar_link-floating {
+        opacity: 1;
+        color: var(--text-color);
     }
 
     .show-sidebar .main {

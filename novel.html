@@ -24,24 +24,34 @@
     <main class="main container" id="main">
         <h1>向远方</h1>
         <p><em>森落 著</em></p>
-        <p><select id="fileSelect">
-                <option value="">请选择章节</option>
+        <p>当前章节<select id="fileSelect">
+                <option value="">未选择章节</option>
             </select>
-            <button id="loadFile">加载自选章节</button>
+            <button onclick="loadFile()">加载章节</button>
+            <button onclick="previousFile()">上一章</button>
         </p>
-        <p><select id="latestFileSelect">
+        <p>最新章节<select id="latestFileSelect">
             </select>
-            <button id="latestFile">加载最新章节</button>
+            <button onclick="latestFile()">最新章节</button>
+            <button onclick="nextFile()">下一章</button>
         </p>
-        <div class="output" id="output"></div>
+        <div class="output" id="output">
+            <h1>请选择章节</h1>
+        </div>
+        <p class="novel-toggle">
+            <button onclick="firstFile(); toTop()">返回首章</button>
+            <button onclick="previousFile(); toTop()">上一章</button>
+            <button onclick="nextFile(); toTop()">下一章</button>
+            <button onclick="latestFile(); toTop()">最新章节</button>
+        </p>
     </main>
 
     <!--=============== js ===============-->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="js/getMD.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/getMD.js"></script>
 
     <script>
         $("#sidebar-menu").load("com/side.html");
