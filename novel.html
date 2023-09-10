@@ -25,7 +25,6 @@
         <h1>向远方</h1>
         <p><em>森落 著</em></p>
         <p>当前章节<select id="fileSelect">
-                <option value="">未选择章节</option>
             </select>
             <button onclick="loadFile()">加载章节</button>
             <button onclick="previousFile()">上一章</button>
@@ -33,10 +32,11 @@
         <p>最新章节<select id="latestFileSelect">
             </select>
             <button onclick="latestFile()">最新章节</button>
-            <button onclick="nextFile()">下一章</button>
+            <button id="nextFile" onclick="nextFile()">下一章</button>
         </p>
         <div class="output" id="output">
             <h1>请选择章节</h1>
+            <h2><em>快去点一下加载按钮~</em></h2>
         </div>
         <p class="novel-toggle">
             <button onclick="firstFile(); toTop()">返回首章</button>

@@ -1,9 +1,5 @@
 const fileSelect = document.getElementById("fileSelect");
-const loadFileButton = document.getElementById("loadFile");
 const latestFileSelect = document.getElementById("latestFileSelect");
-const latestFileButton = document.getElementById("latestFile");
-const previousFileButton = document.getElementById("previousFile")
-const nextFileButton = document.getElementById("nextFile")
 const output = document.getElementById("output");
 
 fetch("media/novel/list.json")
@@ -15,7 +11,7 @@ fetch("media/novel/list.json")
             option.textContent = fileName;
             fileSelect.appendChild(option);
         });
-        latestOption = fileList.slice(-1)[0];
+        latestOption = fileList.slice(-2)[0];
         const option = document.createElement("option");
         option.value = latestOption;
         option.textContent = latestOption;
@@ -26,12 +22,9 @@ fetch("media/novel/list.json")
         console.error("找不到章节列表！", error);
     });
 
-function loadFile() {
-    var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
-    document.title = fileSelect.value + ' | KoMoriSam';
-
-    if (selectedFileName) {
-        fetch(selectedFileName)
+function outputFile(fileName, msg1, msg2) {
+    if (fileName) {
+        fetch(fileName)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("服务器未存档");
@@ -42,61 +35,43 @@ function loadFile() {
                 output.innerHTML = marked.parse(markdownContent);
             })
             .catch((error) => {
-                output.innerHTML = marked.parse('# *⚠️未找到该章节 请重新选择⚠️*');
-                console.error("未找到该章节！", error);
+                output.innerHTML = marked.parse(`# *⚠️ ${msg1} ⚠️*`);
+                console.error(`${msg2}！`, error);
             });
     } else {
         output.innerHTML = "";
     }
+};
+
+function titlePage() {
+    if (fileSelect.value.includes('————')) {
+        document.title = '小说 | KoMoriSam';
+    } else {
+        document.title = fileSelect.value + ' | KoMoriSam';
+    }
+};
+
+function loadFile() {
+    var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+    titlePage();
+
+    outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
 };
 
 function latestFile() {
     var latestFileName = 'media/novel/' + latestOption + '.md';
     fileSelect.value = latestOption;
-    document.title = fileSelect.value + ' | KoMoriSam';
+    titlePage();
 
-    if (latestFileName) {
-        fetch(latestFileName)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("服务器未存档");
-                }
-                return response.text();
-            })
-            .then((markdownContent) => {
-                output.innerHTML = marked.parse(markdownContent);
-            })
-            .catch((error) => {
-                output.innerHTML = marked.parse('# *⚠️获取最新章节失败⚠️*');
-                console.error("获取最新章节失败！", error);
-            });
-    } else {
-        output.innerHTML = "";
-    }
+    outputFile(latestFileName, '获取最新章节失败', '获取最新章节失败');
 };
 
 function firstFile() {
     fileSelect.value = fileSelect.options[1].value;
     var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
-    document.title = fileSelect.value + ' | KoMoriSam';
-    if (selectedFileName) {
-        fetch(selectedFileName)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("服务器未存档");
-                }
-                return response.text();
-            })
-            .then((markdownContent) => {
-                output.innerHTML = marked.parse(markdownContent);
-            })
-            .catch((error) => {
-                output.innerHTML = marked.parse('# *⚠️未找到该章节 请重新选择⚠️*');
-                console.error("未找到该章节！", error);
-            });
-    } else {
-        output.innerHTML = "";
-    }
+    titlePage();
+
+    outputFile(selectedFileName, '获取最初章节失败', '获取最初章节失败');
 };
 
 function nextFile() {
@@ -104,25 +79,10 @@ function nextFile() {
     try {
         fileSelect.value = fileSelect.options[index + 1].value;
         var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
-        document.title = fileSelect.value + ' | KoMoriSam';
-        if (selectedFileName) {
-            fetch(selectedFileName)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("服务器未存档");
-                    }
-                    return response.text();
-                })
-                .then((markdownContent) => {
-                    output.innerHTML = marked.parse(markdownContent);
-                })
-                .catch((error) => {
-                    output.innerHTML = marked.parse('# *⚠️未找到该章节 请重新选择⚠️*');
-                    console.error("未找到该章节！", error);
-                });
-        } else {
-            output.innerHTML = "";
-        }
+        titlePage();
+
+        outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
+
     } catch (error) {
         output.innerHTML = marked.parse('# *⚠️已经到底啦⚠️*');
         console.error("已经到底啦！", error);
@@ -134,25 +94,10 @@ function previousFile() {
     try {
         fileSelect.value = fileSelect.options[index - 1].value;
         var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
-        document.title = fileSelect.value + ' | KoMoriSam';
-        if (selectedFileName) {
-            fetch(selectedFileName)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("服务器未存档");
-                    }
-                    return response.text();
-                })
-                .then((markdownContent) => {
-                    output.innerHTML = marked.parse(markdownContent);
-                })
-                .catch((error) => {
-                    output.innerHTML = marked.parse('# *⚠️未找到该章节 请重新选择⚠️*');
-                    console.error("未找到该章节！", error);
-                });
-        } else {
-            output.innerHTML = "";
-        }
+        titlePage();
+
+        outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
+
     } catch (error) {
         output.innerHTML = marked.parse('# *⚠️顶到最前面啦⚠️*');
         console.error("顶到最前面啦！", error);

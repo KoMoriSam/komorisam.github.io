@@ -207,6 +207,11 @@ button:focus {
     font-weight: bold;
 }
 
+button .locked {
+    color: gray;
+    border: none;
+}
+
 #topBtn {
     display: none;
     position: fixed;
