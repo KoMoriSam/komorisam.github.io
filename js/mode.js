@@ -6,7 +6,6 @@ const root = document.documentElement;
 
 // 获取切换按钮
 const modeToggle = document.getElementById('mode-toggle');
-// const autoToggle = document.getElementById('auto-toggle');
 
 modeToggle.addEventListener('click', (e) => {
     if (root.hasAttribute('data-theme')) {
