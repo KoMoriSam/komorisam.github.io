@@ -1,41 +1,61 @@
-// 获取系统亮暗模式
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-// 获取网页根元素
 const root = document.documentElement;
 
-// 获取切换按钮
 const modeToggle = document.getElementById('mode-toggle');
+const autoToggle = document.getElementById('auto-toggle');
 
 modeToggle.addEventListener('click', (e) => {
+    autoOff();
+    localStorage.setItem('cacheAuto', 'off');
     if (root.hasAttribute('data-theme')) {
         lightMode();
         localStorage.setItem('cacheMode', 'light');
     } else {
-        darkMode();  
+        darkMode();
         localStorage.setItem('cacheMode', 'dark');
     }
 });
 
 $(document).ready(function () {
-    if (localStorage.getItem('cacheMode')) {
-        var cacheMode = localStorage.getItem('cacheMode');
-        if (cacheMode == 'dark') {
-            darkMode();    
+    if (localStorage.getItem('cacheAuto')) {
+        var cacheAuto = localStorage.getItem('cacheAuto');
+        if (cacheAuto == 'on') {
+            autoOn();
         } else {
-            lightMode();
+            autoOff();
+            if (localStorage.getItem('cacheMode')) {
+                var cacheMode = localStorage.getItem('cacheMode');
+                if (cacheMode == 'dark') {
+                    darkMode();
+                } else {
+                    lightMode();
+                }
+            } else {
+                autoOn();
+            }
         }
     } else {
-        setThemeBySystem();
+        autoOn();
     }
 });
 
-function setThemeBySystem() {
+function autoOn() {
+    autoToggle.classList.remove('ri-blur-off-line');
+    autoToggle.classList.add('ri-drop-line');
+    autoToggle.title = "自动模式";
     if (systemTheme.matches) {
         darkMode();
     } else {
         lightMode();
     }
+    systemTheme.addEventListener('change', autoOn);
+}
+
+function autoOff() {
+    autoToggle.classList.remove('ri-drop-line');
+    autoToggle.classList.add('ri-blur-off-line');
+    autoToggle.title = "手动模式";
 }
 
 function darkMode() {
@@ -52,4 +72,7 @@ function lightMode() {
     modeToggle.title = "日间模式";
 }
 
-systemTheme.addEventListener('change', setThemeBySystem);
+autoToggle.addEventListener('click', (e) => {
+    localStorage.setItem('cacheAuto', 'on');
+    autoOn(); 
+});
