@@ -6,37 +6,51 @@ const root = document.documentElement;
 
 // 获取切换按钮
 const modeToggle = document.getElementById('mode-toggle');
+// const autoToggle = document.getElementById('auto-toggle');
 
 modeToggle.addEventListener('click', (e) => {
     if (root.hasAttribute('data-theme')) {
-        root.removeAttribute('data-theme');
-        modeToggle.classList.remove('ri-moon-line');
-        modeToggle.classList.add('ri-sun-line');
-        modeToggle.title = "日间模式";
+        lightMode();
+        localStorage.setItem('cacheMode', 'light');
     } else {
-        root.setAttribute('data-theme', 'dark');
-        modeToggle.classList.remove('ri-sun-line');
-        modeToggle.classList.add('ri-moon-line');
-        modeToggle.title = "夜间模式";
+        darkMode();  
+        localStorage.setItem('cacheMode', 'dark');
     }
 });
 
 $(document).ready(function () {
-    setThemeBySystem();
+    if (localStorage.getItem('cacheMode')) {
+        var cacheMode = localStorage.getItem('cacheMode');
+        if (cacheMode == 'dark') {
+            darkMode();    
+        } else {
+            lightMode();
+        }
+    } else {
+        setThemeBySystem();
+    }
 });
 
 function setThemeBySystem() {
     if (systemTheme.matches) {
-        // 如果系统是暗模式，设置网页为暗模式
-        root.setAttribute('data-theme', 'dark');
-        modeToggle.classList.toggle('ri-moon-line');
-        modeToggle.title = "夜间模式";
+        darkMode();
     } else {
-        // 如果系统是亮模式，设置网页为亮模式
-        root.removeAttribute('data-theme');
-        modeToggle.classList.toggle('ri-sun-line');
-        modeToggle.title = "日间模式";
+        lightMode();
     }
+}
+
+function darkMode() {
+    root.setAttribute('data-theme', 'dark');
+    modeToggle.classList.remove('ri-sun-line');
+    modeToggle.classList.add('ri-moon-line');
+    modeToggle.title = "夜间模式";
+}
+
+function lightMode() {
+    root.removeAttribute('data-theme');
+    modeToggle.classList.remove('ri-moon-line');
+    modeToggle.classList.add('ri-sun-line');
+    modeToggle.title = "日间模式";
 }
 
 systemTheme.addEventListener('change', setThemeBySystem);
