@@ -36,7 +36,7 @@ function outputFile(fileName, msg1, msg2) {
             })
             .catch((error) => {
                 output.innerHTML = marked.parse(`# *⚠️ ${msg1} ⚠️*`);
-                console.error(`${msg2}！`, error);
+                console.error(`${msg2}`, error);
             });
     } else {
         output.innerHTML = "";

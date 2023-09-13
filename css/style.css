@@ -212,30 +212,37 @@ button .locked {
     border: none;
 }
 
-#topBtn {
-    display: none;
+.topBtn {
     position: fixed;
     font-size: 1.5rem;
     width: 3rem;
     height: 3rem;
-    right: 1.5rem; 
-    bottom: 6rem; 
+    right: -100%; 
+    bottom: 6rem;
     font-size: 1rem;
     padding-bottom: 2rem;
-    transition: right .3s;
+    background-color: var(--bg-second-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: var(--z-fixed);
     align-items: center;
+    transition: right .8s;
 }
 
-#topBtn:hover {
+.topBtn-display {
+    right: 1.5rem;
+}
+
+.topBtn:hover {
     align-items: center;
     transition: all .1s;
 }
 
-#topBtn:hover .ri-skip-up-line {
+.topBtn:hover .ri-skip-up-line {
     display: none;
 }
 
-#topBtn span {
+.topBtn span {
     margin-bottom: 0.4rem;
 }
 
