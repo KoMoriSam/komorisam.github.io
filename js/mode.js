@@ -2,8 +2,8 @@ const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
 const root = document.documentElement;
 
-const modeToggle = document.getElementById('mode-toggle');
-const autoToggle = document.getElementById('auto-toggle');
+const modeToggle = document.getElementById('mode-toggle'),
+    autoToggle = document.getElementById('auto-toggle');
 
 modeToggle.addEventListener('click', (e) => {
     autoOff();
@@ -74,5 +74,5 @@ function lightMode() {
 
 autoToggle.addEventListener('click', (e) => {
     localStorage.setItem('cacheAuto', 'on');
-    autoOn(); 
+    autoOn();
 });
