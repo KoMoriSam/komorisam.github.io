@@ -1,8 +1,9 @@
 const fileSelect = document.getElementById("fileSelect");
 const latestFileSelect = document.getElementById("latestFileSelect");
+const pathHead = 'page/novel/'
 const output = document.getElementById("output");
 
-fetch("media/novel/list.json")
+fetch("page/novel/list.json")
     .then((response) => response.json())
     .then((fileList) => {
         fileList.forEach((fileName) => {
@@ -52,14 +53,14 @@ function titlePage() {
 };
 
 function loadFile() {
-    var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+    var selectedFileName = pathHead + fileSelect.value + '.md';
     titlePage();
 
     outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
 };
 
 function latestFile() {
-    var latestFileName = 'media/novel/' + latestOption + '.md';
+    var latestFileName = pathHead + latestOption + '.md';
     fileSelect.value = latestOption;
     titlePage();
 
@@ -68,7 +69,7 @@ function latestFile() {
 
 function firstFile() {
     fileSelect.value = fileSelect.options[1].value;
-    var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+    var selectedFileName = pathHead + fileSelect.value + '.md';
     titlePage();
 
     outputFile(selectedFileName, '获取最初章节失败', '获取最初章节失败');
@@ -78,7 +79,7 @@ function nextFile() {
     var index = fileSelect.selectedIndex;
     try {
         fileSelect.value = fileSelect.options[index + 1].value;
-        var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+        var selectedFileName = pathHead + fileSelect.value + '.md';
         titlePage();
 
         outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
@@ -93,7 +94,7 @@ function previousFile() {
     var index = fileSelect.selectedIndex;
     try {
         fileSelect.value = fileSelect.options[index - 1].value;
-        var selectedFileName = 'media/novel/' + fileSelect.value + '.md';
+        var selectedFileName = pathHead + fileSelect.value + '.md';
         titlePage();
 
         outputFile(selectedFileName, '未找到该章节或章节不存在，请重新选择', '未找到该章节');
