@@ -24,7 +24,12 @@
     --text-color: var(--dark-color);
     --bg-color: var(--white-color-light);
     --bg-second-color: var(--white-color);
+    --bg-third-color: #ddd;
+    --bg-fouth-color: #555;
     --bg-pure-color: var(--pure-white-color);
+    --anti-color: var(--dark-color-light);
+    --anti-second-color: var(--dark-color);
+    --anti-pure-color: var(--pure-dark-color);
 
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
@@ -57,7 +62,12 @@
     --text-color: var(--white-color-light);
     --bg-color: var(--dark-color-light);
     --bg-second-color: var(--dark-color);
+    --bg-third-color: #333;
+    --bg-fouth-color: #555;
     --bg-pure-color: var(--pure-dark-color);
+    --anti-color: var(--white-color-light);
+    --anti-second-color: var(--white-color);
+    --anti-pure-color: var(--pure-white-color);
 }
 
 /*=============== BASE ===============*/
@@ -130,42 +140,6 @@ img {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
-}
-
-.output {
-    margin-bottom: 2.5rem;
-}
-
-.output h1 {
-    font-size: var(--huge-font-size);
-    padding: 1rem;
-    margin: 1.75rem 0 1rem 0;
-    text-align: center;
-    color: var(--text-color);
-    background-color: var(--bg-pure-color);
-    border-radius: .25rem;
-}
-
-.output h2 {
-    font-size: var(--big-font-size);
-    padding: 1rem;
-    margin: 1.75rem 0 1rem 0;
-    text-align: right;
-    color: var(--text-color);
-    background-color: var(--bg-pure-color);
-    border-radius: .25rem;
-}
-
-.output p {
-    line-height: 2;
-    text-indent: calc(2 * var(--big-font-size));
-    text-align: justify;
-    text-justify: inter-ideograph;
-    font-size: var(--big-font-size);
-    padding: 1rem 2rem 0.5rem 2rem;
-    margin-bottom: -0.75rem;
-    background-color: var(--bg-pure-color);
-    border-radius: .25rem;
 }
 
 select {
@@ -244,6 +218,76 @@ button .locked {
 
 .topBtn span {
     margin-bottom: 0.4rem;
+}
+
+/*=============== NOVELS ===============*/
+.output {
+    margin-bottom: 2.5rem;
+}
+
+.output h1 {
+    font-size: var(--huge-font-size);
+    padding: 1rem;
+    margin: 1.75rem 0 1rem 0;
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
+}
+
+.output h2 {
+    font-size: var(--big-font-size);
+    padding: 1rem;
+    margin: 1.75rem 0 1rem 0;
+    text-align: right;
+    color: var(--text-color);
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
+}
+
+.output p {
+    line-height: 2;
+    text-indent: calc(2 * var(--big-font-size));
+    text-align: justify;
+    text-justify: inter-ideograph;
+    font-size: var(--big-font-size);
+    padding: 1rem 2rem 0.5rem 2rem;
+    margin-bottom: -0.75rem;
+    background-color: var(--bg-pure-color);
+    border-radius: .25rem;
+}
+
+table {
+    font-size: var(--big-font-size);
+    width: 65%;
+    margin: 2rem auto;
+}
+
+table caption{
+    font-weight: bold;
+}
+
+th, td{
+    /* text-align: center; */
+    border-radius: .25rem;
+    padding: 1rem;
+    color: var(--text-color);
+}
+
+table thead tr{
+    background-color: var(--bg-pure-color);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--bg-second-color);
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--bg-pure-color);
+}
+
+table tbody tr:hover {
+    background-color: var(--bg-third-color);
 }
 
 /*=============== HEADER ===============*/
