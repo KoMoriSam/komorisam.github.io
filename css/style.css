@@ -48,16 +48,6 @@
     --z-fixed: 100;
 }
 
-/*========== Responsive typography ==========*/
-@media screen and (min-width: 1024px) {
-    :root {
-        --huge-font-size: 1.45rem;
-        --big-font-size: 1.25rem;
-        --normal-font-size: 1rem;
-        --small-font-size: 0.75rem;
-    }
-}
-
 [data-theme="dark"] {
     --text-color: var(--white-color-light);
     --bg-color: var(--dark-color-light);
@@ -69,6 +59,16 @@
     --anti-second-color: var(--white-color);
     --anti-pure-color: var(--pure-white-color);
     --active-color: #4CAF50;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1024px) {
+    :root {
+        --huge-font-size: 1.45rem;
+        --big-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: 0.75rem;
+    }
 }
 
 /*=============== BASE ===============*/
