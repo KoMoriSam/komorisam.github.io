@@ -25,7 +25,7 @@
     --bg-color: var(--white-color-light);
     --bg-second-color: var(--white-color);
     --bg-third-color: #ddd;
-    --bg-fouth-color: #555;
+    --bg-fouth-color: #888;
     --bg-pure-color: var(--pure-white-color);
     --anti-color: var(--dark-color-light);
     --anti-second-color: var(--dark-color);
@@ -63,7 +63,7 @@
     --bg-color: var(--dark-color-light);
     --bg-second-color: var(--dark-color);
     --bg-third-color: #333;
-    --bg-fouth-color: #555;
+    --bg-fouth-color: #888;
     --bg-pure-color: var(--pure-dark-color);
     --anti-color: var(--white-color-light);
     --anti-second-color: var(--white-color);
@@ -191,7 +191,7 @@ button .locked {
     font-size: 1.5rem;
     width: 3rem;
     height: 3rem;
-    right: -100%; 
+    right: -100%;
     bottom: 6rem;
     font-size: 1rem;
     padding-bottom: 2rem;
@@ -261,19 +261,21 @@ table {
     font-size: var(--big-font-size);
     width: 65%;
     margin: 2rem auto;
+    border-collapse: separate;
+    border-spacing: .1rem;
 }
 
-table caption{
+table caption {
     font-weight: bold;
 }
 
-th, td{
-    border-radius: .25rem;
+th,
+td {
     padding: 1rem;
     color: var(--text-color);
 }
 
-table thead tr{
+table thead tr {
     background-color: var(--bg-pure-color);
 }
 
@@ -287,6 +289,22 @@ table tbody tr:nth-child(even) {
 
 table tbody tr:hover {
     background-color: var(--bg-third-color);
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: .25rem;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: .25rem;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: .25rem;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: .25rem;
 }
 
 /*=============== HEADER ===============*/
