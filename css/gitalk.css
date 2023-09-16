@@ -731,8 +731,9 @@
     color: var(--active-color);
   }
   .gt-container a:hover {
-    color: #81a6ed;
-    border-color: #81a6ed;
+    font-weight: bold;
+    color: var(--active-color);
+    border-color: var(--active-color);
   }
   .gt-container a.is--active {
     color: #333;
