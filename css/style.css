@@ -272,6 +272,7 @@ button .locked {
 }
 
 .output p {
+    background-color: var(--bg-pure-color);
     line-height: 2;
     text-indent: calc(2 * var(--big-font-size));
     text-align: justify;
