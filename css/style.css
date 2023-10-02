@@ -226,24 +226,49 @@ button .locked {
     margin-bottom: 2.5rem;
 }
 
-.output h1 {
-    font-size: var(--huge-font-size);
-    padding: 1rem;
-    margin: 1.75rem 0 1rem 0;
-    text-align: center;
+.output > *:not(table) {
+    padding: 1rem 2rem;
+    margin: 1rem 0 1rem 0;
     color: var(--text-color);
-    background-color: var(--bg-pure-color);
+    background-color: var(--bg-second-color);
     border-radius: .25rem;
+}
+
+.output > *:not(p, table):hover {
+    color: var(--text-color);
+    background-color: var(--bg-third-color);
+}
+
+.output :is(h1, h2, h3) {
+    font-size: var(--huge-font-size);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: auto 10rem;
+    margin: 1rem auto;
+    position: sticky;
+    top: 3.5rem;
+}
+
+.output :is(h1, h2, h3)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-x);
 }
 
 .output h2 {
     font-size: var(--big-font-size);
-    padding: 1rem;
-    margin: 1.75rem 0 1rem 0;
+    text-align: center;
+    top: 7.36rem;
+}
+
+.output h3 {
+    font-size: var(--big-font-size);
     text-align: right;
-    color: var(--text-color);
-    background-color: var(--bg-pure-color);
-    border-radius: .25rem;
+    top: 11.1rem;
 }
 
 .output p {
@@ -252,16 +277,25 @@ button .locked {
     text-align: justify;
     text-justify: inter-ideograph;
     font-size: var(--big-font-size);
-    padding: 1rem 2rem 0.5rem 2rem;
-    margin-bottom: -0.75rem;
-    background-color: var(--bg-pure-color);
-    border-radius: .25rem;
+    padding: 1rem 2rem;
 }
+
+.output p:has(+ p) {
+    margin-bottom: -2.5rem;
+}
+
+.output a {
+    font-size: 0.5rem;
+    color: var(--active-color);
+    font-weight: bold;
+    vertical-align: top;
+}
+
 
 table {
     font-size: var(--big-font-size);
-    width: 65%;
-    margin: 2rem auto;
+    width: auto;
+    margin: 1rem auto;
     border-collapse: separate;
     border-spacing: .1rem;
 }
@@ -315,6 +349,8 @@ table tr:last-child td:first-child {
     left: 0;
     width: 100%;
     background-color: var(--bg-second-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     z-index: var(--z-fixed);
 }
 
@@ -698,5 +734,17 @@ table tr:last-child td:first-child {
     /* Add padding main */
     .main-pd {
         padding-left: 120px;
+    }
+
+    .output h1 {
+        top: 5rem;
+    }
+
+    .output h2 {
+        top: 9.15rem;
+    }
+
+    .output h3 {
+        top: 13.05rem;
     }
 }
