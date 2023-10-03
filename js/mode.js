@@ -47,13 +47,14 @@ function autoOn() {
     } else {
         lightMode();
     }
-    systemTheme.addEventListener('change', autoOn());
+    systemTheme.addEventListener('change', autoOn);
 }
 
 function autoOff() {
     autoToggle.classList.remove('ri-drop-line');
     autoToggle.classList.add('ri-blur-off-line');
     autoToggle.title = "手动模式";
+    systemTheme.removeEventListener('change', autoOn);
 }
 
 function darkMode() {
