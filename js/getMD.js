@@ -39,7 +39,7 @@ function outputFile(fileName, msg1, msg2) {
                 setTimeout(function () {
                     loading.classList.remove('loading');
                     output.innerHTML = marked.parse(markdownContent);
-                }, 750);
+                }, 1000);
             })
             .catch((error) => {
                 output.innerHTML = marked.parse(`# *⚠️ ${msg1} ⚠️*`);
