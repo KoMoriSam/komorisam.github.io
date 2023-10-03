@@ -488,6 +488,10 @@ table tr:last-child td:first-child {
     display: none;
 }
 
+.toTop-floating {
+    display: none;
+}
+
 .sidebar_link i {
     color: var(--text-color);
     font-size: 1.25rem;
@@ -689,6 +693,20 @@ table tr:last-child td:first-child {
         opacity: 0;
     }
 
+    .toTop-floating {
+        display: block;
+        color: var(--text-color);
+        font-size: 0.25rem;
+        width: max-content;
+        margin: 0 auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: color .4s, opacity .4s;
+        opacity: 0;
+    }
+
     .main {
         padding-left: 300px;
         padding-top: 6rem;
@@ -723,7 +741,7 @@ table tr:last-child td:first-child {
         color: var(--active-color);
     }
 
-    #topBtn:hover .sidebar_link-floating {
+    #topBtn:hover .toTop-floating {
         opacity: 1;
         color: var(--text-color);
     }
