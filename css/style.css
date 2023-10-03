@@ -113,6 +113,27 @@ img {
     height: auto;
 }
 
+.loading {
+    margin: 2rem auto;
+    width: 5rem;
+    height: 5rem;
+    border: 0.5rem solid var(--active-color);
+    border-top-color: var(--bg-second-color);
+    border-right-color: var(--bg-second-color);
+    border-bottom-color: var(--bg-second-color);
+    border-radius: 100%;
+    animation: circle infinite 1.75s linear;
+}
+
+@keyframes circle {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /*=============== LAYOUT ===============*/
 .container {
     margin-inline: 1.5rem;
@@ -226,7 +247,7 @@ button .locked {
     margin-bottom: 2.5rem;
 }
 
-.output > *:not(table) {
+.output>*:not(table) {
     padding: 1rem 2rem;
     margin: 1rem 0 1rem 0;
     color: var(--text-color);
@@ -234,7 +255,7 @@ button .locked {
     border-radius: .25rem;
 }
 
-.output > *:not(p, table):hover {
+.output>*:not(p, table):hover {
     color: var(--text-color);
     background-color: var(--bg-third-color);
 }

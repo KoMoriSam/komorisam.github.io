@@ -1,7 +1,8 @@
-const fileSelect = document.getElementById("fileSelect");
-const latestFileSelect = document.getElementById("latestFileSelect");
-const pathHead = 'page/novel/'
-const output = document.getElementById("output");
+const fileSelect = document.getElementById("fileSelect"),
+    latestFileSelect = document.getElementById("latestFileSelect"),
+    output = document.getElementById("output"),
+    loading = document.getElementById("loading"),
+    pathHead = 'page/novel/'
 
 fetch("page/novel/list.json")
     .then((response) => response.json())
@@ -33,7 +34,12 @@ function outputFile(fileName, msg1, msg2) {
                 return response.text();
             })
             .then((markdownContent) => {
-                output.innerHTML = marked.parse(markdownContent);
+                loading.classList.add('loading');
+                output.innerHTML = marked.parse('## 别急，正在加载！');
+                setTimeout(function () {
+                    loading.classList.remove('loading');
+                    output.innerHTML = marked.parse(markdownContent);
+                }, 750);
             })
             .catch((error) => {
                 output.innerHTML = marked.parse(`# *⚠️ ${msg1} ⚠️*`);
