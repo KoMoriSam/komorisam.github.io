@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小说 | KoMoriSam</title>
 
     <!--=============== icons ===============-->
     <link rel="shortcut icon" href="media/image/icon/favicon.png" type="image/x-icon" />
@@ -20,13 +21,15 @@
     <link rel="stylesheet" href="css/gitalk.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>小说 | KoMoriSam</title>
 </head>
 
 <body>
 
     <!--=============== siderbar ===============-->
     <div id="sidebar-menu"></div>
+    <script>
+        $("#sidebar-menu").load("com/side.html");
+    </script>
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
@@ -35,18 +38,21 @@
         <p>当前章节<select id="fileSelect"></select> <button onclick="loadFile()">加载章节</button></p>
         <p>最新章节<select id="latestFileSelect"></select> <button onclick="latestFile()">最新章节</button></p>
 
-
         <p class="novel-toggle">
             <button onclick="firstFile(); toTop()">返回首章</button>
             <button onclick="previousFile(); toTop()">上一章</button>
             <button onclick="nextFile(); toTop()">下一章</button>
             <button onclick="latestFile(); toTop()">最新章节</button>
         </p>
+
         <div id="loading"></div>
         <div class="output" id="output">
             <h1>你还没有选择章节哦</h1>
             <h2><em>快去点一下加载按钮~</em></h2>
         </div>
+
+        <script src="js/getMD.js"></script>
+
         <p class="novel-toggle">
             <button onclick="firstFile(); toTop()">返回首章</button>
             <button onclick="previousFile(); toTop()">上一章</button>
@@ -54,13 +60,8 @@
             <button onclick="latestFile(); toTop()">最新章节</button>
         </p>
         <div id="gitalk-container"></div>
+        <script src="js/renderGitalk.js"></script>
     </main>
-
-    <script>
-        $("#sidebar-menu").load("com/side.html");
-    </script>
-    <script src="js/getMD.js"></script>
-    <script src="js/renderGitalk.js"></script>
 
 </body>
 

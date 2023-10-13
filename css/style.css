@@ -5,11 +5,11 @@
     /*========== Colors ==========*/
     /*Color mode HSL(hue, saturation, lightness)*/
     --white-color: rgba(225, 225, 225, 0.8);
-    --pure-white-color: white;
-    --white-color-light: whitesmoke;
-    --dark-color: rgba(17, 17, 17, 0.8);
-    --pure-dark-color: rgb(17, 17, 17);
-    --dark-color-light: #1f1f1f;
+    --pure-white-color: whitesmoke;
+    --white-color-light: white;
+    --dark-color: rgba(16, 16, 16, 0.8);
+    --pure-dark-color: rgb(24, 24, 24);
+    --dark-color-light: rgb(32, 32, 32);
     --gradient-x: linear-gradient(90deg,
             hsla(0, 0%, 0%, 0),
             hsl(210, 4%, 64%),
@@ -19,8 +19,7 @@
             hsl(210, 4%, 64%),
             hsla(0, 0%, 0%, 0));
 
-    /*========== light mode colors ==========*/
-    --text-color: var(--dark-color);
+    --text-color: var(--dark-color-light);
     --bg-color: var(--white-color-light);
     --bg-second-color: var(--white-color);
     --bg-third-color: #ddd;
@@ -48,7 +47,7 @@
     --z-fixed: 100;
 }
 
-[data-theme="dark"] {
+.dark {
     --text-color: var(--white-color-light);
     --bg-color: var(--dark-color-light);
     --bg-second-color: var(--dark-color);
@@ -129,6 +128,7 @@ img {
     0% {
         transform: rotate(0);
     }
+
     100% {
         transform: rotate(360deg);
     }

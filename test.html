@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试主页 | KoMoriSam</title>
 
     <!--=============== icons ===============-->
     <link rel="shortcut icon" href="media/image/icon/favicon.png" type="image/x-icon" />
@@ -19,13 +20,15 @@
     <link rel="stylesheet" href="css/gitalk.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>测试主页 | KoMoriSam</title>
 </head>
 
 <body>
 
     <!--=============== siderbar ===============-->
     <div id="sidebar-menu"></div>
+    <script>
+        $("#sidebar-menu").load("com/side.html");
+    </script>
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
@@ -35,12 +38,8 @@
         <h2>当前还没有在测试的页面</h2>
         </p>
         <div id="gitalk-container"></div>
+        <script src="js/renderGitalk.js"></script>
     </main>
-
-    <script>
-        $("#sidebar-menu").load("com/side.html");
-    </script>
-    <script src="js/renderGitalk.js"></script>
 
 </body>
 

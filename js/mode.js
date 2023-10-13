@@ -6,12 +6,22 @@ const systemTheme = window.matchMedia('(prefers-color-scheme: dark)'),
 modeToggle.addEventListener('click', (e) => {
     autoOff();
     localStorage.setItem('cacheAuto', 'off');
-    if (root.hasAttribute('data-theme')) {
+    if (root.classList.contains('dark')) {
         lightMode();
         localStorage.setItem('cacheMode', 'light');
     } else {
         darkMode();
         localStorage.setItem('cacheMode', 'dark');
+    }
+});
+
+autoToggle.addEventListener('click', (e) => {
+    if (autoToggle.title === '自动模式') {
+        localStorage.setItem('cacheAuto', 'off');
+        autoOff();
+    } else {
+        localStorage.setItem('cacheAuto', 'on');
+        autoOn();
     }
 });
 
@@ -58,20 +68,15 @@ function autoOff() {
 }
 
 function darkMode() {
-    root.setAttribute('data-theme', 'dark');
+    root.classList.add('dark');
     modeToggle.classList.remove('ri-sun-line');
     modeToggle.classList.add('ri-moon-line');
     modeToggle.title = "夜间模式";
 }
 
 function lightMode() {
-    root.removeAttribute('data-theme');
+    root.classList.remove('dark');
     modeToggle.classList.remove('ri-moon-line');
     modeToggle.classList.add('ri-sun-line');
     modeToggle.title = "日间模式";
 }
-
-autoToggle.addEventListener('click', (e) => {
-    localStorage.setItem('cacheAuto', 'on');
-    autoOn();
-});

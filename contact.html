@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>联系我 | KoMoriSam</title>
+    
     <!--=============== icons ===============-->
     <link rel="shortcut icon" href="media/image/icon/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css" crossorigin="">
@@ -19,13 +20,15 @@
     <link rel="stylesheet" href="css/gitalk.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>联系我 | KoMoriSam</title>
 </head>
 
 <body>
 
     <!--=============== siderbar ===============-->
     <div id="sidebar-menu"></div>
+    <script>
+        $("#sidebar-menu").load("com/side.html");
+    </script>
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
@@ -35,13 +38,8 @@
         <button><i class="ri-qq-fill"></i> 3593516798</button>
         <button><i class="ri-wechat-fill"></i> MoriSam2023</button>
         <div id="gitalk-container"></div>
+        <script src="js/renderGitalk.js"></script>
     </main>
-
-    <script>
-        $("#sidebar-menu").load("com/side.html");
-    </script>
-    <script src="js/renderGitalk.js"></script>
-    
 </body>
 
 </html>
