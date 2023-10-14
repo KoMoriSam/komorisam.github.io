@@ -1,10 +1,10 @@
 function playSound() {
-	var audio = new Audio('../../media/audio/click.wav');
+	var audio = new Audio('assets/audio/click.wav');
 	audio.play();
 }
 
 function playSoundAndRedirect(url) {
-	var audio = new Audio('../../media/audio/click.wav');
+	var audio = new Audio('assets/audio/click.wav');
 	audio.play();
 	setTimeout(function () {
 		window.location.href = url;
@@ -12,7 +12,7 @@ function playSoundAndRedirect(url) {
 }
 
 // 动画旋转
-var music = new Audio('../../media/audio/C418 - Minecraft.mp3');    //获取音乐
+var music = new Audio('assets/audio/C418 - Minecraft.mp3');    //获取音乐
 var musicico = document.getElementById('musicico')   //获取音乐图标
 var tem = true  //设置一个变量，用来控制音乐是否在播放。
 music.play()

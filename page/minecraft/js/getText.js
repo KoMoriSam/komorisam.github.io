@@ -1,5 +1,5 @@
 // 获取 json 文件中 splashes 数组内的字符串数据
-fetch('../../media/text/splashes.json')
+fetch('assets/text/splashes.json')
     .then(response => response.json())
     .then(data => {
         const splashes = data.splashes;
@@ -79,13 +79,13 @@ function applyTextStyle(text) {
 function convertText() {
     const inputName = document.getElementById("name").value;
     const outputDiv = document.getElementById("output");
-    readTextFile("../media/text/end.txt").then(text => {
+    readTextFile("assets/text/end.txt").then(text => {
         const processedText = applyTextStyle(replacePlayerName(text, inputName));
         outputDiv.innerHTML = processedText;
     });
 }
 
-// 读取 ./media/text/end.txt 文件
-readTextFile('../../media/text/end.txt').then(text => {
+// 读取 ./assets/text/end.txt 文件
+readTextFile('minecraft/assets/text/end.txt').then(text => {
     const outputDiv = document.getElementById("output");
 });
