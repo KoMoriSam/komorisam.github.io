@@ -78,7 +78,7 @@ function applyTextStyle(text) {
 // 将文本样式和PLAYERNAME替换一起应用到文本中，并显示在页面上
 function convertText() {
     const inputName = document.getElementById("name").value;
-    const outputDiv = document.getElementById("output");
+    const outputDiv = document.getElementById("poem");
     readTextFile("assets/text/end.txt").then(text => {
         const processedText = applyTextStyle(replacePlayerName(text, inputName));
         outputDiv.innerHTML = processedText;
@@ -87,5 +87,5 @@ function convertText() {
 
 // 读取 ./assets/text/end.txt 文件
 readTextFile('minecraft/assets/text/end.txt').then(text => {
-    const outputDiv = document.getElementById("output");
+    const outputDiv = document.getElementById("poem");
 });

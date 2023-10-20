@@ -1,10 +1,10 @@
+const audio = new Audio('assets/audio/click.wav');
+
 function playSound() {
-	var audio = new Audio('assets/audio/click.wav');
 	audio.play();
 }
 
 function playSoundAndRedirect(url) {
-	var audio = new Audio('assets/audio/click.wav');
 	audio.play();
 	setTimeout(function () {
 		window.location.href = url;
@@ -40,18 +40,21 @@ window.addEventListener('resize', function () {
 	// 获取网页高度
 	const pageHeight = window.innerHeight;
 
+	let boxWidth = 0;
+
 	// 将宽度赋值给CSS变量
 	root.style.setProperty('--page-width', `${pageWidth}px`);
 	// 将高度赋值给CSS变量
 	root.style.setProperty('--page-height', `${pageHeight}px`);
 
 	if (pageHeight >= pageWidth) {
-		const boxWidth = pageHeight;
+		boxWidth = pageHeight;
 		root.style.setProperty('--box-width', `${boxWidth}px`);
 	} else {
-		const boxWidth = pageWidth;
+		boxWidth = pageWidth;
 		root.style.setProperty('--box-width', `${boxWidth}px`);
 	}
+	console.log(boxWidth)
 });
 
 window.dispatchEvent(new Event('resize'));
