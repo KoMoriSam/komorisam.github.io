@@ -303,6 +303,17 @@ button .locked {
     margin-bottom: -2.5rem;
 }
 
+.output blockquote {
+    margin: -1rem 0;
+    background-color: var(--bg-pure-color);
+    font-family: serif;
+}
+
+.output blockquote p {
+    padding: 1.5rem calc(2 * var(--big-font-size));
+    background: none;
+}
+
 .output a {
     font-size: 0.5rem;
     color: var(--active-color);
