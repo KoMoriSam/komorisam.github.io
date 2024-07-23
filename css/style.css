@@ -194,6 +194,7 @@ button:hover {
     background-color: var(--active-color);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    transition: all .1s;
 }
 
 button:focus {
@@ -210,36 +211,32 @@ button .locked {
 
 .topBtn {
     position: fixed;
-    font-size: 1.5rem;
     width: 3rem;
     height: 3rem;
     right: -100%;
     bottom: 6rem;
-    font-size: 1rem;
-    padding-bottom: 2rem;
-    background-color: var(--bg-second-color);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     z-index: var(--z-fixed);
-    align-items: center;
-    transition: right .8s;
+    transition: right 1s;
 }
 
 .topBtn-display {
     right: 1.5rem;
 }
 
-.topBtn:hover {
-    align-items: center;
-    transition: all .1s;
-}
-
-.topBtn:hover .ri-skip-up-line {
+.topBtn:hover i {
     display: none;
 }
 
 .topBtn span {
-    margin-bottom: 0.4rem;
+    display: none;
+}
+
+.topBtn:hover span {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.45rem;
 }
 
 /*=============== NOVELS ===============*/
@@ -509,10 +506,6 @@ table tr:last-child td:first-child {
     display: none;
 }
 
-.toTop-floating {
-    display: none;
-}
-
 .sidebar_link i {
     color: var(--text-color);
     font-size: 1.25rem;
@@ -714,20 +707,6 @@ table tr:last-child td:first-child {
         opacity: 0;
     }
 
-    .toTop-floating {
-        display: block;
-        color: var(--text-color);
-        font-size: 0.25rem;
-        width: max-content;
-        margin: 0 auto;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        transition: color .4s, opacity .4s;
-        opacity: 0;
-    }
-
     .main {
         padding-left: 300px;
         padding-top: 6rem;
@@ -760,11 +739,6 @@ table tr:last-child td:first-child {
     .show-sidebar .sidebar_link:hover .sidebar_link-floating {
         opacity: 1;
         color: var(--active-color);
-    }
-
-    #topBtn:hover .toTop-floating {
-        opacity: 1;
-        color: var(--text-color);
     }
 
     .show-sidebar .main {
