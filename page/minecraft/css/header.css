@@ -1,22 +1,17 @@
 header {
-	margin-top: 4rem;
+	width: 75%;
+	margin: 4rem auto;
 	z-index: 1;
-}
-
-header img {
-	margin: 0 auto;
 }
 
 .img-title {
 	display: block;
-	width: 80%;
 	margin: 0 auto;
 }
 
 .img-edition {
 	display: block;
-	width: 40%;
-	margin: 0 auto;
+	margin: -0.5rem auto;
 }
 
 #splash {

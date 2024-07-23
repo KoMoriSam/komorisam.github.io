@@ -78,15 +78,12 @@
 }
 
 body {
-	display: grid;
-	place-items: center;
-	align-content: space-between;
-    justify-content: space-between;
-	width: min(64ch, 100% - 4rem);
+	display: flex;
+	flex-direction: column;
+    justify-content: space-around;
+	/* width: min(64ch, 100% - 4rem); */
 	min-height: 64ch;
 	margin-inline: auto;
-	align-content: space-between;
-	justify-content: space-between;
 }
 
 @media screen and (max-width: 720px) {
