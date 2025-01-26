@@ -7,106 +7,96 @@ const fileSelect = document.getElementById("fileSelect"),
 fetch("page/novel/list.json")
     .then((response) => response.json())
     .then((fileList) => {
-        populateFileSelect(fileSelect, fileList);
-        setLatestFileSelect(latestFileSelect, fileList);
+        populateSelect(fileSelect, fileList);
+        populateLatestSelect(latestFileSelect, fileList);
     })
-    .catch(handleFetchError);
+    .catch(error => handleError('# *⚠️ 未找到章节列表 ⚠️*', "找不到章节列表！", error));
 
-function populateFileSelect(selectElement, fileList) {
-    fileList.forEach((fileName) => {
-        const option = document.createElement("option");
-        option.value = fileName;
-        option.textContent = fileName;
-        selectElement.appendChild(option);
+function populateSelect(selectElement, fileList) {
+    fileList.forEach(fileName => {
+        selectElement.appendChild(createOption(fileName));
     });
 }
 
-function setLatestFileSelect(selectElement, fileList) {
-    const latestOption = fileList.slice().reverse().find((fileName) => /\d/.test(fileName));
+function populateLatestSelect(selectElement, fileList) {
+    const latestOption = fileList.slice().reverse().find(fileName => /\d/.test(fileName));
     if (latestOption) {
-        const option = document.createElement("option");
-        option.value = latestOption;
-        option.textContent = latestOption;
-        selectElement.appendChild(option);
+        selectElement.appendChild(createOption(latestOption));
     } else {
-        console.warn("未找到包含数字编号的章节。");
+        console.warn("未找到包含数字编号的章节！");
     }
 }
 
-function handleFetchError(error) {
-    output.innerHTML = marked.parse('# *⚠️未找到章节列表⚠️*');
-    console.error("找不到章节列表！", error);
+function createOption(value) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    return option;
 }
 
-function loadAndNavigateFile(step = 0, errorMsg = '', consoleMsg = '') {
-    const currentIndex = fileSelect.selectedIndex;
-    const newIndex = currentIndex + step;
+function loadFile(step = 0, errorMsg = '', consoleMsg = '') {
+    try {
+        if (step !== 0) {
+            const newIndex = fileSelect.selectedIndex + step;
+            if (newIndex < 0 || newIndex >= fileSelect.options.length) {
+                throw new Error(errorMsg);
+            }
+            fileSelect.selectedIndex = newIndex;
+        }
 
-    if (step !== 0) {
-        if (newIndex < 0 || newIndex >= fileSelect.options.length) {
-            output.innerHTML = marked.parse(`# *⚠️${errorMsg}⚠️*`);
-            console.error(consoleMsg);
+        const fileName = fileSelect.value;
+        if (!fileName) {
+            output.innerHTML = "";
             return;
         }
-        fileSelect.value = fileSelect.options[newIndex].value;
+
+        updateTitle(fileName);
+        fetch(`${pathHead}${fileName}.md`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("服务器未存档");
+                }
+                return response.text();
+            })
+            .then(content => {
+                displayMessage("## 别急，正在加载！");
+                setTimeout(() => displayMessage(content), 1000);
+            })
+            .catch(error => handleError('# *⚠️ 未找到该章节或章节不存在 ⚠️*', "加载章节失败", error));
+    } catch (error) {
+        handleError(`# *⚠️ ${errorMsg} ⚠️*`, consoleMsg, error);
     }
-
-    const selectedFileName = `${pathHead}${fileSelect.value}.md`;
-    if (!selectedFileName) {
-        output.innerHTML = "";
-        return;
-    }
-
-    titlePage();
-
-    fetch(selectedFileName)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("服务器未存档");
-            }
-            return response.text();
-        })
-        .then((markdownContent) => {
-            showLoadingMessage("## 别急，正在加载！");
-            setTimeout(() => {
-                hideLoadingMessage(markdownContent);
-            }, 1000);
-        })
-        .catch((error) => {
-            output.innerHTML = marked.parse(`# *⚠️ 未找到该章节或章节不存在 ⚠️*`);
-            console.error("加载章节失败", error);
-        });
 }
 
-function showLoadingMessage(message) {
-    loading.classList.add('loading');
-    output.innerHTML = marked.parse(message);
+function handleError(displayMsg, consoleMsg, error) {
+    displayMessage(displayMsg);
+    console.error(consoleMsg, error);
 }
 
-function hideLoadingMessage(content) {
-    loading.classList.remove('loading');
+function displayMessage(content) {
+    loading.classList.toggle('loading', content.includes("加载！"));
     output.innerHTML = marked.parse(content);
 }
 
-function titlePage() {
-    const titleSuffix = fileSelect.value.includes('·') ? '小说' : fileSelect.value;
+function updateTitle(fileName) {
+    const titleSuffix = fileName.includes('·') ? '小说' : fileName;
     document.title = `${titleSuffix} | KoMoriSam`;
 }
 
 function latestFile() {
     fileSelect.value = latestFileSelect.value;
-    loadAndNavigateFile();
+    loadFile();
 }
 
 function firstFile() {
-    fileSelect.value = fileSelect.options[3]?.value || "";
-    loadAndNavigateFile();
+    fileSelect.selectedIndex = 3;
+    loadFile();
 }
 
 function nextFile() {
-    loadAndNavigateFile(1, '已经到底啦', '未找到更新的章节');
+    loadFile(1, '已经到底啦', '未找到更新的章节');
 }
 
 function previousFile() {
-    loadAndNavigateFile(-1, '顶到最前面啦', '未找到更早的章节');
+    loadFile(-1, '顶到最前面啦', '未找到更早的章节');
 }
