@@ -10,6 +10,9 @@
     --dark-color: rgba(16, 16, 16, 0.8);
     --pure-dark-color: rgb(24, 24, 24);
     --dark-color-light: rgb(32, 32, 32);
+    --paper-color: rgb(200, 180, 130);
+    --pure-paper-color: rgb(195, 170, 120);
+    --paper-color-light: rgb(190, 160, 110);
     --gradient-x: linear-gradient(90deg,
             hsla(0, 0%, 0%, 0),
             hsl(210, 4%, 64%),
@@ -47,6 +50,30 @@
     --z-fixed: 100;
 }
 
+/* 小字体 */
+:root[data-font-size="small"] {
+    --huge-font-size: 1.15rem;
+    --big-font-size: .938rem;
+    --normal-font-size: .813rem;
+    --small-font-size: .762rem;
+}
+
+/* 中字体 */
+:root[data-font-size="medium"] {
+    --huge-font-size: 1.25rem;
+    --big-font-size: 1.15rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+}
+
+/* 大字体 */
+:root[data-font-size="large"] {
+    --huge-font-size: 1.5rem;
+    --big-font-size: 1.25rem;
+    --normal-font-size: 1.15rem;
+    --small-font-size: .938rem;
+}
+
 .dark {
     --text-color: var(--white-color-light);
     --bg-color: var(--dark-color-light);
@@ -59,6 +86,20 @@
     --anti-pure-color: var(--pure-white-color);
     --active-color: #4CAF50;
 }
+
+.eye-care {
+    --text-color: var(--dark-color-light);
+    --bg-color: var(--paper-color-light);
+    --bg-second-color: var(--paper-color);
+    --bg-third-color: #ddd;
+    --bg-fouth-color: #888;
+    --bg-pure-color: var(--pure-paper-color);
+    --anti-color: var(--dark-color-light);
+    --anti-second-color: var(--dark-color);
+    --anti-pure-color: var(--pure-dark-color);
+    --active-color: #d05545;
+}
+
 
 /*========== Responsive typography ==========*/
 @media screen and (min-width: 1024px) {
