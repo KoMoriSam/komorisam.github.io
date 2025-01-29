@@ -138,5 +138,5 @@ function applyFontStyle(style) {
         kai: 'WenKai, "STKaiti", "KaiTi", cursive',
         fang: 'ZhuQue, "STFangsong", "FangSong", serif'
     };
-    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'sans-serif');
+    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'system-ui');
 }
