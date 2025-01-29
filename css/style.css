@@ -10,9 +10,12 @@
     --dark-color: rgba(16, 16, 16, 0.8);
     --pure-dark-color: rgb(24, 24, 24);
     --dark-color-light: rgb(32, 32, 32);
-    --paper-color: rgb(200, 180, 130);
+    --paper-color: rgba(200, 180, 130, 0.8);
     --pure-paper-color: rgb(195, 170, 120);
     --paper-color-light: rgb(190, 160, 110);
+    --green-color: rgba(220, 225, 205, 0.8);
+    --pure-green-color: rgb(215, 230, 205);
+    --green-color-light: rgb(190, 200, 185);
     --gradient-x: linear-gradient(90deg,
             hsla(0, 0%, 0%, 0),
             hsl(210, 4%, 64%),
@@ -56,7 +59,6 @@
     --bg-color: var(--dark-color-light);
     --bg-second-color: var(--dark-color);
     --bg-third-color: #333;
-    --bg-fouth-color: #888;
     --bg-pure-color: var(--pure-dark-color);
     --anti-color: var(--white-color-light);
     --anti-second-color: var(--white-color);
@@ -64,17 +66,28 @@
     --active-color: #4CAF50;
 }
 
-.eye-care {
+.brown {
     --text-color: var(--dark-color-light);
     --bg-color: var(--paper-color-light);
     --bg-second-color: var(--paper-color);
     --bg-third-color: #ddd;
-    --bg-fouth-color: #888;
     --bg-pure-color: var(--pure-paper-color);
     --anti-color: var(--dark-color-light);
     --anti-second-color: var(--dark-color);
     --anti-pure-color: var(--pure-dark-color);
     --active-color: #d05545;
+}
+
+.green {
+    --text-color: var(--dark-color-light);
+    --bg-color: var(--green-color-light);
+    --bg-second-color: var(--green-color);
+    --bg-third-color: #faffe9;
+    --bg-pure-color: var(--pure-green-color);
+    --anti-color: var(--dark-color-light);
+    --anti-second-color: var(--dark-color);
+    --anti-pure-color: var(--pure-dark-color);
+    --active-color: #e5a54c;
 }
 
 @font-face {

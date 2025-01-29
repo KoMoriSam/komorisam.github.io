@@ -44,7 +44,7 @@ modeToggle?.addEventListener('click', () => {
 
 // 获取下一个模式
 const getNextMode = (current) => {
-    const modes = ['light', 'eye-care', 'dark'];
+    const modes = ['dark', 'light', 'brown', 'green'];
     return modes[(modes.indexOf(current) + 1) % modes.length];
 };
 
@@ -78,13 +78,14 @@ function syncWithSystemTheme() {
 
 // 设置主题模式
 function setThemeMode(mode) {
-    root.classList.remove('dark', 'eye-care', 'light');
-    modeToggle.classList.remove('ri-sun-line', 'ri-moon-line', 'ri-eye-line');
+    root.classList.remove('dark', 'light', 'brown', 'green');
+    modeToggle.classList.remove('ri-sun-line', 'ri-moon-line', 'ri-eye-line', 'ri-leaf-line');
 
     const modeConfig = {
         dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
         light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
-        'eye-care': { class: 'eye-care', icon: 'ri-eye-line', title: "护眼模式" },
+        brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
+        green: { class: 'green', icon: 'ri-leaf-line', title: "绿色模式" },
     };
 
     if (modeConfig[mode]) {
