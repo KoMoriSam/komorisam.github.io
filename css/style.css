@@ -40,6 +40,7 @@
     --big-font-size: 1.15rem;
     --normal-font-size: .938rem;
     --small-font-size: .813rem;
+    --novel-font-size: 1.15rem;
 
     /*========== Font weight ==========*/
     --font-medium: 500;
@@ -48,30 +49,6 @@
     /*========== z index ==========*/
     --z-tooltip: 10;
     --z-fixed: 100;
-}
-
-/* 小字体 */
-:root[data-font-size="small"] {
-    --huge-font-size: 1.15rem;
-    --big-font-size: .938rem;
-    --normal-font-size: .813rem;
-    --small-font-size: .762rem;
-}
-
-/* 中字体 */
-:root[data-font-size="medium"] {
-    --huge-font-size: 1.25rem;
-    --big-font-size: 1.15rem;
-    --normal-font-size: .938rem;
-    --small-font-size: .813rem;
-}
-
-/* 大字体 */
-:root[data-font-size="large"] {
-    --huge-font-size: 1.5rem;
-    --big-font-size: 1.25rem;
-    --normal-font-size: 1.15rem;
-    --small-font-size: .938rem;
 }
 
 .dark {
@@ -108,6 +85,7 @@
         --big-font-size: 1.25rem;
         --normal-font-size: 1rem;
         --small-font-size: 0.75rem;
+        --novel-font-size: 1.25rem;
     }
 }
 
@@ -202,13 +180,31 @@ img {
 .novel-toggle {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    padding: 0.5rem;
+    align-items: center;
+}
+
+.novel-toggle button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.novel-toggle button:hover {
+    background-color: var(--bg-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--active-color);
+    padding: 0.5rem;
+    border-radius: .25rem;
+    font-weight: bold;
 }
 
 select {
     color: var(--text-color);
     background-color: var(--bg-second-color);
-    width: 10rem;
+    width: 12rem;
     padding: 0.8rem;
     margin: 0.5rem;
     border: 1px solid gray;
@@ -299,7 +295,6 @@ button .locked {
 }
 
 .output :is(h1, h2, h3) {
-    font-size: var(--huge-font-size);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     padding: auto 10rem;
@@ -318,25 +313,29 @@ button .locked {
     background: var(--gradient-x);
 }
 
+.output h1 {
+    font-size: calc(1.25 * var(--novel-font-size));
+}
+
 .output h2 {
-    font-size: var(--big-font-size);
+    font-size: calc(1.15 * var(--novel-font-size));
     text-align: center;
     top: 7.36rem;
 }
 
 .output h3 {
-    font-size: var(--big-font-size);
+    font-size: var(--novel-font-size);
     text-align: right;
     top: 11.1rem;
 }
 
 .output p {
+    font-size: var(--novel-font-size);
     background-color: var(--bg-pure-color);
     line-height: 2;
-    text-indent: calc(2 * var(--big-font-size));
+    text-indent: calc(2 * var(--novel-font-size));
     text-align: justify;
     text-justify: inter-ideograph;
-    font-size: var(--big-font-size);
     padding: 1rem 2rem;
 }
 
@@ -443,6 +442,8 @@ table tr:last-child td:first-child {
 }
 
 .header_toggle {
+    width: 2rem;
+    height: 2rem;
     font-size: 1.25rem;
     padding: 0.15rem;
     color: var(--text-color);
@@ -803,7 +804,7 @@ table tr:last-child td:first-child {
     }
 
     select {
-        width: 14rem;
+        width: 16rem;
         padding: 0.8rem;
         margin: 0.5rem;
     }

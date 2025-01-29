@@ -3,134 +3,139 @@ const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 const root = document.documentElement;
 const modeToggle = document.getElementById('mode-toggle');
 const autoToggle = document.getElementById('auto-toggle');
-const fontSizeToggle = document.getElementById('font-size-toggle');
+const fontSizeToggle = document.querySelectorAll('.fontSize_toggle');
+const fontStyleToggle = document.querySelectorAll('.fontStyle_toggle');
+const targetElements = document.querySelectorAll('.output');
 
-// 初始化：页面加载时执行
+// 缓存存储的数据
+const cache = {
+    auto: localStorage.getItem('cacheAuto') || 'on',
+    mode: localStorage.getItem('cacheMode') || 'light',
+    fontSize: localStorage.getItem('cacheFontSize') || 'medium',
+    fontStyle: localStorage.getItem('cacheFontStyle') || 'song',
+};
+
+// 初始化页面
 $(document).ready(function () {
-    const cacheAuto = localStorage.getItem('cacheAuto') || 'on';
-    const cacheMode = localStorage.getItem('cacheMode');
-    const cacheFontSize = localStorage.getItem('cacheFontSize') || 'medium';
+    applyFontSize(cache.fontSize);
+    applyFontStyle(cache.fontStyle);
 
-    // 应用字体大小
-    applyFontSize(cacheFontSize);
-
-    if (cacheAuto === 'on') {
-        enableAutoMode();
-    } else {
-        disableAutoMode();
-        if (cacheMode === 'dark') {
-            applyDarkMode();
-        } else if (cacheMode === 'light') {
-            applyLightMode();
-        } else if (cacheMode === 'eye-care') {
-            applyEyeCareMode();
-        } else {
-            enableAutoMode();
-        }
-    }
+    cache.auto === 'on' ? enableAutoMode() : disableAutoMode();setThemeMode(cache.mode);
 });
 
-// 自动模式切换按钮事件
-autoToggle.addEventListener('click', () => {
-    const isAutoMode = autoToggle.title === '自动模式';
-    if (isAutoMode) {
-        localStorage.setItem('cacheAuto', 'off');
-        disableAutoMode();
-    } else {
-        localStorage.setItem('cacheAuto', 'on');
-        enableAutoMode();
-    }
+// 存储用户设置
+const setCacheItem = (key, value) => localStorage.setItem(key, value);
+
+// 自动模式切换按钮
+autoToggle?.addEventListener('click', () => {
+    cache.auto = cache.auto === 'on' ? 'off' : 'on';
+    setCacheItem('cacheAuto', cache.auto);
+    cache.auto === 'on' ? enableAutoMode() : disableAutoMode();
 });
 
-// 手动模式切换按钮事件
-modeToggle.addEventListener('click', () => {
+// 手动模式切换按钮
+modeToggle?.addEventListener('click', () => {
     disableAutoMode();
-    localStorage.setItem('cacheAuto', 'off');
+    setCacheItem('cacheAuto', 'off');
 
-    if (root.classList.contains('dark')) {
-        applyLightMode();
-        localStorage.setItem('cacheMode', 'light');
-    } else if (root.classList.contains('eye-care')) {
-        applyDarkMode();
-        localStorage.setItem('cacheMode', 'dark');
-    } else {
-        applyEyeCareMode();
-        localStorage.setItem('cacheMode', 'eye-care');
-    }
+    cache.mode = getNextMode(cache.mode);
+    setThemeMode(cache.mode);
 });
+
+// 获取下一个模式
+const getNextMode = (current) => {
+    const modes = ['light', 'eye-care', 'dark'];
+    return modes[(modes.indexOf(current) + 1) % modes.length];
+};
 
 // 启用自动模式
 function enableAutoMode() {
-    autoToggle.classList.remove('ri-blur-off-line');
-    autoToggle.classList.add('ri-drop-line');
-    autoToggle.title = "自动模式";
+    updateAutoToggleUI(true);
     syncWithSystemTheme();
     systemTheme.addEventListener('change', syncWithSystemTheme);
+    setCacheItem('cacheAuto', 'on');
 }
 
 // 禁用自动模式
 function disableAutoMode() {
-    autoToggle.classList.remove('ri-drop-line');
-    autoToggle.classList.add('ri-blur-off-line');
-    autoToggle.title = "手动模式";
+    updateAutoToggleUI(false);
     systemTheme.removeEventListener('change', syncWithSystemTheme);
+    setThemeMode(cache.mode);
 }
+
+// 更新自动模式 UI
+const updateAutoToggleUI = (isAuto) => {
+    autoToggle.classList.toggle('ri-drop-line', isAuto);
+    autoToggle.classList.toggle('ri-blur-off-line', !isAuto);
+    autoToggle.title = isAuto ? "自动模式" : "手动模式";
+};
 
 // 同步系统主题
 function syncWithSystemTheme() {
-    if (systemTheme.matches) {
-        applyDarkMode();
+    const mode = systemTheme.matches ? 'dark' : 'light';
+    setThemeMode(mode);
+}
+
+// 设置主题模式
+function setThemeMode(mode) {
+    root.classList.remove('dark', 'eye-care', 'light');
+    modeToggle.classList.remove('ri-sun-line', 'ri-moon-line', 'ri-eye-line');
+
+    const modeConfig = {
+        dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
+        light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
+        'eye-care': { class: 'eye-care', icon: 'ri-eye-line', title: "护眼模式" },
+    };
+
+    if (modeConfig[mode]) {
+        root.classList.add(modeConfig[mode].class);
+        modeToggle.classList.add(modeConfig[mode].icon);
+        modeToggle.title = modeConfig[mode].title;
     } else {
-        applyLightMode();
-    }
-}
-
-// 应用夜间模式
-function applyDarkMode() {
-    root.classList.add('dark');
-    root.classList.remove('eye-care');
-    modeToggle.classList.remove('ri-sun-line', 'ri-eye-line');
-    modeToggle.classList.add('ri-moon-line');
-    modeToggle.title = "夜间模式";
-}
-
-// 应用日间模式
-function applyLightMode() {
-    root.classList.remove('dark', 'eye-care');
-    modeToggle.classList.remove('ri-moon-line', 'ri-eye-line');
-    modeToggle.classList.add('ri-sun-line');
-    modeToggle.title = "日间模式";
-}
-
-// 应用护眼模式
-function applyEyeCareMode() {
-    root.classList.add('eye-care');
-    root.classList.remove('dark');
-    modeToggle.classList.remove('ri-sun-line', 'ri-moon-line');
-    modeToggle.classList.add('ri-eye-line');
-    modeToggle.title = "护眼模式";
-}
-
-// 应用字体大小
-function applyFontSize(size) {
-    root.setAttribute('data-font-size', size);
-    fontSizeToggle.title = size === 'small' ? '小字体' : size === 'large' ? '大字体' : '中字体';
-}
-
-
-// 字体大小切换按钮事件
-fontSizeToggle.addEventListener('click', () => {
-    const currentSize = root.getAttribute('data-font-size') || 'medium';
-
-    let newSize;
-    if (currentSize === 'small') {
-        newSize = 'medium';
-    } else if (currentSize === 'medium') {
-        newSize = 'large';
-    } else {
-        newSize = 'small';
+        console.warn(`Unknown mode: ${mode}, defaulting to light.`);
+        setThemeMode('light');
     }
 
-    applyFontSize(newSize);
-    localStorage.setItem('cacheFontSize', newSize);
+    cache.mode = mode;
+    setCacheItem('cacheMode', mode);
+}
+
+// 绑定字体大小按钮事件
+fontSizeToggle.forEach(button => {
+    button.addEventListener('click', () => {
+        cache.fontSize = button.dataset.fontSize || 'medium';
+        applyFontSize(cache.fontSize);
+        setCacheItem('cacheFontSize', cache.fontSize);
+    });
 });
+
+// 只对特定元素应用字体大小
+function applyFontSize(size) {
+    const fontSizeMap = {
+        small: '1rem',
+        medium: '1.25rem',
+        large: '1.75rem',
+        huge: '2.5rem'
+    };
+    targetElements.forEach(el => el.style.setProperty('--novel-font-size', fontSizeMap[size]) || '5rem');
+}
+
+// 绑定字体切换按钮事件
+fontStyleToggle.forEach(button => {
+    button.addEventListener('click', () => {
+        cache.fontStyle = button.dataset.fontStyle || 'sans-serif';
+        applyFontStyle(cache.fontStyle);
+        setCacheItem('cacheFontStyle', cache.fontStyle);
+    });
+});
+
+// 只对特定元素应用字体样式
+function applyFontStyle(style) {
+    const fontFamilyMap = {
+        song: '"STSong", "SimSun", serif',
+        hei: '"STHeiti", "STXihei", "SimHei", sans-serif',
+        kai: '"STKaiti", "KaiTi", cursive',
+        fang: '"STFangsong", "FangSong", serif'
+    };
+    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'sans-serif');
+}
