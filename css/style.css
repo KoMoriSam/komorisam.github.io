@@ -77,6 +77,25 @@
     --active-color: #d05545;
 }
 
+@font-face {
+	font-family: ZhiSong;
+	src: url('../assets/font/LXGWNeoZhiSongPlus.ttf');
+}
+
+@font-face {
+	font-family: XiHei;
+	src: url('../assets/font/LXGWNeoXiHeiPlus.ttf');
+}
+
+@font-face {
+	font-family: WenKai;
+	src: url('../assets/font/LXGWWenKai-Medium.ttf');
+}
+
+@font-face {
+	font-family: ZhuQue;
+	src: url('../assets/font/ZhuqueFangsong-Regular.ttf');
+}
 
 /*========== Responsive typography ==========*/
 @media screen and (min-width: 1024px) {

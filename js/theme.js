@@ -132,10 +132,10 @@ fontStyleToggle.forEach(button => {
 // 只对特定元素应用字体样式
 function applyFontStyle(style) {
     const fontFamilyMap = {
-        song: '"STSong", "SimSun", serif',
-        hei: '"STHeiti", "STXihei", "SimHei", sans-serif',
-        kai: '"STKaiti", "KaiTi", cursive',
-        fang: '"STFangsong", "FangSong", serif'
+        song: 'ZhiSong, "STSong", "SimSun", serif',
+        hei: 'XiHei, "STHeiti", "STXihei", "SimHei", sans-serif',
+        kai: 'WenKai, "STKaiti", "KaiTi", cursive',
+        fang: 'ZhuQue, "STFangsong", "FangSong", serif'
     };
     targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'sans-serif');
 }
