@@ -35,7 +35,29 @@
         <img src="assets/image/me3.png" alt="me!" class="me">
         <h1>你好！</h1>
         <p>这里是 KoMoriSam 网站的测试页<br>
-        <div class="output" id="output">
+        <p class="novel-toggle">
+            <i class="header_toggle fontStyle_toggle ri-font-family" title="字体样式"></i>
+            <button class="fontStyle_toggle" data-font-style="song">宋</button>
+            <button class="fontStyle_toggle" data-font-style="hei">黑</button>
+            <button class="fontStyle_toggle" data-font-style="kai">楷</button>
+            <button class="fontStyle_toggle" data-font-style="fang">仿</button>
+        </p>
+
+        <p class="novel-toggle">
+            <i class="header_toggle fontSize_toggle ri-font-size-2" title="字体大小"></i>
+            <button class="fontSize_toggle" data-font-size="small">小</button>
+            <button class="fontSize_toggle" data-font-size="medium">中</button>
+            <button class="fontSize_toggle" data-font-size="large">大</button>
+            <button class="fontSize_toggle" data-font-size="huge">超</button>
+        </p>
+
+        <p class="novel-toggle">
+            <button onclick="firstFile(); toTop()">返回首章</button>
+            <button onclick="previousFile(); toTop()">上一章</button>
+            <button onclick="nextFile(); toTop()">下一章</button>
+            <button onclick="latestFile(); toTop()">最新章节</button>
+        </p>
+        <div class="novel" id="novel">
             <h1>标题 1</h1>
             <h2>标题 2</h2>
             <p>段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本段落文本

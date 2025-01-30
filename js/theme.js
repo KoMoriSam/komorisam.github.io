@@ -5,7 +5,7 @@ const modeToggle = document.getElementById('mode-toggle');
 const autoToggle = document.getElementById('auto-toggle');
 const fontSizeToggle = document.querySelectorAll('.fontSize_toggle');
 const fontStyleToggle = document.querySelectorAll('.fontStyle_toggle');
-const targetElements = document.querySelectorAll('.output');
+const targetElements = document.querySelectorAll('.novel');
 
 // 缓存存储的数据
 const cache = {
@@ -118,7 +118,7 @@ function applyFontSize(size) {
         large: '1.75rem',
         huge: '2.5rem'
     };
-    targetElements.forEach(el => el.style.setProperty('--novel-font-size', fontSizeMap[size]) || '5rem');
+    targetElements.forEach(el => el.style.setProperty('--font-size-novel', fontSizeMap[size]) || '');
 }
 
 // 绑定字体切换按钮事件
@@ -138,5 +138,5 @@ function applyFontStyle(style) {
         kai: 'WenKai, "STKaiti", "KaiTi", cursive',
         fang: 'ZhuQue, "STFangsong", "FangSong", serif'
     };
-    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'system-ui');
+    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || '');
 }

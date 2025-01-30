@@ -8,7 +8,6 @@
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
   color: #24292e;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -216,7 +215,7 @@
 }
 
 .markdown-body a {
-  color: var(--active-color);
+  color: var(--color-active);
   text-decoration: none;
 }
 
@@ -429,8 +428,8 @@
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: var(--bg-fouth-color);
-  border-left: 0.25em solid var(--bg-fouth-color);
+  color: var(--color-bg-fou);
+  border-left: 0.25em solid var(--color-bg-fou);
 }
 
 .markdown-body blockquote>:first-child {
@@ -580,19 +579,19 @@
 }
 
 .markdown-body table tr {
-  background-color: var(--bg-pure-color);
+  background-color: var(--color-bg-pure);
 }
 
 .markdown-body table tr:nth-child(odd) {
-  background-color: var(--bg-color);
+  background-color: var(--color-bg);
 }
 
 .markdown-body table tr:nth-child(even) {
-  background-color: var(--bg-pure-color);
+  background-color: var(--color-bg-pure);
 }
 
 .markdown-body table tr:hover {
-  background-color: var(--bg-third-color);
+  background-color: var(--color-bg-thi);
 }
 
 .markdown-body img {
@@ -608,7 +607,7 @@
   padding-bottom: 0.2em;
   margin: 0;
   font-size: 85%;
-  background-color: var(--bg-color);
+  background-color: var(--color-bg);
   border-radius: 3px;
 }
 
@@ -647,7 +646,7 @@
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: var(--bg-color);
+  background-color: var(--color-bg);
   border-radius: .25rem;
 }
 
@@ -669,8 +668,8 @@
 }
 
 .markdown-body .full-commit .btn-outline:not(:disabled):hover {
-  color: var(--active-color);
-  border-color: var(--bg-third-color);
+  color: var(--color-active);
+  border-color: var(--color-bg-thi);
 }
 
 .markdown-body kbd {
@@ -737,13 +736,13 @@
 }
 
 .gt-container a {
-  color: var(--active-color);
+  color: var(--color-active);
 }
 
 .gt-container a:hover {
   font-weight: bold;
-  color: var(--active-color);
-  border-color: var(--active-color);
+  color: var(--color-active);
+  border-color: var(--color-active);
 }
 
 .gt-container a.is--active {
@@ -769,7 +768,7 @@
 .gt-container .gt-svg svg {
   width: 100%;
   height: 100%;
-  fill: var(--active-color);
+  fill: var(--color-active);
 }
 
 .gt-container .gt-ico {
@@ -791,7 +790,7 @@
 }
 
 .gt-container .gt-ico-github svg {
-  fill: var(--text-color);
+  fill: var(--color-text);
 }
 
 .gt-container .gt-spinner {
@@ -809,15 +808,15 @@
   margin-top: -0.1875em;
   margin-left: -0.375em;
   border-radius: 50%;
-  border: 1px solid var(--bg-fouth-color);
-  border-top-color: var(--active-color);
+  border: 1px solid var(--color-bg-fou);
+  border-top-color: var(--color-active);
   -webkit-animation: gt-kf-rotate 0.6s linear infinite;
   animation: gt-kf-rotate 0.6s linear infinite;
 }
 
 .gt-container .gt-loader {
   position: relative;
-  border: 1px solid var(--bg-fouth-color);
+  border: 1px solid var(--color-bg-fou);
   -webkit-animation: ease gt-kf-rotate 1.5s infinite;
   animation: ease gt-kf-rotate 1.5s infinite;
   display: inline-block;
@@ -881,10 +880,10 @@
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  border: 1px solid var(--bg-fouth-color);
+  border: 1px solid var(--color-bg-fou);
   border-radius: .25rem;
-  background-color: var(--active-color);
-  color: var(--text-color);
+  background-color: var(--color-active);
+  color: var(--color-text);
   outline: none;
   font-size: 0.75em;
 }
@@ -912,18 +911,18 @@
 }
 
 .gt-container .gt-btn-preview {
-  background-color: var(--bg-second-color);
-  color: var(--text-color);
+  background-color: var(--color-bg-sec);
+  color: var(--color-text);
 }
 
 .gt-container .gt-btn-preview:hover {
-  background-color: var(--active-color);
-  border-color: var(--bg-fouth-color);
+  background-color: var(--color-active);
+  border-color: var(--color-bg-fou);
 }
 
 .gt-container .gt-btn-public:hover {
-  background-color: var(--active-color);
-  border-color: var(--bg-fouth-color);
+  background-color: var(--color-active);
+  border-color: var(--color-bg-fou);
 }
 
 .gt-container .gt-error {
@@ -948,7 +947,7 @@
 }
 
 .gt-container .gt-link {
-  border-bottom: 1px dotted var(--active-color);
+  border-bottom: 1px dotted var(--color-active);
 }
 
 .gt-container .gt-link-counts,
@@ -960,7 +959,7 @@
   margin: 1.25em 0;
   padding: 1em 0;
   position: relative;
-  border-bottom: 1px solid var(--bg-fouth-color);
+  border-bottom: 1px solid var(--color-bg-fou);
   font-size: 1em;
   position: relative;
   z-index: 10;
@@ -1003,11 +1002,11 @@
 }
 
 .gt-container .gt-user .gt-ico svg {
-  fill: var(--text-color);
+  fill: var(--color-text);
 }
 
 .gt-container .gt-user .is--poping .gt-ico svg {
-  fill: var(--active-color);
+  fill: var(--color-active);
 }
 
 .gt-container .gt-version {
@@ -1017,7 +1016,7 @@
 
 .gt-container .gt-copyright {
   margin: 0 0.9375em 0.5em;
-  border-top: 1px solid var(--bg-fouth-color);
+  border-top: 1px solid var(--color-bg-fou);
   padding-top: 0.5em;
 }
 
@@ -1025,9 +1024,9 @@
   position: absolute;
   right: 0;
   top: 2.375em;
-  background: var(--bg-second-color);
+  background: var(--color-bg-sec);
   display: inline-block;
-  border: 1px solid var(--bg-fouth-color);
+  border: 1px solid var(--color-bg-fou);
   border-radius: .25rem;
   padding: 0.625em 0;
   font-size: 0.875em;
@@ -1047,7 +1046,7 @@
   content: '';
   width: 0.25em;
   height: 0.25em;
-  background: var(--active-color);
+  background: var(--color-active);
   position: absolute;
   left: 0.5em;
   top: 0.4375em;
@@ -1082,27 +1081,27 @@
   min-height: 5.125em;
   max-height: 15em;
   border-radius: .25rem;
-  border: 1px solid var(--bg-fouth-color);
+  border: 1px solid var(--color-bg-fou);
   font-size: 0.875em;
-  color: var(--text-color);
+  color: var(--color-text);
   word-wrap: break-word;
   resize: vertical;
-  background-color: var(--bg-second-color);
+  background-color: var(--color-bg-sec);
   outline: none;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 
 .gt-container .gt-header-textarea:hover {
-  background-color: var(--bg-third-color);
+  background-color: var(--color-bg-thi);
 }
 
 .gt-container .gt-header-preview {
   padding: 0.75em;
   border-radius: .25rem;
-  border: 1px solid var(--bg-fouth-color);
-  background-color: var(--bg-second-color);
-  color: var(--text-color);
+  border: 1px solid var(--color-bg-fou);
+  background-color: var(--color-bg-sec);
+  color: var(--color-text);
 }
 
 .gt-container .gt-header-controls {
@@ -1128,7 +1127,7 @@
 
 .gt-container .gt-header-controls-tip {
   font-size: 0.875em;
-  color: var(--active-color);
+  color: var(--color-active);
   text-decoration: none;
   vertical-align: sub;
 }
@@ -1211,7 +1210,7 @@
   flex: 1;
   margin-left: 1.25em;
   padding: 0.75em 1em;
-  background-color: var(--bg-second-color);
+  background-color: var(--color-bg-sec);
   border-radius: .25rem;
   overflow: auto;
   -webkit-transition: all ease 0.25s;
@@ -1219,9 +1218,9 @@
 }
 
 .gt-container .gt-comment-content:hover {
-  -webkit-box-shadow: 0 0.625em 3.75em 0 var(--bg-second-color);
+  -webkit-box-shadow: 0 0.625em 3.75em 0 var(--color-bg-sec);
   ;
-  box-shadow: 0 0.625em 3.75em 0 var(--bg-second-color);
+  box-shadow: 0 0.625em 3.75em 0 var(--color-bg-sec);
   ;
 }
 
@@ -1252,7 +1251,7 @@
 
 .gt-container .gt-comment-username {
   font-weight: 500;
-  color: var(--active-color);
+  color: var(--color-active);
   text-decoration: none;
 }
 
@@ -1295,7 +1294,7 @@
 }
 
 .gt-container .gt-comment-body {
-  color: var(--text-color) !important;
+  color: var(--color-text) !important;
 }
 
 .gt-container .gt-comment-body .email-hidden-toggle a {
@@ -1333,7 +1332,7 @@
 }
 
 .gt-container .gt-comment-admin .gt-comment-content {
-  background-color: var(--bg-second-color);
+  background-color: var(--color-bg-sec);
 }
 
 @-webkit-keyframes gt-kf-rotate {

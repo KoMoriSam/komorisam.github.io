@@ -1,21 +1,23 @@
-/*=============== VARIABLES CSS ===============*/
 :root {
     --header-height: 3.5rem;
 
-    /*========== Colors ==========*/
-    /*Color mode HSL(hue, saturation, lightness)*/
-    --white-color: rgba(225, 225, 225, 0.8);
-    --pure-white-color: whitesmoke;
-    --white-color-light: white;
-    --dark-color: rgba(16, 16, 16, 0.8);
-    --pure-dark-color: rgb(24, 24, 24);
-    --dark-color-light: rgb(32, 32, 32);
-    --paper-color: rgba(200, 180, 130, 0.8);
-    --pure-paper-color: rgb(195, 170, 120);
-    --paper-color-light: rgb(190, 160, 110);
-    --green-color: rgba(220, 225, 205, 0.8);
-    --pure-green-color: rgb(215, 230, 205);
-    --green-color-light: rgb(190, 200, 185);
+    /*========== 颜色 ==========*/
+
+    /* 基础颜色 */
+    --color-white: rgba(225, 225, 225, 0.8);
+    --color-white-pure: whitesmoke;
+    --color-white-light: white;
+    --color-black: rgba(16, 16, 16, 0.8);
+    --color-black-pure: rgb(24, 24, 24);
+    --color-black-light: rgb(32, 32, 32);
+    --color-brown: rgba(200, 180, 130, 0.8);
+    --color-brown-pure: rgb(195, 170, 120);
+    --color-brown-light: rgb(190, 160, 110);
+    --color-green: rgba(220, 225, 205, 0.8);
+    --color-pure-green: rgb(215, 230, 205);
+    --color-green-light: rgb(190, 200, 185);
+
+    /* 渐变 */
     --gradient-x: linear-gradient(90deg,
             hsla(0, 0%, 0%, 0),
             hsl(210, 4%, 64%),
@@ -25,27 +27,29 @@
             hsl(210, 4%, 64%),
             hsla(0, 0%, 0%, 0));
 
-    --text-color: var(--dark-color-light);
-    --bg-color: var(--white-color-light);
-    --bg-second-color: var(--white-color);
-    --bg-third-color: #ddd;
-    --bg-fouth-color: #888;
-    --bg-pure-color: var(--pure-white-color);
-    --anti-color: var(--dark-color-light);
-    --anti-second-color: var(--dark-color);
-    --anti-pure-color: var(--pure-dark-color);
-    --active-color: #5b93e6;
+    /* 主题变量 */
+    --color-text: var(--color-black-light);
+    --color-bg: var(--color-white-light);
+    --color-bg-sec: var(--color-white);
+    --color-bg-thi: #ddd;
+    --color-bg-fou: #888;
+    --color-bg-pure: var(--color-white-pure);
+    --color-anti: var(--color-black-light);
+    --color-anti-sec: var(--color-black);
+    --color-anti-pure: var(--color-black-pure);
+    --color-active: #5b93e6;
 
-    /*========== Font and typography ==========*/
-    /*.5rem = 8px | 1rem = 16px ...*/
+    /*========== 字体 ==========*/
     --body-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --huge-font-size: 1.25rem;
-    --big-font-size: 1.15rem;
-    --normal-font-size: .938rem;
-    --small-font-size: .813rem;
-    --novel-font-size: 1.15rem;
 
-    /*========== Font weight ==========*/
+    /*========== 字号 ==========*/
+    /*.5rem = 8px | 1rem = 16px ...*/
+    --font-size-huge: 1.25rem;
+    --font-size-big: 1.15rem;
+    --font-size-normal: .938rem;
+    --font-size-small: .813rem;
+
+    /*========== 字重 ==========*/
     --font-medium: 500;
     --font-semi-bold: 600;
 
@@ -54,103 +58,79 @@
     --z-fixed: 100;
 }
 
+/*========== 主题 ==========*/
 .dark {
-    --text-color: var(--white-color-light);
-    --bg-color: var(--dark-color-light);
-    --bg-second-color: var(--dark-color);
-    --bg-third-color: #333;
-    --bg-pure-color: var(--pure-dark-color);
-    --anti-color: var(--white-color-light);
-    --anti-second-color: var(--white-color);
-    --anti-pure-color: var(--pure-white-color);
-    --active-color: #4CAF50;
+    --color-text: var(--color-white-light);
+    --color-bg: var(--color-black-light);
+    --color-bg-sec: var(--color-black);
+    --color-bg-thi: #333;
+    --color-bg-pure: var(--color-black-pure);
+    --color-anti: var(--color-white-light);
+    --color-anti-sec: var(--color-white);
+    --color-anti-pure: var(--color-white-pure);
+    --color-active: #4CAF50;
 }
 
 .brown {
-    --text-color: var(--dark-color-light);
-    --bg-color: var(--paper-color-light);
-    --bg-second-color: var(--paper-color);
-    --bg-third-color: #ddd;
-    --bg-pure-color: var(--pure-paper-color);
-    --anti-color: var(--dark-color-light);
-    --anti-second-color: var(--dark-color);
-    --anti-pure-color: var(--pure-dark-color);
-    --active-color: #d05545;
+    --color-text: var(--color-black-light);
+    --color-bg: var(--color-brown-light);
+    --color-bg-sec: var(--color-brown);
+    --color-bg-thi: #ddd;
+    --color-bg-pure: var(--color-brown-pure);
+    --color-anti: var(--color-black-light);
+    --color-anti-sec: var(--color-black);
+    --color-anti-pure: var(--color-black-pure);
+    --color-active: #d05545;
 }
 
 .green {
-    --text-color: var(--dark-color-light);
-    --bg-color: var(--green-color-light);
-    --bg-second-color: var(--green-color);
-    --bg-third-color: #faffe9;
-    --bg-pure-color: var(--pure-green-color);
-    --anti-color: var(--dark-color-light);
-    --anti-second-color: var(--dark-color);
-    --anti-pure-color: var(--pure-dark-color);
-    --active-color: #e5a54c;
+    --color-text: var(--color-black-light);
+    --color-bg: var(--color-green-light);
+    --color-bg-sec: var(--color-green);
+    --color-bg-thi: #faffe9;
+    --color-bg-pure: var(--color-pure-green);
+    --color-anti: var(--color-black-light);
+    --color-anti-sec: var(--color-black);
+    --color-anti-pure: var(--color-black-pure);
+    --color-active: #e5a54c;
+}
+
+/*========== 字体引入 ==========*/
+@font-face {
+    font-family: ZhiSong;
+    src: url('../assets/font/LXGWNeoZhiSongPlus.ttf');
 }
 
 @font-face {
-	font-family: ZhiSong;
-	src: url('../assets/font/LXGWNeoZhiSongPlus.ttf');
+    font-family: XiHei;
+    src: url('../assets/font/LXGWNeoXiHeiPlus.ttf');
 }
 
 @font-face {
-	font-family: XiHei;
-	src: url('../assets/font/LXGWNeoXiHeiPlus.ttf');
+    font-family: WenKai;
+    src: url('../assets/font/LXGWWenKai-Medium.ttf');
 }
 
 @font-face {
-	font-family: WenKai;
-	src: url('../assets/font/LXGWWenKai-Medium.ttf');
-}
-
-@font-face {
-	font-family: ZhuQue;
-	src: url('../assets/font/ZhuqueFangsong-Regular.ttf');
+    font-family: ZhuQue;
+    src: url('../assets/font/ZhuqueFangsong-Regular.ttf');
 }
 
 /*========== Responsive typography ==========*/
 @media screen and (min-width: 1024px) {
     :root {
-        --huge-font-size: 1.45rem;
-        --big-font-size: 1.25rem;
-        --normal-font-size: 1rem;
-        --small-font-size: 0.75rem;
-        --novel-font-size: 1.25rem;
+        --font-size-huge: 1.45rem;
+        --font-size-big: 1.25rem;
+        --font-size-normal: 1rem;
+        --font-size-small: .75rem;
     }
 }
 
-/*=============== BASE ===============*/
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-*::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
-}
-
-*::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--bg-second-color);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-    border-radius: 10px;
-    background: var(--active-color);
-}
-
-*::-webkit-scrollbar-track {
-    background: var(--bg-color);
-}
-
+/*=============== 基础样式 ===============*/
 body {
     font-family: var(--body-font);
-    font-size: var(--normal-font-size);
-    color: var(--text-color);
+    font-size: var(--font-size-normal);
+    color: var(--color-text);
 }
 
 a {
@@ -163,14 +143,40 @@ img {
     height: auto;
 }
 
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+*::-webkit-scrollbar {
+    width: 0.25rem;
+    height: 0.5rem;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--color-bg-sec);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: var(--color-active);
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+/* 进度圈 */
 .loading {
     margin: 2rem auto;
     width: 5rem;
     height: 5rem;
-    border: 0.5rem solid var(--active-color);
-    border-top-color: var(--bg-second-color);
-    border-right-color: var(--bg-second-color);
-    border-bottom-color: var(--bg-second-color);
+    border: 0.5rem solid var(--color-active);
+    border-top-color: var(--color-bg-sec);
+    border-right-color: var(--color-bg-sec);
+    border-bottom-color: var(--color-bg-sec);
     border-radius: 100%;
     animation: circle infinite 1s ease-in;
 }
@@ -185,7 +191,7 @@ img {
     }
 }
 
-/*=============== LAYOUT ===============*/
+/*=============== 布局 ===============*/
 .container {
     margin-inline: 1.5rem;
     line-height: 1.5;
@@ -201,7 +207,7 @@ img {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color);
+    background: var(--color-bg);
     z-index: -1;
 }
 
@@ -209,248 +215,14 @@ img {
     height: 16rem;
 }
 
-.novel-toggle {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-    align-items: center;
-}
-
-.novel-toggle button {
-    font-size: 1rem;
-    padding: 0.5rem;
-    color: var(--text-color);
-    cursor: pointer;
-}
-
-.novel-toggle button:hover {
-    background-color: var(--bg-color);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: var(--active-color);
-    padding: 0.5rem;
-    border-radius: .25rem;
-    font-weight: bold;
-}
-
-select {
-    color: var(--text-color);
-    background-color: var(--bg-second-color);
-    width: 12rem;
-    padding: 0.8rem;
-    margin: 0.5rem;
-    border: 1px solid gray;
-    border-radius: .25rem;
-    transition: background .3s;
-}
-
-button {
-    color: var(--text-color);
-    background-color: var(--bg-second-color);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    align-items: center;
-    padding: 0.8rem;
-    margin: 0.5rem;
-    border: 1px solid gray;
-    border-radius: .25rem;
-    transition: background .3s;
-}
-
-button:hover {
-    font-weight: bold;
-    border: 1px solid var(--text-color);
-    background-color: var(--active-color);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all .1s;
-}
-
-button:focus {
-    border: 1px solid var(--bg-second-color);
-    background-color: var(--text-color);
-    color: var(--active-color);
-    font-weight: bold;
-}
-
-button .locked {
-    color: gray;
-    border: none;
-}
-
-.topBtn {
-    position: fixed;
-    width: 3rem;
-    height: 3rem;
-    right: -100%;
-    bottom: 6rem;
-    z-index: var(--z-fixed);
-    transition: right 1s;
-}
-
-.topBtn-display {
-    right: 1.5rem;
-}
-
-.topBtn:hover i {
-    display: none;
-}
-
-.topBtn span {
-    display: none;
-}
-
-.topBtn:hover span {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.45rem;
-}
-
-/*=============== NOVELS ===============*/
-.output {
-    margin-bottom: 2.5rem;
-}
-
-.output>*:not(table) {
-    padding: 1rem 2rem;
-    margin: 1rem 0 1rem 0;
-    color: var(--text-color);
-    background-color: var(--bg-second-color);
-    border-radius: .25rem;
-}
-
-.output>*:not(p, table):hover {
-    color: var(--text-color);
-    background-color: var(--bg-third-color);
-}
-
-.output :is(h1, h2, h3) {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: auto 10rem;
-    margin: 1rem auto;
-    position: sticky;
-    top: 3.5rem;
-}
-
-.output :is(h1, h2, h3)::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--gradient-x);
-}
-
-.output h1 {
-    font-size: calc(1.25 * var(--novel-font-size));
-}
-
-.output h2 {
-    font-size: calc(1.15 * var(--novel-font-size));
-    text-align: center;
-    top: 7.36rem;
-}
-
-.output h3 {
-    font-size: var(--novel-font-size);
-    text-align: right;
-    top: 11.1rem;
-}
-
-.output p {
-    font-size: var(--novel-font-size);
-    background-color: var(--bg-pure-color);
-    line-height: 2;
-    text-indent: calc(2 * var(--novel-font-size));
-    text-align: justify;
-    text-justify: inter-ideograph;
-    padding: 1rem 2rem;
-}
-
-.output p:has(+ p) {
-    margin-bottom: -2.5rem;
-}
-
-.output blockquote {
-    margin: -1rem 0;
-    background-color: var(--bg-pure-color);
-    font-family: serif;
-}
-
-.output blockquote p {
-    padding: 1.5rem calc(2 * var(--big-font-size));
-    background: none;
-}
-
-.output a {
-    font-size: 0.5rem;
-    color: var(--active-color);
-    font-weight: bold;
-    vertical-align: top;
-}
-
-
-table {
-    font-size: var(--big-font-size);
-    width: auto;
-    margin: 1rem auto;
-    border-collapse: separate;
-    border-spacing: .1rem;
-}
-
-table caption {
-    font-weight: bold;
-}
-
-th,
-td {
-    padding: 1rem;
-    color: var(--text-color);
-}
-
-table thead tr {
-    background-color: var(--bg-pure-color);
-}
-
-table tbody tr:nth-child(odd) {
-    background-color: var(--bg-second-color);
-}
-
-table tbody tr:nth-child(even) {
-    background-color: var(--bg-pure-color);
-}
-
-table tbody tr:hover {
-    background-color: var(--bg-third-color);
-}
-
-table tr:first-child th:first-child {
-    border-top-left-radius: .25rem;
-}
-
-table tr:first-child th:last-child {
-    border-top-right-radius: .25rem;
-}
-
-table tr:last-child td:last-child {
-    border-bottom-right-radius: .25rem;
-}
-
-table tr:last-child td:first-child {
-    border-bottom-left-radius: .25rem;
-}
-
-/*=============== HEADER ===============*/
+/*=============== 组件 ===============*/
+/* 顶栏 */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--bg-second-color);
+    background: var(--color-bg-sec);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: var(--z-fixed);
@@ -478,22 +250,22 @@ table tr:last-child td:first-child {
     height: 2rem;
     font-size: 1.25rem;
     padding: 0.15rem;
-    color: var(--text-color);
+    color: var(--color-text);
     cursor: pointer;
 }
 
 .header_toggle:hover {
-    background-color: var(--bg-color);
+    background: var(--color-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    color: var(--active-color);
+    color: var(--color-active);
     padding: 0.15rem;
     border-radius: .25rem;
     font-weight: bold;
 }
 
 .header-active {
-    background-color: var(--active-color);
+    background: var(--color-active);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: .25rem;
@@ -503,7 +275,7 @@ table tr:last-child td:first-child {
     width: 128px;
 }
 
-/*=============== SIDEBAR ===============*/
+/* 侧边栏 */
 .sidebar {
     position: fixed;
     left: -100%;
@@ -511,7 +283,7 @@ table tr:last-child td:first-child {
     width: 280px;
     height: 100%;
     padding: 2rem 1.5rem;
-    background-color: var(--bg-second-color);
+    background: var(--color-bg-sec);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: var(--z-fixed);
@@ -577,7 +349,7 @@ table tr:last-child td:first-child {
 }
 
 .sidebar_link {
-    color: var(--text-color);
+    color: var(--color-text);
     display: grid;
     grid-template-columns: repeat(2, max-content);
     align-items: center;
@@ -592,7 +364,7 @@ table tr:last-child td:first-child {
 }
 
 .sidebar_link i {
-    color: var(--text-color);
+    color: var(--color-text);
     font-size: 1.25rem;
 }
 
@@ -602,15 +374,15 @@ table tr:last-child td:first-child {
 }
 
 .sidebar_link:hover {
-    background-color: var(--bg-color);
+    background: var(--color-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    color: var(--active-color);
+    color: var(--color-active);
     font-weight: bold;
 }
 
 .sidebar_link:hover i {
-    color: var(--active-color);
+    color: var(--color-active);
     font-weight: bold;
 }
 
@@ -619,8 +391,8 @@ table tr:last-child td:first-child {
     position: relative;
     margin-block: 2rem 1.5rem;
     text-align: center;
-    color: var(--text-color);
-    font-size: var(--normal-font-size);
+    color: var(--color-text);
+    font-size: var(--font-size-normal);
 }
 
 .sidebar_title span::before,
@@ -649,7 +421,7 @@ table tr:last-child td:first-child {
 .sidebar_perfil {
     width: 55px;
     border-radius: 50%;
-    border: 2px solid var(--white-color);
+    border: 2px solid var(--color-white);
 }
 
 .sidebar_account {
@@ -659,18 +431,18 @@ table tr:last-child td:first-child {
 }
 
 .sidebar_name {
-    font-size: var(--normal-font-size);
-    color: var(--text-color);
+    font-size: var(--font-size-normal);
+    color: var(--color-text);
     margin-bottom: .25rem;
 }
 
 .sidebar_email {
-    font-size: var(--small-font-size);
+    font-size: var(--font-size-small);
     font-weight: var(--font-medium);
 }
 
 .sidebar_account i {
-    color: var(--white-color);
+    color: var(--color-white);
     font-size: 1.5rem;
     margin-left: auto;
     cursor: pointer;
@@ -683,13 +455,228 @@ table tr:last-child td:first-child {
 
 /* Active link */
 .active-link {
-    background-color: var(--active-color);
+    background: var(--color-active);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 }
 
 .active-link span {
-    color: var(--text-color);
+    color: var(--color-text);
+}
+
+/* 按钮 */
+button, select {
+    font-size: var(--font-size-small);
+    color: var(--color-text);
+    background: var(--color-bg-sec);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-x);
+}
+
+button:hover {
+    font-weight: bold;
+    background: var(--color-active);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all .1s;
+}
+
+button:focus {
+    background: var(--color-text);
+    color: var(--color-active);
+    font-weight: bold;
+}
+
+button .locked {
+    color: gray;
+}
+
+.topBtn {
+    border: 1px solid var(--color-text);
+    position: fixed;
+    width: 3rem;
+    height: 3rem;
+    right: -100%;
+    bottom: 6rem;
+    z-index: var(--z-fixed);
+    transition: right 1s;
+}
+
+.topBtn-display {
+    right: 1.5rem;
+}
+
+.topBtn:hover i {
+    display: none;
+}
+
+.topBtn span {
+    display: none;
+}
+
+.topBtn:hover span {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.45rem;
+}
+
+.novel-toggle {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/*=============== NOVELS ===============*/
+.novel {
+    margin-bottom: 2.5rem;
+}
+
+.novel>*:not(table) {
+    padding: 1rem 2rem;
+    margin: 1rem 0 1rem 0;
+    color: var(--color-text);
+    background: var(--color-bg-sec);
+    border-radius: .25rem;
+}
+
+.novel>*:not(p, table):hover {
+    color: var(--color-text);
+    background: var(--color-bg-thi);
+}
+
+.novel :is(h1, h2, h3) {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: auto 10rem;
+    margin: 1rem auto;
+    position: sticky;
+    top: 3.5rem;
+}
+
+.novel :is(h1, h2, h3)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-x);
+}
+
+.novel h1 {
+    font-size: calc(1.25 * var(--font-size-novel));
+}
+
+.novel h2 {
+    font-size: calc(1.15 * var(--font-size-novel));
+    text-align: center;
+    top: 7.36rem;
+}
+
+.novel h3 {
+    font-size: var(--font-size-novel);
+    text-align: right;
+    top: 11.1rem;
+}
+
+.novel p {
+    font-size: var(--font-size-novel);
+    background: var(--color-bg-pure);
+    line-height: 2;
+    text-indent: calc(2 * var(--font-size-novel));
+    text-align: justify;
+    text-justify: inter-ideograph;
+    padding: 1rem 2rem;
+}
+
+.novel p:has(+ p) {
+    margin-bottom: -2.5rem;
+}
+
+.novel blockquote {
+    margin: -1rem 0;
+    background: var(--color-bg-pure);
+    font-family: serif;
+}
+
+.novel blockquote p {
+    padding: 1.5rem calc(2 * var(--font-size-big));
+    background: none;
+}
+
+.novel a {
+    font-size: 0.5rem;
+    color: var(--color-active);
+    font-weight: bold;
+    vertical-align: top;
+}
+
+table {
+    font-size: var(--font-size-big);
+    width: auto;
+    margin: 1rem auto;
+    border-collapse: separate;
+    border-spacing: .1rem;
+}
+
+table caption {
+    font-weight: bold;
+}
+
+th,
+td {
+    padding: 1rem;
+    color: var(--color-text);
+}
+
+table thead tr {
+    background: var(--color-bg-pure);
+}
+
+table tbody tr:nth-child(odd) {
+    background: var(--color-bg-sec);
+}
+
+table tbody tr:nth-child(even) {
+    background: var(--color-bg-pure);
+}
+
+table tbody tr:hover {
+    background: var(--color-bg-thi);
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: .25rem;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: .25rem;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: .25rem;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: .25rem;
 }
 
 /*=============== BREAKPOINTS ===============*/
@@ -823,7 +810,7 @@ table tr:last-child td:first-child {
 
     .show-sidebar .sidebar_link:hover .sidebar_link-floating {
         opacity: 1;
-        color: var(--active-color);
+        color: var(--color-active);
     }
 
     .show-sidebar .main {
@@ -841,15 +828,15 @@ table tr:last-child td:first-child {
         margin: 0.5rem;
     }
 
-    .output h1 {
+    .novel h1 {
         top: 5rem;
     }
 
-    .output h2 {
+    .novel h2 {
         top: 9.15rem;
     }
 
-    .output h3 {
+    .novel h3 {
         top: 13.05rem;
     }
 }

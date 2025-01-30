@@ -1,6 +1,6 @@
 const fileSelect = document.getElementById("fileSelect"),
     latestFileSelect = document.getElementById("latestFileSelect"),
-    output = document.getElementById("output"),
+    novel = document.querySelector('.novel');
     loading = document.getElementById("loading"),
     pathHead = 'page/novel/';
 
@@ -46,7 +46,7 @@ function loadFile(step = 0, errorMsg = '', consoleMsg = '') {
 
         const fileName = fileSelect.value;
         if (!fileName) {
-            output.innerHTML = "";
+            novel.innerHTML = "";
             return;
         }
 
@@ -75,7 +75,7 @@ function handleError(displayMsg, consoleMsg, error) {
 
 function displayMessage(content) {
     loading.classList.toggle('loading', content.includes("加载！"));
-    output.innerHTML = marked.parse(content);
+    novel.innerHTML = marked.parse(content);
 }
 
 function updateTitle(fileName) {
