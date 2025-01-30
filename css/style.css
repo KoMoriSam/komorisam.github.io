@@ -544,6 +544,10 @@ button .locked {
     align-items: center;
 }
 
+.novel-toggle button {
+    height: 2rem;
+}
+
 /*=============== NOVELS ===============*/
 .novel {
     margin-bottom: 2.5rem;
