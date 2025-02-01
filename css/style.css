@@ -550,6 +550,10 @@ button .locked {
     height: 2rem;
 }
 
+select {
+    width: 16rem;
+}
+
 /*=============== NOVELS ===============*/
 .novel {
     margin-bottom: 2.5rem;
@@ -829,10 +833,17 @@ table tr:last-child td:first-child {
         padding-left: 120px;
     }
 
-    select {
-        width: 16rem;
+    button, select {
+        font-size: var(--font-size-normal);
+        height: 3rem;
+        width: 36rem;
         padding: 0.8rem;
-        margin: 0.5rem;
+    }
+
+    .novel-toggle button {
+        width: 8rem;
+        height: 3rem;
+        padding: 0.8rem;
     }
 
     .novel h1 {
@@ -846,4 +857,5 @@ table tr:last-child td:first-child {
     .novel h3 {
         top: 13.05rem;
     }
+
 }
