@@ -627,7 +627,7 @@ select {
 
 .novel blockquote p {
     text-indent: 0;
-    padding: 1.5rem calc(2 * var(--font-size-big));
+    padding: 1.5rem calc(2 * var(--font-size-novel));
     background: none;
 }
 
