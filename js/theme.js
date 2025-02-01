@@ -1,4 +1,4 @@
-// 获取必要的 DOM 元素和系统主题状态
+// 获取必要的 DOM 元素
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 const root = document.documentElement;
 const modeToggle = document.getElementById('mode-toggle');
@@ -7,7 +7,15 @@ const fontSizeToggle = document.querySelectorAll('.fontSize_toggle');
 const fontStyleToggle = document.querySelectorAll('.fontStyle_toggle');
 const targetElements = document.querySelectorAll('.novel');
 
-// 缓存存储的数据
+// 主题模式映射
+const modeConfig = {
+    dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
+    light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
+    brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
+    green: { class: 'green', icon: 'ri-leaf-line', title: "绿色模式" },
+};
+
+// 读取本地存储，初始化缓存
 const cache = {
     auto: localStorage.getItem('cacheAuto') || 'on',
     mode: localStorage.getItem('cacheMode') || 'light',
@@ -16,35 +24,42 @@ const cache = {
 };
 
 // 初始化页面
-$(document).ready(function () {
+$(document).ready(() => {
     applyFontSize(cache.fontSize);
     applyFontStyle(cache.fontStyle);
 
-    cache.auto === 'on' ? enableAutoMode() : disableAutoMode();setThemeMode(cache.mode);
+    // 启用自动模式或手动模式
+    cache.auto === 'on' ? enableAutoMode() : disableAutoMode();
+    setThemeMode(cache.mode);
 });
 
 // 存储用户设置
 const setCacheItem = (key, value) => localStorage.setItem(key, value);
 
-// 自动模式切换按钮
+// 自动模式切换
 autoToggle?.addEventListener('click', () => {
     cache.auto = cache.auto === 'on' ? 'off' : 'on';
     setCacheItem('cacheAuto', cache.auto);
+
     cache.auto === 'on' ? enableAutoMode() : disableAutoMode();
 });
 
-// 手动模式切换按钮
+// 手动模式切换
 modeToggle?.addEventListener('click', () => {
-    disableAutoMode();
+    disableAutoMode(); // 关闭自动模式
     setCacheItem('cacheAuto', 'off');
 
+    // 获取下一个模式
     cache.mode = getNextMode(cache.mode);
+    setCacheItem('cacheMode', cache.mode);
+
+    // 应用新模式
     setThemeMode(cache.mode);
 });
 
 // 获取下一个模式
 const getNextMode = (current) => {
-    const modes = ['dark', 'light', 'brown', 'green'];
+    const modes = Object.keys(modeConfig);
     return modes[(modes.indexOf(current) + 1) % modes.length];
 };
 
@@ -78,27 +93,19 @@ function syncWithSystemTheme() {
 
 // 设置主题模式
 function setThemeMode(mode) {
-    root.classList.remove('dark', 'light', 'brown', 'green');
-    modeToggle.classList.remove('ri-sun-line', 'ri-moon-line', 'ri-eye-line', 'ri-leaf-line');
-
-    const modeConfig = {
-        dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
-        light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
-        brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
-        green: { class: 'green', icon: 'ri-leaf-line', title: "绿色模式" },
-    };
-
-    if (modeConfig[mode]) {
-        root.classList.add(modeConfig[mode].class);
-        modeToggle.classList.add(modeConfig[mode].icon);
-        modeToggle.title = modeConfig[mode].title;
-    } else {
+    if (!modeConfig[mode]) {
         console.warn(`Unknown mode: ${mode}, defaulting to light.`);
-        setThemeMode('light');
+        mode = 'light';
     }
 
-    cache.mode = mode;
-    setCacheItem('cacheMode', mode);
+    // 移除所有模式类，仅保留当前模式
+    root.classList.remove(...Object.keys(modeConfig));
+    root.classList.add(modeConfig[mode].class);
+
+    // 更新按钮图标（避免 className 赋值导致丢失其他样式）
+    modeToggle.classList.remove(...Object.values(modeConfig).map(m => m.icon));
+    modeToggle.classList.add(modeConfig[mode].icon);
+    modeToggle.title = modeConfig[mode].title;
 }
 
 // 绑定字体大小按钮事件
@@ -118,13 +125,13 @@ function applyFontSize(size) {
         large: '1.75rem',
         huge: '2.5rem'
     };
-    targetElements.forEach(el => el.style.setProperty('--font-size-novel', fontSizeMap[size]) || '');
+    targetElements.forEach(el => el.style.setProperty('--font-size-novel', fontSizeMap[size] || '1.25rem'));
 }
 
 // 绑定字体切换按钮事件
 fontStyleToggle.forEach(button => {
     button.addEventListener('click', () => {
-        cache.fontStyle = button.dataset.fontStyle || 'sans-serif';
+        cache.fontStyle = button.dataset.fontStyle || 'system-ui';
         applyFontStyle(cache.fontStyle);
         setCacheItem('cacheFontStyle', cache.fontStyle);
     });
@@ -138,5 +145,5 @@ function applyFontStyle(style) {
         kai: 'WenKai, "STKaiti", "KaiTi", cursive',
         fang: 'ZhuQue, "STFangsong", "FangSong", serif'
     };
-    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || '');
+    targetElements.forEach(el => el.style.fontFamily = fontFamilyMap[style] || 'system-ui');
 }
