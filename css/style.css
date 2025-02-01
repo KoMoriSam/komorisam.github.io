@@ -154,8 +154,7 @@ img {
 }
 
 *::-webkit-scrollbar {
-    width: 0.25rem;
-    height: 0.5rem;
+    width: 0.35rem;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -467,7 +466,8 @@ img {
 }
 
 /* 按钮 */
-button, select {
+button,
+select {
     font-size: var(--font-size-small);
     color: var(--color-text);
     background: var(--color-bg-sec);
@@ -567,6 +567,10 @@ select {
     border-radius: .25rem;
 }
 
+.novel table {
+    width: 100%;
+}
+
 .novel>*:not(p, table):hover {
     color: var(--color-text);
     background: var(--color-bg-thi);
@@ -591,20 +595,14 @@ select {
     background: var(--gradient-x);
 }
 
-.novel h1 {
-    font-size: calc(1.25 * var(--font-size-novel));
-}
-
 .novel h2 {
-    font-size: calc(1.15 * var(--font-size-novel));
     text-align: center;
-    top: 7.36rem;
+    top: 8rem;
 }
 
 .novel h3 {
-    font-size: var(--font-size-novel);
     text-align: right;
-    top: 11.1rem;
+    top: 12rem;
 }
 
 .novel p {
@@ -654,7 +652,7 @@ table caption {
 
 th,
 td {
-    padding: 1rem;
+    padding: 0.75rem;
     color: var(--color-text);
 }
 
@@ -833,7 +831,8 @@ table tr:last-child td:first-child {
         padding-left: 120px;
     }
 
-    button, select {
+    button,
+    select {
         font-size: var(--font-size-normal);
         height: 3rem;
         width: 36rem;
