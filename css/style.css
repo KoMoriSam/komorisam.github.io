@@ -99,21 +99,25 @@
 @font-face {
     font-family: ZhiSong;
     src: url('../assets/font/LXGWNeoZhiSongPlus.ttf');
+    font-display: swap;
 }
 
 @font-face {
     font-family: XiHei;
     src: url('../assets/font/LXGWNeoXiHeiPlus.ttf');
+    font-display: swap;
 }
 
 @font-face {
     font-family: WenKai;
     src: url('../assets/font/LXGWWenKai-Medium.ttf');
+    font-display: swap;
 }
 
 @font-face {
     font-family: ZhuQue;
     src: url('../assets/font/ZhuqueFangsong-Regular.ttf');
+    font-display: swap;
 }
 
 /*========== Responsive typography ==========*/
@@ -246,8 +250,6 @@ img {
 }
 
 .header_toggle {
-    width: 2rem;
-    height: 2rem;
     font-size: 1.25rem;
     padding: 0.15rem;
     color: var(--color-text);
@@ -618,10 +620,11 @@ button .locked {
 .novel blockquote {
     margin: -1rem 0;
     background: var(--color-bg-pure);
-    font-family: serif;
+    font-family: ZhuQue, "STFangsong", "FangSong", serif;
 }
 
 .novel blockquote p {
+    text-indent: 0;
     padding: 1.5rem calc(2 * var(--font-size-big));
     background: none;
 }
