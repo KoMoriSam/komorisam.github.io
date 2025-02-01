@@ -1,14 +1,49 @@
 const fileSelect = document.getElementById("fileSelect"),
     latestFileSelect = document.getElementById("latestFileSelect"),
     novel = document.querySelector('.novel');
-    loading = document.getElementById("loading"),
+loading = document.getElementById("loading"),
     pathHead = 'page/novel/';
 
-fetch("page/novel/list.json")
-    .then((response) => response.json())
-    .then((fileList) => {
+    fetch("page/novel/list.json")
+    .then(response => response.json())
+    .then(fileList => {
         populateSelect(fileSelect, fileList);
-        populateLatestSelect(latestFileSelect, fileList);
+
+        // 过滤出包含阿拉伯数字的章节
+        const numberedFiles = fileList.filter(fileName => /\d/.test(fileName));
+
+        if (numberedFiles.length === 0) {
+            console.warn("未找到包含阿拉伯数字编号的章节");
+            return;
+        }
+
+        // 并行请求每个文件的 Last-Modified 时间
+        return Promise.all(
+            numberedFiles.map(fileName => 
+                fetch(`${pathHead}${fileName}.md`, { method: 'HEAD' })
+                    .then(response => {
+                        const lastModified = response.headers.get('Last-Modified');
+                        return lastModified ? { name: fileName, date: new Date(lastModified) } : null;
+                    })
+                    .catch(() => null) // 忽略无法获取 Last-Modified 的文件
+            )
+        );
+    })
+    .then(fileDataList => {
+        // 过滤无效数据
+        const validFiles = fileDataList.filter(file => file);
+        if (validFiles.length === 0) {
+            console.warn("未找到符合条件的最新章节");
+            return;
+        }
+
+        // 选择修改日期最新的文件
+        const latestFile = validFiles.reduce((latest, file) => 
+            file.date > latest.date ? file : latest
+        );
+
+        // 设置最新章节
+        latestFileSelect.appendChild(createOption(latestFile.name));
     })
     .catch(error => handleError('# *⚠️ 未找到章节列表 ⚠️*', "找不到章节列表！", error));
 
