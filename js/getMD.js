@@ -1,29 +1,40 @@
 const fileSelect = document.getElementById("fileSelect"),
     latestFileSelect = document.getElementById("latestFileSelect"),
-    novel = document.querySelector('.novel');
+    novel = document.querySelector('.novel'),
     loading = document.getElementById("loading"),
     pathHead = 'page/novel/';
 
-    fetch("page/novel/list.json")
-    .then((response) => response.json())
-    .then((fileList) => {
+const ERROR_MESSAGES = {
+    NO_CHAPTER_LIST: '# *⚠️ 未找到章节列表 ⚠️*',
+    CHAPTER_NOT_FOUND: '# *⚠️ 未找到该章节或章节不存在 ⚠️*',
+    NO_NEWER_CHAPTER: '已经到底啦',
+    NO_OLDER_CHAPTER: '顶到最前面啦'
+};
+
+latestFileSelect.addEventListener("mousedown", function (e) {
+    e.preventDefault();
+});
+
+fetch("page/novel/list.json")
+    .then(response => response.json())
+    .then(fileList => {
         populateSelect(fileSelect, fileList);
         populateLatestSelect(latestFileSelect, fileList);
     })
-    .catch(error => handleError('# *⚠️ 未找到章节列表 ⚠️*', "找不到章节列表！", error));
+    .catch(error => handleError(ERROR_MESSAGES.NO_CHAPTER_LIST, "找不到章节列表！", error));
 
 function populateSelect(selectElement, fileList) {
+    const fragment = document.createDocumentFragment();
     fileList.forEach(file => {
-        selectElement.appendChild(createOption(file));
+        fragment.appendChild(createOption(file));
     });
+    selectElement.appendChild(fragment);
 }
 
 function populateLatestSelect(selectElement, fileList) {
-    // 过滤带编号的文件并按修改时间排序
     const numberedFiles = fileList.filter(file => /\d/.test(file.name));
     if (numberedFiles.length > 0) {
-        // 按修改时间降序排列
-        const sortedFiles = [...numberedFiles].sort((a, b) => 
+        const sortedFiles = [...numberedFiles].sort((a, b) =>
             new Date(b.modified) - new Date(a.modified)
         );
         selectElement.appendChild(createOption(sortedFiles[0]));
@@ -35,25 +46,17 @@ function populateLatestSelect(selectElement, fileList) {
 function createOption(file) {
     const option = document.createElement("option");
     option.value = file.name;
-    
-    // 仅带数字编号的章节显示更新时间
-    let displayText = file.name;
-    if (/\d/.test(file.name)) {
-        displayText += formatDate(file.modified);
-    }
-    
-    option.textContent = displayText;
+    option.textContent = /\d/.test(file.name) ? `${file.name}${formatDate(file.modified)}` : file.name;
     return option;
 }
 
-// 日期格式化函数
 function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = date.getMonth() + 1; // 月份从 0 开始，需要加 1
+    const month = date.getMonth() + 1;
     const day = date.getDate();
-    const hours = date.getHours().toString().padStart(2, '0'); // 补零
-    const minutes = date.getMinutes().toString().padStart(2, '0'); // 补零
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
 
     return ` (${year}-${month}-${day} ${hours}:${minutes})`;
 }
@@ -86,7 +89,7 @@ function loadFile(step = 0, errorMsg = '', consoleMsg = '') {
                 displayMessage("## 别急，正在加载！");
                 setTimeout(() => displayMessage(content), 1000);
             })
-            .catch(error => handleError('# *⚠️ 未找到该章节或章节不存在 ⚠️*', "加载章节失败", error));
+            .catch(error => handleError(ERROR_MESSAGES.CHAPTER_NOT_FOUND, "加载章节失败", error));
     } catch (error) {
         handleError(`# *⚠️ ${errorMsg} ⚠️*`, consoleMsg, error);
     }
@@ -118,9 +121,9 @@ function firstFile() {
 }
 
 function nextFile() {
-    loadFile(1, '已经到底啦', '未找到更新的章节');
+    loadFile(1, ERROR_MESSAGES.NO_NEWER_CHAPTER, '未找到更新的章节');
 }
 
 function previousFile() {
-    loadFile(-1, '顶到最前面啦', '未找到更早的章节');
+    loadFile(-1, ERROR_MESSAGES.NO_OLDER_CHAPTER, '未找到更早的章节');
 }
