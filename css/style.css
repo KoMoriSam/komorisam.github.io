@@ -551,7 +551,8 @@ button .locked {
 }
 
 select {
-    width: 16rem;
+    min-width: 8rem;
+    max-width: 10rem;
 }
 
 /*=============== NOVELS ===============*/
@@ -627,9 +628,20 @@ select {
 
 .novel blockquote p {
     text-indent: 0;
-    padding: 1.5rem calc(2 * var(--font-size-novel));
+    padding: .5rem 0;
+    font-size: calc(.618 * 1.5 * var(--font-size-novel));
+    background: none;
+    text-align: left;
+}
+
+.novel blockquote blockquote {
     background: none;
 }
+
+.novel blockquote blockquote p {
+    font-size: calc(.618 * 1.35 * var(--font-size-novel));
+}
+
 
 .novel a {
     font-size: 0.5rem;
@@ -835,7 +847,9 @@ table tr:last-child td:first-child {
     select {
         font-size: var(--font-size-normal);
         height: 3rem;
-        width: 36rem;
+        min-width: none;
+        max-width: none;
+        width: 38.5rem;
         padding: 0.8rem;
     }
 
