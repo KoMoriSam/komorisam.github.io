@@ -620,6 +620,12 @@ select {
     margin-bottom: -2.5rem;
 }
 
+.novel p video {
+    border-radius: .25rem;
+    margin-left: -3.5rem;
+    width: 100%;
+}
+
 .novel blockquote {
     margin: -1rem 0;
     background: var(--color-bg-pure);
@@ -640,14 +646,7 @@ select {
 
 .novel blockquote blockquote p {
     font-size: calc(.618 * 1.35 * var(--font-size-novel));
-}
-
-
-.novel a {
-    font-size: 0.5rem;
-    color: var(--color-active);
-    font-weight: bold;
-    vertical-align: top;
+    padding-bottom: 2rem;
 }
 
 table {
