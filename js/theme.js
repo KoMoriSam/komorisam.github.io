@@ -9,10 +9,10 @@ const targetElements = document.querySelectorAll('.novel');
 
 // 主题模式映射
 const modeConfig = {
-    dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
     light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
-    brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
+    dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
     green: { class: 'green', icon: 'ri-leaf-line', title: "绿色模式" },
+    brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
 };
 
 // 读取本地存储，初始化缓存
@@ -30,7 +30,6 @@ $(document).ready(() => {
 
     // 启用自动模式或手动模式
     cache.auto === 'on' ? enableAutoMode() : disableAutoMode();
-    setThemeMode(cache.mode);
 });
 
 // 存储用户设置
