@@ -846,10 +846,13 @@ table tr:last-child td:first-child {
     select {
         font-size: var(--font-size-normal);
         height: 3rem;
+        padding: 0.8rem;
+    }
+
+    select {
         min-width: none;
         max-width: none;
         width: 38.5rem;
-        padding: 0.8rem;
     }
 
     .novel-toggle button {
