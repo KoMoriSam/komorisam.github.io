@@ -1,65 +1,83 @@
 /*=============== 侧边栏收放 ===============*/
-const screenWidth = window.matchMedia('screen and (min-width: 1024px)');
-
 const toggle = document.getElementById('header-toggle'),
   sidebar = document.getElementById('sidebar'),
   main = document.getElementById('main');
 
-if (toggle && sidebar && main) {
-  toggle.addEventListener('click', () => {
-    sidebar.classList.toggle('show-sidebar');
-    main.classList.toggle('main-pd');
-    if (sidebar.classList.contains('show-sidebar')) {
-      localStorage.setItem('cacheShow', 'on');
-    } else {
-      localStorage.setItem('cacheShow', 'off');
+const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+
+// 切换侧边栏状态
+const toggleSidebar = (event) => {
+  const isLarge = window.matchMedia('(min-width: 1024px)').matches;
+  sidebar.classList.toggle('show-sidebar');
+  main.classList.toggle('main-pd');
+
+  if (isLarge) {
+    const currentState = sidebar.classList.contains('show-sidebar') ? 'visible' : 'hidden';
+    localStorage.setItem('sidebarState', currentState);
+  }
+
+  event.stopPropagation(); // 防止触发 document 事件
+};
+
+// 点击空白处收起侧边栏
+const closeSidebar = (event) => {
+  if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+    sidebar.classList.remove('show-sidebar');
+    main.classList.remove('main-pd');
+
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+      localStorage.setItem('sidebarState', 'hidden'); // 大屏用户记忆隐藏状态
     }
-  })
-}
+  }
+};
 
-function showSidebar(change) {
-  sidebar.classList.toggle('show-sidebar', change == 'add');
-  main.classList.toggle('main-pd', change == 'add');
-}
+// 初始化侧边栏状态（大屏用户取反，小屏用户默认隐藏）
+const initSidebar = () => {
+  const isLarge = window.matchMedia('(min-width: 1024px)').matches;
+  let savedState = localStorage.getItem('sidebarState');
 
-$(document).ready(function () {
-  if (screenWidth.matches) {
-    if (localStorage.getItem('cacheShow')) {
-      var cacheShow = localStorage.getItem('cacheShow');
-      if (cacheShow == 'off') {
-        showSidebar('remove');
-      } else {
-        showSidebar('add');
-      }
+  if (isLarge) {
+    // 大屏用户：如果有存储的状态，取反它
+    if (savedState === 'hidden') {
+      sidebar.classList.remove('show-sidebar');
+      main.classList.remove('main-pd');
+    } else {
+      sidebar.classList.add('show-sidebar');
+      main.classList.add('main-pd');
     }
   } else {
-    showSidebar('remove');
+    // 小屏用户：刷新后始终隐藏
+    sidebar.classList.remove('show-sidebar');
+    main.classList.remove('main-pd');
   }
+};
+
+// 添加事件监听
+toggle?.addEventListener('click', toggleSidebar);
+document.addEventListener('click', closeSidebar);
+
+// 页面加载时初始化侧边栏状态
+initSidebar();
+
+/*=============== 激活当前标签 ===============*/
+document.querySelectorAll('.sidebar_link').forEach(link => {
+  link.addEventListener('click', function () {
+    document.querySelectorAll('.sidebar_link').forEach(l => l.classList.remove('active-link'));
+    this.classList.add('active-link');
+  });
 });
 
-
-/*=============== 激活标签 ===============*/
-const sidebarLink = document.querySelectorAll('.sidebar_link')
-
-function linkColor() {
-  sidebarLink.forEach(l => l.classList.remove('active-link'))
-  this.classList.add('active-link')
-}
-
-sidebarLink.forEach(l => l.addEventListener('click', linkColor))
-
+// 设置当前页面的激活状态
 $(document).ready(function () {
-  var path = window.location.pathname;
-  var IdToPathMap = {
-    'home': ['/', '/index.html'],
-    'about': ['/about.html', '/about'],
-    'novel': ['/novel.html', '/novel'],
-    'contact': ['/contact.html', '/contact'],
-    'test': ['/test.html', '/test']
+  const path = window.location.pathname;
+  const IdToPathMap = {
+    home: ['/', '/index.html'],
+    about: ['/about.html', '/about'],
+    novel: ['/novel.html', '/novel'],
+    contact: ['/contact.html', '/contact'],
+    test: ['/test.html', '/test']
   };
-  var pageId = Object.keys(IdToPathMap).find(function (key) {
-    return IdToPathMap[key].includes(path);
-  }) || 'default';
-  $('#' + pageId).addClass('active-link');
+  Object.keys(IdToPathMap).forEach(id => {
+    if (IdToPathMap[id].includes(path)) $('#' + id).addClass('active-link');
+  });
 });
-
