@@ -33,18 +33,18 @@
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
-        <p class="novel-toggle">当前章节
+        <p class="button_bar">当前章节
             <select id="fileSelect" onchange="loadFile()"></select>
             <button title="只是个占位按钮 好看用的">占位</button>
         </p>
 
-        <p class="novel-toggle">最新章节
+        <p class="button_bar">最新章节
             <select id="latestFileSelect" onclick="latestFile()"></select>
             <button id="refreshButton" title="强制刷新">刷新</button>
         </p>
 
-        <p class="novel-toggle">
-            <i class="header_toggle fontStyle_toggle ri-font-family" title="字体样式"></i>
+        <p class="button_bar2">
+            <i class="font_toggle fontStyle_toggle ri-font-family" title="字体样式"></i>
             <button class="fontStyle_toggle" data-font-style="song"
                 style="font-family: ZhiSong, 'STSong', 'SimSun', serif">宋体</button>
             <button class="fontStyle_toggle" data-font-style="hei"
@@ -55,15 +55,15 @@
                 style="font-family: ZhuQue, 'STFangsong', 'FangSong', serif">仿宋</button>
         </p>
 
-        <p class="novel-toggle">
-            <i class="header_toggle fontSize_toggle ri-font-size-2" title="字体大小"></i>
+        <p class="button_bar2">
+            <i class="font_toggle fontSize_toggle ri-font-size-2" title="字体大小"></i>
             <button class="fontSize_toggle" data-font-size="small">小号</button>
             <button class="fontSize_toggle" data-font-size="medium">中号</button>
             <button class="fontSize_toggle" data-font-size="large">大号</button>
             <button class="fontSize_toggle" data-font-size="huge">超大</button>
         </p>
 
-        <p class="novel-toggle">
+        <p class="button_bar">
             <button onclick="firstFile(); toTop()">返回首章</button>
             <button onclick="previousFile(); toTop()">上一章</button>
             <button onclick="nextFile(); toTop()">下一章</button>
@@ -75,7 +75,7 @@
 
         <script src="js/getMD.js"></script>
 
-        <p class="novel-toggle">
+        <p class="button_bar">
             <button onclick="firstFile(); toTop()">返回首章</button>
             <button onclick="previousFile(); toTop()">上一章</button>
             <button onclick="nextFile(); toTop()">下一章</button>
