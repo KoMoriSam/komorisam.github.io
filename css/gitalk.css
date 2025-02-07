@@ -1083,7 +1083,7 @@ tr:nth-child(even) {
   color: var(--color-on-background);
   word-wrap: break-word;
   resize: vertical;
-  background-color: var(--color-surface-container);
+  background: none;
   outline: none;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
@@ -1256,14 +1256,9 @@ tr:nth-child(even) {
   text-decoration: underline;
 }
 
-.gt-container .gt-comment-text {
+.gt-container .gt-comment-text, .gt-comment-date {
   margin-left: 0.5em;
-  color: #a1a1a1;
-}
-
-.gt-container .gt-comment-date {
-  margin-left: 0.5em;
-  color: #a1a1a1;
+  color: var(--color-outline);
 }
 
 .gt-container .gt-comment-like,
