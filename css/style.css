@@ -468,6 +468,7 @@ select {
 	color: var(--color-on-primary);
 	backdrop-filter: blur(1rem);
 	-webkit-backdrop-filter: blur(1rem);
+	height: 2rem;
 	align-items: center;
 	padding: .5rem;
 	margin: .5rem;
@@ -526,6 +527,14 @@ button:disabled {
 	align-items: center;
 }
 
+.button_bar button,
+.button_bar2 button {
+	height: 2rem;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+}
+
 .button_bar button {
 	min-width: 15%;
 	max-width: 100%;
@@ -535,13 +544,9 @@ button:disabled {
 }
 
 .button_bar2 button {
+	width: 75%;
 	background: var(--color-secondary);
 	color: var(--color-on-secondary);
-	display: flex;
-	text-align: center;
-	justify-content: center;
-	width: 75%;
-	height: 2rem;
 }
 
 .button_bar button:hover,
@@ -858,6 +863,7 @@ table tr:last-child td:first-child {
 		padding: 0.8rem;
 	}
 
+	.button_bar button,
 	.button_bar2 button,
 	.font_toggle {
 		height: 3rem;
