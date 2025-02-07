@@ -1,4 +1,4 @@
-const topBtn = document.getElementById('topBtn'),
+const button_top = document.getElementById('button_top'),
 header = document.getElementById('main');
 
 function toTop() {
@@ -10,8 +10,8 @@ window.onscroll = function () {
     var backTop = document.documentElement.scrollTop ||
         document.body.scrollTop;
     if (backTop > pageHeight / 4) {
-        topBtn.classList.add('topBtn-display');
+        button_top.classList.add('show-button_top');
     } else {
-        topBtn.classList.remove('topBtn-display');
+        button_top.classList.remove('show-button_top');
     }
 }

@@ -9,10 +9,10 @@ const targetElements = document.querySelectorAll('.novel');
 
 // 主题模式映射
 const modeConfig = {
-    light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
     dark: { class: 'dark', icon: 'ri-moon-line', title: "夜间模式" },
-    green: { class: 'green', icon: 'ri-leaf-line', title: "绿色模式" },
-    brown: { class: 'brown', icon: 'ri-eye-line', title: "护眼模式" },
+    light: { class: 'light', icon: 'ri-sun-line', title: "日间模式" },
+    light_green: { class: 'light_green', icon: 'ri-leaf-line', title: "护眼模式" },
+    dark_green: { class: 'dark_green', icon: 'ri-eye-line', title: "暗黑护眼模式" },
 };
 
 // 读取本地存储，初始化缓存
@@ -98,7 +98,7 @@ function setThemeMode(mode) {
     }
 
     // 移除所有模式类，仅保留当前模式
-    root.classList.remove(...Object.keys(modeConfig));
+    root.classList.remove(...Object.values(modeConfig).map(item => item.class));
     root.classList.add(modeConfig[mode].class);
 
     // 更新按钮图标（避免 className 赋值导致丢失其他样式）
@@ -124,7 +124,7 @@ function applyFontSize(size) {
         large: '1.75rem',
         huge: '2.5rem'
     };
-    targetElements.forEach(el => el.style.setProperty('--font-size-novel', fontSizeMap[size] || '1.25rem'));
+    targetElements.forEach(el => el.style.setProperty('--fsize-novel', fontSizeMap[size] || '1.25rem'));
 }
 
 // 绑定字体切换按钮事件
