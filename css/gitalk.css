@@ -215,7 +215,7 @@
 }
 
 .markdown-body a {
-  color: var(--color-active);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -428,8 +428,8 @@
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: var(--color-bg-fou);
-  border-left: 0.25em solid var(--color-bg-fou);
+  color: var(--color-surface-container-high);
+  border-left: 0.25em solid var(--color-surface-container-high);
 }
 
 .markdown-body blockquote>:first-child {
@@ -578,20 +578,17 @@
   padding: 0.5rem;
 }
 
-.markdown-body table tr {
-  background-color: var(--color-bg-pure);
+.markdown-body table tr,
+tr:nth-child(even) {
+  background: var(--color-surface-container);
 }
 
 .markdown-body table tr:nth-child(odd) {
-  background-color: var(--color-bg);
+	background: var(--color-surface-container-low);
 }
 
-.markdown-body table tr:nth-child(even) {
-  background-color: var(--color-bg-pure);
-}
-
-.markdown-body table tr:hover {
-  background-color: var(--color-bg-thi);
+.markdown-body table .markdown-body table tr:hover {
+	background: var(--color-surface-container-high);
 }
 
 .markdown-body img {
@@ -607,7 +604,7 @@
   padding-bottom: 0.2em;
   margin: 0;
   font-size: 85%;
-  background-color: var(--color-bg);
+  background-color: var(--color-surface-container);
   border-radius: 3px;
 }
 
@@ -646,7 +643,7 @@
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: var(--color-bg);
+  background-color: var(--color-surface-container-low);
   border-radius: .25rem;
 }
 
@@ -668,8 +665,8 @@
 }
 
 .markdown-body .full-commit .btn-outline:not(:disabled):hover {
-  color: var(--color-active);
-  border-color: var(--color-bg-thi);
+  color: var(--color-primary);
+  border-color: var(--color-surface-container-highest);
 }
 
 .markdown-body kbd {
@@ -736,13 +733,13 @@
 }
 
 .gt-container a {
-  color: var(--color-active);
+  color: var(--color-primary);
 }
 
 .gt-container a:hover {
   font-weight: bold;
-  color: var(--color-active);
-  border-color: var(--color-active);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .gt-container a.is--active {
@@ -768,7 +765,7 @@
 .gt-container .gt-svg svg {
   width: 100%;
   height: 100%;
-  fill: var(--color-active);
+  fill: var(--color-primary);
 }
 
 .gt-container .gt-ico {
@@ -790,7 +787,7 @@
 }
 
 .gt-container .gt-ico-github svg {
-  fill: var(--color-text);
+  fill: var(--color-on-background);
 }
 
 .gt-container .gt-spinner {
@@ -808,15 +805,15 @@
   margin-top: -0.1875em;
   margin-left: -0.375em;
   border-radius: 50%;
-  border: 1px solid var(--color-bg-fou);
-  border-top-color: var(--color-active);
+  border: 1px solid var(--color-surface-container-high);
+  border-top-color: var(--color-primary);
   -webkit-animation: gt-kf-rotate 0.6s linear infinite;
   animation: gt-kf-rotate 0.6s linear infinite;
 }
 
 .gt-container .gt-loader {
   position: relative;
-  border: 1px solid var(--color-bg-fou);
+  border: 1px solid var(--color-surface-container-high);
   -webkit-animation: ease gt-kf-rotate 1.5s infinite;
   animation: ease gt-kf-rotate 1.5s infinite;
   display: inline-block;
@@ -880,10 +877,10 @@
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  border: 1px solid var(--color-bg-fou);
+  border: 1px solid var(--color-surface-container-high);
   border-radius: .25rem;
-  background-color: var(--color-active);
-  color: var(--color-text);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   outline: none;
   font-size: 0.75em;
 }
@@ -911,18 +908,18 @@
 }
 
 .gt-container .gt-btn-preview {
-  background-color: var(--color-bg-sec);
-  color: var(--color-text);
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-background);
 }
 
 .gt-container .gt-btn-preview:hover {
-  background-color: var(--color-active);
-  border-color: var(--color-bg-fou);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .gt-container .gt-btn-public:hover {
-  background-color: var(--color-active);
-  border-color: var(--color-bg-fou);
+  background-color: var(--color-primary);
+  border-color: var(--color-surface-container-high);
 }
 
 .gt-container .gt-error {
@@ -947,7 +944,7 @@
 }
 
 .gt-container .gt-link {
-  border-bottom: 1px dotted var(--color-active);
+  border-bottom: 1px dotted var(--color-primary);
 }
 
 .gt-container .gt-link-counts,
@@ -959,7 +956,7 @@
   margin: 1.25em 0;
   padding: 1em 0;
   position: relative;
-  border-bottom: 1px solid var(--color-bg-fou);
+  border-bottom: 1px solid var(--color-surface-container-high);
   font-size: 1em;
   position: relative;
   z-index: 10;
@@ -1002,11 +999,11 @@
 }
 
 .gt-container .gt-user .gt-ico svg {
-  fill: var(--color-text);
+  fill: var(--color-on-background);
 }
 
 .gt-container .gt-user .is--poping .gt-ico svg {
-  fill: var(--color-active);
+  fill: var(--color-primary);
 }
 
 .gt-container .gt-version {
@@ -1016,7 +1013,7 @@
 
 .gt-container .gt-copyright {
   margin: 0 0.9375em 0.5em;
-  border-top: 1px solid var(--color-bg-fou);
+  border-top: 1px solid var(--color-surface-container-high);
   padding-top: 0.5em;
 }
 
@@ -1024,9 +1021,9 @@
   position: absolute;
   right: 0;
   top: 2.375em;
-  background: var(--color-bg-sec);
+  background: var(--color-surface-container-high);
   display: inline-block;
-  border: 1px solid var(--color-bg-fou);
+  border: 1px solid var(--color-surface-container-high);
   border-radius: .25rem;
   padding: 0.625em 0;
   font-size: 0.875em;
@@ -1046,7 +1043,7 @@
   content: '';
   width: 0.25em;
   height: 0.25em;
-  background: var(--color-active);
+  background: var(--color-primary);
   position: absolute;
   left: 0.5em;
   top: 0.4375em;
@@ -1081,27 +1078,27 @@
   min-height: 5.125em;
   max-height: 15em;
   border-radius: .25rem;
-  border: 1px solid var(--color-bg-fou);
+  border: 1px solid var(--color-surface-container-high);
   font-size: 0.875em;
-  color: var(--color-text);
+  color: var(--color-on-background);
   word-wrap: break-word;
   resize: vertical;
-  background-color: var(--color-bg-sec);
+  background-color: var(--color-surface-container-high);
   outline: none;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 
 .gt-container .gt-header-textarea:hover {
-  background-color: var(--color-bg-thi);
+  background-color: var(--color-surface-container-highest);
 }
 
 .gt-container .gt-header-preview {
   padding: 0.75em;
   border-radius: .25rem;
-  border: 1px solid var(--color-bg-fou);
-  background-color: var(--color-bg-sec);
-  color: var(--color-text);
+  border: 1px solid var(--color-surface-container-high);
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-background);
 }
 
 .gt-container .gt-header-controls {
@@ -1127,7 +1124,7 @@
 
 .gt-container .gt-header-controls-tip {
   font-size: 0.875em;
-  color: var(--color-active);
+  color: var(--color-primary);
   text-decoration: none;
   vertical-align: sub;
 }
@@ -1210,7 +1207,7 @@
   flex: 1;
   margin-left: 1.25em;
   padding: 0.75em 1em;
-  background-color: var(--color-bg-sec);
+  background-color: var(--color-surface-container-high);
   border-radius: .25rem;
   overflow: auto;
   -webkit-transition: all ease 0.25s;
@@ -1218,9 +1215,9 @@
 }
 
 .gt-container .gt-comment-content:hover {
-  -webkit-box-shadow: 0 0.625em 3.75em 0 var(--color-bg-sec);
+  -webkit-box-shadow: 0 0.625em 3.75em 0 var(--color-surface-container-high);
   ;
-  box-shadow: 0 0.625em 3.75em 0 var(--color-bg-sec);
+  box-shadow: 0 0.625em 3.75em 0 var(--color-surface-container-high);
   ;
 }
 
@@ -1251,7 +1248,7 @@
 
 .gt-container .gt-comment-username {
   font-weight: 500;
-  color: var(--color-active);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -1294,7 +1291,7 @@
 }
 
 .gt-container .gt-comment-body {
-  color: var(--color-text) !important;
+  color: var(--color-on-background) !important;
 }
 
 .gt-container .gt-comment-body .email-hidden-toggle a {
@@ -1332,7 +1329,7 @@
 }
 
 .gt-container .gt-comment-admin .gt-comment-content {
-  background-color: var(--color-bg-sec);
+  background-color: var(--color-surface-container-high);
 }
 
 @-webkit-keyframes gt-kf-rotate {
