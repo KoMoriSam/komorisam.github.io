@@ -34,12 +34,12 @@
     <!--=============== main ===============-->
     <main class="main container" id="main">
         <p class="button_bar">
-            <button>当前章</button>
+            <button>当前</button>
             <select id="select-list" onchange="loadFile()"></select>
         </p>
 
         <p class="button_bar">
-            <button onclick="latestFile()">最新章</button>
+            <button onclick="latestFile()">最新</button>
             <select id="select-lastestCh" onclick="latestFile()"></select>
             <button id="refreshButton" title="强制刷新">刷新</button>
         </p>
@@ -66,13 +66,6 @@
             <button class="fontSize_toggle" data-font-size="medium">中号</button>
             <button class="fontSize_toggle" data-font-size="large">大号</button>
             <button class="fontSize_toggle" data-font-size="huge">超大</button>
-        </p>
-
-        <p class="button_bar">
-            <button onclick="firstFile(); toTop()">返回首章</button>
-            <button onclick="previousFile(); toTop()">上一章</button>
-            <button onclick="nextFile(); toTop()">下一章</button>
-            <button onclick="latestFile(); toTop()">最新章节</button>
         </p>
 
         <div id="loading"></div>
