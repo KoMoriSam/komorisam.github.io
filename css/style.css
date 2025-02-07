@@ -156,15 +156,6 @@
 	--color-surface-container-highest: #343531;
 }
 
-@media screen and (min-width: 1024px) {
-	:root {
-		--fsize-huge: 1.45rem;
-		--fsize-big: 1.25rem;
-		--fsize-normal: 1rem;
-		--fsize-small: .75rem;
-	}
-}
-
 @font-face {
 	font-family: ZhiSong;
 	src: url('../assets/font/LXGWNeoZhiSongPlus.ttf');
@@ -724,7 +715,7 @@ table tr:last-child td:first-child {
 }
 
 /* 大屏设备 */
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
 	:root {
 		--fsize-huge: 1.35rem;
 		--fsize-big: 1.2rem;
