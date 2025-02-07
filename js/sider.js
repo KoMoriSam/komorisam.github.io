@@ -1,52 +1,47 @@
-/*=============== 侧边栏收放 ===============*/
-const toggle = document.getElementById('header-toggle'),
-  sidebar = document.getElementById('sidebar'),
-  main = document.getElementById('main');
+const toggle = document.getElementById('header-toggle');
+const sidebar = document.getElementById('sidebar');
+const main = document.getElementById('main');
 
-const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+// 计算是否为大屏
+const isLargeDevice = () => window.matchMedia('(min-width: 1024px)').matches;
 
 // 切换侧边栏状态
 const toggleSidebar = (event) => {
-  const isLarge = window.matchMedia('(min-width: 1024px)').matches;
   sidebar.classList.toggle('show-sidebar');
   main.classList.toggle('main-pd');
 
-  if (isLarge) {
+  if (isLargeDevice()) {
     const currentState = sidebar.classList.contains('show-sidebar') ? 'visible' : 'hidden';
-    localStorage.setItem('sidebarState', currentState);
+    if (localStorage.getItem('sidebarState') !== currentState) {
+      localStorage.setItem('sidebarState', currentState);
+    }
   }
 
-  event.stopPropagation(); // 防止触发 document 事件
+  event.stopPropagation();
+  // 只有在小屏时才绑定点击空白处隐藏事件
+  if (!isLargeDevice()) {
+    document.addEventListener('click', closeSidebar);
+  }
 };
 
 // 点击空白处收起侧边栏
 const closeSidebar = (event) => {
-  if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-    sidebar.classList.remove('show-sidebar');
-    main.classList.remove('main-pd');
+  if (isLargeDevice() || sidebar.contains(event.target) || toggle.contains(event.target)) return;
 
-    if (window.matchMedia('(min-width: 1024px)').matches) {
-      localStorage.setItem('sidebarState', 'hidden'); // 大屏用户记忆隐藏状态
-    }
-  }
+  sidebar.classList.remove('show-sidebar');
+  main.classList.remove('main-pd');
+
+  document.removeEventListener('click', closeSidebar); // 解绑事件，防止多次触发
 };
 
-// 初始化侧边栏状态（大屏用户取反，小屏用户默认隐藏）
+// 初始化侧边栏状态
 const initSidebar = () => {
-  const isLarge = window.matchMedia('(min-width: 1024px)').matches;
   let savedState = localStorage.getItem('sidebarState');
 
-  if (isLarge) {
-    // 大屏用户：如果有存储的状态，取反它
-    if (savedState === 'hidden') {
-      sidebar.classList.remove('show-sidebar');
-      main.classList.remove('main-pd');
-    } else {
-      sidebar.classList.add('show-sidebar');
-      main.classList.add('main-pd');
-    }
+  if (isLargeDevice()) {
+    sidebar.classList.toggle('show-sidebar', savedState !== 'hidden');
+    main.classList.toggle('main-pd', savedState !== 'hidden');
   } else {
-    // 小屏用户：刷新后始终隐藏
     sidebar.classList.remove('show-sidebar');
     main.classList.remove('main-pd');
   }
@@ -54,12 +49,11 @@ const initSidebar = () => {
 
 // 添加事件监听
 toggle?.addEventListener('click', toggleSidebar);
-document.addEventListener('click', closeSidebar);
 
 // 页面加载时初始化侧边栏状态
 initSidebar();
 
-/*=============== 激活当前标签 ===============*/
+// 激活当前标签
 document.querySelectorAll('.sidebar_link').forEach(link => {
   link.addEventListener('click', function () {
     document.querySelectorAll('.sidebar_link').forEach(l => l.classList.remove('active-link'));
@@ -78,6 +72,8 @@ $(document).ready(function () {
     test: ['/test.html', '/test']
   };
   Object.keys(IdToPathMap).forEach(id => {
-    if (IdToPathMap[id].includes(path)) $('#' + id).addClass('active-link');
+    if (IdToPathMap[id].includes(path)) {
+      document.getElementById(id)?.classList.add('active-link');
+    }
   });
 });
