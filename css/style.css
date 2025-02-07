@@ -536,20 +536,27 @@ button:hover {
 .button_bar2 button {
 	background: var(--color-secondary);
 	color: var(--color-on-secondary);
+	display: flex; 
+	text-align: center;
+	justify-content: center;
 	width: 3rem;
+	height: 2rem;
 }
 
 .button_bar button:hover,
 .button_bar2 button:hover,
 .font_toggle:hover {
-	background: var(--color-secondary-container);
-	color: var(--color-on-secondary-container);
+	background: var(--color-secondary-container) !important;
+	color: var(--color-on-secondary-container) !important;
 }
 
 .font_toggle {
 	font-size: var(--fsize-big);
+	background: none !important;
+	color: var(--color-on-background) !important;
+	display: flex; 
 	text-align: center;
-	line-height: 2rem;
+	justify-content: center;
 	width: 1.75rem;
 	height: 2rem;
 	margin-right: .75rem;
@@ -845,18 +852,13 @@ table tr:last-child td:first-child {
 		width: 38.5rem;
 	}
 
-	.font_toggle {
-		line-height: 3rem;
-		width: 6rem;
-		height: 3rem;
-	}
-
 	.button_bar button {
 		width: 12rem;
 	}
 
-	.button_bar2 button {
+	.button_bar2 button, .font_toggle {
 		width: 6rem;
+		height: 3rem;
 	}
 
 	.novel h1 {
