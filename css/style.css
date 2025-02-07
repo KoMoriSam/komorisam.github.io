@@ -491,6 +491,12 @@ button:hover {
 	transition: all .1s ease-out;
 }
 
+button:disabled {
+	cursor: not-allowed;
+	background: var(--color-outline) !important;
+	color: var(--color-on-primary) !important;
+}
+
 .button_top {
 	position: fixed;
 	width: 3rem;
@@ -525,11 +531,13 @@ button:hover {
 .button_bar,
 .button_bar2 {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	align-items: center;
 }
 
 .button_bar button {
+	min-width: 4rem;
+	max-width: 6rem;
 	background: none;
 	color: var(--color-on-background);
 	border: 1px solid var(--color-outline);
@@ -538,10 +546,10 @@ button:hover {
 .button_bar2 button {
 	background: var(--color-secondary);
 	color: var(--color-on-secondary);
-	display: flex; 
+	display: flex;
 	text-align: center;
 	justify-content: center;
-	width: 3rem;
+	width: 75%;
 	height: 2rem;
 }
 
@@ -556,7 +564,7 @@ button:hover {
 	font-size: var(--fsize-big);
 	background: none !important;
 	color: var(--color-on-background) !important;
-	display: flex; 
+	display: flex;
 	text-align: center;
 	justify-content: center;
 	width: 1.75rem;
@@ -571,8 +579,11 @@ select {
 	background: var(--color-background);
 	color: var(--color-on-background);
 	border: 1px solid var(--color-outline);
-	min-width: 8rem;
-	max-width: 10rem;
+}
+
+#select-list,
+#select-lastestCh {
+	width: 100%;
 }
 
 /* 小说 */
@@ -715,11 +726,11 @@ table tr:last-child td:first-child {
 /* 大屏设备 */
 @media screen and (min-width: 1024px) {
 	:root {
-        --fsize-huge: 1.35rem;
-        --fsize-big: 1.2rem;
-        --fsize-normal: 1rem;
-        --fsize-small: .813rem;
-    }
+		--fsize-huge: 1.35rem;
+		--fsize-big: 1.2rem;
+		--fsize-normal: 1rem;
+		--fsize-small: .813rem;
+	}
 
 	.header_container {
 		height: calc(var(--height-header) + 1rem);
@@ -848,17 +859,13 @@ table tr:last-child td:first-child {
 		padding: 0.8rem;
 	}
 
-	select {
-		min-width: none;
-		max-width: none;
-		width: 38.5rem;
-	}
-
 	.button_bar button {
-		width: 12rem;
+		min-width: 6rem;
+		max-width: 12rem;
 	}
 
-	.button_bar2 button, .font_toggle {
+	.button_bar2 button,
+	.font_toggle {
 		width: 6rem;
 		height: 3rem;
 	}

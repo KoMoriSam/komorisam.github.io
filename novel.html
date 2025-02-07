@@ -33,13 +33,14 @@
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
-        <p class="button_bar">当前章节
-            <select id="fileSelect" onchange="loadFile()"></select>
-            <button title="只是个占位按钮 好看用的">占位</button>
+        <p class="button_bar">
+            <button>当前章</button>
+            <select id="select-list" onchange="loadFile()"></select>
         </p>
 
-        <p class="button_bar">最新章节
-            <select id="latestFileSelect" onclick="latestFile()"></select>
+        <p class="button_bar">
+            <button onclick="latestFile()">最新章</button>
+            <select id="select-lastestCh" onclick="latestFile()"></select>
             <button id="refreshButton" title="强制刷新">刷新</button>
         </p>
 

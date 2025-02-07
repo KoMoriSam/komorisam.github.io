@@ -1,5 +1,5 @@
-const fileSelect = document.getElementById("fileSelect");
-const latestFileSelect = document.getElementById("latestFileSelect");
+const fileSelect = document.getElementById("select-list");
+const latestFileSelect = document.getElementById("select-lastestCh");
 const novel = document.querySelector('.novel');
 const loading = document.getElementById("loading");
 const refreshButton = document.getElementById("refreshButton"); // 获取刷新按钮
