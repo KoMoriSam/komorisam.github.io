@@ -36,12 +36,17 @@ async function init(forceReload = false) {
 
     // 确保加载正确的章节
     const savedChapter = getCacheItem("nowChapter"); // 获取当前选中的章节
-    if (!fileList.some((file) => file.name === savedChapter)) {
-      // 如果当前选中的章节不在新的列表中，则选择最新章节
+    if (fileList.some((file) => file.name === savedChapter)) {
       chSelect.value = savedChapter;
+    } else if (
+      !fileList.some((file) => file.name === savedChapter) &&
+      forceReload
+    ) {
+      chSelect.value = latestChSelect.value;
+    } else {
+      chSelect.value = chSelect.options[0].value;
     }
 
-    chSelect.value = savedChapter; // 确保 select 反映当前选中的章节
     loadFile(0, "", "", forceReload);
   } catch (error) {
     handleError(ERROR_MESSAGES.NO_CHAPTER_LIST, "加载章节列表失败", error);
