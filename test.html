@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script src="js/main.js"></script>
 
     <!--=============== css ===============-->
 
@@ -31,7 +32,7 @@
   </head>
 
   <body>
-    <!--=============== siderbar ===============-->
+    <!--=============== bar ===============-->
     <div id="page-bar"></div>
     <script>
       $("#page-bar").load("com/side.html");
@@ -39,9 +40,9 @@
 
     <!--=============== main ===============-->
     <main class="main container" id="main">
-      <div id="n-page"></div>
+      <div id="t-page"></div>
       <script>
-        $("#n-page").load("com/npage.html");
+        $("#t-page").load("com/tpage.html");
       </script>
       <div id="gitalk-container"></div>
       <script src="js/renderGitalk.js"></script>

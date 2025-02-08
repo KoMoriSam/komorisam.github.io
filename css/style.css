@@ -22,6 +22,7 @@
   --fsize-big: 1.15rem;
   --fsize-normal: 0.938rem;
   --fsize-small: 0.813rem;
+  --fsize-novel: 1.25rem;
 
   /* 层级 */
   --z-tooltip: 10;
@@ -521,7 +522,7 @@ button:disabled {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0.45rem;
+  bottom: 0.5rem;
 }
 
 /* 按钮栏 */
@@ -739,6 +740,7 @@ table tr:last-child td:first-child {
     --fsize-big: 1.2rem;
     --fsize-normal: 1rem;
     --fsize-small: 0.813rem;
+    --fsize-novel: 1.35rem;
   }
 
   .header_container {
