@@ -1,14 +1,26 @@
-// 存储用户设置
-const getCacheItem = (key) => localStorage.getItem(key);
-const setCacheItem = (key, value) => localStorage.setItem(key, value);
-const removeCacheItem = (key) => localStorage.removeItem(key);
-
-// 读取本地存储，初始化缓存
-const cache = {
-  fontSize: getCacheItem("cacheFontSize") || "medium",
-  fontStyle: getCacheItem("cacheFontStyle") || "song",
-  auto: getCacheItem("cacheAuto") || "on",
-  mode: getCacheItem("cacheMode") || "light",
-  nowChapter: getCacheItem("nowChapter") || "",
+const defaults = {
+  fontSize: "medium",
+  fontStyle: "system-ui",
+  auto: "on",
+  mode: "light",
+  nowChapter: "",
   chapters: {},
 };
+
+const cache = new Proxy(
+  {},
+  {
+    get: (_, key) => {
+      const value = JSON.parse(localStorage.getItem(key) || "null");
+      return value ?? defaults[key]; // 确保默认值生效
+    },
+    set: (_, key, value) => {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    },
+    deleteProperty: (_, key) => {
+      localStorage.removeItem(key);
+      return true;
+    },
+  }
+);

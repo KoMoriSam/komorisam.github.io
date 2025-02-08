@@ -36,20 +36,19 @@ $(document).ready(() => {
 
 // 自动模式切换
 autoToggle?.addEventListener("click", () => {
-  cache.auto = cache.auto === "on" ? "off" : "on";
-  setCacheItem("cacheAuto", cache.auto);
-
-  cache.auto === "on" ? enableAutoMode() : disableAutoMode();
+  const isAuto = cache.auto === "on";
+  (isAuto ? disableAutoMode : enableAutoMode)();
+  cache.auto = isAuto ? "off" : "on";
+  updateAutoToggleUI(!isAuto);
 });
 
 // 手动模式切换
 modeToggle?.addEventListener("click", () => {
   disableAutoMode(); // 关闭自动模式
-  setCacheItem("cacheAuto", "off");
+  cache.auto = "off";
 
   // 获取下一个模式
   cache.mode = getNextMode(cache.mode);
-  setCacheItem("cacheMode", cache.mode);
 
   // 应用新模式
   setThemeMode(cache.mode);
@@ -66,7 +65,7 @@ function enableAutoMode() {
   updateAutoToggleUI(true);
   syncWithSystemTheme();
   systemTheme.addEventListener("change", syncWithSystemTheme);
-  setCacheItem("cacheAuto", "on");
+  cache.auto = "on";
 }
 
 // 禁用自动模式
@@ -74,6 +73,7 @@ function disableAutoMode() {
   updateAutoToggleUI(false);
   systemTheme.removeEventListener("change", syncWithSystemTheme);
   setThemeMode(cache.mode);
+  cache.auto = "off";
 }
 
 // 更新自动模式 UI

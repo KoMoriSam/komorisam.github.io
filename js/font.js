@@ -14,7 +14,6 @@ fontSizeToggle.forEach((button) => {
   button.addEventListener("click", () => {
     cache.fontSize = button.dataset.fontSize || "medium";
     applyFontSize(cache.fontSize);
-    setCacheItem("cacheFontSize", cache.fontSize);
   });
 });
 
@@ -36,7 +35,6 @@ fontStyleToggle.forEach((button) => {
   button.addEventListener("click", () => {
     cache.fontStyle = button.dataset.fontStyle || "system-ui";
     applyFontStyle(cache.fontStyle);
-    setCacheItem("cacheFontStyle", cache.fontStyle);
   });
 });
 

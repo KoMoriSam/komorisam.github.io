@@ -14,7 +14,7 @@ const ERROR_MESSAGES = {
 
 latestChSelect.addEventListener("mousedown", (e) => e.preventDefault());
 
-// 初始化（支持刷新）
+// 初始化
 async function init(forceReload = false) {
   try {
     const response = await fetch("page/novel/list.json", { cache: "reload" });
@@ -28,14 +28,14 @@ async function init(forceReload = false) {
     if (forceReload) {
       chSelect.innerHTML = "";
       latestChSelect.innerHTML = "";
-      fileList.forEach((file) => removeCacheItem(`chapter_${file.name}`));
+      fileList.forEach((file) => delete cache[`chapter_${file.name}`]);
     }
 
     populateSelect(chSelect, fileList);
     populateSelect(latestChSelect, fileList, true);
 
     // 确保加载正确的章节
-    const savedChapter = getCacheItem("nowChapter"); // 获取当前选中的章节
+    const savedChapter = cache.nowChapter; // 获取当前选中的章节
     if (fileList.some((file) => file.name === savedChapter)) {
       chSelect.value = savedChapter;
     } else if (
@@ -105,11 +105,11 @@ async function loadFile(
     if (!fileName) return (novel.innerHTML = "");
 
     if (!forceReload) {
-      const cachedContent = getCacheItem(`chapter_${fileName}`);
+      const cachedContent = cache[`chapter_${fileName}`];
       if (cachedContent) return displayMessage(cachedContent);
     }
 
-    setCacheItem("nowChapter", fileName);
+    cache.nowChapter = fileName;
     updateTitle(fileName);
     displayMessage("## 别急，正在加载！", true);
 
@@ -119,7 +119,7 @@ async function loadFile(
     if (!response.ok) throw new Error("服务器未存档");
 
     const content = await response.text();
-    setCacheItem(`chapter_${fileName}`, content);
+    cache[`chapter_${fileName}`] = content;
     setTimeout(() => displayMessage(content), 300);
   } catch (error) {
     handleError(ERROR_MESSAGES.CHAPTER_NOT_FOUND, "加载章节失败", error);
@@ -148,25 +148,28 @@ function updateTitle(fileName) {
 
 // 事件绑定
 refreshButton.addEventListener("click", () => init(true));
-latestChSelect.addEventListener("click", () => {
-  if (latestChSelect.value == chSelect.value) {
-    alert("已经是最新章节啦！");
-  } else {
-    chSelect.value = latestChSelect.value;
-    loadFile();
-  }
-});
 
-document.getElementById("firstButton")?.addEventListener("click", () => {
+document.getElementById("first-ch")?.addEventListener("click", () => {
   chSelect.selectedIndex = 3;
   loadFile();
 });
 
-document.getElementById("nextButton")?.addEventListener("click", () => {
+document.querySelectorAll(".lastest-ch")?.forEach((e) => {
+  e.addEventListener("click", () => {
+    if (latestChSelect.value == chSelect.value) {
+      alert("已经是最新章节啦！");
+    } else {
+      chSelect.value = latestChSelect.value;
+      loadFile();
+    }
+  });
+});
+
+document.getElementById("next-ch")?.addEventListener("click", () => {
   loadFile(1, ERROR_MESSAGES.NO_NEWER_CHAPTER, "未找到更新的章节");
 });
 
-document.getElementById("prevButton")?.addEventListener("click", () => {
+document.getElementById("prev-ch")?.addEventListener("click", () => {
   loadFile(-1, ERROR_MESSAGES.NO_OLDER_CHAPTER, "未找到更早的章节");
 });
 

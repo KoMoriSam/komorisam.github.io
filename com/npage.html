@@ -4,8 +4,8 @@
 </p>
 
 <p class="button_bar">
-  <button onclick="latestFile()">最新</button>
-  <select id="select-lastestCh" onclick="latestFile()"></select>
+  <button class="lastest-ch">最新</button>
+  <select class="lastest-ch" id="select-lastestCh"></select>
   <button id="refreshButton" title="强制刷新">刷新</button>
 </p>
 
@@ -57,10 +57,10 @@
 <div class="novel"></div>
 
 <p class="button_bar">
-  <button onclick="firstFile(); toTop()">返回首章</button>
-  <button onclick="previousFile(); toTop()">上一章</button>
-  <button onclick="nextFile(); toTop()">下一章</button>
-  <button onclick="latestFile(); toTop()">最新章节</button>
+  <button id="first-ch" onclick="toTop()">返回首章</button>
+  <button id="prev-ch" onclick="toTop()">上一章</button>
+  <button id="next-ch" onclick="toTop()">下一章</button>
+  <button class="lastest-ch" onclick="toTop()">最新章节</button>
 </p>
 
 <script src="../js/getMD.js"></script>
