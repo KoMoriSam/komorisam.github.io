@@ -1,0 +1,1 @@
+import{_ as e}from"./BasePage-CZa4a0AK.js";import{c as t,u as r,o as a}from"./index-BM_krfv2.js";const m=""+new URL("me2-Cm4KcQVF.png",import.meta.url).href,_={__name:"AboutView",setup(o){return(c,n)=>(a(),t(e,{imageSrc:r(m),imageAlt:"About Me!",title:"关于我",description:"21 岁，是学生。"},null,8,["imageSrc"]))}};export{_ as default};
