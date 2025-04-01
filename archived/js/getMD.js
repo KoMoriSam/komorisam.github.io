@@ -17,7 +17,9 @@ latestChSelect.addEventListener("mousedown", (e) => e.preventDefault());
 // 初始化
 async function init(forceReload = false) {
   try {
-    const response = await fetch("page/novel/list.json", { cache: "reload" });
+    const response = await fetch("../../assets/markdown/novel/list.json", {
+      cache: "reload",
+    });
     const fileList = await response.json();
     if (!Array.isArray(fileList) || fileList.length === 0)
       throw new Error("章节列表为空");
