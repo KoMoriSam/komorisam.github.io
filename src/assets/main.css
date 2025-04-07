@@ -1,0 +1,325 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "lemonade";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(98.71% 0.02 123.72);
+  --color-base-200: oklch(91.8% 0.018 123.72);
+  --color-base-300: oklch(84.89% 0.017 123.72);
+  --color-base-content: oklch(19.742% 0.004 123.72);
+  --color-primary: oklch(58.92% 0.199 134.6);
+  --color-primary-content: oklch(11.784% 0.039 134.6);
+  --color-secondary: oklch(77.75% 0.196 111.09);
+  --color-secondary-content: oklch(15.55% 0.039 111.09);
+  --color-accent: oklch(85.39% 0.201 100.73);
+  --color-accent-content: oklch(17.078% 0.04 100.73);
+  --color-neutral: oklch(30.98% 0.075 108.6);
+  --color-neutral-content: oklch(86.196% 0.015 108.6);
+  --color-info: oklch(86.19% 0.047 224.14);
+  --color-info-content: oklch(17.238% 0.009 224.14);
+  --color-success: oklch(86.19% 0.047 157.85);
+  --color-success-content: oklch(17.238% 0.009 157.85);
+  --color-warning: oklch(86.19% 0.047 102.15);
+  --color-warning-content: oklch(17.238% 0.009 102.15);
+  --color-error: oklch(86.19% 0.047 25.85);
+  --color-error-content: oklch(17.238% 0.009 25.85);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "forest";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(20.84% 0.008 17.911);
+  --color-base-200: oklch(18.522% 0.007 17.911);
+  --color-base-300: oklch(16.203% 0.007 17.911);
+  --color-base-content: oklch(83.768% 0.001 17.911);
+  --color-primary: oklch(68.628% 0.185 148.958);
+  --color-primary-content: oklch(0% 0 0);
+  --color-secondary: oklch(69.776% 0.135 168.327);
+  --color-secondary-content: oklch(13.955% 0.027 168.327);
+  --color-accent: oklch(70.628% 0.119 185.713);
+  --color-accent-content: oklch(14.125% 0.023 185.713);
+  --color-neutral: oklch(30.698% 0.039 171.364);
+  --color-neutral-content: oklch(86.139% 0.007 171.364);
+  --color-info: oklch(72.06% 0.191 231.6);
+  --color-info-content: oklch(0% 0 0);
+  --color-success: oklch(64.8% 0.15 160);
+  --color-success-content: oklch(0% 0 0);
+  --color-warning: oklch(84.71% 0.199 83.87);
+  --color-warning-content: oklch(0% 0 0);
+  --color-error: oklch(71.76% 0.221 22.18);
+  --color-error-content: oklch(0% 0 0);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "corporate";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(93% 0 0);
+  --color-base-300: oklch(86% 0 0);
+  --color-base-content: oklch(22.389% 0.031 278.072);
+  --color-primary: oklch(58% 0.158 241.966);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(55% 0.046 257.417);
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: oklch(60% 0.118 184.704);
+  --color-accent-content: oklch(100% 0 0);
+  --color-neutral: oklch(0% 0 0);
+  --color-neutral-content: oklch(100% 0 0);
+  --color-info: oklch(60% 0.126 221.723);
+  --color-info-content: oklch(100% 0 0);
+  --color-success: oklch(62% 0.194 149.214);
+  --color-success-content: oklch(100% 0 0);
+  --color-warning: oklch(85% 0.199 91.936);
+  --color-warning-content: oklch(0% 0 0);
+  --color-error: oklch(70% 0.191 22.216);
+  --color-error-content: oklch(0% 0 0);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "dim";
+  default: false;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(30.857% 0.023 264.149);
+  --color-base-200: oklch(28.036% 0.019 264.182);
+  --color-base-300: oklch(26.346% 0.018 262.177);
+  --color-base-content: oklch(82.901% 0.031 222.959);
+  --color-primary: oklch(86.133% 0.141 139.549);
+  --color-primary-content: oklch(17.226% 0.028 139.549);
+  --color-secondary: oklch(73.375% 0.165 35.353);
+  --color-secondary-content: oklch(14.675% 0.033 35.353);
+  --color-accent: oklch(74.229% 0.133 311.379);
+  --color-accent-content: oklch(14.845% 0.026 311.379);
+  --color-neutral: oklch(24.731% 0.02 264.094);
+  --color-neutral-content: oklch(82.901% 0.031 222.959);
+  --color-info: oklch(86.078% 0.142 206.182);
+  --color-info-content: oklch(17.215% 0.028 206.182);
+  --color-success: oklch(86.171% 0.142 166.534);
+  --color-success-content: oklch(17.234% 0.028 166.534);
+  --color-warning: oklch(86.163% 0.142 94.818);
+  --color-warning-content: oklch(17.232% 0.028 94.818);
+  --color-error: oklch(82.418% 0.099 33.756);
+  --color-error-content: oklch(16.483% 0.019 33.756);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "@tailwindcss/typography";
+@import "remixicon/fonts/remixicon.css";
+
+@font-face {
+  font-family: "LXGW Neo ZhiSong";
+  src: local("LXGW Neo ZhiSong"), local("LXGWNeoZhiSong"),
+    url("fonts/LXGWNeoZhiSong.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LXGW Neo XiHei";
+  src: local("LXGW Neo XiHei"), local("LXGWNeoXiHei"),
+    url("fonts/LXGWNeoXiHei.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LXGW WenKai GB Lite";
+  src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
+    url("fonts/LXGWWenKaiGBLite-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LXGW WenKai GB Lite";
+  src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
+    url("fonts/LXGWWenKaiGBLite-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zhuque Fangsong (technical preview)";
+  src: local("Zhuque Fangsong (technical preview)"),
+    local("ZhuqueFangsong(technicalpreview)"),
+    url("fonts/ZhuqueFangsong-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-song: "LXGW Neo ZhiSong", "STSong", "SimSun", serif;
+  --font-hei: "LXGW Neo XiHei", "STHeiti", "STXihei", "SimHei", sans-serif;
+  --font-kai: "LXGW WenKai GB Lite", "STKaiti", "KaiTi", cursive;
+  --font-fang: "Zhuque Fangsong (technical preview)", "STFangsong", "FangSong",
+    serif;
+}
+
+@layer utilities {
+  .font-song {
+    font-family: var(--font-song);
+  }
+
+  .font-hei {
+    font-family: var(--font-hei);
+  }
+
+  .font-kai {
+    font-family: var(--font-kai);
+  }
+
+  .font-fang {
+    font-family: var(--font-fang);
+  }
+
+  .prose p {
+    margin: var(--para-margin-inline) 0;
+    text-indent: var(--para-text-indent);
+  }
+
+  .prose blockquote p {
+    text-indent: 0;
+  }
+
+  .prose blockquote,
+  .prose em {
+    quotes: none;
+    font-family: var(--font-fang);
+  }
+}
+
+:root {
+  --color-prettylights-syntax-comment: var(--color-neutral);
+  --color-prettylights-syntax-constant: var(--color-primary);
+  --color-prettylights-syntax-entity: var(--color-secondary);
+  --color-prettylights-syntax-storage-modifier-import: var(--color-base-100);
+  --color-prettylights-syntax-entity-tag: var(--color-accent);
+  --color-prettylights-syntax-keyword: var(--color-error);
+  --color-prettylights-syntax-string: var(--color-success);
+  --color-prettylights-syntax-variable: var(--color-warning);
+  --color-prettylights-syntax-brackethighlighter-unmatched: var(
+    --color-accent-content
+  );
+  --color-prettylights-syntax-invalid-illegal-text: var(
+    --color-neutral-content
+  );
+  --color-prettylights-syntax-invalid-illegal-bg: var(--color-accent-content);
+  --color-prettylights-syntax-carriage-return-text: var(
+    --color-neutral-content
+  );
+  --color-prettylights-syntax-carriage-return-bg: var(--color-accent-content);
+  --color-prettylights-syntax-string-regexp: var(--color-accent);
+  --color-prettylights-syntax-markup-list: var(--color-warning);
+  --color-prettylights-syntax-markup-heading: var(--color-primary);
+  --color-prettylights-syntax-markup-italic: var(--color-base-100);
+  --color-prettylights-syntax-markup-bold: var(--color-base-100);
+  --color-prettylights-syntax-markup-deleted-text: var(--color-error);
+  --color-prettylights-syntax-markup-deleted-bg: var(--color-accent-content);
+  --color-prettylights-syntax-markup-inserted-text: var(--color-success);
+  --color-prettylights-syntax-markup-inserted-bg: var(--color-accent-content);
+  --color-prettylights-syntax-markup-changed-text: var(--color-warning);
+  --color-prettylights-syntax-markup-changed-bg: var(--color-accent-content);
+  --color-prettylights-syntax-markup-ignored-text: var(--color-base-100);
+  --color-prettylights-syntax-markup-ignored-bg: var(--color-primary);
+  --color-prettylights-syntax-meta-diff-range: var(--color-secondary);
+  --color-prettylights-syntax-brackethighlighter-angle: var(--color-neutral);
+  --color-prettylights-syntax-sublimelinter-gutter-mark: var(--color-base-100);
+  --color-prettylights-syntax-constant-other-reference-link: var(--color-info);
+  --color-btn-text: var(--color-base-content);
+  --color-btn-bg: var(--color-base-200);
+  --color-btn-border: var(--color-base-300);
+  --color-btn-shadow: 0 0 #0000;
+  --color-btn-inset-shadow: 0 0 #0000;
+  --color-btn-hover-bg: var(--color-base-100);
+  --color-btn-hover-border: var(--color-base-200);
+  --color-btn-active-bg: var(--color-secondary);
+  --color-btn-active-border: var(--color-secondary-content);
+  --color-btn-selected-bg: var(--color-primary);
+  --color-btn-primary-text: var(--color-primary-content);
+  --color-btn-primary-bg: var(--color-primary);
+  --color-btn-primary-border: var(--color-base-300);
+  --color-btn-primary-shadow: 0 0 #0000;
+  --color-btn-primary-inset-shadow: 0 0 #0000;
+  --color-btn-primary-hover-bg: var(--color-secondary);
+  --color-btn-primary-hover-border: var(--color-secondary-content);
+  --color-btn-primary-selected-bg: var(--color-accent);
+  --color-btn-primary-selected-shadow: 0 0 #0000;
+  --color-btn-primary-disabled-text: var(--color-neutral-content);
+  --color-btn-primary-disabled-bg: var(--color-base-100);
+  --color-btn-primary-disabled-border: var(--color-base-300);
+  --color-action-list-item-default-hover-bg: var(--color-base-200);
+  --color-segmented-control-bg: var(--color-base-300);
+  --color-segmented-control-button-bg: var(--color-base-100);
+  --color-segmented-control-button-selected-border: var(--color-base-300);
+  --color-fg-default: var(--color-base-100);
+  --color-fg-muted: var(--color-neutral);
+  --color-fg-subtle: var(--color-secondary-content);
+  --color-canvas-default: var(--color-base-200);
+  --color-canvas-overlay: var(--color-base-300);
+  --color-canvas-inset: var(--color-base-100);
+  --color-canvas-subtle: var(--color-secondary);
+  --color-border-default: var(--color-base-100);
+  --color-border-muted: var(--color-base-300);
+  --color-neutral-muted: var(--color-base-100);
+  --color-accent-fg: var(--color-accent);
+  --color-accent-emphasis: var(--color-secondary);
+  --color-accent-muted: var(--color-base-100);
+  --color-accent-subtle: var(--color-base-200);
+  --color-success-fg: var(--color-success);
+  --color-attention-fg: var(--color-warning);
+  --color-attention-muted: var(--color-accent-content);
+  --color-attention-subtle: var(--color-accent-content);
+  --color-danger-fg: var(--color-error);
+  --color-danger-muted: var(--color-accent-content);
+  --color-danger-subtle: var(--color-accent-content);
+  --color-primer-shadow-inset: 0 0 #0000;
+  --color-scale-gray-7: var(--color-base-100);
+  --color-scale-blue-8: var(--color-info);
+
+  /*! Extensions from @primer/css/alerts/flash.scss */
+  --color-social-reaction-bg-hover: var(--color-scale-gray-7);
+  --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+}
