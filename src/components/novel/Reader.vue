@@ -25,19 +25,14 @@
         </section>
 
         <section
-          class="flex-1 mx-12 max-lg:mt-0 mt-6 md:w-[10%] md:sticky md:top-12 basis-xs"
+          class="flex-1 mx-12 max-lg:mt-0 mt-6 md:w-[10%] md:sticky md:top-12 basis-xs prose"
         >
-          <article class="prose mb-3">
-            <h1 class="inline">
-              {{ currentMapping === "title" ? "本章说" : "本书说" }}
-            </h1>
-            <button
-              class="btn btn-info btn-xs mx-2 mb-4"
-              @click="commentToggle"
-            >
-              {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
-            </button>
-          </article>
+          <h1 class="inline">
+            {{ currentMapping === "title" ? "本章说" : "本书说" }}
+          </h1>
+          <button class="btn btn-info btn-xs mx-2 mb-4" @click="commentToggle">
+            {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
+          </button>
           <Giscus
             :key="novelStore.currentChapterInfo?.chapter.name"
             repo="KoMoriSam/komorisam.github.io"

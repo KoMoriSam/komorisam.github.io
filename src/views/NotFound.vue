@@ -5,7 +5,9 @@
     title="Ah Oh!"
     description="404 Not Found :("
   >
-    <button class="btn btn-primary" @click="route.push('/')">回到主页</button>
+    <button class="btn btn-primary mt-2 lg:mt-4" @click="route.push('/')">
+      回到主页
+    </button>
   </BasePage>
 </template>
 
