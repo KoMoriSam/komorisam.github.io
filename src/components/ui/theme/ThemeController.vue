@@ -2,7 +2,7 @@
   <div class="dropdown dropdown-end">
     <div tabindex="0" role="button" class="btn btn-ghost m-1">
       <i :class="currentTheme.icon" class="text-base lg:text-xl"></i>
-      <span class="hidden lg:block"> 主题 </span>
+      <span class="hidden lg:block">主题</span>
       <i class="ri-arrow-down-s-line hidden lg:block"></i>
     </div>
     <ul
@@ -13,12 +13,17 @@
         <div class="relative inline-block">
           <i
             class="absolute translate-x-2.25 translate-y-3 lg:translate-y-3.25 z-1"
-            :class="style.icon"
+            :class="`${style.icon} ${
+              style.name === currentTheme.name ? 'text-primary-content' : ''
+            }`"
           ></i>
           <input
             type="radio"
             name="theme-dropdown"
-            class="theme-controller btn btn-sm btn-ghost justify-end pl-6 my-1 lg:my-1.5"
+            class="theme-controller btn btn-sm justify-end pl-6 my-1 lg:my-1.5"
+            :class="
+              style.name === currentTheme.name ? 'btn-primary' : 'btn-ghost'
+            "
             :aria-label="style.name"
             :value="style.value"
             v-model="themeStore.theme"
