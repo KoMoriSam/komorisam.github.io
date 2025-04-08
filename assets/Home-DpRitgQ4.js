@@ -1,1 +1,0 @@
-import{_ as t}from"./BasePage-MfygyGzJ.js";import{c as a,o,w as r,a as s}from"./index-Cf36uYaP.js";import"./FootBar-CgAxnNlX.js";const _={__name:"Home",setup(m){return(i,e)=>(o(),a(t,{imageSrc:"/assets/image/me1.png",imageAlt:"Hello Me!",title:"你好！",description:"这是 KoMoriSam 的个人网站"},{default:r(()=>e[0]||(e[0]=[s("p",null,"在这里会分享一些正在做的小玩意",-1)])),_:1}))}};export{_ as default};
