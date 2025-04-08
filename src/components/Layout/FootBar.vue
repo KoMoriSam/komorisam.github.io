@@ -4,7 +4,7 @@
   >
     <aside>
       <img src="/assets/image/welcome.png" alt="welcome!" class="h-5" />
-      <small>
+      <small class="text-sm">
         KoMoriSam
         <br />
         © 2025

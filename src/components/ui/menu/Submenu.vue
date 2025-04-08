@@ -1,5 +1,5 @@
 <template>
-  <main class="menu w-fit">
+  <section class="menu w-fit">
     <ul>
       <li>
         <details open>
@@ -10,7 +10,7 @@
         </details>
       </li>
     </ul>
-  </main>
+  </section>
 </template>
 
 <script setup>

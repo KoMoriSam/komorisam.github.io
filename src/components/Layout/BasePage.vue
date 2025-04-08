@@ -8,11 +8,11 @@
       class="h-52 lg:w-52 lg:h-auto lg:basis-3xs rounded-lg"
     />
     <div class="divider md:divider-horizontal m-0 p-0"></div>
-    <article class="prose lg:prose-xl lg:basis-3xl">
+    <section class="prose lg:prose-xl lg:basis-3xl">
       <h1>{{ title }}</h1>
       <p>{{ description }}</p>
       <slot></slot>
-    </article>
+    </section>
   </main>
   <FootBar />
   <ToTop />
