@@ -37,7 +37,7 @@
             :key="novelStore.currentChapterInfo?.chapter.name"
             repo="KoMoriSam/komorisam.github.io"
             repo-id="R_kgDOJxn8KA"
-            category="Announcements"
+            category="General"
             category-id="DIC_kwDOJxn8KM4Cnp6m"
             :mapping="currentMapping"
             term="向远方"
