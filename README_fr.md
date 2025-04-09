@@ -130,7 +130,7 @@ Ce projet est sous licence MIT. Voir [📄 LICENSE](https://github.com/KoMoriSam
 
 ## 🌍 Support multilingue
 
-📖 Ce projet supporte plusieurs langues :
+📖 Ce fichier `README.md` supporte plusieurs langues :
 
 - 🇨🇳 [Documentation en chinois](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
 - 🌐 [English Version](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)

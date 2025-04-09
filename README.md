@@ -130,7 +130,7 @@ npm run build
 
 ## 🌍 多语言支持
 
-📖 本项目支持中英文文档：
+📖 本 `README.md` 支持多语言：
 
 - 🌐 [English Version](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)
 - 🇫🇷 [Version française](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)

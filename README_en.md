@@ -133,7 +133,7 @@ See [📄 LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/
 
 ## 🌍 Language Support
 
-📖 This project supports both English and Chinese documentation:
+📖 This `README.md` supports multiple languages:
 
 - 🇨🇳 [中文文档](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
 - 🇫🇷 [Version française](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)
