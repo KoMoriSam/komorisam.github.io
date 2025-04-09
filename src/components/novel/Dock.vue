@@ -57,7 +57,7 @@
 <script setup>
 import FloatingButton from "@/components/ui/button/FloatingButton.vue";
 
-const props = defineProps({
+defineProps({
   toggleComponent: {
     type: Function,
     required: true,
