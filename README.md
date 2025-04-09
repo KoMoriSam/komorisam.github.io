@@ -44,29 +44,29 @@ npm run build
 
 ```bash
 .
-├── public/   # 静态资源目录
-│   ├── archive/  # 归档的旧版网页
-│   └── assets/   # 静态资源（图片、字体等）
+├── public/           # 静态资源目录
+│   ├── archive/      # 归档的旧版网页
+│   └── assets/       # 静态资源（图片、字体等）
 ├── src/
-│   ├── assets/   # CSS 样式等资源
+│   ├── assets/       # CSS 样式等资源
 │   ├── components/   # Vue 组件
 │   │   ├── layout/   # 布局相关组件
-│   │   ├── novel/# 小说相关组件
-│   │   ├── ui/   # 通用 UI 组件
-│   └── views/# 页面视图
-│   ├── Home.vue  # 主页
-│   ├── About.vue # 关于页面
+│   │   ├── novel/    # 小说相关组件
+│   │   ├── ui/       # 通用 UI 组件
+│   └── views/        # 页面视图
+│   ├── Home.vue      # 主页
+│   ├── About.vue     # 关于页面
 │   ├── Contact.vue   # 联系页面
-│   ├── Novel.vue # 小说页面
+│   ├── Novel.vue     # 小说页面
 │   └── NotFound.vue  # 404 页面
-├── src/router/   # Vue Router 配置
-│   └── index.js  # 路由定义
-├── src/stores/   # Pinia 状态管理
-│   ├── novel.js  # 小说相关状态
-│   └── theme.js  # 主题相关状态
-├── src/main.js   # 应用入口文件
-├── vite.config.js# Vite 配置文件
-└── package.json  # 项目依赖和脚本
+├── src/router/       # Vue Router 配置
+│   └── index.js      # 路由定义
+├── src/stores/       # Pinia 状态管理
+│   ├── novel.js      # 小说相关状态
+│   └── theme.js      # 主题相关状态
+├── src/main.js       # 应用入口文件
+├── vite.config.js    # Vite 配置文件
+└── package.json      # 项目依赖和脚本
 ```
 
 ---

@@ -44,29 +44,29 @@ Aperçu de la structure du projet pour une navigation rapide :
 
 ```bash
 .
-├── public/         # Ressources statiques
-│   ├── archive/    # Archives des anciennes pages
-│   └── assets/     # Ressources (images, polices, etc.)
+├── public/           # Ressources statiques
+│   ├── archive/      # Archives des anciennes pages
+│   └── assets/       # Ressources (images, polices, etc.)
 ├── src/
-│   ├── assets/     # Styles CSS et autres ressources
-│   ├── components/ # Composants Vue
-│   │   ├── layout/ # Composants de mise en page
-│   │   ├── novel/  # Composants liés au roman
-│   │   ├── ui/     # Composants UI réutilisables
-│   └── views/      # Vues des pages
-│   ├── Home.vue        # Page d'accueil
-│   ├── About.vue       # Page À propos
-│   ├── Contact.vue     # Page de contact
-│   ├── Novel.vue       # Page du roman
-│   └── NotFound.vue    # Page 404
-├── src/router/     # Configuration de Vue Router
+│   ├── assets/       # Styles CSS et autres ressources
+│   ├── components/   # Composants Vue
+│   │   ├── layout/   # Composants de mise en page
+│   │   ├── novel/    # Composants liés au roman
+│   │   ├── ui/       # Composants UI réutilisables
+│   └── views/        # Vues des pages
+│   ├── Home.vue      # Page d'accueil
+│   ├── About.vue     # Page À propos
+│   ├── Contact.vue   # Page de contact
+│   ├── Novel.vue     # Page du roman
+│   └── NotFound.vue  # Page 404
+├── src/router/       # Configuration de Vue Router
 │   └── index.js
-├── src/stores/     # Gestion d'état avec Pinia
+├── src/stores/       # Gestion d'état avec Pinia
 │   ├── novel.js
 │   └── theme.js
-├── src/main.js     # Point d'entrée de l'application
-├── vite.config.js  # Configuration de Vite
-└── package.json    # Dépendances et scripts
+├── src/main.js       # Point d'entrée de l'application
+├── vite.config.js    # Configuration de Vite
+└── package.json      # Dépendances et scripts
 ```
 
 ---
