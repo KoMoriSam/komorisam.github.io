@@ -135,5 +135,5 @@ See [📄 LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/
 
 📖 This project supports both English and Chinese documentation:
 
-- 🌐 [English Version](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)
 - 🇨🇳 [中文文档](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
+- 🇫🇷 [Version française](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)
