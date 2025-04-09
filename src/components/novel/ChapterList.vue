@@ -63,11 +63,9 @@ const novelStore = useNovelStore();
 const props = defineProps({
   toggleComponent: {
     type: Function,
-    required: true,
   },
   currentComponent: {
     type: String,
-    required: true,
   },
 });
 

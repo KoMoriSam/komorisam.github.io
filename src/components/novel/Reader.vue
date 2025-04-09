@@ -51,70 +51,20 @@
           />
         </section>
 
-        <aside class="max-lg:dock">
-          <FloatingButton
-            for="my-drawer-2"
-            icon="ri-settings-3-line"
-            label="设置"
-            position-classes="lg:bottom-88"
-            button-class="lg:btn-primary"
-            :onClick="() => (currentTool = 'FormatToolbox')"
-          />
-          <FloatingButton
-            for="my-drawer-2"
-            icon="ri-file-list-2-line"
-            label="目录"
-            position-classes="lg:bottom-74"
-            button-class="lg:btn-primary"
-            :onClick="() => (currentTool = 'ChapterList')"
-          />
-          <FloatingButton
-            icon="ri-arrow-go-back-line"
-            label="封面页"
-            position-classes="lg:bottom-46"
-            button-class="lg:btn-secondary"
-            :onClick="
-              () => {
-                scrollToTop(0);
-                toggleComponent();
-              }
-            "
-          />
-          <FloatingButton
-            :icon="
-              isFullscreen
-                ? 'ri-collapse-diagonal-fill'
-                : 'ri-expand-diagonal-fill'
-            "
-            label="全屏"
-            position-classes="lg:bottom-60"
-            button-class="lg:btn-secondary"
-            :onClick="toggle"
-          />
-          <FloatingButton
-            icon="ri-skip-up-line"
-            label="回到顶部"
-            position-classes="lg:bottom-32"
-            button-class="lg:btn-info"
-            :onClick="() => scrollToTop()"
-          />
-          <FloatingButton
-            icon="ri-skip-down-line"
-            label="回到底部"
-            position-classes="lg:bottom-18"
-            button-class="lg:btn-info"
-            :onClick="() => scrollToBottom()"
-          />
-        </aside>
+        <Dock
+          :toggleComponent="toggleComponent"
+          :scrollToTop="scrollToTop"
+          :scrollToBottom="scrollToBottom"
+          :currentTool="currentTool"
+          :isFullscreen="isFullscreen"
+          :toggle="toggle"
+          @update:currentTool="(tool) => (currentTool = tool)"
+        />
       </template>
 
       <template #aside>
         <KeepAlive>
-          <component
-            :is="tools[currentTool]"
-            :toggleComponent="toggleComponent"
-            :currentComponent="currentComponent"
-          ></component>
+          <component :is="tools[currentTool]"></component>
         </KeepAlive>
       </template>
     </SideBar>
@@ -122,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onActivated, watch, onUpdated } from "vue";
+import { ref, onMounted, onActivated, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useFullscreen } from "@vueuse/core";
 import Giscus from "@giscus/vue";
@@ -136,7 +86,7 @@ import ChapterController from "@/components/novel/ChapterController.vue";
 import FormatToolbox from "@/components/novel/FormatToolbox.vue";
 import Markdown from "@/components/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
-import FloatingButton from "@/components/ui/button/FloatingButton.vue";
+import Dock from "@/components/novel/Dock.vue";
 
 // 路由相关
 const route = useRoute();
