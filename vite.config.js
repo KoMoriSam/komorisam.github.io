@@ -57,4 +57,32 @@ export default defineConfig({
   esbuild: {
     drop: ["console", "debugger"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: "js/[name]-[hash].js",
+        chunkFileNames: "js/[name]-[hash].js",
+        assetFileNames(assetInfo) {
+          if (assetInfo.name.endsWith(".css")) {
+            return "css/[name]-[hash].css";
+          }
+          if (
+            [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"].some((ext) =>
+              assetInfo.name.endsWith(ext)
+            )
+          ) {
+            return "assets/images/[name]-[hash].[ext]";
+          }
+          if (
+            [".ttf", ".otf", ".woff", ".woff2", ".eot"].some((ext) =>
+              assetInfo.name.endsWith(ext)
+            )
+          ) {
+            return "assets/fonts/[name]-[hash].[ext]";
+          }
+          return "assets/[name]-[hash].[ext]";
+        },
+      },
+    },
+  },
 });
