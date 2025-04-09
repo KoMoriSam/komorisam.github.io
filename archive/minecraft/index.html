@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Space!!! | KoMoriSam</title>
+
+    <!--=============== icons ===============-->
+    <link
+      rel="shortcut icon"
+      href="assets/image/icon/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!--=============== js ===============-->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/getText.js"></script>
+
+    <!--=============== css ===============-->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/bg3D.css" />
+  </head>
+
+  <body>
+    <div class="bg3D">
+      <div class="out-front"></div>
+      <div class="out-back"></div>
+      <div class="out-left"></div>
+      <div class="out-right"></div>
+    </div>
+
+    <header>
+      <img
+        src="assets/image/title/minecraft.png"
+        alt="minecraft"
+        class="img-title"
+      />
+      <img
+        src="assets/image/title/html_edition.png"
+        alt="html-edition"
+        class="img-edition"
+      />
+      <span id="splash"></span>
+    </header>
+
+    <main>
+      <div class="button_list">
+        <p>
+          <button
+            class="long_btn"
+            onclick="playSoundAndRedirect('https://www.minecraft.net')"
+          >
+            开始游戏
+          </button>
+        </p>
+        <p>
+          <button class="long_btn" onclick="playSoundAndRedirect('about.html')">
+            游戏简介
+          </button>
+        </p>
+        <p><button class="long_btn" disabled="disabled">网易代理</button></p>
+        <p>
+          <button class="mid_btn" onclick="playSound()">网页设置</button>
+          <button class="mid_btn" onclick="playSoundAndRedirect('../../')">
+            退出网页
+          </button>
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        <button onclick="playSound(); musiccc()">
+          <img id="musicico" src="assets/image/icon/jukebox.png" width="16px" />
+          C418 - Minecraft
+        </button>
+      </p>
+      Made by KoMoriSam!!
+      <p>
+        <img src="assets/image/icon/github.svg" width="16px" />
+        <a href="https://github.com/KoMoriSam">GitHub</a>
+        <br />
+        <img src="https://www.bilibili.com/favicon.ico" width="16px" />
+        <a href="https://space.bilibili.com/71104942">Bilibili</a>
+      </p>
+    </footer>
+  </body>
+</html>
