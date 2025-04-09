@@ -6,12 +6,15 @@
     description="这是 KoMoriSam 的个人网站"
   >
     <p>在这里会分享一些正在做的小玩意</p>
-    <a
-      class="btn btn-primary mt-2 lg:mt-4 no-underline"
-      href="/archive/home/index.html"
-    >
-      <span class="badge badge-sm">在找以前的网页？</span>点这里跳转
-    </a>
+    <br />
+    <small class="text-sm text-base-content/50">
+      在找旧版网页？
+      <a
+        class="btn btn-primary btn-xs no-underline"
+        href="/archive/home/index.html"
+        >这里跳转</a
+      >
+    </small>
   </BasePage>
 </template>
 

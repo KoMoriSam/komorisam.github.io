@@ -5,7 +5,7 @@
     title="联系我"
     description="可以加 QQ 和 微信 捏~"
   >
-    <!-- 可选：插入额外内容 -->
+    <br />
     <address class="join max-sm:join-vertical">
       <a
         class="join-item btn btn-info text-info-content no-underline text-left justify-start"
