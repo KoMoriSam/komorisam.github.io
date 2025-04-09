@@ -1,29 +1,18 @@
-# 🧸 KoMoriSam 的博客
-
-This is my personal blog. 这是我的个人博客~
-
-[![Contributors][contributors-shield]][contributors-url]  
-[![Forks][forks-shield]][forks-url]  
-[![Stargazers][stars-shield]][stars-url]  
-[![Issues][issues-shield]][issues-url]  
-[![MIT License][license-shield]][license-url]  
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <p align="center">
   <a href="https://komorisam.github.io/">
-<img src="https://komorisam.github.io/assets/image/favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://komorisam.github.io/assets/image/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">✨ 基于 Vite + Vue3 重构的个人博客 ✨</h3>
   <p align="center">
-🎨 视觉支持 <a href="https://daisyui.com">daisyUI</a>
-<br />
-<br />
-<a href="https://github.com/KoMoriSam/komorisam.github.io">📂 查看源代码</a>
-·
-<a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🐞 报告Bug</a>
-·
-<a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🚀 提出新特性</a>
+    🎨 视觉支持 <a href="https://daisyui.com">daisyUI</a>
+    <br />
+    <br />
+    <a href="https://github.com/KoMoriSam/komorisam.github.io">📂 查看源代码</a>
+    ·
+    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🐞 报告Bug</a>
+    ·
+    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🚀 提出新特性</a>
   </p>
 
 ---

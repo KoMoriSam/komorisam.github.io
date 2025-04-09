@@ -1,14 +1,3 @@
-# 🧸 KoMoriSam's BLOG
-
-This is my personal blog built with Vite + Vue3 + TailwindCSS ✨
-
-[![Contributors][contributors-shield]][contributors-url]  
-[![Forks][forks-shield]][forks-url]  
-[![Stargazers][stars-shield]][stars-url]  
-[![Issues][issues-shield]][issues-url]  
-[![MIT License][license-shield]][license-url]  
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <p align="center">
   <a href="https://komorisam.github.io/">
     <img src="https://komorisam.github.io/assets/image/favicon.png" alt="Logo" width="80" height="80">
