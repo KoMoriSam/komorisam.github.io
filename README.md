@@ -14,7 +14,6 @@ This is my personal blog. 这是我的个人博客~
 <img src="https://komorisam.github.io/assets/image/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
-
   <h3 align="center">✨ 基于 Vite + Vue3 重构的个人博客 ✨</h3>
   <p align="center">
 🎨 视觉支持 <a href="https://daisyui.com">daisyUI</a>
@@ -26,7 +25,6 @@ This is my personal blog. 这是我的个人博客~
 ·
 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🚀 提出新特性</a>
   </p>
-
 
 ---
 
@@ -82,7 +80,7 @@ npm run build
 └── package.json  # 项目依赖和脚本
 ```
 
-------
+---
 
 ## ✅ 使用到的框架
 
@@ -99,7 +97,7 @@ npm run build
 - 🖼️ [Remix Icon](https://remixicon.com/)
 - 📄 [vue-markdown-render](https://github.com/cloudacy/vue-markdown-render)
 
-------
+---
 
 ## 🤝 贡献指南
 
@@ -115,7 +113,7 @@ npm run build
 - 功能已测试
 - 提交信息清晰简洁
 
-------
+---
 
 ## 🧪 兼容性
 
@@ -126,20 +124,20 @@ npm run build
 - ✅ Microsoft Edge
 - ✅ 移动端（iOS / Android）主流浏览器
 
-------
+---
 
 ## 📜 版权说明
 
 该项目签署了 MIT 授权许可，详情请参阅 [📄 LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE)
 
-------
+---
 
 ## 🙏 鸣谢
 
 - 📚 [Choose an Open Source License](https://choosealicense.com/)
 - 🌐 [GitHub Pages](https://pages.github.com/)
 
-------
+---
 
 ## 🌍 多语言支持
 
