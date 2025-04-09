@@ -56,7 +56,7 @@ export const useNovelStore = defineStore("novel", () => {
     if (!currentChapterInfo.value) return null;
     const { chapter, group } = currentChapterInfo.value;
     const volume = group.match(/(.*)/)?.[0];
-    return `/assets/markdown/novel/${volume}/${chapter.name}.md`;
+    return `https://komorisam.github.io/theHorizon/${volume}/${chapter.name}.md`;
   });
 
   const totalPages = computed(() => currentChapterContent.value.length);
@@ -70,7 +70,9 @@ export const useNovelStore = defineStore("novel", () => {
     if (chapterList.value.length > 0) return;
     try {
       isLoadingList.value = true;
-      const res = await fetch("/assets/markdown/novel/list.json");
+      const res = await fetch(
+        "https://komorisam.github.io/theHorizon/list.json"
+      );
       const data = await res.json();
       chapterList.value = data;
       flatChapterList.value = data.flatMap((ch) => ch.options);

@@ -147,7 +147,7 @@
 @font-face {
   font-family: "LXGW Neo ZhiSong";
   src: local("LXGW Neo ZhiSong"), local("LXGWNeoZhiSong"),
-    url("fonts/LXGWNeoZhiSong.woff2") format("woff2");
+    url("/assets/fonts/LXGWNeoZhiSong.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -156,7 +156,7 @@
 @font-face {
   font-family: "LXGW Neo XiHei";
   src: local("LXGW Neo XiHei"), local("LXGWNeoXiHei"),
-    url("fonts/LXGWNeoXiHei.woff2") format("woff2");
+    url("/assets/fonts/LXGWNeoXiHei.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -165,7 +165,7 @@
 @font-face {
   font-family: "LXGW WenKai GB Lite";
   src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
-    url("fonts/LXGWWenKaiGBLite-Medium.woff2") format("woff2");
+    url("/assets/fonts/LXGWWenKaiGBLite-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -174,7 +174,7 @@
 @font-face {
   font-family: "LXGW WenKai GB Lite";
   src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
-    url("fonts/LXGWWenKaiGBLite-Regular.woff2") format("woff2");
+    url("/assets/fonts/LXGWWenKaiGBLite-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -184,7 +184,7 @@
   font-family: "Zhuque Fangsong (technical preview)";
   src: local("Zhuque Fangsong (technical preview)"),
     local("ZhuqueFangsong(technicalpreview)"),
-    url("fonts/ZhuqueFangsong-Regular.woff2") format("woff2");
+    url("/assets/fonts/ZhuqueFangsong-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
