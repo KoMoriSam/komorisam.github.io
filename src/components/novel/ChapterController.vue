@@ -29,7 +29,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNovelStore } from "@/stores/novel";
 
-import Pagination from "@/components/ui/Pagination.vue";
+import Pagination from "@/components/base/Pagination.vue";
 
 const novelStore = useNovelStore();
 

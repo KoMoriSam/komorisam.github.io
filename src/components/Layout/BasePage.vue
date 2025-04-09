@@ -20,7 +20,7 @@
 
 <script setup>
 import FootBar from "@/components/layout/FootBar.vue";
-import ToTop from "@/components/ui/ToTop.vue";
+import ToTop from "@/components/base/ToTop.vue";
 
 const props = defineProps({
   imageSrc: {

@@ -56,7 +56,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNovelStore } from "@/stores/novel";
 
-import Loading from "@/components/ui/Loading.vue";
+import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";
 
 const novelStore = useNovelStore();

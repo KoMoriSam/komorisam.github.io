@@ -13,7 +13,6 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { storeToRefs } from "pinia";
 import { useNovelStore } from "@/stores/novel";
 
 const route = useRoute();

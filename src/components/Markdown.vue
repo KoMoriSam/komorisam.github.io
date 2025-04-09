@@ -30,7 +30,7 @@
 import { useNovelStore } from "@/stores/novel";
 
 import VueMarkdown from "vue-markdown-render";
-import Loading from "@/components/ui/Loading.vue";
+import Loading from "@/components/base/Loading.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
