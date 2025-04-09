@@ -1,6 +1,6 @@
 <template>
   <BasePage
-    :imageSrc="`/assets/image/me3.png`"
+    :imageSrc="`/assets/images/profile/me3.png`"
     imageAlt="Contact Me!"
     title="联系我"
     description="可以加 QQ 和 微信 捏~"

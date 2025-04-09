@@ -5,7 +5,7 @@
     <section class="hero basis-2xl">
       <figure class="hero-content flex-col lg:flex-row">
         <img
-          src="/assets/image/cover.png"
+          src="/assets/images/covers/theHorizon.png"
           alt="向远方"
           class="max-w-full sm:max-w-3xs rounded-lg shadow-2xl lg:mr-6 mb-6"
         />

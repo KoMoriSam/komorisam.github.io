@@ -1,6 +1,6 @@
 <template>
   <BasePage
-    :imageSrc="`/assets/image/me2.png`"
+    :imageSrc="`/assets/images/profile/me2.png`"
     imageAlt="About Me!"
     title="关于我"
     description="21 岁，是学生。"

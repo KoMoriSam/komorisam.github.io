@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://komorisam.github.io/">
-    <img src="https://komorisam.github.io/assets/image/favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://komorisam.github.io/assets/images/icons/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">✨ A Personal Blog Rebuilt with Vite + Vue 3 ✨</h3>

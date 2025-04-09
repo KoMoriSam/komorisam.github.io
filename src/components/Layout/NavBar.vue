@@ -5,7 +5,7 @@
         @click="router.push('/')"
         class="hidden lg:btn lg:btn-ghost lg:text-xl"
       >
-        <img src="/assets/image/logo.png" alt="KoMoriSam" class="h-8" />
+        <img src="/assets/images/icons/logo.png" alt="KoMoriSam" class="h-8" />
       </a>
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -21,7 +21,7 @@
     </nav>
     <nav class="navbar-center">
       <a @click="router.push('/')" class="lg:hidden btn btn-ghost text-xl">
-        <img src="/assets/image/logo.png" alt="KoMoriSam" class="h-8" />
+        <img src="/assets/images/icons/logo.png" alt="KoMoriSam" class="h-8" />
       </a>
       <div class="hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
