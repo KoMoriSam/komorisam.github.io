@@ -1,0 +1,1 @@
+import{_ as e}from"./BasePage-B7asxLm8.js";import{c as a,w as o,o as s,a as r}from"./index-C92ahULW.js";import"./FootBar-C4hKInRA.js";const c={__name:"About",setup(i){return(m,t)=>(s(),a(e,{imageSrc:"/assets/image/me2.png",imageAlt:"About Me!",title:"关于我",description:"21 岁，是学生。"},{default:o(()=>t[0]||(t[0]=[r("p",null,"样样通，样样不精",-1)])),_:1}))}};export{c as default};
