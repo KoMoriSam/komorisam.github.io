@@ -2,14 +2,20 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useStorage } from "@vueuse/core";
 import { useTitle } from "@vueuse/core";
+import CONFIG from "@/config.js";
+
+const BASE_URL = CONFIG.BASE_URL;
+const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration("medium");
 
 export const useNovelStore = defineStore("novel", () => {
   // 章节相关状态
   const chapterList = ref([]);
+  const storedChapterList = useStorage("CHAPTER_LIST", []);
+  const lastUpdated = useStorage("CHAPTER_LIST_UPDATED_AT", 0);
   const flatChapterList = ref([]);
   const readChapterList = useStorage("READ_CHS", []);
   const currentChapterContent = ref([]);
-  const contentCache = ref({});
+  const contentCache = useStorage("CHAPTERS_CONTENT", {});
   const currentChapterId = useStorage("READ_CH", 1);
   const currentChapterPage = useStorage("READ_PAGE", 1);
   const title = ref("向远方 | KoMoriSam");
@@ -56,7 +62,7 @@ export const useNovelStore = defineStore("novel", () => {
     if (!currentChapterInfo.value) return null;
     const { chapter, group } = currentChapterInfo.value;
     const volume = group.match(/(.*)/)?.[0];
-    return `https://komorisam.github.io/theHorizon/${volume}/${chapter.name}.md`;
+    return `${BASE_URL}/${volume}/${chapter.name}.md`;
   });
 
   const totalPages = computed(() => currentChapterContent.value.length);
@@ -66,20 +72,61 @@ export const useNovelStore = defineStore("novel", () => {
   );
 
   // Actions
-  const setChapterList = async () => {
-    if (chapterList.value.length > 0) return;
+  const setChapterList = async (forceUpdate = false) => {
+    const now = Date.now();
+
+    if (
+      !forceUpdate &&
+      storedChapterList.value.length > 0 &&
+      now - lastUpdated.value < CACHE_EXPIRATION
+    ) {
+      console.log("setChapterList: Call cache");
+      chapterList.value = storedChapterList.value;
+      flatList(storedChapterList.value);
+      isLoadingList.value = false;
+      return;
+    }
+
     try {
       isLoadingList.value = true;
-      const res = await fetch(
-        "https://komorisam.github.io/theHorizon/list.json"
-      );
+      const res = await fetch(`${BASE_URL}/list.json`);
       const data = await res.json();
       chapterList.value = data;
-      flatChapterList.value = data.flatMap((ch) => ch.options);
+      storedChapterList.value = chapterList.value;
+      lastUpdated.value = now; // 更新缓存时间戳
+      flatList(data);
+      if (forceUpdate) {
+        console.log("setChapterList: Force update");
+      } else {
+        console.log("setChapterList: First loading");
+      }
+      await loadChapterContent();
     } catch (error) {
       console.error("列表加载失败:", error);
     } finally {
       isLoadingList.value = false;
+    }
+  };
+
+  const flatList = (list) => {
+    flatChapterList.value = list.flatMap((item) => item.options);
+  };
+
+  const refreshChapterList = async () => {
+    await setChapterList(true);
+    contentCache.value = {}; // 清空缓存
+    await loadChapterContent();
+  };
+
+  const refreshContent = async () => {
+    try {
+      delete contentCache.value[currentChapterId.value]; // 清空当前章节缓存
+      console.log("refreshContent: Clear cache");
+      await loadChapterContent();
+      console.log("refreshContent: Reload content");
+    } catch (error) {
+      console.error("刷新内容失败:", error);
+      throw error;
     }
   };
 
@@ -88,11 +135,12 @@ export const useNovelStore = defineStore("novel", () => {
     if (contentCache.value[currentChapterId.value]) {
       console.log("loadChapterContent: Call cache");
       currentChapterContent.value = contentCache.value[currentChapterId.value];
+      isLoadingContent.value = false;
       return;
     }
     try {
       isLoadingContent.value = true;
-      console.log("loadChapterContent: First loading");
+      console.log("loadChapterContent: load");
       const response = await fetch(contentUrl.value);
       if (!response.ok) throw new Error("加载失败");
       const markdownContent = await response.text();
@@ -128,7 +176,6 @@ export const useNovelStore = defineStore("novel", () => {
     currentChapterId.value = id;
     console.log("setChapter:", id);
     await loadChapterContent();
-    console.log("The content is loaded!");
   };
 
   const setPage = (page) => {
@@ -187,7 +234,9 @@ export const useNovelStore = defineStore("novel", () => {
     totalPages,
     currentPageContent,
     setChapterList,
+    refreshChapterList,
     loadChapterContent,
+    refreshContent,
     setChapter,
     setPage,
     updateTitle,
