@@ -9,16 +9,16 @@
     <aside class="drawer-side">
       <label
         for="my-drawer-2"
-        aria-label="close sidebar"
+        aria-label="关闭侧边栏"
         class="drawer-overlay"
       ></label>
-      <ul
+      <section
         class="menu bg-base-200 text-base-content min-h-full p-4 w-80 md:w-96 items-center"
       >
         <aside class="flex-1 flex flex-col lg:sticky lg:top-12">
           <slot name="aside"></slot>
         </aside>
-      </ul>
+      </section>
     </aside>
   </section>
 </template>

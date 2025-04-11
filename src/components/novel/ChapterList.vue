@@ -1,5 +1,16 @@
 <template>
   <Submenu title="章节目录">
+    <template #btn>
+      <button
+        class="btn btn-info btn-square btn-sm ml-auto"
+        @click="novelStore.refreshChapterList()"
+        :disabled="novelStore.isLoadingList"
+      >
+        <div class="tooltip" data-tip="刷新">
+          <i class="ri-refresh-line m-2"></i>
+        </div>
+      </button>
+    </template>
     <Loading v-if="novelStore.isLoadingList" />
 
     <li v-else v-for="group in novelStore.chapterList" :key="group.label">

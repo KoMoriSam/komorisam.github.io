@@ -3,6 +3,7 @@
     class="flex-1 flex flex-col md:flex-row mx-12 my-12 items-start md:items-center justify-center md:justify-evenly gap-12"
   >
     <img
+      v-fade-in
       :src="imageSrc"
       :alt="imageAlt"
       class="h-52 lg:w-52 lg:h-auto lg:basis-3xs rounded-lg"

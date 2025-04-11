@@ -3,7 +3,11 @@
     <ul>
       <li>
         <details open>
-          <summary class="font-bold text-xl">{{ title }}</summary>
+          <summary class="font-bold text-xl flex">
+            {{ title }}
+            <slot name="btn"></slot>
+          </summary>
+
           <ul>
             <slot></slot>
           </ul>

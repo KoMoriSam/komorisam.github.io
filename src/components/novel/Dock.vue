@@ -19,7 +19,7 @@
     <FloatingButton
       icon="ri-arrow-go-back-line"
       label="封面页"
-      position-classes="lg:bottom-46"
+      position-classes="lg:bottom-60"
       button-class="lg:btn-secondary"
       :onClick="
         () => {
@@ -33,7 +33,7 @@
         isFullscreen ? 'ri-collapse-diagonal-fill' : 'ri-expand-diagonal-fill'
       "
       label="全屏"
-      position-classes="lg:bottom-60"
+      position-classes="lg:bottom-46"
       button-class="lg:btn-secondary"
       :onClick="toggle"
     />

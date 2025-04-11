@@ -2,12 +2,18 @@
   <main
     class="flex-1 flex flex-wrap m-12 items-start justify-center lg:justify-evenly gap-4"
   >
-    <section class="hero basis-2xl">
-      <figure class="hero-content flex-col lg:flex-row">
+    <section class="hero basis-2xs">
+      <figure class="hero-content flex flex-col w-full m-0 p-0">
+        <div
+          v-show="!isLoaded"
+          class="skeleton min-w-full aspect-12/17 mb-6 z-20"
+        ></div>
         <img
+          v-fade-in
           src="/assets/images/covers/theHorizon.png"
           alt="向远方"
-          class="max-w-full sm:max-w-3xs rounded-lg shadow-2xl lg:mr-6 mb-6"
+          class="w-full rounded-lg shadow-2xl mb-6 z-10"
+          @load="handleImageLoad"
         />
         <figcaption>
           <h1 class="text-5xl font-bold">向远方</h1>
@@ -43,7 +49,7 @@
       />
     </section>
 
-    <Giscus
+    <!-- <Giscus
       class="basis-sm"
       repo="KoMoriSam/komorisam.github.io"
       repo-id="R_kgDOJxn8KA"
@@ -58,13 +64,13 @@
       :theme="themeStore.giscusTheme"
       lang="zh-CN"
       loading="lazy"
-    />
+    /> -->
   </main>
   <FootBar />
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Giscus from "@giscus/vue";
 
@@ -77,6 +83,11 @@ import FootBar from "@/components/layout/FootBar.vue";
 
 const novelStore = useNovelStore();
 const themeStore = useThemeStore();
+
+const isLoaded = ref(false);
+const handleImageLoad = () => {
+  isLoaded.value = true; // 图片加载完成后设置为 true
+};
 
 const router = useRouter();
 const props = defineProps({

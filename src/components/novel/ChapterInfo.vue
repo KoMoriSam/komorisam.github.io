@@ -1,15 +1,16 @@
 <template>
-  <ul>
-    <li
-      :class="['btn text-left justify-start font-bold', additionalClasses]"
+  <section class="flex justify-between gap-2">
+    <a
+      :class="['btn justify-start font-bold flex-2', additionalClasses]"
       @click="onClick"
     >
       <span class="badge badge-sm mr-4">
         {{ badgeText }}
       </span>
       {{ content }}
-    </li>
-  </ul>
+    </a>
+    <slot></slot>
+  </section>
 </template>
 
 <script setup>

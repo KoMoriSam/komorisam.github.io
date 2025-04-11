@@ -7,7 +7,7 @@
             v-if="novelStore.latestChapter"
             badgeText="最新章节"
             :content="novelStore.latestChapter.name"
-            additionalClasses="btn-info lg:btn-lg w-full mb-6"
+            additionalClasses="btn-info lg:btn-lg mb-6"
             :onClick="() => handleChange(novelStore.latestChapter)"
           />
           <ChapterInfo
@@ -17,8 +17,15 @@
                 ? novelStore.currentChapterInfo.chapter.name
                 : '请选择章节'
             "
-            additionalClasses="w-full lg:btn-lg"
-          />
+            additionalClasses="lg:btn-lg"
+          >
+            <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
+              <button class="btn lg:btn-lg" @click="novelStore.refreshContent">
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+          </ChapterInfo>
+
           <ChapterController />
           <Markdown />
           <ChapterController v-if="!novelStore.isLoadingContent" />
@@ -33,7 +40,7 @@
           <button class="btn btn-info btn-xs mx-2 mb-4" @click="commentToggle">
             {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
           </button>
-          <Giscus
+          <!-- <Giscus
             :key="novelStore.currentChapterInfo?.chapter.name"
             repo="KoMoriSam/komorisam.github.io"
             repo-id="R_kgDOJxn8KA"
@@ -48,7 +55,7 @@
             :theme="themeStore.giscusTheme"
             lang="zh-CN"
             loading="lazy"
-          />
+          /> -->
         </section>
 
         <Dock

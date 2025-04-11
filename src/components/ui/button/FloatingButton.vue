@@ -6,8 +6,11 @@
       buttonClass,
     ]"
     @click="onClick"
+    :aria-label="label"
   >
-    <i :class="icon"></i>
+    <div class="lg:tooltip lg:tooltip-left" :data-tip="label">
+      <i :class="['m-4', icon]"></i>
+    </div>
     <span class="dock-label lg:hidden">{{ label }}</span>
   </label>
 </template>
