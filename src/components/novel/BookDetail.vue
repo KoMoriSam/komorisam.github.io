@@ -49,7 +49,7 @@
       />
     </section>
 
-    <!-- <Giscus
+    <Giscus
       class="basis-sm"
       repo="KoMoriSam/komorisam.github.io"
       repo-id="R_kgDOJxn8KA"
@@ -64,7 +64,7 @@
       :theme="themeStore.giscusTheme"
       lang="zh-CN"
       loading="lazy"
-    /> -->
+    />
   </main>
   <FootBar />
 </template>

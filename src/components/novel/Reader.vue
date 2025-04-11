@@ -40,7 +40,7 @@
           <button class="btn btn-info btn-xs mx-2 mb-4" @click="commentToggle">
             {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
           </button>
-          <!-- <Giscus
+          <Giscus
             :key="novelStore.currentChapterInfo?.chapter.name"
             repo="KoMoriSam/komorisam.github.io"
             repo-id="R_kgDOJxn8KA"
@@ -55,7 +55,7 @@
             :theme="themeStore.giscusTheme"
             lang="zh-CN"
             loading="lazy"
-          /> -->
+          />
         </section>
 
         <Dock
