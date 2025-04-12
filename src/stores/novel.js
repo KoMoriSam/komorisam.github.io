@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { useStorage } from "@vueuse/core";
-import { useTitle } from "@vueuse/core";
+import { useStorage, useTitle, useDebounceFn } from "@vueuse/core";
 import CONFIG from "@/config.js";
 
 const BASE_URL = CONFIG.BASE_URL;
@@ -72,7 +71,7 @@ export const useNovelStore = defineStore("novel", () => {
   );
 
   // Actions
-  const setChapterList = async (forceUpdate = false) => {
+  const setChapterList = useDebounceFn(async (forceUpdate = false) => {
     const now = Date.now();
 
     if (
@@ -106,19 +105,19 @@ export const useNovelStore = defineStore("novel", () => {
     } finally {
       isLoadingList.value = false;
     }
-  };
+  }, 500); // 防抖延迟 300ms
 
   const flatList = (list) => {
     flatChapterList.value = list.flatMap((item) => item.options);
   };
 
-  const refreshChapterList = async () => {
+  const refreshChapterList = useDebounceFn(async () => {
     await setChapterList(true);
     contentCache.value = {}; // 清空缓存
     await loadChapterContent();
-  };
+  }, 500); // 防抖延迟 300ms
 
-  const refreshContent = async () => {
+  const refreshContent = useDebounceFn(async () => {
     try {
       delete contentCache.value[currentChapterId.value]; // 清空当前章节缓存
       console.log("refreshContent: Clear cache");
@@ -128,7 +127,7 @@ export const useNovelStore = defineStore("novel", () => {
       console.error("刷新内容失败:", error);
       throw error;
     }
-  };
+  }, 500); // 防抖延迟 300ms
 
   const loadChapterContent = async () => {
     if (!contentUrl.value) return;
@@ -172,16 +171,16 @@ export const useNovelStore = defineStore("novel", () => {
     return pages;
   };
 
-  const setChapter = async (id) => {
+  const setChapter = useDebounceFn(async (id) => {
     currentChapterId.value = id;
     console.log("setChapter:", id);
     await loadChapterContent();
-  };
+  }, 500); // 防抖延迟 300ms
 
-  const setPage = (page) => {
+  const setPage = useDebounceFn((page) => {
     currentChapterPage.value = page;
     console.log("setPage:", page);
-  };
+  }, 500); // 防抖延迟 300ms
 
   const updateTitle = () => {
     if (currentChapterInfo.value) {
@@ -210,11 +209,23 @@ export const useNovelStore = defineStore("novel", () => {
     console.log(`set${key.charAt(0).toUpperCase() + key.slice(1)}:`, value);
   };
 
-  const setDefaultStyle = () => {
-    styleConfigKeys.forEach(({ key, default: defaultValue }) => {
-      styleConfigs[key].value = defaultValue;
-      console.log(`Reset ${key} to:`, defaultValue);
-    });
+  const isDefault = (key) => {
+    const config = styleConfigKeys.find((item) => item.key === key);
+    if (!config) {
+      console.error(`Invalid key: ${key}`);
+      return false;
+    }
+    return styleConfigs[key].value === config.default;
+  };
+
+  const setDefault = (key) => {
+    const config = styleConfigKeys.find((item) => item.key === key);
+    if (!config) {
+      console.error(`Invalid key: ${key}`);
+      return;
+    }
+    styleConfigs[key].value = config.default;
+    console.log(`Reset ${key} to:`, config.default);
   };
 
   return {
@@ -242,6 +253,7 @@ export const useNovelStore = defineStore("novel", () => {
     updateTitle,
     setRead,
     setStyle,
-    setDefaultStyle,
+    isDefault,
+    setDefault,
   };
 });
