@@ -3,19 +3,19 @@
     class="flex-1 flex flex-wrap m-12 items-start justify-center lg:justify-evenly gap-4"
   >
     <section class="hero basis-2xs">
-      <figure class="hero-content flex flex-col w-full m-0 p-0">
+      <figure class="hero-content relative flex flex-col w-full m-0 p-0">
         <div
           v-show="!isLoaded"
-          class="skeleton min-w-full aspect-12/17 mb-6 z-20"
+          class="skeleton absolute inset-0 aspect-12/17 w-full rounded-lg z-20"
         ></div>
         <img
           v-fade-in
           src="/assets/images/covers/theHorizon.png"
           alt="向远方"
-          class="w-full rounded-lg shadow-2xl mb-6 z-10"
+          class="w-full aspect-12/17 object-cover rounded-lg shadow-2xl z-10"
           @load="handleImageLoad"
         />
-        <figcaption>
+        <figcaption class="relative z-0 pt-6">
           <h1 class="text-5xl font-bold">向远方</h1>
           <p class="py-6">
             慌张中，才学会张口……<br />
