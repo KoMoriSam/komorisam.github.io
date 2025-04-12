@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://komorisam.github.io/">
-    <img src="https://komorisam.github.io/assets/images/icons/favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://komorisam.github.io/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">✨ Blog personnel reconstruit avec Vite + Vue3 ✨</h3>
@@ -8,11 +8,17 @@
     🎨 Design propulsé par <a href="https://daisyui.com">daisyUI</a>
     <br />
     <br />
-    <a href="https://github.com/KoMoriSam/komorisam.github.io">📂 Voir le code source</a>
+    <span>
+      📂 <a href="https://github.com/KoMoriSam/komorisam.github.io">Voir le code source</a>
+    </span>
     ·
-    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🐞 Signaler un bug</a>
+    <span>
+      🐞 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Signaler un bug</a>
+    </span>
     ·
-    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🚀 Proposer une fonctionnalité</a>
+    <span>
+      🚀 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Proposer une fonctionnalité</a>
+    </span>
   </p>
 
 ---
@@ -117,7 +123,7 @@ Ce projet a été testé avec succès sur :
 
 ## 📜 Licence
 
-Ce projet est sous licence MIT. Voir [📄 LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) pour plus de détails.
+Ce projet est sous licence MIT. Voir 📄 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) pour plus de détails.
 
 ---
 

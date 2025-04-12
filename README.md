@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://komorisam.github.io/">
-    <img src="https://komorisam.github.io/assets/images/icons/favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://komorisam.github.io/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">✨ 基于 Vite + Vue3 重构的个人博客 ✨</h3>
@@ -8,11 +8,17 @@
     🎨 视觉支持 <a href="https://daisyui.com">daisyUI</a>
     <br />
     <br />
-    <a href="https://github.com/KoMoriSam/komorisam.github.io">📂 查看源代码</a>
+    <span>
+      📂 <a href="https://github.com/KoMoriSam/komorisam.github.io">查看源代码</a>
+    </span>
     ·
-    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🐞 报告Bug</a>
+    <span>
+      🐞 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">报告 Bug</a>
+    </span>
     ·
-    <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">🚀 提出新特性</a>
+    <span>
+      🚀 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">提出新特性</a>
+    </span>
   </p>
 
 ---
@@ -117,7 +123,7 @@ npm run build
 
 ## 📜 版权说明
 
-该项目签署了 MIT 授权许可，详情请参阅 [📄 LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE)
+该项目签署了 MIT 授权许可，详情请参阅 📄 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE)
 
 ---
 
