@@ -1,5 +1,5 @@
 <template>
-  <Menu title="正文字体">
+  <StyleMenu title="正文字体" configKey="fontStyle">
     <div class="join">
       <button
         v-for="font in fontList"
@@ -13,9 +13,9 @@
         {{ font.name }}
       </button>
     </div>
-  </Menu>
+  </StyleMenu>
 
-  <Menu title="字体大小">
+  <StyleMenu title="字体大小" configKey="fontSize">
     <NumberController
       v-model="novelStore.styleConfigs.fontSize"
       :step="1"
@@ -23,9 +23,9 @@
       :min="16"
       :max="32"
     />
-  </Menu>
+  </StyleMenu>
 
-  <Menu title="字间距">
+  <StyleMenu title="字间距" configKey="fontGap">
     <NumberController
       v-model="novelStore.styleConfigs.fontGap"
       :step="0.01"
@@ -33,9 +33,9 @@
       :min="-1"
       :max="1"
     />
-  </Menu>
+  </StyleMenu>
 
-  <Menu title="行间距">
+  <StyleMenu title="行间距" configKey="lineHeight">
     <NumberController
       v-model="novelStore.styleConfigs.lineHeight"
       :step="0.1"
@@ -43,9 +43,9 @@
       :min="1"
       :max="3"
     />
-  </Menu>
+  </StyleMenu>
 
-  <Menu title="段间距">
+  <StyleMenu title="段间距" configKey="paraHeight">
     <NumberController
       v-model="novelStore.styleConfigs.paraHeight"
       :step="0.1"
@@ -53,21 +53,14 @@
       :min="1"
       :max="3"
     />
-  </Menu>
-
-  <button
-    class="btn btn-info btn-wide mt-4"
-    @click="novelStore.setDefaultStyle()"
-  >
-    恢复默认值
-  </button>
+  </StyleMenu>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useNovelStore } from "@/stores/novel";
 
-import Menu from "@/components/ui/menu/Menu.vue";
+import StyleMenu from "@/components/novel/StyleMenu.vue";
 import NumberController from "@/components/ui/input/NumberController.vue";
 
 const novelStore = useNovelStore();
@@ -78,6 +71,4 @@ const fontList = ref([
   { name: "楷书", style: "font-kai" },
   { name: "仿宋", style: "font-fang" },
 ]);
-
-console.log(novelStore.styleConfigs.fontSize);
 </script>

@@ -1,6 +1,9 @@
 <template>
   <ul class="menu">
-    <li class="menu-title">{{ title }}</li>
+    <li class="menu-title flex flex-row justify-between">
+      {{ title }}
+      <slot name="description"></slot>
+    </li>
     <slot></slot>
   </ul>
 </template>
