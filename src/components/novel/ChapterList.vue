@@ -2,12 +2,21 @@
   <Submenu title="章节目录">
     <template #btn>
       <button
-        class="btn btn-info btn-square btn-sm ml-auto"
+        class="btn btn-info btn-square btn-sm btn-soft ml-auto"
         @click="novelStore.refreshChapterList()"
         :disabled="novelStore.isLoadingList"
       >
-        <div class="tooltip" data-tip="刷新">
+        <div class="tooltip" data-tip="刷新章节目录">
           <i class="ri-refresh-line m-2"></i>
+        </div>
+      </button>
+      <button
+        class="btn btn-info btn-square btn-sm btn-soft"
+        @click="novelStore.refreshReadChapterList()"
+        :disabled="novelStore.isLoadingList"
+      >
+        <div class="tooltip" data-tip="清除阅读记录">
+          <i class="ri-delete-bin-6-line"></i>
         </div>
       </button>
     </template>
@@ -34,7 +43,7 @@
               </span>
 
               <span v-else class="badge badge-xs">
-                <i class="status status-primary animate-bounce"></i>
+                <i class="status status-info animate-bounce"></i>
                 未读
               </span>
 

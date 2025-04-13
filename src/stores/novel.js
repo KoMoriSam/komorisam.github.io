@@ -105,7 +105,7 @@ export const useNovelStore = defineStore("novel", () => {
     } finally {
       isLoadingList.value = false;
     }
-  }, 500); // 防抖延迟 300ms
+  }, 500);
 
   const flatList = (list) => {
     flatChapterList.value = list.flatMap((item) => item.options);
@@ -115,7 +115,12 @@ export const useNovelStore = defineStore("novel", () => {
     await setChapterList(true);
     contentCache.value = {}; // 清空缓存
     await loadChapterContent();
-  }, 500); // 防抖延迟 300ms
+  }, 500);
+
+  const refreshReadChapterList = useDebounceFn(async () => {
+    readChapterList.value = []; // 清空已读章节列表
+    await loadChapterContent();
+  }, 500);
 
   const refreshContent = useDebounceFn(async () => {
     try {
@@ -127,13 +132,14 @@ export const useNovelStore = defineStore("novel", () => {
       console.error("刷新内容失败:", error);
       throw error;
     }
-  }, 500); // 防抖延迟 300ms
+  }, 500);
 
   const loadChapterContent = async () => {
     if (!contentUrl.value) return;
     if (contentCache.value[currentChapterId.value]) {
       console.log("loadChapterContent: Call cache");
       currentChapterContent.value = contentCache.value[currentChapterId.value];
+      setRead();
       isLoadingContent.value = false;
       return;
     }
@@ -175,12 +181,12 @@ export const useNovelStore = defineStore("novel", () => {
     currentChapterId.value = id;
     console.log("setChapter:", id);
     await loadChapterContent();
-  }, 500); // 防抖延迟 300ms
+  }, 500);
 
   const setPage = useDebounceFn((page) => {
     currentChapterPage.value = page;
     console.log("setPage:", page);
-  }, 500); // 防抖延迟 300ms
+  }, 500);
 
   const updateTitle = () => {
     if (currentChapterInfo.value) {
@@ -246,6 +252,7 @@ export const useNovelStore = defineStore("novel", () => {
     currentPageContent,
     setChapterList,
     refreshChapterList,
+    refreshReadChapterList,
     loadChapterContent,
     refreshContent,
     setChapter,
