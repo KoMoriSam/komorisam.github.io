@@ -23,8 +23,8 @@
       button-class="lg:btn-secondary"
       :onClick="
         () => {
-          scrollToTop(0);
-          toggleComponent();
+          scrollToTop();
+          togglePage();
         }
       "
     />
@@ -58,7 +58,7 @@
 import FloatingButton from "@/components/ui/button/FloatingButton.vue";
 
 defineProps({
-  toggleComponent: {
+  togglePage: {
     type: Function,
     required: true,
   },
@@ -70,7 +70,7 @@ defineProps({
     type: Function,
     required: true,
   },
-  currentTool: {
+  currentComponent: {
     type: String,
     required: true,
   },
@@ -85,8 +85,8 @@ defineProps({
 });
 
 // 触发父组件事件
-const emit = defineEmits(["update:currentTool"]);
-const emitToolChange = (tool) => {
-  emit("update:currentTool", tool);
+const emit = defineEmits(["update:currentComponent"]);
+const emitToolChange = (component) => {
+  emit("update:currentComponent", component);
 };
 </script>

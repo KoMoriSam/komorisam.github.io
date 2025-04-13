@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   badgeText: {
     type: String,
     required: true,

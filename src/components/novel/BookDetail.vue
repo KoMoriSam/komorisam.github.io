@@ -5,7 +5,7 @@
     <section class="hero basis-2xs">
       <figure class="hero-content relative flex flex-col w-full m-0 p-0">
         <div
-          v-show="!isLoaded"
+          v-show="!imageLoaded"
           class="skeleton absolute inset-0 aspect-12/17 w-full rounded-lg z-20"
         ></div>
         <img
@@ -23,7 +23,7 @@
           </p>
           <button
             class="btn btn-primary w-full"
-            @click="handleClick(), toggleComponent()"
+            @click="handleFirstChapter(), togglePage()"
           >
             开始阅读
           </button>
@@ -36,17 +36,14 @@
                 : ''
             "
             additionalClasses="w-full my-6"
-            :onClick="() => toggleComponent()"
+            :onClick="() => togglePage()"
           />
         </figcaption>
       </figure>
     </section>
 
     <section class="basis-xs">
-      <ChapterList
-        :toggleComponent="toggleComponent"
-        :currentComponent="currentComponent"
-      />
+      <ChapterList :togglePage :currentPage />
     </section>
 
     <Giscus
@@ -70,9 +67,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import Giscus from "@giscus/vue";
+
+import { useChapters } from "@/composables/chapters";
+import { useImageLoad } from "@/composables/imageLoad";
 
 import { useNovelStore } from "@/stores/novel";
 import { useThemeStore } from "@/stores/theme";
@@ -84,30 +82,18 @@ import FootBar from "@/components/layout/FootBar.vue";
 const novelStore = useNovelStore();
 const themeStore = useThemeStore();
 
-const isLoaded = ref(false);
-const handleImageLoad = () => {
-  isLoaded.value = true; // 图片加载完成后设置为 true
-};
+const { imageLoaded, handleImageLoad } = useImageLoad();
 
-const router = useRouter();
+const { handleFirstChapter } = useChapters();
+
 const props = defineProps({
-  toggleComponent: {
+  togglePage: {
     type: Function,
     required: true,
   },
-  currentComponent: {
+  currentPage: {
     type: String,
     required: true,
   },
 });
-
-// 初始化加载
-onMounted(async () => {
-  await novelStore.setChapterList();
-});
-
-// 事件处理函数
-const handleClick = () => {
-  router.push({ query: { chapter: 1, page: 1 } }); // 修改 URL，触发 `watch` 监听
-};
 </script>

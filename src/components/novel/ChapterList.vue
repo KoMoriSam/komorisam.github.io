@@ -4,7 +4,7 @@
       <button
         class="btn btn-info btn-square btn-sm btn-soft ml-auto"
         @click="novelStore.refreshChapterList()"
-        :disabled="novelStore.isLoadingList"
+        :disabled="isLoadingList"
       >
         <div class="tooltip" data-tip="刷新章节目录">
           <i class="ri-refresh-line m-2"></i>
@@ -13,16 +13,16 @@
       <button
         class="btn btn-info btn-square btn-sm btn-soft"
         @click="novelStore.refreshReadChapterList()"
-        :disabled="novelStore.isLoadingList"
+        :disabled="isLoadingList"
       >
         <div class="tooltip" data-tip="清除阅读记录">
           <i class="ri-delete-bin-6-line"></i>
         </div>
       </button>
     </template>
-    <Loading v-if="novelStore.isLoadingList" />
+    <Loading v-if="isLoadingList" />
 
-    <li v-else v-for="group in novelStore.chapterList" :key="group.label">
+    <li v-else v-for="group in chapterList" :key="group.label">
       <details open>
         <summary class="font-bold">{{ group.label }}</summary>
         <ul v-if="group.options">
@@ -32,8 +32,8 @@
               @click="handleClick(chapter.id)"
               :class="{
                 'menu-active':
-                  currentComponent !== 'BookDetail' &&
-                  chapter.id === novelStore.currentChapterId,
+                  currentPage !== 'BookDetail' &&
+                  chapter.id === currentChapterId,
               }"
             >
               <!-- 章节状态指示 -->
@@ -72,53 +72,33 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+
 import { useNovelStore } from "@/stores/novel";
+
+import { useChapters } from "@/composables/chapters";
 
 import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";
 
 const novelStore = useNovelStore();
+const { isLoadingList, chapterList, currentChapterId } =
+  storeToRefs(novelStore);
+
+const { isRead, handleAnyChapter, formatDate, isRecent } = useChapters();
+
+const handleClick = (newId) => {
+  handleAnyChapter(newId);
+  if (props.currentPage === "BookDetail") {
+    props.togglePage();
+  }
+};
 const props = defineProps({
-  toggleComponent: {
+  togglePage: {
     type: Function,
   },
-  currentComponent: {
+  currentPage: {
     type: String,
   },
 });
-
-const router = useRouter();
-
-const formatDate = (dateStr) => {
-  return new Date(dateStr).toLocaleDateString("zh-CN", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-
-const isRecent = (id, dateStr) => {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  return diff < 14 * 24 * 60 * 60 * 1000 || id === novelStore.latestChapter.id; // 14 天内和最新章
-};
-
-const isRead = computed(() => (id) => {
-  return novelStore.readChapterList.some((g) => g.chapter.id === id);
-});
-
-const handleChange = (newId) => {
-  router.push({ query: { chapter: newId, page: 1 } });
-  window.scrollTo({ top: 200, behavior: "smooth" });
-};
-
-const handleClick = (newId) => {
-  handleChange(newId);
-  if (props.currentComponent === "BookDetail") {
-    props.toggleComponent();
-  }
-};
 </script>

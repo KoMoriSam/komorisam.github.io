@@ -1,31 +1,31 @@
 <template>
   <main class="flex-1 m-0 p-0 w-full h-full">
     <SideBar>
-      <template #content ref="mainContainer">
+      <template #content>
         <section class="flex-2 basis-xl m-6 max-lg:mb-0" ref="scrollRef">
           <ChapterInfo
-            v-if="novelStore.latestChapter"
+            v-if="latestChapter"
             badgeText="最新章节"
-            :content="novelStore.latestChapter.name"
+            :content="latestChapter.name"
             additionalClasses="btn-info lg:btn-lg mb-6"
-            :onClick="() => handleChange(novelStore.latestChapter)"
+            :onClick="handleRecentChapter"
           />
           <Modal
             :visible="showModal"
             title="已经是最新章节啦！"
-            @close="showModal = false"
+            @close="handleModalClose()"
           />
           <ChapterInfo
             badgeText="当前章节"
             :content="
-              novelStore.currentChapterInfo
-                ? novelStore.currentChapterInfo.chapter.name
+              currentChapterInfo
+                ? currentChapterInfo.chapter.name
                 : '请选择章节'
             "
             additionalClasses="lg:btn-lg"
           >
             <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
-              <button class="btn lg:btn-lg" @click="novelStore.refreshContent">
+              <button class="btn lg:btn-lg" @click="refreshContent">
                 <i class="ri-refresh-line"></i>
               </button>
             </div>
@@ -33,7 +33,7 @@
 
           <ChapterController />
           <Markdown />
-          <ChapterController v-if="!novelStore.isLoadingContent" />
+          <ChapterController v-if="!isLoadingContent" />
         </section>
 
         <section
@@ -46,7 +46,7 @@
             {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
           </button>
           <Giscus
-            :key="novelStore.currentChapterInfo?.chapter.name"
+            :key="currentChapterInfo?.chapter.name"
             repo="KoMoriSam/komorisam.github.io"
             repo-id="R_kgDOJxn8KA"
             category="General"
@@ -57,26 +57,28 @@
             reactions-enabled="1"
             emit-metadata="0"
             input-position="top"
-            :theme="themeStore.giscusTheme"
+            :theme="giscusTheme"
             lang="zh-CN"
             loading="lazy"
           />
         </section>
 
         <Dock
-          :toggleComponent="toggleComponent"
-          :scrollToTop="scrollToTop"
-          :scrollToBottom="scrollToBottom"
-          :currentTool="currentTool"
-          :isFullscreen="isFullscreen"
-          :toggle="toggle"
-          @update:currentTool="(tool) => (currentTool = tool)"
+          :togglePage
+          :scrollToTop
+          :scrollToBottom
+          :currentComponent
+          :isFullscreen
+          :toggle
+          @update:currentComponent="
+            (component) => (currentComponent = component)
+          "
         />
       </template>
 
       <template #aside>
         <KeepAlive>
-          <component :is="tools[currentTool]"></component>
+          <component :is="components[currentComponent]"></component>
         </KeepAlive>
       </template>
     </SideBar>
@@ -84,10 +86,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onActivated, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useFullscreen } from "@vueuse/core";
+import { storeToRefs } from "pinia";
 import Giscus from "@giscus/vue";
+
+import { useChapters } from "@/composables/chapters";
+import { useGiscus } from "@/composables/giscus";
+import { useFullscreen } from "@vueuse/core";
+import { useScrollTo } from "@/composables/scrollTo";
+import { useToggleComponent } from "@/composables/toggleComponent";
 
 import { useNovelStore } from "@/stores/novel";
 import { useThemeStore } from "@/stores/theme";
@@ -101,110 +107,37 @@ import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
 import Modal from "@/components/ui/feedback/Modal.vue";
 
-// 路由相关
-const route = useRoute();
-const router = useRouter();
-
 // 状态管理
 const novelStore = useNovelStore();
+const { latestChapter, currentChapterInfo, isLoadingContent, refreshContent } =
+  storeToRefs(novelStore);
 const themeStore = useThemeStore();
-const showModal = ref(false);
+const { giscusTheme } = storeToRefs(themeStore);
 
-const currentTool = ref("ChapterList");
-const tools = {
+const { currentMapping, commentToggle } = useGiscus();
+
+const { isFullscreen, toggle } = useFullscreen();
+
+const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
+
+
+const { showModal, handleModalClose, handleRecentChapter } = useChapters();
+
+const components = {
   ChapterList,
   FormatToolbox,
 };
+
+const { currentComponent } = useToggleComponent(
+  "NOVEL_SIDE_CURRENT_COMPONENT",
+  "ChapterList",
+  components
+);
+
 const props = defineProps({
-  toggleComponent: {
+  togglePage: {
     type: Function,
     required: true,
   },
-  currentComponent: {
-    type: String,
-    required: true,
-  },
 });
-
-const currentMapping = ref("title");
-
-// 切换评论映射
-const commentToggle = () => {
-  currentMapping.value =
-    currentMapping.value === "title" ? "specific" : "title";
-};
-
-// 监听路由参数变化
-watch(
-  () => route.query.chapter,
-  async (newId) => {
-    if (newId) {
-      await novelStore.setChapter(Number(newId));
-    }
-  }
-);
-
-watch(
-  () => route.query.page,
-  (newPage) => {
-    if (newPage) {
-      novelStore.setPage(Number(newPage));
-    }
-  }
-);
-
-// 初始化加载
-onMounted(async () => {
-  await novelStore.setChapterList();
-  if (route.query.chapter) {
-    await novelStore.setChapter(Number(route.query.chapter));
-  }
-  novelStore.updateTitle();
-  if (route.query.page) {
-    novelStore.setPage(Number(route.query.page));
-  }
-});
-
-// 监听章节变化，自动更新标题
-watch(
-  () => [novelStore.currentChapterId, novelStore.currentChapterPage],
-  () => {
-    novelStore.updateTitle();
-  }
-);
-
-// 在组件挂载或激活时重新更新标题
-onActivated(() => {
-  novelStore.updateTitle();
-});
-
-// 事件处理函数
-const handleChange = (chapter) => {
-  if (chapter.id === novelStore.currentChapterId) {
-    // 如果是最新章节，弹出对话框
-    showModal.value = true;
-  } else {
-    // 如果不是最新章节，切换到最新章节
-    router.push({ query: { chapter: chapter.id, page: 1 } });
-  }
-};
-
-// 全屏相关
-const mainContainer = ref(null);
-const { isFullscreen, toggle } = useFullscreen(mainContainer);
-
-const scrollToTop = (position = 110) => {
-  window.scrollTo({ top: position, behavior: "smooth" });
-};
-
-const scrollRef = ref(null);
-const scrollToBottom = () => {
-  setTimeout(() => {
-    console.log("内容增加时", scrollRef.value.scrollHeight);
-    window.scrollTo({
-      top: scrollRef.value.scrollHeight,
-      behavior: "smooth",
-    });
-  }, 20); // 注意这里需要延迟20ms正好可以获取到更新后的dom节点
-};
 </script>

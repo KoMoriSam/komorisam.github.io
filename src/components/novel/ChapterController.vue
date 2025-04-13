@@ -3,19 +3,19 @@
     <!-- 上一章 -->
     <button
       class="btn btn-primary px-2 md:px-auto"
-      :disabled="!hasPrevious || novelStore.isLoadingContent"
+      :disabled="!hasPrevious || isLoadingContent"
       @click="handlePrev"
     >
       <i class="ri-arrow-left-s-line"></i>
       <span>上一章</span>
     </button>
 
-    <Pagination v-if="novelStore.totalPages > 1" />
+    <Pagination v-if="totalPages > 1" />
 
     <!-- 下一章 -->
     <button
       class="btn btn-primary px-2 md:px-auto"
-      :disabled="!hasNext || novelStore.isLoadingContent"
+      :disabled="!hasNext || isLoadingContent"
       @click="handleNext"
     >
       <span>下一章</span>
@@ -25,29 +25,16 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+
+import { useChapters } from "@/composables/chapters";
+
 import { useNovelStore } from "@/stores/novel";
 
 import Pagination from "@/components/base/Pagination.vue";
 
 const novelStore = useNovelStore();
+const { totalPages, isLoadingContent } = storeToRefs(novelStore);
 
-const router = useRouter();
-
-const hasPrevious = computed(() => novelStore.currentChapterId > 1);
-
-const hasNext = computed(
-  () => novelStore.currentChapterId < novelStore.flatChapterList.length
-);
-
-const handlePrev = () => {
-  router.push({ query: { chapter: novelStore.currentChapterId - 1, page: 1 } });
-  window.scrollTo({ top: 200, behavior: "smooth" });
-};
-
-const handleNext = () => {
-  router.push({ query: { chapter: novelStore.currentChapterId + 1, page: 1 } });
-  window.scrollTo({ top: 200, behavior: "smooth" });
-};
+const { hasPrevious, hasNext, handlePrev, handleNext } = useChapters();
 </script>

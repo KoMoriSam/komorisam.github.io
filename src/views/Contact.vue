@@ -16,8 +16,6 @@
       </a>
       <a
         class="join-item btn btn-info text-info-content no-underline text-left justify-start relative group"
-        href="weixin://dl/scan"
-        target="_blank"
       >
         <i class="ri-wechat-fill"></i> MoriSam2023
         <!-- 悬停时显示的图片 -->
