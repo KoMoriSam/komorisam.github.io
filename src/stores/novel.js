@@ -55,7 +55,25 @@ export const useNovelStore = defineStore("novel", () => {
     };
   });
 
-  const latestChapter = computed(() => flatChapterList.value.at(-1));
+  const isRecent = (id, dateStr) => {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    return diff < 14 * 24 * 60 * 60 * 1000; // 14 天内
+  };
+
+  const latestChapter = computed(() => {
+    // 遍历所有章节，找到最近 14 天内的章节
+    const recentChapters = flatChapterList.value.filter((chapter) =>
+      isRecent(chapter.id, chapter.date)
+    );
+
+    // 如果有最近章节，返回最新的一个（假设章节按时间排序）
+    if (recentChapters.length > 0) {
+      return recentChapters[recentChapters.length - 1];
+    }
+
+    // 如果没有符合条件的章节，返回最后一个章节
+    return flatChapterList.value[flatChapterList.value.length - 1];
+  });
 
   const contentUrl = computed(() => {
     if (!currentChapterInfo.value) return null;
@@ -70,7 +88,6 @@ export const useNovelStore = defineStore("novel", () => {
     () => currentChapterContent.value[currentChapterPage.value - 1] || ""
   );
 
-  // Actions
   const setChapterList = useDebounceFn(async (forceUpdate = false) => {
     const now = Date.now();
 
@@ -251,6 +268,7 @@ export const useNovelStore = defineStore("novel", () => {
     totalPages,
     currentPageContent,
     setChapterList,
+    isRecent,
     refreshChapterList,
     refreshReadChapterList,
     loadChapterContent,
