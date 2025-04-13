@@ -10,6 +10,11 @@
             additionalClasses="btn-info lg:btn-lg mb-6"
             :onClick="() => handleChange(novelStore.latestChapter)"
           />
+          <Modal
+            :visible="showModal"
+            title="已经是最新章节啦！"
+            @close="showModal = false"
+          />
           <ChapterInfo
             badgeText="当前章节"
             :content="
@@ -94,6 +99,7 @@ import FormatToolbox from "@/components/novel/FormatToolbox.vue";
 import Markdown from "@/components/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
+import Modal from "@/components/ui/feedback/Modal.vue";
 
 // 路由相关
 const route = useRoute();
@@ -102,6 +108,7 @@ const router = useRouter();
 // 状态管理
 const novelStore = useNovelStore();
 const themeStore = useThemeStore();
+const showModal = ref(false);
 
 const currentTool = ref("ChapterList");
 const tools = {
@@ -173,7 +180,13 @@ onActivated(() => {
 
 // 事件处理函数
 const handleChange = (chapter) => {
-  router.push({ query: { chapter: chapter.id, page: 1 } }); // 修改 URL，触发 `watch` 监听
+  if (chapter.id === novelStore.currentChapterId) {
+    // 如果是最新章节，弹出对话框
+    showModal.value = true;
+  } else {
+    // 如果不是最新章节，切换到最新章节
+    router.push({ query: { chapter: chapter.id, page: 1 } });
+  }
 };
 
 // 全屏相关
