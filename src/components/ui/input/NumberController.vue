@@ -66,6 +66,12 @@ const isMax = computed(
 const updateValue = (val) => {
   let num = parseFloat(val);
   if (isNaN(num)) num = props.min !== undefined ? props.min : 0;
+  if (props.max !== undefined && num > props.max) {
+    num = props.max;
+  }
+  if (props.min !== undefined && num < props.min) {
+    num = props.min;
+  }
   num = parseFloat(num.toFixed(props.places));
   emit("update:modelValue", num);
 };
