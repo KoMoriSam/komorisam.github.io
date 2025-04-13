@@ -3,7 +3,7 @@
     <img src="https://komorisam.github.io/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">✨ Blog personnel reconstruit avec Vite + Vue3 ✨</h3>
+  <h1 align="center">✨ Blog personnel reconstruit avec Vite + Vue3 ✨</h1>
   <p align="center">
     🎨 Design propulsé par <a href="https://daisyui.com">daisyUI</a>
     <br />
