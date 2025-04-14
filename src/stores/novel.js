@@ -8,12 +8,12 @@ import CONFIG from "@/config.js";
 import fm from "front-matter";
 
 const BASE_URL = CONFIG.BASE_URL;
-const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration("medium");
+const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration();
 
 export const useNovelStore = defineStore("novel", () => {
   // 章节相关状态
   const chapterList = ref([]);
-  const storedChapterList = useStorage("CHAPTER_LIST", []);
+  const storedChapterList = useStorage("CHAPTER_LIST", {});
   const lastUpdated = useStorage("CHAPTER_LIST_UPDATED_AT", 0);
   const flatChapterList = ref([]);
   const readChapterList = useStorage("READ_CHS", []);
@@ -89,10 +89,18 @@ export const useNovelStore = defineStore("novel", () => {
 
   const setChapterList = useDebounceFn(async (forceUpdate = false) => {
     const now = Date.now();
+    console.log("Cache state:", {
+      forceUpdate,
+      storedList: storedChapterList.value,
+      storedListLength: storedChapterList.value?.length,
+      lastUpdated: lastUpdated.value,
+      cacheExpiration: CACHE_EXPIRATION,
+      isCacheValid: now - lastUpdated.value < CACHE_EXPIRATION,
+    });
 
     if (
       !forceUpdate &&
-      storedChapterList.value.length > 0 &&
+      Object.keys(storedChapterList.value).length > 0 &&
       now - lastUpdated.value < CACHE_EXPIRATION
     ) {
       console.log("setChapterList: Call cache");
@@ -112,9 +120,8 @@ export const useNovelStore = defineStore("novel", () => {
       flatList(data);
       if (forceUpdate) {
         console.log("setChapterList: Force update");
-      } else {
-        console.log("setChapterList: First loading");
       }
+      console.log("setChapterList: First loading");
       await loadChapterContent();
     } catch (error) {
       console.error("列表加载失败:", error);
