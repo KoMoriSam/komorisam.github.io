@@ -6,9 +6,9 @@
   >
     <section class="modal-box">
       <h3 class="text-lg font-bold">{{ title }}</h3>
-      <p class="py-4">按下 ESC 键或点击按钮以关闭</p>
+      <p class="py-4">{{ description }}</p>
       <form class="modal-action" method="dialog" @submit.prevent="closeModal">
-        <button class="btn">关闭</button>
+        <button class="btn">{{ buttonText }}</button>
       </form>
     </section>
   </dialog>
@@ -19,6 +19,14 @@ defineProps({
   title: {
     type: String,
     default: "Hello!",
+  },
+  description: {
+    type: String,
+    default: "按下 ESC 键或点击按钮以关闭！",
+  },
+  buttonText: {
+    type: String,
+    default: "关闭",
   },
   visible: {
     type: Boolean,
