@@ -22,45 +22,51 @@
     </template>
     <Loading v-if="isLoadingList" />
 
-    <li v-else v-for="group in chapterList" :key="group.label">
+    <li v-else v-for="volume in chapterList" :key="volume.volumeInfo.uuid">
       <details open>
-        <summary class="font-bold">{{ group.label }}</summary>
-        <ul v-if="group.options">
-          <li v-for="chapter in group.options" :key="chapter?.id">
+        <summary class="font-bold">{{ volume.volumeInfo.title }}</summary>
+        <ul v-if="volume.chapters && volume.chapters.length > 0">
+          <li v-for="chapter in volume.chapters" :key="chapter.uuid">
             <a
               v-if="chapter"
-              @click="handleClick(chapter.id)"
+              @click="handleClick(chapter.uuid)"
+              class="block"
               :class="{
                 'menu-active':
                   currentPage !== 'BookDetail' &&
-                  chapter.id === currentChapterId,
+                  chapter.uuid === currentChapterUuid,
               }"
             >
-              <!-- 章节状态指示 -->
-              <span v-if="isRead(chapter.id)" class="badge badge-xs">
-                <i class="status status-accent"></i>
-                已读
-              </span>
-
-              <span v-else class="badge badge-xs">
-                <i class="status status-info animate-bounce"></i>
-                未读
-              </span>
-
               <!-- 章节名称 -->
-              <div
-                class="tooltip tooltip-bottom tooltip-info"
-                :data-tip="`更新时间：${formatDate(chapter.updated)}`"
-              >
-                <span class="mr-2">{{ chapter?.name || "未知章节" }}</span>
 
-                <span
-                  v-if="
-                    isRecent(chapter.id, chapter.updated) && !isRead(chapter.id)
-                  "
-                  class="badge badge-xs badge-warning"
-                >
-                  NEW
+              <span class="mr-2">{{ chapter.title }}</span>
+
+              <span
+                v-if="
+                  isRecent(chapter.uuid, chapter.date) && !isRead(chapter.uuid)
+                "
+                class="badge badge-xs badge-warning"
+              >
+                NEW </span
+              ><br />
+              <!-- 章节状态指示 -->
+              <div class="flex items-center gap-1 flex-wrap">
+                <span v-if="isRead(chapter.uuid)" class="badge badge-xs">
+                  <i class="status status-accent"></i>
+                  已读
+                </span>
+                <span v-else class="badge badge-xs">
+                  <i class="status status-info animate-bounce"></i>
+                  未读
+                </span>
+                <span class="badge badge-xs">
+                  <i class="ri-time-line"></i>
+                  {{ formatDate(chapter.date) }}
+                </span>
+                <br />
+                <span class="badge badge-xs">
+                  <i class="ri-file-text-line"></i>
+                  {{ chapter.length }} 字
                 </span>
               </div>
             </a>
@@ -82,7 +88,7 @@ import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";
 
 const novelStore = useNovelStore();
-const { isLoadingList, chapterList, currentChapterId } =
+const { isLoadingList, chapterList, currentChapterUuid } =
   storeToRefs(novelStore);
 
 const { isRead, handleAnyChapter, formatDate, isRecent } = useChapters();
@@ -93,6 +99,7 @@ const handleClick = (newId) => {
     props.togglePage();
   }
 };
+
 const props = defineProps({
   togglePage: {
     type: Function,

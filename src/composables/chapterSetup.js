@@ -12,8 +12,8 @@ export function useChapterSetup() {
     watch(
       () => route.query.chapter,
       async (newId) => {
-        if (newId !== novelStore.currentChapterId.value) {
-          await novelStore.setChapter(Number(newId));
+        if (newId !== novelStore.currentChapterUuid) {
+          await novelStore.setChapter(newId);
         }
       }
     );
@@ -33,7 +33,7 @@ export function useChapterSetup() {
     try {
       await novelStore.setChapterList();
       if (route.query.chapter) {
-        await novelStore.setChapter(Number(route.query.chapter));
+        await novelStore.setChapter(route.query.chapter);
       }
       novelStore.updateTitle();
       if (route.query.page) {
@@ -47,10 +47,7 @@ export function useChapterSetup() {
   // 监听章节变化，自动更新标题
   const watchChapterChanges = () => {
     watch(
-      () => [
-        novelStore.currentChapterId.value,
-        novelStore.currentChapterPage.value,
-      ],
+      () => [novelStore.currentChapterUuid, novelStore.currentChapterPage],
       () => {
         novelStore.updateTitle();
       }

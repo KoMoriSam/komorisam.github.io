@@ -34,7 +34,7 @@ const navLinks = computed(() => [
     to: {
       name: "novel",
       query: {
-        chapter: novelStore.currentChapterId,
+        chapter: novelStore.currentChapterUuid,
         page: novelStore.currentChapterPage,
       },
     },

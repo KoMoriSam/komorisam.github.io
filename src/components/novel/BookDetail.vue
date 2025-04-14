@@ -28,11 +28,11 @@
             开始阅读
           </button>
           <ChapterInfo
-            v-if="novelStore.currentChapterInfo"
+            v-if="novelStore.currentChapter"
             badgeText="继续阅读"
             :content="
               novelStore.readChapterList.length > 0
-                ? novelStore.currentChapterInfo?.chapter.name
+                ? novelStore.currentChapter?.title
                 : ''
             "
             additionalClasses="w-full my-6"

@@ -10,8 +10,14 @@ export function useChapters() {
   const { scrollToTop } = useScrollTo();
 
   const novelStore = useNovelStore();
-  const { currentChapterId, latestChapter, flatChapterList, readChapterList } =
-    storeToRefs(novelStore);
+  const {
+    currentChapter,
+    currentChapterUuid,
+    currentChapterIndex,
+    latestChapter,
+    flatChapterList,
+    readChapterList,
+  } = storeToRefs(novelStore);
 
   const router = useRouter();
 
@@ -21,45 +27,53 @@ export function useChapters() {
   };
 
   const handleFirstChapter = () => {
-    router.push({ query: { chapter: 1, page: 1 } });
+    router.push({
+      query: { chapter: "7d5e9b50-a9cb-428a-9264-903046354e22", page: 1 },
+    });
   };
 
-  const handleAnyChapter = (chapterId) => {
-    router.push({ query: { chapter: chapterId, page: 1 } });
+  const handleAnyChapter = (uuid) => {
+    router.push({ query: { chapter: `${uuid}`, page: 1 } });
     scrollToTop(80);
   };
 
   const handleRecentChapter = () => {
-    if (latestChapter.value.id === currentChapterId.value) {
+    if (latestChapter.value.id === currentChapterUuid.value) {
       showModal.value = true;
     } else {
       router.push({ query: { chapter: latestChapter.value.id, page: 1 } });
     }
   };
 
-  const hasPrevious = computed(() => currentChapterId.value > 1);
+  const hasPrevious = computed(() => currentChapterIndex.value > 0);
 
   const hasNext = computed(
-    () => currentChapterId.value < flatChapterList.value.length
+    () => currentChapterIndex.value + 1 < flatChapterList.value.length
   );
 
   const handlePrev = () => {
     router.push({
-      query: { chapter: currentChapterId.value - 1, page: 1 },
+      query: {
+        chapter: flatChapterList.value[currentChapterIndex.value - 1].uuid,
+        page: 1,
+      },
     });
     scrollToTop(80);
   };
 
   const handleNext = () => {
     router.push({
-      query: { chapter: currentChapterId.value + 1, page: 1 },
+      query: {
+        chapter: flatChapterList.value[currentChapterIndex.value + 1].uuid,
+        page: 1,
+      },
     });
     scrollToTop(80);
   };
 
   const handleAnyPage = (index) => {
     router.push({
-      query: { chapter: currentChapterId.value, page: index },
+      query: { chapter: currentChapter.value.uuid, page: index },
     });
     scrollToTop(80);
   };
@@ -79,8 +93,8 @@ export function useChapters() {
     return diff < 14 * 24 * 60 * 60 * 1000 || id === latestChapter.value.id; // 14 天内和最新章
   };
 
-  const isRead = computed(() => (id) => {
-    return readChapterList.value.some((g) => g.chapter.id === id);
+  const isRead = computed(() => (uuid) => {
+    return readChapterList.value.some((g) => g.uuid === uuid);
   });
 
   return {

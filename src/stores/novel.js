@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+
 import { useStorage, useTitle, useDebounceFn } from "@vueuse/core";
+
 import CONFIG from "@/config.js";
+
+import fm from "front-matter";
 
 const BASE_URL = CONFIG.BASE_URL;
 const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration("medium");
@@ -15,7 +19,10 @@ export const useNovelStore = defineStore("novel", () => {
   const readChapterList = useStorage("READ_CHS", []);
   const currentChapterContent = ref([]);
   const contentCache = useStorage("CHAPTERS_CONTENT", {});
-  const currentChapterId = useStorage("READ_CH", 1);
+  const currentChapterUuid = useStorage(
+    "READ_CH_ID",
+    "7d5e9b50-a9cb-428a-9264-903046354e22"
+  );
   const currentChapterPage = useStorage("READ_PAGE", 1);
   const title = ref("向远方 | KoMoriSam");
 
@@ -38,24 +45,19 @@ export const useNovelStore = defineStore("novel", () => {
   const isLoadingContent = ref(true);
 
   // 计算参数
-  const currentChapterInfo = computed(() => {
-    const chapter = flatChapterList.value.find(
-      (ch) => ch.id === currentChapterId.value
+  const currentChapter = computed(() => {
+    return flatChapterList.value.find(
+      (chapter) => chapter.uuid === currentChapterUuid.value
     );
-    if (!chapter) return null;
-
-    const group =
-      chapterList.value.find((g) =>
-        g.options.some((ch) => ch.id === currentChapterId.value)
-      )?.label || "未知卷";
-
-    return {
-      chapter,
-      group,
-    };
   });
 
-  const isRecent = (id, dateStr) => {
+  const currentChapterIndex = computed(() => {
+    return flatChapterList.value.findIndex(
+      (chapter) => chapter.uuid === currentChapterUuid.value
+    );
+  });
+
+  const isRecent = (dateStr) => {
     const diff = Date.now() - new Date(dateStr).getTime();
     return diff < 14 * 24 * 60 * 60 * 1000; // 14 天内
   };
@@ -63,7 +65,7 @@ export const useNovelStore = defineStore("novel", () => {
   const latestChapter = computed(() => {
     // 遍历所有章节，找到最近 14 天内的章节
     const recentChapters = flatChapterList.value.filter((chapter) =>
-      isRecent(chapter.id, chapter.date)
+      isRecent(chapter.date)
     );
 
     // 如果有最近章节，返回最新的一个（假设章节按时间排序）
@@ -75,17 +77,14 @@ export const useNovelStore = defineStore("novel", () => {
     return flatChapterList.value[flatChapterList.value.length - 1];
   });
 
-  const contentUrl = computed(() => {
-    if (!currentChapterInfo.value) return null;
-    const { chapter, group } = currentChapterInfo.value;
-    const volume = group.match(/(.*)/)?.[0];
-    return `${BASE_URL}/${volume}/${chapter.name}.md`;
+  const totalPages = computed(() => {
+    const content = currentChapterContent.value?.content;
+    return Array.isArray(content) ? content.length : 0;
   });
 
-  const totalPages = computed(() => currentChapterContent.value.length);
-
   const currentPageContent = computed(
-    () => currentChapterContent.value[currentChapterPage.value - 1] || ""
+    () =>
+      currentChapterContent.value.content[currentChapterPage.value - 1] || ""
   );
 
   const setChapterList = useDebounceFn(async (forceUpdate = false) => {
@@ -105,7 +104,7 @@ export const useNovelStore = defineStore("novel", () => {
 
     try {
       isLoadingList.value = true;
-      const res = await fetch(`${BASE_URL}/list.json`);
+      const res = await fetch(`${BASE_URL}/content/index.json`);
       const data = await res.json();
       chapterList.value = data;
       storedChapterList.value = chapterList.value;
@@ -125,7 +124,13 @@ export const useNovelStore = defineStore("novel", () => {
   }, 500);
 
   const flatList = (list) => {
-    flatChapterList.value = list.flatMap((item) => item.options);
+    flatChapterList.value = Object.values(list).flatMap((volume) =>
+      volume.chapters.map((chapter) => ({
+        ...chapter,
+        volumeTitle: volume.volumeInfo.title,
+        volumeUuid: volume.volumeInfo.uuid,
+      }))
+    );
   };
 
   const refreshChapterList = useDebounceFn(async () => {
@@ -141,7 +146,7 @@ export const useNovelStore = defineStore("novel", () => {
 
   const refreshContent = useDebounceFn(async () => {
     try {
-      delete contentCache.value[currentChapterId.value]; // 清空当前章节缓存
+      delete contentCache.value; // 清空当前章节缓存
       console.log("refreshContent: Clear cache");
       await loadChapterContent();
       console.log("refreshContent: Reload content");
@@ -152,22 +157,32 @@ export const useNovelStore = defineStore("novel", () => {
   }, 500);
 
   const loadChapterContent = async () => {
-    if (!contentUrl.value) return;
-    if (contentCache.value[currentChapterId.value]) {
+    // 使用缓存;
+    if (contentCache.value[currentChapterUuid.value]) {
       console.log("loadChapterContent: Call cache");
-      currentChapterContent.value = contentCache.value[currentChapterId.value];
+      currentChapterContent.value =
+        contentCache.value[currentChapterUuid.value];
       setRead();
       isLoadingContent.value = false;
       return;
     }
+
     try {
       isLoadingContent.value = true;
       console.log("loadChapterContent: load");
-      const response = await fetch(contentUrl.value);
+
+      const response = await fetch(`${BASE_URL}/${currentChapter.value.path}`);
       if (!response.ok) throw new Error("加载失败");
-      const markdownContent = await response.text();
-      currentChapterContent.value = splitContent(markdownContent);
-      contentCache.value[currentChapterId.value] = currentChapterContent.value;
+      const markdownRaw = await response.text();
+      const { attributes: frontmatter, body: content } = fm(markdownRaw);
+      const parsedContent = splitContent(content);
+      currentChapterContent.value = {
+        frontmatter,
+        content: parsedContent,
+      };
+
+      contentCache.value[currentChapterUuid.value] =
+        currentChapterContent.value;
       setRead();
     } catch (error) {
       console.error("内容加载失败:", error);
@@ -194,9 +209,9 @@ export const useNovelStore = defineStore("novel", () => {
     return pages;
   };
 
-  const setChapter = useDebounceFn(async (id) => {
-    currentChapterId.value = id;
-    console.log("setChapter:", id);
+  const setChapter = useDebounceFn(async (uuid) => {
+    currentChapterUuid.value = uuid;
+    console.log("setChapter:", uuid);
     await loadChapterContent();
   }, 500);
 
@@ -206,8 +221,8 @@ export const useNovelStore = defineStore("novel", () => {
   }, 500);
 
   const updateTitle = () => {
-    if (currentChapterInfo.value) {
-      title.value = `${currentChapterInfo.value.chapter.name} | KoMoriSam`;
+    if (currentChapter.value) {
+      title.value = `${currentChapter.value.title} | KoMoriSam`;
       useTitle(title.value);
     }
   };
@@ -216,14 +231,11 @@ export const useNovelStore = defineStore("novel", () => {
     if (
       !readChapterList.value.some(
         (item) =>
-          item.chapter.id === currentChapterInfo.value.chapter.id &&
-          item.group === currentChapterInfo.value.group
+          item.uuid === currentChapter.value.uuid &&
+          item.group === currentChapter.value.group
       )
     ) {
-      readChapterList.value = [
-        ...readChapterList.value,
-        currentChapterInfo.value,
-      ];
+      readChapterList.value = [...readChapterList.value, currentChapter.value];
     }
   };
 
@@ -257,14 +269,14 @@ export const useNovelStore = defineStore("novel", () => {
     readChapterList,
     currentChapterContent,
     contentCache,
-    currentChapterId,
+    currentChapterIndex,
+    currentChapterUuid,
     currentChapterPage,
     styleConfigs,
     isLoadingList,
     isLoadingContent,
-    currentChapterInfo,
+    currentChapter,
     latestChapter,
-    contentUrl,
     totalPages,
     currentPageContent,
     setChapterList,

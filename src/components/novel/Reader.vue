@@ -6,8 +6,8 @@
           <ChapterInfo
             v-if="latestChapter"
             badgeText="最新章节"
-            :content="latestChapter.name"
-            additionalClasses="btn-info lg:btn-lg mb-6"
+            :content="latestChapter.title"
+            additionalClasses="btn-info lg:btn-lg"
             :onClick="handleRecentChapter"
           />
           <Modal
@@ -15,25 +15,6 @@
             title="已经是最新章节啦！"
             @close="handleModalClose()"
           />
-          <ChapterInfo
-            badgeText="当前章节"
-            :content="
-              currentChapterInfo
-                ? currentChapterInfo.chapter.name
-                : '请选择章节'
-            "
-            additionalClasses="lg:btn-lg"
-          >
-            <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
-              <button
-                class="btn lg:btn-lg"
-                @click="novelStore.refreshContent()"
-              >
-                <i class="ri-refresh-line"></i>
-              </button>
-            </div>
-          </ChapterInfo>
-
           <ChapterController />
           <Markdown />
           <ChapterController v-if="!isLoadingContent" />
@@ -49,7 +30,7 @@
             {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
           </button>
           <Giscus
-            :key="currentChapterInfo?.chapter.name"
+            :key="currentChapter?.title"
             repo="KoMoriSam/komorisam.github.io"
             repo-id="R_kgDOJxn8KA"
             category="General"
@@ -80,6 +61,7 @@
       </template>
 
       <template #aside>
+        <!-- <BookToc /> -->
         <KeepAlive>
           <component :is="components[currentComponent]"></component>
         </KeepAlive>
@@ -112,7 +94,7 @@ import Modal from "@/components/ui/feedback/Modal.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
-const { latestChapter, currentChapterInfo, isLoadingContent } =
+const { latestChapter, currentChapter, isLoadingContent } =
   storeToRefs(novelStore);
 const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);
