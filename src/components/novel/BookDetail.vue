@@ -62,6 +62,7 @@
       lang="zh-CN"
       loading="lazy"
     />
+    <ToTop />
   </main>
   <FootBar />
 </template>
@@ -77,6 +78,7 @@ import { useThemeStore } from "@/stores/theme";
 
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import ChapterList from "@/components/novel/ChapterList.vue";
+import ToTop from "@/components/base/ToTop.vue";
 import FootBar from "@/components/layout/FootBar.vue";
 
 const novelStore = useNovelStore();
