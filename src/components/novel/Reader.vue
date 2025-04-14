@@ -25,7 +25,10 @@
             additionalClasses="lg:btn-lg"
           >
             <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
-              <button class="btn lg:btn-lg" @click="refreshContent">
+              <button
+                class="btn lg:btn-lg"
+                @click="novelStore.refreshContent()"
+              >
                 <i class="ri-refresh-line"></i>
               </button>
             </div>
@@ -109,7 +112,7 @@ import Modal from "@/components/ui/feedback/Modal.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
-const { latestChapter, currentChapterInfo, isLoadingContent, refreshContent } =
+const { latestChapter, currentChapterInfo, isLoadingContent } =
   storeToRefs(novelStore);
 const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);
