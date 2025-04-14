@@ -2,7 +2,7 @@
   <div class="join flex items-center justify-center">
     <button
       class="join-item btn px-2"
-      @click="handleAnyChapter(currentChapterPage - 1)"
+      @click="handleAnyPage(currentChapterPage - 1)"
       :disabled="currentChapterPage === 1"
     >
       <i class="ri-arrow-left-s-line"></i>
@@ -19,7 +19,7 @@
     <button
       v-for="(page, idx) in totalPages"
       :key="idx"
-      @click="handleAnyChapter(idx + 1)"
+      @click="handleAnyPage(idx + 1)"
       :class="idx === currentChapterPage - 1 ? 'btn-primary' : ''"
       class="hidden lg:flex join-item btn"
     >
@@ -27,7 +27,7 @@
     </button>
     <button
       class="join-item btn px-2"
-      @click="handleAnyChapter(currentChapterPage + 1)"
+      @click="handleAnyPage(currentChapterPage + 1)"
       :disabled="currentChapterPage === totalPages"
     >
       <i class="ri-arrow-right-s-line"></i>
@@ -46,5 +46,5 @@ const { currentChapterPage, totalPages } = storeToRefs(novelStore);
 
 import { useChapters } from "@/composables/chapters";
 
-const { handleAnyChapter } = useChapters();
+const { handleAnyPage } = useChapters();
 </script>

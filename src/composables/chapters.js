@@ -57,6 +57,13 @@ export function useChapters() {
     scrollToTop(80);
   };
 
+  const handleAnyPage = (index) => {
+    router.push({
+      query: { chapter: currentChapterId.value, page: index },
+    });
+    scrollToTop(80);
+  };
+
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString("zh-CN", {
       year: "numeric",
@@ -87,6 +94,7 @@ export function useChapters() {
     handleRecentChapter,
     handlePrev,
     handleNext,
+    handleAnyPage,
     formatDate,
     isRecent,
   };
