@@ -4,7 +4,7 @@
   >
     <figure class="relative m-0 p-0">
       <div
-        v-show="!isLoaded"
+        v-show="!imageLoaded"
         class="skeleton absolute inset-0 h-52 lg:w-52 lg:h-auto lg:basis-3xs rounded-lg z-20"
       ></div>
       <img
@@ -21,13 +21,13 @@
       <p>{{ description }}</p>
       <slot></slot>
     </section>
+    <ToTop />
   </main>
   <FootBar />
-  <ToTop />
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useImageLoad } from "@/composables/imageLoad";
 
 import FootBar from "@/components/layout/FootBar.vue";
 import ToTop from "@/components/base/ToTop.vue";
@@ -51,8 +51,5 @@ defineProps({
   },
 });
 
-const isLoaded = ref(false);
-const handleImageLoad = () => {
-  isLoaded.value = true; // 图片加载完成后设置为 true
-};
+const { imageLoaded, handleImageLoad } = useImageLoad();
 </script>
