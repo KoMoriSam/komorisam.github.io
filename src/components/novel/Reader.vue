@@ -120,7 +120,6 @@ const { isFullscreen, toggle } = useFullscreen();
 
 const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
 
-
 const { showModal, handleModalClose, handleRecentChapter } = useChapters();
 
 const components = {
