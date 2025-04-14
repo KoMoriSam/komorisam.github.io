@@ -1,10 +1,10 @@
 <template>
   <header
-    v-if="currentChapterContent && currentChapterContent.frontmatter"
-    class="flex max-md:flex-col md:items-center gap-6 md:gap-0"
+    v-if="currentChapter"
+    class="flex max-md:flex-col md:items-center gap-2 md:gap-0"
   >
     <h1 class="text-3xl font-bold">
-      {{ currentChapterContent.frontmatter.title }}
+      {{ currentChapter.title }}
       <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
         <button class="btn btn-xs mb-1" @click="novelStore.refreshContent()">
           <i class="ri-refresh-line"></i>
@@ -12,17 +12,21 @@
       </div>
     </h1>
     <ul class="md:ml-auto">
-      <li class="text-base-content/50">
-        <span class="badge badge-outline badge-info badge-sm">更新时间</span>
-        {{ formatDate(currentChapterContent.frontmatter.date) }}
+      <li>
+        <span class="badge badge-sm">
+          <i class="ri-time-line"></i>
+          {{ formatDate(currentChapter.date) }}
+        </span>
       </li>
-      <li class="mt-2 text-base-content/50">
-        <span class="badge badge-outline badge-info badge-sm">字数</span>
-        {{ currentChapterContent.frontmatter.length }}
+      <li>
+        <span class="badge badge-sm">
+          <i class="ri-file-text-line"></i>
+          {{ currentChapter.length }} 字
+        </span>
       </li>
     </ul>
   </header>
-  <Loading v-if="currentChapter && isLoadingContent" />
+  <Loading v-if="currentChapterContent && isLoadingContent" />
   <article
     v-else
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
@@ -42,7 +46,7 @@
       :source="currentPageContent"
       :options="options"
     />
-    <h1 v-else-if="!currentChapter">请选择章节</h1>
+    <h1 v-else-if="!currentChapterContent">请选择章节</h1>
     <h1 v-else>加载失败，请稍后重试。</h1>
   </article>
 </template>
