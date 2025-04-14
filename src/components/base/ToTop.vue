@@ -1,34 +1,20 @@
 <template>
-  <button
+  <label
     @click="scrollToTop"
-    class="fixed right-6 lg:right-12 bottom-18 btn btn-square btn-soft btn-lg btn-info shadow-sm"
-    :class="showButton ? '' : 'hidden'"
-    title="回到顶部"
+    class="btn btn-soft btn-info btn-square btn-lg drawer-button z-1 fixed shadow-sm right-6 bottom-18 transition-opacity duration-500"
+    :class="showButton ? 'opacity-100' : 'opacity-0'"
+    aria-label="回到顶部"
   >
-    <i class="ri-skip-up-line"></i>
-  </button>
+    <div class="tooltip tooltip-left" data-tip="回到顶部">
+      <i class="ri-skip-up-line m-4"></i>
+    </div>
+  </label>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useScrollTo } from "@/composables/scrollTo";
 
-const showButton = ref(false);
+const { showButton, scrollToTop, handleScroll } = useScrollTo();
 
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-const handleScroll = () => {
-  showButton.value = window.scrollY > 300;
-};
-
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
-
-defineExpose({ scrollToTop });
+handleScroll();
 </script>
