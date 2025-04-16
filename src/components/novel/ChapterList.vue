@@ -39,18 +39,21 @@
             >
               <!-- 章节名称 -->
 
-              <span class="mr-2">{{ chapter.title }}</span>
+              <span>{{ chapter.title }}</span>
 
+              <!-- 章节状态指示 -->
               <span
                 v-if="
                   isRecent(chapter.uuid, chapter.date) && !isRead(chapter.uuid)
                 "
-                class="badge badge-xs badge-warning"
+                class="badge badge-xs badge-warning mx-1"
               >
-                NEW </span
-              ><br />
-              <!-- 章节状态指示 -->
-              <div class="flex items-center gap-1 flex-wrap">
+                NEW
+              </span>
+
+              <br />
+
+              <div class="flex items-center gap-1 flex-wrap my-1">
                 <span v-if="isRead(chapter.uuid)" class="badge badge-xs">
                   <i class="status status-accent"></i>
                   已读
@@ -63,7 +66,6 @@
                   <i class="ri-time-line"></i>
                   {{ formatDate(chapter.date) }}
                 </span>
-                <br />
                 <span class="badge badge-xs">
                   <i class="ri-file-text-line"></i>
                   {{ chapter.length }} 字
