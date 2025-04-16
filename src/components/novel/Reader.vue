@@ -64,7 +64,6 @@
       </template>
 
       <template #aside>
-        <!-- <BookToc /> -->
         <KeepAlive>
           <component :is="components[currentComponent]"></component>
         </KeepAlive>
