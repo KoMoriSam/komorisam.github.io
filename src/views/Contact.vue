@@ -14,17 +14,26 @@
       >
         <i class="ri-qq-fill"></i> 3593516798
       </a>
-      <a
-        class="join-item btn btn-info text-info-content no-underline text-left justify-start relative group"
-      >
-        <i class="ri-wechat-fill"></i> MoriSam2023
-        <!-- 悬停时显示的图片 -->
-        <img
-          class="card bg-base-100 shadow-xl absolute left-42 p-2 mt-2 opacity-0 w-32 h-32 group-hover:opacity-100 transition-opacity duration-250"
-          src="/assets/images/profile/wechat.png"
-          alt="My WeChat QR Code"
-        />
-      </a>
+      <div class="dropdown dropdown-right dropdown-center">
+        <a
+          tabindex="0"
+          role="button"
+          class="join-item btn btn-info text-info-content no-underline text-left justify-start relative group"
+        >
+          <i class="ri-wechat-fill"></i> MoriSam2023
+        </a>
+        <div
+          tabindex="0"
+          class="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-32 sm:w-48 shadow-sm ml-2"
+        >
+          <section tabindex="0" class="card-body py-0">
+            <img
+              src="/assets/images/profile/wechat.png"
+              alt="My WeChat QR Code"
+            />
+          </section>
+        </div>
+      </div>
     </address>
     <br />
   </BasePage>
