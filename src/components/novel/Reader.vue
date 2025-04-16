@@ -26,7 +26,10 @@
           <h1 class="inline">
             {{ currentMapping === "title" ? "本章说" : "本书说" }}
           </h1>
-          <button class="btn btn-info btn-xs mx-2 mb-4" @click="commentToggle">
+          <button
+            class="btn btn-info btn-soft btn-xs mx-2 mb-4"
+            @click="commentToggle"
+          >
             {{ currentMapping === "title" ? "切换本书说" : "切换本章说" }}
           </button>
           <Giscus
