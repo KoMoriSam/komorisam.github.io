@@ -78,13 +78,12 @@ export const useNovelStore = defineStore("novel", () => {
   });
 
   const totalPages = computed(() => {
-    const content = currentChapterContent.value?.content;
-    return Array.isArray(content) ? content.length : 0;
+    const content = currentChapterContent.value;
+    return content.length;
   });
 
   const currentPageContent = computed(
-    () =>
-      currentChapterContent.value.content[currentChapterPage.value - 1] || ""
+    () => currentChapterContent.value[currentChapterPage.value - 1] || ""
   );
 
   const setChapterList = useDebounceFn(async (forceUpdate = false) => {
@@ -120,8 +119,9 @@ export const useNovelStore = defineStore("novel", () => {
       flatList(data);
       if (forceUpdate) {
         console.log("setChapterList: Force update");
+      } else {
+        console.log("setChapterList: First loading");
       }
-      console.log("setChapterList: First loading");
       await loadChapterContent();
     } catch (error) {
       console.error("列表加载失败:", error);
@@ -153,19 +153,23 @@ export const useNovelStore = defineStore("novel", () => {
 
   const refreshContent = useDebounceFn(async () => {
     try {
+      isLoadingContent.value = true;
       delete contentCache.value; // 清空当前章节缓存
       console.log("refreshContent: Clear cache");
-      await loadChapterContent();
+      await loadChapterContent(true);
       console.log("refreshContent: Reload content");
     } catch (error) {
       console.error("刷新内容失败:", error);
       throw error;
+    } finally {
+      isLoadingContent.value = false;
     }
   }, 500);
 
-  const loadChapterContent = async () => {
+  const loadChapterContent = async (forceUpdate = false) => {
     // 使用缓存;
-    if (contentCache.value[currentChapterUuid.value]) {
+    if (!forceUpdate && contentCache.value[currentChapterUuid.value]) {
+      isLoadingContent.value = true;
       console.log("loadChapterContent: Call cache");
       currentChapterContent.value =
         contentCache.value[currentChapterUuid.value];
@@ -176,20 +180,21 @@ export const useNovelStore = defineStore("novel", () => {
 
     try {
       isLoadingContent.value = true;
-      console.log("loadChapterContent: load");
 
       const response = await fetch(`${BASE_URL}/${currentChapter.value.path}`);
       if (!response.ok) throw new Error("加载失败");
       const markdownRaw = await response.text();
-      const { attributes: frontmatter, body: content } = fm(markdownRaw);
+      const { body: content } = fm(markdownRaw);
       const parsedContent = splitContent(content);
-      currentChapterContent.value = {
-        frontmatter,
-        content: parsedContent,
-      };
+      currentChapterContent.value = parsedContent;
 
       contentCache.value[currentChapterUuid.value] =
         currentChapterContent.value;
+      if (forceUpdate) {
+        console.log("loadChapterContent: Force update");
+      } else {
+        console.log("loadChapterContent: First loading");
+      }
       setRead();
     } catch (error) {
       console.error("内容加载失败:", error);
@@ -237,12 +242,13 @@ export const useNovelStore = defineStore("novel", () => {
   const setRead = () => {
     if (
       !readChapterList.value.some(
-        (item) =>
-          item.uuid === currentChapter.value.uuid &&
-          item.group === currentChapter.value.group
+        (item) => item.uuid === currentChapter.value.uuid
       )
     ) {
       readChapterList.value = [...readChapterList.value, currentChapter.value];
+      console.log("setRead: new read", currentChapter.value.title);
+    } else {
+      console.log("setRead: already read", currentChapter.value.title);
     }
   };
 
