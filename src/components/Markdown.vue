@@ -1,9 +1,15 @@
 <template>
   <header
     v-if="currentChapter"
-    class="flex max-md:flex-col md:items-center gap-2 md:gap-0"
+    class="flex max-md:flex-col md:items-end gap-2 md:gap-0"
   >
     <h1 class="text-3xl font-bold">
+      <span class="badge badge-outline badge-info font-normal">
+        <i class="ri-book-marked-line"></i>
+        {{ currentChapter.volumeTitle }}
+      </span>
+      <br />
+      <i class="ri-book-shelf-line font-normal"></i>
       {{ currentChapter.title }}
       <div class="tooltip tooltip-bottom" data-tip="刷新当前章节">
         <button class="btn btn-xs mb-1" @click="novelStore.refreshContent()">
@@ -26,7 +32,7 @@
       </li>
     </ul>
   </header>
-  <Loading v-if="currentChapterContent && isLoadingContent" />
+  <Loading v-if="currentPageContent && isLoadingContent" />
   <article
     v-else
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
@@ -46,7 +52,7 @@
       :source="currentPageContent"
       :options="options"
     />
-    <h1 v-else-if="!currentChapterContent">请选择章节</h1>
+    <h1 v-else-if="!currentChapter">请选择章节</h1>
     <h1 v-else>加载失败，请稍后重试。</h1>
   </article>
 </template>
@@ -63,13 +69,8 @@ import Loading from "@/components/base/Loading.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
-const {
-  currentChapter,
-  currentChapterContent,
-  currentPageContent,
-  isLoadingContent,
-  totalPages,
-} = storeToRefs(novelStore);
+const { currentChapter, currentPageContent, isLoadingContent, totalPages } =
+  storeToRefs(novelStore);
 
 const { formatDate } = useChapters();
 
