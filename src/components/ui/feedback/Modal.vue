@@ -6,7 +6,7 @@
   >
     <section class="modal-box">
       <h3 class="text-lg font-bold">{{ title }}</h3>
-      <p class="py-4">{{ description }}</p>
+      <p class="py-4" v-html="description"></p>
       <form class="modal-action" method="dialog" @submit.prevent="closeModal">
         <button class="btn">{{ buttonText }}</button>
       </form>
@@ -22,7 +22,7 @@ defineProps({
   },
   description: {
     type: String,
-    default: "按下 ESC 键或点击按钮以关闭！",
+    default: "按下 <kbd class='kbd'>ESC</kbd> 键或点击按钮以关闭。",
   },
   buttonText: {
     type: String,
