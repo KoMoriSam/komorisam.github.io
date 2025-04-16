@@ -26,22 +26,34 @@ export function useChapters() {
     showModal.value = false;
   };
 
-  const handleFirstChapter = () => {
+  const handleChapter = (uuid) => {
     router.push({
-      query: { chapter: "7d5e9b50-a9cb-428a-9264-903046354e22", page: 1 },
+      query: { chapter: uuid, page: 1 },
     });
-  };
-
-  const handleAnyChapter = (uuid) => {
-    router.push({ query: { chapter: `${uuid}`, page: 1 } });
     scrollToTop(80);
   };
 
-  const handleRecentChapter = () => {
-    if (latestChapter.value.id === currentChapterUuid.value) {
+  const handleFirstChapter = () => {
+    if (currentChapterUuid.value === "7d5e9b50-a9cb-428a-9264-903046354e22") {
       showModal.value = true;
     } else {
-      router.push({ query: { chapter: latestChapter.value.id, page: 1 } });
+      handleChapter("7d5e9b50-a9cb-428a-9264-903046354e22");
+    }
+  };
+
+  const handleAnyChapter = (uuid) => {
+    if (uuid === currentChapterUuid.value) {
+      showModal.value = true;
+    } else {
+      handleChapter(uuid);
+    }
+  };
+
+  const handleRecentChapter = () => {
+    if (latestChapter.value.uuid === currentChapterUuid.value) {
+      showModal.value = true;
+    } else {
+      handleChapter(latestChapter.value.uuid);
     }
   };
 
@@ -88,9 +100,9 @@ export function useChapters() {
     });
   };
 
-  const isRecent = (id, dateStr) => {
+  const isRecent = (uuid, dateStr) => {
     const diff = Date.now() - new Date(dateStr).getTime();
-    return diff < 14 * 24 * 60 * 60 * 1000 || id === latestChapter.value.id; // 14 天内和最新章
+    return diff < 14 * 24 * 60 * 60 * 1000 || uuid === latestChapter.value.uuid; // 14 天内和最新章
   };
 
   const isRead = computed(() => (uuid) => {
