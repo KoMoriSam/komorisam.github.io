@@ -15,7 +15,7 @@
       <section
         class="menu bg-base-200 text-base-content min-h-full p-4 w-80 md:w-96 items-center"
       >
-        <aside class="flex-1 flex flex-col lg:sticky lg:top-12">
+        <aside class="flex-1 flex flex-col mb-12 lg:mb-0 lg:sticky lg:top-12">
           <slot name="aside"></slot>
         </aside>
       </section>
