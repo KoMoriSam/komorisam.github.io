@@ -24,13 +24,14 @@
         </a>
         <div
           tabindex="0"
-          class="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-32 sm:w-48 shadow-sm ml-2"
+          class="card card-sm dropdown-content bg-base-200 rounded-box z-1 w-32 sm:w-48 shadow-sm ml-2"
         >
-          <section tabindex="0" class="card-body py-0">
-            <img
-              src="/assets/images/profile/wechat.png"
-              alt="My WeChat QR Code"
-            />
+          <section tabindex="0" class="card-body">
+            <div
+              class="aspect-square bg-base-content mask-contain mask-no-repeat mask-[url(/assets/images/profile/wechat.svg)]"
+            >
+              <div alt="" class="w-30 sm:w-46"></div>
+            </div>
           </section>
         </div>
       </div>
