@@ -43,6 +43,12 @@ const router = createRouter({
       meta: { title: "关于 | KoMoriSam" },
     },
     {
+      path: "/changelog",
+      name: "changelog",
+      component: () => import("@/views/Changelog.vue"),
+      meta: { title: "更新日志 | KoMoriSam" },
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "NotFound",
       component: () => import("@/views/NotFound.vue"),
