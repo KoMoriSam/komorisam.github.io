@@ -1,5 +1,6 @@
 <template>
   <label
+    for=""
     @click="scrollToTop"
     class="btn btn-soft btn-info btn-square btn-lg drawer-button z-1 fixed shadow-sm right-6 bottom-18 transition-opacity duration-500"
     :class="showButton ? 'opacity-100' : 'opacity-0'"

@@ -1,7 +1,7 @@
 <template>
   <aside class="max-lg:dock">
     <FloatingButton
-      for="my-drawer-2"
+      for="novel-sidebar"
       icon="ri-settings-3-line"
       label="设置"
       position-classes="lg:bottom-88"
@@ -9,7 +9,7 @@
       :onClick="() => emitToolChange('FormatToolbox')"
     />
     <FloatingButton
-      for="my-drawer-2"
+      for="novel-sidebar"
       icon="ri-file-list-2-line"
       label="目录"
       position-classes="lg:bottom-74"
@@ -17,6 +17,7 @@
       :onClick="() => emitToolChange('ChapterList')"
     />
     <FloatingButton
+      for=""
       icon="ri-arrow-go-back-line"
       label="封面页"
       position-classes="lg:bottom-60"
@@ -29,6 +30,7 @@
       "
     />
     <FloatingButton
+      for=""
       :icon="
         isFullscreen ? 'ri-collapse-diagonal-fill' : 'ri-expand-diagonal-fill'
       "
@@ -38,6 +40,7 @@
       :onClick="toggle"
     />
     <FloatingButton
+      for=""
       icon="ri-skip-up-line"
       label="回到顶部"
       position-classes="lg:bottom-32"
@@ -45,6 +48,7 @@
       :onClick="() => scrollToTop()"
     />
     <FloatingButton
+      for=""
       icon="ri-skip-down-line"
       label="回到底部"
       position-classes="lg:bottom-18"

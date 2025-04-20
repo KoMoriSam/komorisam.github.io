@@ -1,6 +1,6 @@
 <template>
   <section class="drawer lg:drawer-open">
-    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+    <input id="novel-sidebar" type="checkbox" class="drawer-toggle" />
     <section
       class="drawer-content flex flex-wrap h-full w-full items-start justify-center gap-4 lg:pr-16 pb-16 lg:pb-12"
     >
@@ -8,7 +8,7 @@
     </section>
     <aside class="drawer-side">
       <label
-        for="my-drawer-2"
+        for="novel-sidebar"
         aria-label="关闭侧边栏"
         class="drawer-overlay"
       ></label>
