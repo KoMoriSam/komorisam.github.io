@@ -1,9 +1,9 @@
 <template>
   <Menu :title="title">
-    <template v-if="!novelStore.isDefault(configKey)" #description>
+    <template v-if="!style.isDefault(configKey)" #description>
       <a
         class="link link-info no-underline"
-        @click="novelStore.setDefault(configKey)"
+        @click="style.setDefault(configKey)"
       >
         恢复默认值
         <i class="ri-arrow-go-back-line"></i>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { useNovelStore } from "@/stores/novel";
+import { useReaderStyleStore } from "@/stores/readerStyle";
 
 import Menu from "@/components/ui/menu/Menu.vue";
 
@@ -23,5 +23,5 @@ defineProps({
   configKey: String,
 });
 
-const novelStore = useNovelStore();
+const style = useReaderStyleStore();
 </script>
