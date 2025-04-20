@@ -1,4 +1,29 @@
 {
+  "1.2.4": {
+    "title": "数据清理与路由完善",
+    "releaseDate": "2025-04-20",
+    "changelog": [
+      {
+        "type": "ui",
+        "description": "添加更新日志入口",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "调整应清除的遗弃数据范围",
+        "impact": "medium"
+      },
+      {
+        "type": "feature",
+        "description": "补充添加遗漏的路由配置",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": true,
+      "note": "本次更新将清除废弃数据，不影响使用。"
+    }
+  },
   "1.2.3": {
     "title": "样式与结构优化",
     "releaseDate": "2025-04-20",

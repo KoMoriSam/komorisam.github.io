@@ -1,0 +1,1 @@
+import{_ as n}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{l as s,o,a as t}from"./index-A3Pz7xm3.js";const r={},a={class:"my-48 flex items-center justify-center"};function c(i,e){return o(),s("main",a,e[0]||(e[0]=[t("span",{class:"loading loading-spinner loading-xl text-primary"},null,-1)]))}const _=n(r,[["render",c]]);export{_ as L};
