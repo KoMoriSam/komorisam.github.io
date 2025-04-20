@@ -34,12 +34,21 @@
             </li>
           </ul>
 
-          <p v-if="item.migration?.required" class="mt-3 text-sm">
-            <span class="badge badge-xs badge-warning">
-              <i class="ri-alert-line"></i>
-              此版本包含迁移操作
+          <p v-if="item.migration" class="mt-3 text-sm">
+            <span
+              :class="[
+                'badge badge-xs',
+                item.migration.required ? 'badge-warning' : 'badge-success',
+              ]"
+            >
+              <i
+                :class="
+                  item.migration.required ? 'ri-alert-line' : 'ri-check-line'
+                "
+              ></i>
+              {{ item.migration.required ? "包含迁移操作" : "无迁移操作" }}
             </span>
-            {{ item.migration.note || "需要清除旧数据" }}
+            {{ item.migration.note || "" }}
           </p>
           <div class="divider"></div>
         </section>

@@ -35,7 +35,7 @@
                 ? novelStore.currentChapter?.title
                 : ''
             "
-            additionalClasses="w-full my-6"
+            additionalClasses="w-full my-6 truncate"
             :onClick="() => togglePage()"
           />
         </figcaption>

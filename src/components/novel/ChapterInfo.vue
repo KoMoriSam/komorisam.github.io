@@ -4,7 +4,7 @@
       :class="['btn justify-start font-bold flex-2', additionalClasses]"
       @click="onClick"
     >
-      <span class="badge badge-sm mr-4">
+      <span class="badge badge-sm">
         {{ badgeText }}
       </span>
       {{ content }}
