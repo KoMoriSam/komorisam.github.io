@@ -24,7 +24,7 @@ export default defineConfig({
     // 预渲染
     seoPrerender({
       // 要渲染的路由
-      routes: ["/", "/novel", "/about", "/contact"],
+      routes: ["/", "/novel", "/about", "/contact", "/changelog"],
     }),
     {
       name: "copy-404",
