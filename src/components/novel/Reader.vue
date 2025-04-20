@@ -7,7 +7,7 @@
             v-if="latestChapter"
             badgeText="最新章节"
             :content="latestChapter.title"
-            additionalClasses="btn-info lg:btn-lg"
+            additionalClasses="btn-soft lg:btn-lg"
             :onClick="handleRecentChapter"
           />
           <Modal
