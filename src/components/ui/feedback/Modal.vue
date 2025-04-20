@@ -1,21 +1,17 @@
 <template>
-  <dialog
-    id="my_modal_5"
-    class="modal modal-bottom sm:modal-middle"
-    :open="visible"
-  >
+  <dialog class="modal modal-bottom sm:modal-middle" :open="visible">
     <section class="modal-box">
       <h3 class="text-lg font-bold">{{ title }}</h3>
-      <p class="py-4" v-html="description"></p>
-      <form class="modal-action" method="dialog" @submit.prevent="closeModal">
-        <button class="btn">{{ buttonText }}</button>
+      <section class="py-4" v-html="description"></section>
+      <form class="modal-action" method="dialog" @submit.prevent="handleSubmit">
+        <button class="btn" type="submit">{{ buttonText }}</button>
       </form>
     </section>
   </dialog>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: "Hello!",
@@ -32,10 +28,13 @@ defineProps({
     type: Boolean,
     required: true,
   },
+  onSubmit: {
+    type: Function,
+    default: () => {},
+  },
 });
 
-const emit = defineEmits(["close"]);
-const closeModal = () => {
-  emit("close");
+const handleSubmit = () => {
+  props.onSubmit();
 };
 </script>

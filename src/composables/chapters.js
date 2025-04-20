@@ -6,6 +6,8 @@ import { useScrollTo } from "@/composables/scrollTo";
 
 import { useNovelStore } from "@/stores/novel";
 
+import { showMsg } from "@/utils/showMsg";
+
 export function useChapters() {
   const { scrollToTop } = useScrollTo();
 
@@ -51,7 +53,7 @@ export function useChapters() {
 
   const handleRecentChapter = () => {
     if (latestChapter.value.uuid === currentChapterUuid.value) {
-      showModal.value = true;
+      showMsg("已经是最新章节啦！");
     } else {
       handleChapter(latestChapter.value.uuid);
     }
