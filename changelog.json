@@ -1,4 +1,24 @@
 {
+  "1.2.5": {
+    "title": "数据清理与样式修复",
+    "releaseDate": "2025-04-20",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "增加强制清理废弃数据功能",
+        "impact": "low"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复阅读器样式菜单函数传入错误的问题",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false,
+      "note": "本次更新将清除废弃数据，不影响使用。"
+    }
+  },
   "1.2.4": {
     "title": "数据清理与路由完善",
     "releaseDate": "2025-04-20",
@@ -20,7 +40,7 @@
       }
     ],
     "migration": {
-      "required": true,
+      "required": false,
       "note": "本次更新将清除废弃数据，不影响使用。"
     }
   },
