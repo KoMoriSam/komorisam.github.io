@@ -6,9 +6,9 @@
         :key="font"
         class="btn btn-info join-item"
         :class="`${font.style} ${
-          novelStore.styleConfigs.fontStyle === font.style ? '' : 'btn-soft'
+          styleStore.styleConfigs.fontStyle === font.style ? '' : 'btn-soft'
         }`"
-        @click="novelStore.setStyle('fontStyle', font.style)"
+        @click="styleStore.setStyle('fontStyle', font.style)"
       >
         {{ font.name }}
       </button>
@@ -17,7 +17,7 @@
 
   <StyleMenu title="字体大小" configKey="fontSize">
     <NumberController
-      v-model="novelStore.styleConfigs.fontSize"
+      v-model="styleStore.styleConfigs.fontSize"
       :step="1"
       :places="0"
       :min="16"
@@ -27,7 +27,7 @@
 
   <StyleMenu title="字间距" configKey="fontGap">
     <NumberController
-      v-model="novelStore.styleConfigs.fontGap"
+      v-model="styleStore.styleConfigs.fontGap"
       :step="0.01"
       :places="2"
       :min="-1"
@@ -37,7 +37,7 @@
 
   <StyleMenu title="行间距" configKey="lineHeight">
     <NumberController
-      v-model="novelStore.styleConfigs.lineHeight"
+      v-model="styleStore.styleConfigs.lineHeight"
       :step="0.1"
       :places="1"
       :min="1"
@@ -47,7 +47,7 @@
 
   <StyleMenu title="段间距" configKey="paraHeight">
     <NumberController
-      v-model="novelStore.styleConfigs.paraHeight"
+      v-model="styleStore.styleConfigs.paraHeight"
       :step="0.1"
       :places="1"
       :min="1"
@@ -58,12 +58,12 @@
 
 <script setup>
 import { ref } from "vue";
-import { useNovelStore } from "@/stores/novel";
+import { useReaderStyleStore } from "@/stores/readerStyle";
 
 import StyleMenu from "@/components/novel/StyleMenu.vue";
 import NumberController from "@/components/ui/input/NumberController.vue";
 
-const novelStore = useNovelStore();
+const styleStore = useReaderStyleStore();
 
 const fontList = ref([
   { name: "宋体", style: "font-song" },

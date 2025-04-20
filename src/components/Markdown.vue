@@ -36,14 +36,14 @@
   <article
     v-else
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
-    :class="novelStore.styleConfigs.fontStyle"
+    :class="styleStore.styleConfigs.fontStyle"
     :style="{
-      fontSize: `${novelStore.styleConfigs.fontSize}px`,
-      letterSpacing: `${novelStore.styleConfigs.fontGap * 0.25}rem`,
-      lineHeight: novelStore.styleConfigs.lineHeight,
-      '--para-margin-inline': `${novelStore.styleConfigs.paraHeight}rem`,
-      '--para-text-indent': `calc(${novelStore.styleConfigs.fontSize * 2}px + ${
-        novelStore.styleConfigs.fontGap * 0.6
+      fontSize: `${styleStore.styleConfigs.fontSize}px`,
+      letterSpacing: `${styleStore.styleConfigs.fontGap * 0.25}rem`,
+      lineHeight: styleStore.styleConfigs.lineHeight,
+      '--para-margin-inline': `${styleStore.styleConfigs.paraHeight}rem`,
+      '--para-text-indent': `calc(${styleStore.styleConfigs.fontSize * 2}px + ${
+        styleStore.styleConfigs.fontGap * 0.6
       }rem)`,
     }"
   >
@@ -63,6 +63,7 @@ import { storeToRefs } from "pinia";
 import { useChapters } from "@/composables/chapters";
 
 import { useNovelStore } from "@/stores/novel";
+import { useReaderStyleStore } from "@/stores/readerStyle";
 
 import VueMarkdown from "vue-markdown-render";
 import Loading from "@/components/base/Loading.vue";
@@ -71,6 +72,8 @@ import Loading from "@/components/base/Loading.vue";
 const novelStore = useNovelStore();
 const { currentChapter, currentPageContent, isLoadingContent, totalPages } =
   storeToRefs(novelStore);
+
+const styleStore = useReaderStyleStore();
 
 const { formatDate } = useChapters();
 

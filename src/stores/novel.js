@@ -26,20 +26,6 @@ export const useNovelStore = defineStore("novel", () => {
   const currentChapterPage = useStorage("READ_PAGE", 1);
   const title = ref("向远方 | KoMoriSam");
 
-  // 阅读器样式
-  const styleConfigKeys = [
-    { key: "fontStyle", storageKey: "STYLE_FONT", default: "font-kai" },
-    { key: "fontSize", storageKey: "STYLE_FONT_SIZE", default: 24 },
-    { key: "fontGap", storageKey: "STYLE_FONT_GAP", default: 0 },
-    { key: "lineHeight", storageKey: "CONTENT_LINE_HEIGHT", default: 1.5 },
-    { key: "paraHeight", storageKey: "CONTENT_PARA_HEIGHT", default: 1.5 },
-  ];
-
-  const styleConfigs = styleConfigKeys.reduce((acc, item) => {
-    acc[item.key] = useStorage(item.storageKey, item.default);
-    return acc;
-  }, {});
-
   // 加载状态
   const isLoadingList = ref(true);
   const isLoadingContent = ref(true);
@@ -252,30 +238,6 @@ export const useNovelStore = defineStore("novel", () => {
     }
   };
 
-  const setStyle = (key, value) => {
-    styleConfigs[key].value = value;
-    console.log(`set${key.charAt(0).toUpperCase() + key.slice(1)}:`, value);
-  };
-
-  const isDefault = (key) => {
-    const config = styleConfigKeys.find((item) => item.key === key);
-    if (!config) {
-      console.error(`Invalid key: ${key}`);
-      return false;
-    }
-    return styleConfigs[key].value === config.default;
-  };
-
-  const setDefault = (key) => {
-    const config = styleConfigKeys.find((item) => item.key === key);
-    if (!config) {
-      console.error(`Invalid key: ${key}`);
-      return;
-    }
-    styleConfigs[key].value = config.default;
-    console.log(`Reset ${key} to:`, config.default);
-  };
-
   return {
     chapterList,
     flatChapterList,
@@ -285,7 +247,6 @@ export const useNovelStore = defineStore("novel", () => {
     currentChapterIndex,
     currentChapterUuid,
     currentChapterPage,
-    styleConfigs,
     isLoadingList,
     isLoadingContent,
     currentChapter,
@@ -302,8 +263,5 @@ export const useNovelStore = defineStore("novel", () => {
     setPage,
     updateTitle,
     setRead,
-    setStyle,
-    isDefault,
-    setDefault,
   };
 });
