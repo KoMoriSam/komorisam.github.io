@@ -1,0 +1,191 @@
+{
+  "1.2.3": {
+    "title": "样式与结构优化",
+    "releaseDate": "2025-04-20",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "新增版本更新日志",
+        "impact": "medium"
+      },
+      {
+        "type": "ui",
+        "description": "修改 `ChapterInfo` 组件样式，规范化 HTML 语法结构",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "分离阅读器样式与小说状态管理逻辑",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "精简 `Modal` 对话框组件的调用方式",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": true,
+      "note": "本次更新将清除废弃数据，不影响使用。"
+    }
+  },
+  "1.2.2": {
+    "title": "样式与性能优化",
+    "releaseDate": "2025-04-16",
+    "changelog": [
+      {
+        "type": "performance",
+        "description": "精简章节内容缓存机制，去除多余模块和注释",
+        "impact": "medium"
+      },
+      {
+        "type": "ui",
+        "description": "优化二维码在暗色主题下的显示，统一排版与对话框组件样式",
+        "impact": "low"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复最近更新章节判断逻辑错误",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
+  "1.2.1": {
+    "title": "章节目录修复",
+    "releaseDate": "2025-04-14",
+    "changelog": [
+      {
+        "type": "bugfix",
+        "description": "修复章节目录缓存读取问题",
+        "impact": "high"
+      },
+      {
+        "type": "ui",
+        "description": "优化显示效果，提升阅读体验",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
+  "1.2.0": {
+    "title": "缓存管理增强",
+    "releaseDate": "2025-04-14",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "新增 `front-matter` 模块支持",
+        "impact": "medium"
+      },
+      {
+        "type": "feature",
+        "description": "新增大版本更新清除遗弃缓存功能",
+        "impact": "high"
+      },
+      {
+        "type": "performance",
+        "description": "优化章节逻辑以适应新版目录结构，提升 Modal 组件性能",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": true,
+      "note": "此次更新将清除以往的阅读记录。"
+    }
+  },
+  "1.1.2": {
+    "title": "体验问题修复",
+    "releaseDate": "2025-04-14",
+    "changelog": [
+      {
+        "type": "bugfix",
+        "description": "修复刷新当前章节内容失效的问题",
+        "impact": "medium"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复页面切换逻辑",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "抽象滚动逻辑，分离页面布局与逻辑",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
+  "1.1.1": {
+    "title": "结构优化调整",
+    "releaseDate": "2025-04-13",
+    "changelog": [
+      {
+        "type": "refactor",
+        "description": "抽象章节监听、标题更新、图片加载状态管理逻辑",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "进一步拆分页面布局逻辑",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
+  "1.1.0": {
+    "title": "功能增强与组件优化",
+    "releaseDate": "2025-04-13",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "新增 `Modal` 组件，实现模态对话框提示",
+        "impact": "medium"
+      },
+      {
+        "type": "feature",
+        "description": "新增清除阅读记录功能",
+        "impact": "low"
+      },
+      {
+        "type": "feature",
+        "description": "章节为最新时弹出提示对话框",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "优化图片加载骨架屏效果",
+        "impact": "low"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复 NumberController 的值范围判断逻辑",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
+  "1.0.0": {
+    "title": "全新的网页！",
+    "releaseDate": "2025-03-06",
+    "changelog": [
+      {
+        "type": "refactor",
+        "description": "使用 Vue3 + Vite 构建的全新网页",
+        "impact": "high"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  }
+}
