@@ -1,7 +1,12 @@
 <template>
   <main class="m-12">
     <article class="mx-auto prose">
-      <h1>更新日志</h1>
+      <h1>
+        更新日志
+        <router-link class="btn btn-xs no-underline mb-px" to="/">
+          返回主页
+        </router-link>
+      </h1>
 
       <Loading v-if="isLoading" />
       <div v-else-if="error" class="text-error">{{ error }}</div>
