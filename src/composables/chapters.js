@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -6,7 +6,7 @@ import { useScrollTo } from "@/composables/scrollTo";
 
 import { useNovelStore } from "@/stores/novel";
 
-import { showMsg } from "@/utils/showMsg";
+import { showAlert } from "@/utils/showAlert";
 
 export function useChapters() {
   const { scrollToTop } = useScrollTo();
@@ -23,11 +23,6 @@ export function useChapters() {
 
   const router = useRouter();
 
-  const showModal = ref(false);
-  const handleModalClose = () => {
-    showModal.value = false;
-  };
-
   const handleChapter = (uuid) => {
     router.push({
       query: { chapter: uuid, page: 1 },
@@ -37,7 +32,7 @@ export function useChapters() {
 
   const handleFirstChapter = () => {
     if (currentChapterUuid.value === "7d5e9b50-a9cb-428a-9264-903046354e22") {
-      showModal.value = true;
+      showAlert("已经是第一章啦！", "info");
     } else {
       handleChapter("7d5e9b50-a9cb-428a-9264-903046354e22");
     }
@@ -45,7 +40,7 @@ export function useChapters() {
 
   const handleAnyChapter = (uuid) => {
     if (uuid === currentChapterUuid.value) {
-      showModal.value = true;
+      showAlert("已经是当前章啦！", "info");
     } else {
       handleChapter(uuid);
     }
@@ -53,7 +48,7 @@ export function useChapters() {
 
   const handleRecentChapter = () => {
     if (latestChapter.value.uuid === currentChapterUuid.value) {
-      showMsg("已经是最新章节啦！");
+      showAlert("已经是最新章啦！", "info");
     } else {
       handleChapter(latestChapter.value.uuid);
     }
@@ -112,11 +107,9 @@ export function useChapters() {
   });
 
   return {
-    showModal,
     hasPrevious,
     hasNext,
     isRead,
-    handleModalClose,
     handleFirstChapter,
     handleAnyChapter,
     handleRecentChapter,
