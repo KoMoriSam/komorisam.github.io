@@ -1,12 +1,127 @@
 import { useStorage } from "@vueuse/core";
 import { createApp, h } from "vue";
 import { renderToString } from "@vue/server-renderer";
-import UpdateDetail from "@/components/UpdateDetail.vue";
-
 import { showMsg } from "@/utils/showMsg";
 import { useCleanStorage } from "@/utils/cleanStorage";
-
 import { useChangelogStore } from "@/stores/changelog";
+
+function UpdateDetail(props) {
+  const typeColor = (type) => {
+    switch (type) {
+      case "feature":
+        return "badge-warning";
+      case "bugfix":
+        return "badge-error";
+      case "ui":
+        return "badge-secondary";
+      case "performance":
+        return "badge-success";
+      case "refactor":
+        return "badge-primary";
+      default:
+        return "badge-info";
+    }
+  };
+
+  return h("section", { class: "prose prose-sm" }, [
+    h("h4", { class: "mt-0" }, [
+      h("span", { class: "text-primary" }, props.version),
+      " ",
+      props.title,
+      " ",
+      h(
+        "span",
+        { class: "badge badge-xs text-base-content/50" },
+        props.releaseDate
+      ),
+      h("div", { class: "dropdown dropdown-end md:dropdown-center" }, [
+        h(
+          "div",
+          {
+            tabindex: "0",
+            role: "button",
+            class: "btn btn-circle btn-ghost btn-xs text-info",
+          },
+          h("i", { class: "ri-information-line" })
+        ),
+        h(
+          "div",
+          {
+            tabindex: "0",
+            class:
+              "card card-sm dropdown-content bg-base-100 rounded-box z-1 w-48 shadow-sm",
+          },
+          [
+            h("div", { tabindex: "0", class: "card-body" }, [
+              h(
+                "h2",
+                { class: "card-title mt-0 mb-0" },
+                "想查看详细更新日志？"
+              ),
+              h(
+                "a",
+                {
+                  target: "_blank",
+                  href: "/changelog",
+                  class: "link link-primary no-underline",
+                },
+                ["点击此处", h("i", { class: "ri-arrow-right-up-line" })]
+              ),
+            ]),
+          ]
+        ),
+      ]),
+    ]),
+    h(
+      "ul",
+      props.changelog.map((change, index) =>
+        h("li", { key: index }, [
+          h(
+            "strong",
+            {
+              class: `badge badge-soft badge-sm ${typeColor(change.type)}`,
+            },
+            change.type
+          ),
+          " ",
+          change.description,
+          change.impact
+            ? h("span", { class: "ml-2" }, [
+                h(
+                  "span",
+                  { class: "badge badge-xs text-base-content/50" },
+                  `影响 ${change.impact}`
+                ),
+              ])
+            : null,
+        ])
+      )
+    ),
+    props.migration
+      ? h("p", { class: "mt-3 text-sm" }, [
+          h(
+            "span",
+            {
+              class: [
+                "badge badge-xs",
+                props.migration.required ? "badge-warning" : "badge-success",
+              ],
+            },
+            [
+              h("i", {
+                class: props.migration.required
+                  ? "ri-alert-line"
+                  : "ri-check-line",
+              }),
+              props.migration.required ? "包含迁移操作" : "无迁移操作",
+            ]
+          ),
+          " ",
+          props.migration.note || "",
+        ])
+      : null,
+  ]);
+}
 
 export async function checkUpdateNotice() {
   const VERSION_KEY = "APP_VERSION";
