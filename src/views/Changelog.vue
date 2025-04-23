@@ -55,6 +55,7 @@
       </template>
     </article>
   </main>
+  <ToTop />
 </template>
 
 <script setup>
@@ -62,6 +63,7 @@ import { useChangelogStore } from "@/stores/changelog";
 import { onMounted, computed } from "vue";
 
 import Loading from "@/components/base/Loading.vue";
+import ToTop from "@/components/base/ToTop.vue";
 
 const store = useChangelogStore();
 const log = computed(() => store.data);
