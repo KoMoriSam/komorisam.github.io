@@ -25,5 +25,4 @@
 
 <script setup>
 import BasePage from "@/components/layout/BasePage.vue";
-import router from "@/router";
 </script>

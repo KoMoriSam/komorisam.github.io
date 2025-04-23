@@ -10,11 +10,6 @@
             additionalClasses="btn-soft lg:btn-lg"
             :onClick="handleRecentChapter"
           />
-          <Modal
-            :visible="showModal"
-            title="已经是最新章节啦！"
-            @close="handleModalClose()"
-          />
           <ChapterController />
           <Markdown />
           <ChapterController v-if="!isLoadingContent" />
@@ -92,7 +87,6 @@ import FormatToolbox from "@/components/novel/FormatToolbox.vue";
 import Markdown from "@/components/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
-import Modal from "@/components/ui/feedback/Modal.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
@@ -107,7 +101,7 @@ const { isFullscreen, toggle } = useFullscreen();
 
 const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
 
-const { showModal, handleModalClose, handleRecentChapter } = useChapters();
+const { handleRecentChapter } = useChapters();
 
 const components = {
   ChapterList,

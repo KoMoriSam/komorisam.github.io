@@ -36,19 +36,19 @@
   <article
     v-else
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
-    :class="styleStore.styleConfigs.fontStyle"
+    :class="styleConfigs.fontStyle"
     :style="{
-      fontSize: `${styleStore.styleConfigs.fontSize}px`,
-      letterSpacing: `${styleStore.styleConfigs.fontGap * 0.25}rem`,
-      lineHeight: styleStore.styleConfigs.lineHeight,
-      '--para-margin-inline': `${styleStore.styleConfigs.paraHeight}rem`,
-      '--para-text-indent': `calc(${styleStore.styleConfigs.fontSize * 2}px + ${
-        styleStore.styleConfigs.fontGap * 0.6
+      fontSize: `${styleConfigs.fontSize}px`,
+      letterSpacing: `${styleConfigs.fontGap * 0.25}rem`,
+      lineHeight: styleConfigs.lineHeight,
+      '--para-margin-inline': `${styleConfigs.paraHeight}rem`,
+      '--para-text-indent': `calc(${styleConfigs.fontSize * 2}px + ${
+        styleConfigs.fontGap * 0.6
       }rem)`,
     }"
   >
     <vue-markdown
-      v-if="totalPages > 0"
+      v-if="currentPageContent"
       :source="currentPageContent"
       :options="options"
     />
@@ -70,10 +70,12 @@ import Loading from "@/components/base/Loading.vue";
 
 // 状态管理
 const novelStore = useNovelStore();
-const { currentChapter, currentPageContent, isLoadingContent, totalPages } =
+const { currentChapter, currentPageContent, isLoadingContent } =
   storeToRefs(novelStore);
 
 const styleStore = useReaderStyleStore();
+
+const { styleConfigs } = styleStore;
 
 const { formatDate } = useChapters();
 
