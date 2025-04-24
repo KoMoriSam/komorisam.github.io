@@ -70,8 +70,8 @@
 <script setup>
 import Giscus from "@giscus/vue";
 
-import { useChapters } from "@/composables/chapters";
-import { useImageLoad } from "@/composables/imageLoad";
+import { useChapters } from "@/composables/useChapters";
+import { useImageLoad } from "@/composables/useImageLoad";
 
 import { useNovelStore } from "@/stores/novel";
 import { useThemeStore } from "@/stores/theme";

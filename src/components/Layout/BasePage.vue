@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { useImageLoad } from "@/composables/imageLoad";
+import { useImageLoad } from "@/composables/useImageLoad";
 
 import FootBar from "@/components/layout/FootBar.vue";
 import ToTop from "@/components/base/ToTop.vue";

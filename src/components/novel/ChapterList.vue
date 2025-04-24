@@ -84,7 +84,7 @@ import { storeToRefs } from "pinia";
 
 import { useNovelStore } from "@/stores/novel";
 
-import { useChapters } from "@/composables/chapters";
+import { useChapters } from "@/composables/useChapters";
 
 import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";

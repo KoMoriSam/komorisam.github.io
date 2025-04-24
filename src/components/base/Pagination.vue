@@ -44,7 +44,7 @@ import { useNovelStore } from "@/stores/novel";
 const novelStore = useNovelStore();
 const { currentChapterPage, totalPages } = storeToRefs(novelStore);
 
-import { useChapters } from "@/composables/chapters";
+import { useChapters } from "@/composables/useChapters";
 
 const { handleAnyPage } = useChapters();
 </script>

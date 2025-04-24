@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { useScrollTo } from "@/composables/scrollTo";
+import { useScrollTo } from "@/composables/useScrollTo";
 
 const { showButton, scrollToTop, handleScroll } = useScrollTo();
 

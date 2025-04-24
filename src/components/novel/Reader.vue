@@ -71,11 +71,11 @@
 import { storeToRefs } from "pinia";
 import Giscus from "@giscus/vue";
 
-import { useChapters } from "@/composables/chapters";
-import { useGiscus } from "@/composables/giscus";
+import { useChapters } from "@/composables/useChapters";
+import { useGiscus } from "@/composables/useGiscus";
 import { useFullscreen } from "@vueuse/core";
-import { useScrollTo } from "@/composables/scrollTo";
-import { useToggleComponent } from "@/composables/toggleComponent";
+import { useScrollTo } from "@/composables/useScrollTo";
+import { useToggleComponent } from "@/composables/useToggleComponent";
 
 import { useNovelStore } from "@/stores/novel";
 import { useThemeStore } from "@/stores/theme";

@@ -60,7 +60,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 
-import { useChapters } from "@/composables/chapters";
+import { useChapters } from "@/composables/useChapters";
 
 import { useNovelStore } from "@/stores/novel";
 import { useReaderStyleStore } from "@/stores/readerStyle";
