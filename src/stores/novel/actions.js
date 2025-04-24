@@ -1,14 +1,18 @@
-import { useDebounceFn } from "@vueuse/core";
+import { useTitle, useDebounceFn } from "@vueuse/core";
+
+import { useToast } from "@/composables/useToast";
+
 import { useChapterApi } from "@/services/apiChapters";
+
 import CONFIG from "@/config.js";
 import fm from "front-matter";
-import { useTitle } from "@vueuse/core";
-import { showAlert } from "@/utils/showAlert";
-
-const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration();
-const { fetchChapterList, fetchChapterContent } = useChapterApi();
 
 export const useNovelActions = (state, getters) => {
+  const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration();
+  const { fetchChapterList, fetchChapterContent } = useChapterApi();
+
+  const toast = useToast({ position: "center-top", closable: false });
+
   const splitContent = (content) => {
     const PAGE_SIZE = 1200;
     const pages = [];
@@ -66,12 +70,13 @@ export const useNovelActions = (state, getters) => {
       state.chapterList.value = state.storedChapterList.value;
       flatList(state.storedChapterList.value);
       state.isLoadingList.value = false;
-      showAlert("从缓存中获取到章节目录！", "success");
       if (state.currentChapterContent.value.length < 0) {
         await loadChapterContent();
       }
       return;
     }
+
+    const loadingToast = toast.loading("章节目录加载中……");
 
     try {
       state.isLoadingList.value = true;
@@ -82,18 +87,20 @@ export const useNovelActions = (state, getters) => {
       flatList(data);
       if (forceUpdate) {
         console.log("setChapterList: Force update");
-        showAlert("章节目录已刷新！", "success");
+        toast.success("章节目录已刷新！");
       } else {
         console.log("setChapterList: First loading");
-        showAlert("章节目录加载完成！", "success");
+        toast.success("章节目录加载完成！");
       }
       if (state.currentChapterContent.value.length < 0) {
         await loadChapterContent();
       }
     } catch (error) {
-      console.error("列表加载失败:", error);
+      console.error("章节目录加载失败:", error);
+      toast.error("章节目录加载失败！");
     } finally {
       state.isLoadingList.value = false;
+      toast.remove(loadingToast.id, loadingToast.position);
     }
   }, 500);
 
@@ -105,7 +112,7 @@ export const useNovelActions = (state, getters) => {
 
   const refreshReadChapterList = useDebounceFn(async () => {
     state.readChapterList.value = [];
-    showAlert("已清空阅读记录", "success");
+    toast.success("已清空阅读记录！");
     await loadChapterContent(true);
   }, 500);
 
@@ -121,9 +128,10 @@ export const useNovelActions = (state, getters) => {
         state.contentCache.value[state.currentChapterUuid.value];
       setRead();
       state.isLoadingContent.value = false;
-      showAlert("从缓存中获取到章节内容！", "success");
       return;
     }
+
+    const loadingToast = toast.loading("章节内容加载中……");
 
     try {
       state.isLoadingContent.value = true;
@@ -139,16 +147,18 @@ export const useNovelActions = (state, getters) => {
         state.currentChapterContent.value;
       if (forceUpdate) {
         console.log("loadChapterContent: Force update");
-        showAlert("章节内容已刷新！", "success");
+        toast.success("章节内容已刷新！");
       } else {
         console.log("loadChapterContent: First loading");
-        showAlert("章节内容加载完成！", "success");
+        toast.success("章节内容加载完成！");
       }
       setRead();
     } catch (error) {
-      console.error("内容加载失败:", error);
+      console.error("章节内容加载失败:", error);
+      toast.error("章节内容加载失败！");
     } finally {
       state.isLoadingContent.value = false;
+      toast.remove(loadingToast.id, loadingToast.position);
     }
   };
 
@@ -161,6 +171,7 @@ export const useNovelActions = (state, getters) => {
       console.log("refreshContent: Reload content");
     } catch (error) {
       console.error("刷新内容失败:", error);
+      toast.error("刷新内容失败！");
       throw error;
     } finally {
       state.isLoadingContent.value = false;
