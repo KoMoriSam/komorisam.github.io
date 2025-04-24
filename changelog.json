@@ -1,4 +1,64 @@
 {
+  "1.3.3": {
+    "title": "阅读器优化与项目规范化",
+    "releaseDate": "2025-04-24",
+    "changelog": [
+      {
+        "type": "performance",
+        "description": "优化阅读器样式控制器实现",
+        "impact": "medium"
+      },
+      {
+        "type": "ui",
+        "description": "更新日志页面样式细节调整",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "进一步规范文件存放结构和命名规则",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false,
+      "note": "文件结构调整可能影响自定义引用路径，建议检查相关配置"
+    }
+  },
+  "1.3.2": {
+    "title": "代码规范与样式优化",
+    "releaseDate": "2025-04-24",
+    "changelog": [
+      {
+        "type": "ui",
+        "description": "微调全局样式细节",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Toast 组件的样式配置",
+        "impact": "medium"
+      },
+      {
+        "type": "docs",
+        "description": "全面优化代码注释质量",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "规范文件存放结构，更新引用路径",
+        "impact": "medium"
+      },
+      {
+        "type": "docs",
+        "description": "更新项目结构说明文档",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false,
+      "note": "文件路径调整可能影响自定义引用，建议检查相关配置"
+    }
+  },
   "1.3.1": {
     "title": "组件 API 优化与规范化",
     "releaseDate": "2025-04-24",
@@ -20,7 +80,8 @@
       }
     ],
     "migration": {
-      "required": false
+      "required": false,
+      "note": "方法重构和文件路径调整可能影响自定义引用，建议检查相关配置。"
     }
   },
   "1.3.0": {
