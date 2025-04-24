@@ -1,7 +1,11 @@
 import { useStorage } from "@vueuse/core";
 import { createApp, h } from "vue";
 import { renderToString } from "@vue/server-renderer";
-import { showMsg } from "@/utils/showMsg";
+
+import { useModal } from "@/composables/useModal";
+
+const modal = useModal();
+
 import { useCleanStorage } from "@/utils/cleanStorage";
 import { useChangelogStore } from "@/stores/changelog";
 
@@ -160,8 +164,12 @@ export async function checkUpdateNotice() {
 
   const description = await renderToString(app);
 
-  showMsg("新版本更新！", description, {
+  modal.show({
+    title: "新版本更新！",
+    description: description,
     buttonText: "我知道了",
-    onSubmit: updateVersion,
+    onSubmit: () => {
+      updateVersion();
+    },
   });
 }
