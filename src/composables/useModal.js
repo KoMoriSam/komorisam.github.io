@@ -1,5 +1,5 @@
 import { createApp, ref, h } from "vue";
-import Modal from "@/components/ui/Modal.vue"; // 假设的组件路径
+import Modal from "@/components/ui/Modal.vue";
 
 const modal = {
   show(options = {}) {
