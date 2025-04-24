@@ -5,7 +5,6 @@ import {
   TOAST_POSITIONS,
   DEFAULT_POSITION,
   TOAST_ICONS,
-  TOAST_CLASSES,
 } from "@/constants/toast";
 
 // 容器和状态管理
@@ -28,7 +27,11 @@ export function useToast(defaultOptions = {}) {
   const initContainer = (position) => {
     if (!containerMap.has(position)) {
       const container = document.createElement("div");
+      // 添加基础类名和位置类名
       document.body.appendChild(container);
+      container.className = `toast z-1 mx-0 my-16 ${
+        TOAST_POSITIONS[position] || position
+      }`;
 
       const app = createApp({
         setup() {
@@ -58,7 +61,7 @@ export function useToast(defaultOptions = {}) {
       duration: 1500, // 最低优先级默认值
       closable: true, // 最低优先级默认值
       position: DEFAULT_POSITION, // 最低优先级默认值
-      soft: true, // 最低优先级默认值
+      soft: false, // 最低优先级默认值
       ...defaultOptions, // 中等优先级（useToast 传入的默认值）
       ...options, // 最高优先级（调用时传入的 options）
     };
@@ -82,7 +85,7 @@ export function useToast(defaultOptions = {}) {
     toastList.value.push({
       id,
       message,
-      type: type || TOAST_CLASSES[type],
+      type,
       icon: icon || TOAST_ICONS[type],
       closable,
       soft,
