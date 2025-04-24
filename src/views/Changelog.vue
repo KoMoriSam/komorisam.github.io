@@ -23,7 +23,7 @@
           <ul>
             <li v-for="(change, index) in item.changelog" :key="index">
               <strong class="badge badge-soft" :class="typeColor(change.type)">
-                {{ change.type }}
+                {{ typeText(change.type) }}
               </strong>
               {{ change.description }}
               <span v-if="change.impact" class="ml-2">
@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { useChangelogStore } from "@/stores/changelog";
+import { useChangelogStore } from "@/stores/changelogStore";
 import { onMounted, computed } from "vue";
 
 import Loading from "@/components/base/Loading.vue";
@@ -92,6 +92,23 @@ function typeColor(type) {
       return "badge-primary";
     default:
       return "badge-info";
+  }
+}
+
+function typeText(type) {
+  switch (type) {
+    case "feature":
+      return "功能";
+    case "bugfix":
+      return "修复";
+    case "ui":
+      return "界面";
+    case "performance":
+      return "优化";
+    case "refactor":
+      return "重构";
+    default:
+      return "其他";
   }
 }
 </script>
