@@ -4,7 +4,7 @@ import { useToast } from "@/composables/useToast";
 
 import { useChapterApi } from "@/services/apiChapters";
 
-import CONFIG from "@/config.js";
+import CONFIG from "@/constants/config.js";
 import fm from "front-matter";
 
 export const useNovelActions = (state, getters) => {

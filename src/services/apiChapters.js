@@ -1,5 +1,5 @@
 import { useFetch } from "@vueuse/core";
-import CONFIG from "@/config.js";
+import CONFIG from "@/constants/config.js";
 
 const BASE_URL = CONFIG.BASE_URL;
 
