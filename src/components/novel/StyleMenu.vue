@@ -3,7 +3,7 @@
     <template v-if="!style.isDefault(configKey)" #description>
       <a
         class="link link-info no-underline"
-        @click="style.setDefault(configKey)"
+        @click="style.resetStyle(configKey)"
       >
         恢复默认值
         <i class="ri-arrow-go-back-line"></i>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { useReaderStyleStore } from "@/stores/readerStyle";
+import { useReaderStore } from "@/stores/readerStore";
 
 import Menu from "@/components/ui/menu/Menu.vue";
 
@@ -23,5 +23,5 @@ defineProps({
   configKey: String,
 });
 
-const style = useReaderStyleStore();
+const style = useReaderStore();
 </script>

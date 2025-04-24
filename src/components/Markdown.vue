@@ -41,10 +41,11 @@
       fontSize: `${styleConfigs.fontSize}px`,
       letterSpacing: `${styleConfigs.fontGap * 0.25}rem`,
       lineHeight: styleConfigs.lineHeight,
-      '--para-margin-inline': `${styleConfigs.paraHeight}rem`,
-      '--para-text-indent': `calc(${styleConfigs.fontSize * 2}px + ${
-        styleConfigs.fontGap * 0.6
-      }rem)`,
+      '--para-margin-inline': `${
+        styleConfigs.paraHeight / styleConfigs.lineHeight
+      }rem`,
+      '--para-text-indent': `calc(${styleConfigs.fontSize * 2}px 
+      + ${styleConfigs.fontGap * 0.7}rem)`,
     }"
   >
     <vue-markdown
@@ -62,8 +63,8 @@ import { storeToRefs } from "pinia";
 
 import { useChapters } from "@/composables/useChapters";
 
-import { useNovelStore } from "@/stores/novel";
-import { useReaderStyleStore } from "@/stores/readerStyle";
+import { useNovelStore } from "@/stores/novelStore";
+import { useReaderStore } from "@/stores/readerStore";
 
 import VueMarkdown from "vue-markdown-render";
 import Loading from "@/components/base/Loading.vue";
@@ -73,9 +74,9 @@ const novelStore = useNovelStore();
 const { currentChapter, currentPageContent, isLoadingContent } =
   storeToRefs(novelStore);
 
-const styleStore = useReaderStyleStore();
+const styleStore = useReaderStore();
 
-const { styleConfigs } = styleStore;
+const { styleConfigs } = storeToRefs(styleStore);
 
 const { formatDate } = useChapters();
 

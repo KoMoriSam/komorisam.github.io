@@ -2,13 +2,14 @@
   <StyleMenu title="正文字体" configKey="fontStyle">
     <div class="join">
       <button
-        v-for="font in fontList"
-        :key="font"
-        class="btn btn-info join-item"
-        :class="`${font.style} ${
-          styleStore.styleConfigs.fontStyle === font.style ? '' : 'btn-soft'
-        }`"
-        @click="styleStore.setStyle('fontStyle', font.style)"
+        v-for="font in FONTS"
+        :key="font.style"
+        :class="{
+          'btn btn-info join-item': true,
+          [font.style]: true,
+          'btn-soft': styleConfigs.fontStyle !== font.style,
+        }"
+        @click="store.setStyle('fontStyle', font.style)"
       >
         {{ font.name }}
       </button>
@@ -17,58 +18,57 @@
 
   <StyleMenu title="字体大小" configKey="fontSize">
     <NumberController
-      v-model="styleStore.styleConfigs.fontSize"
+      :modelValue="styleConfigs.fontSize"
       :step="1"
       :places="0"
       :min="16"
       :max="32"
+      @update:modelValue="(val) => store.setStyle('fontSize', val)"
     />
   </StyleMenu>
 
   <StyleMenu title="字间距" configKey="fontGap">
     <NumberController
-      v-model="styleStore.styleConfigs.fontGap"
+      :modelValue="styleConfigs.fontGap"
       :step="0.01"
       :places="2"
       :min="-1"
       :max="1"
+      @update:modelValue="(val) => store.setStyle('fontGap', val)"
     />
   </StyleMenu>
 
   <StyleMenu title="行间距" configKey="lineHeight">
     <NumberController
-      v-model="styleStore.styleConfigs.lineHeight"
+      :modelValue="styleConfigs.lineHeight"
       :step="0.1"
       :places="1"
       :min="1"
       :max="3"
+      @update:modelValue="(val) => store.setStyle('lineHeight', val)"
     />
   </StyleMenu>
 
   <StyleMenu title="段间距" configKey="paraHeight">
     <NumberController
-      v-model="styleStore.styleConfigs.paraHeight"
+      :modelValue="styleConfigs.paraHeight"
       :step="0.1"
       :places="1"
       :min="1"
       :max="3"
+      @update:modelValue="(val) => store.setStyle('paraHeight', val)"
     />
   </StyleMenu>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useReaderStyleStore } from "@/stores/readerStyle";
+import { storeToRefs } from "pinia";
+import { useReaderStore } from "@/stores/readerStore";
+import { FONTS } from "@/constants/reader";
 
 import StyleMenu from "@/components/novel/StyleMenu.vue";
 import NumberController from "@/components/ui/input/NumberController.vue";
 
-const styleStore = useReaderStyleStore();
-
-const fontList = ref([
-  { name: "宋体", style: "font-song" },
-  { name: "黑体", style: "font-hei" },
-  { name: "楷书", style: "font-kai" },
-  { name: "仿宋", style: "font-fang" },
-]);
+const store = useReaderStore();
+const { styleConfigs } = storeToRefs(store);
 </script>
