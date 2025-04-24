@@ -50,7 +50,7 @@ export function useToast(defaultOptions = {}) {
     }
   };
 
-  // 添加Toast
+  // 添加 Toast
   const addToast = (message, options = {}) => {
     // 合并选项优先级：调用时传入的 options > useToast(defaultOptions) > 内部默认值
     const mergedOptions = {
@@ -98,12 +98,12 @@ export function useToast(defaultOptions = {}) {
     return { id, position: normalizedPos };
   };
 
-  // 移除Toast
+  // 移除 Toast
   const removeToast = (id, position) => {
     const toastList = toastGroups.get(position);
     if (!toastList || !toastList.value) return;
 
-    // 1. 先设置fading为true触发淡出动画
+    // 淡出动画
     toastList.value = toastList.value.map((toast) => {
       if (toast.id === id) {
         return { ...toast, fading: true };
@@ -111,7 +111,7 @@ export function useToast(defaultOptions = {}) {
       return toast;
     });
 
-    // 2. 延迟300ms后完全移除，给动画留出时间
+    // 完全移除
     setTimeout(() => {
       toastList.value = toastList.value.filter((toast) => toast.id !== id);
     }, 300);
