@@ -49,30 +49,28 @@ npm run build
 Aperçu de la structure du projet pour une navigation rapide :
 
 ```bash
-.
-├── public/           # Ressources statiques
-│   ├── archive/      # Archives des anciennes pages
-│   └── assets/       # Ressources (images, polices, etc.)
-├── src/
-│   ├── assets/       # Styles CSS et autres ressources
-│   ├── components/   # Composants Vue
-│   │   ├── layout/   # Composants de mise en page
-│   │   ├── novel/    # Composants liés au roman
-│   │   ├── ui/       # Composants UI réutilisables
-│   └── views/        # Vues des pages
-│   ├── Home.vue      # Page d'accueil
-│   ├── About.vue     # Page À propos
-│   ├── Contact.vue   # Page de contact
-│   ├── Novel.vue     # Page du roman
-│   └── NotFound.vue  # Page 404
-├── src/router/       # Configuration de Vue Router
-│   └── index.js
-├── src/stores/       # Gestion d'état avec Pinia
-│   ├── novel.js
-│   └── theme.js
-├── src/main.js       # Point d'entrée de l'application
-├── vite.config.js    # Configuration de Vite
-└── package.json      # Dépendances et scripts
+KoMoriSam  
+├─ 📁src                    # Répertoire principal du code source  
+│  ├─ 📁assets              # Ressources statiques (images, polices, fichiers CSS)  
+│  ├─ 📁components          # Composants Vue (organisés par fonction/usage)  
+│  │  ├─ 📁base             # Composants de base/réutilisables (boutons, champs, etc.)  
+│  │  ├─ 📁layout           # Composants de mise en page (en-tête, pied de page, barre latérale)  
+│  │  ├─ 📁novel            # Composants liés aux romans  
+│  │  └─ 📁ui               # Composants d'interface (cartes, fenêtres modales, etc.)  
+│  ├─ 📁composables         # Fonctions composables Vue 3 (logique réutilisable)  
+│  ├─ 📁constants           # Valeurs constantes et configurations  
+│  ├─ 📁directive           # Directives Vue personnalisées  
+│  ├─ 📁router              # Configuration du routeur Vue  
+│  ├─ 📁services            # Services API et logique métier  
+│  ├─ 📁stores              # Stores de gestion d'état Pinia  
+│  ├─ 📁utils               # Fonctions utilitaires/d'aide  
+│  ├─ 📁views               # Composants de niveau page (composants de route)  
+│  ├─ 📄App.vue             # Composant racine Vue  
+│  ├─ 📄config.js           # Configuration de l'application  
+│  └─ 📄main.js             # Point d'entrée de l'application (création de l'instance Vue)  
+├─ 📄index.html             # Modèle HTML principal  
+├─ 📄package.json           # Métadonnées et dépendances du projet  
+└─ 📄vite.config.js         # Configuration de l'outil de build Vite  
 ```
 
 ---

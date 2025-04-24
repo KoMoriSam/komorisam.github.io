@@ -51,30 +51,28 @@ npm run build
 Here is a basic overview of the project structure:
 
 ```bash
-.
-├── public/               # Static assets directory
-│   ├── archive/          # Archived legacy pages
-│   └── assets/           # Static resources (images, fonts, etc.)
-├── src/
-│   ├── assets/           # CSS styles and other resources
-│   ├── components/       # Vue components
-│   │   ├── layout/       # Layout-related components
-│   │   ├── novel/        # Novel-related components
-│   │   ├── ui/           # Reusable UI components
-│   └── views/            # Page views
-│       ├── Home.vue      # Home page
-│       ├── About.vue     # About page
-│       ├── Contact.vue   # Contact page
-│       ├── Novel.vue     # Novel page
-│       └── NotFound.vue  # 404 Not Found page
-├── src/router/           # Vue Router configuration
-│   └── index.js          # Route definitions
-├── src/stores/           # Pinia state management
-│   ├── novel.js          # Novel-related state
-│   └── theme.js          # Theme-related state
-├── src/main.js           # Application entry file
-├── vite.config.js        # Vite configuration file
-└── package.json          # Project dependencies and scripts
+KoMoriSam  
+├─ 📁src                    # Main source code directory  
+│  ├─ 📁assets              # Static assets (images, fonts, CSS files)  
+│  ├─ 📁components          # Vue components (organized by feature/use)  
+│  │  ├─ 📁base             # Base/reusable components (buttons, inputs, etc.)  
+│  │  ├─ 📁layout           # Layout components (header, footer, sidebar)  
+│  │  ├─ 📁novel            # Novel-related components  
+│  │  └─ 📁ui               # UI components (cards, modals, etc.)  
+│  ├─ 📁composables         # Vue 3 composable functions (reusable logic)  
+│  ├─ 📁constants           # Constant values and configurations  
+│  ├─ 📁directive           # Custom Vue directives  
+│  ├─ 📁router              # Vue Router configuration  
+│  ├─ 📁services            # API services and business logic  
+│  ├─ 📁stores              # Pinia state management stores  
+│  ├─ 📁utils               # Utility/helper functions  
+│  ├─ 📁views               # Page-level components (route components)  
+│  ├─ 📄App.vue             # Root Vue component  
+│  ├─ 📄config.js           # Application configuration  
+│  └─ 📄main.js             # Application entry (Vue instance creation)  
+├─ 📄index.html             # Main HTML template  
+├─ 📄package.json           # Project metadata and dependencies  
+└─ 📄vite.config.js         # Vite build tool configuration  
 ```
 
 ---
