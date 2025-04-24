@@ -9,7 +9,7 @@ import { useNovelStore } from "@/stores/novel";
 import { useToast } from "@/composables/useToast";
 
 export function useChapters() {
-  const toast = useToast({ position: "center-bottom", closable: false });
+  const toast = useToast({ position: "center", closable: false });
 
   const { scrollToTop } = useScrollTo();
 
