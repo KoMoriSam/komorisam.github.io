@@ -6,8 +6,8 @@ import { useModal } from "@/composables/useModal";
 
 const modal = useModal();
 
-import { useCleanStorage } from "@/utils/cleanStorage";
-import { useChangelogStore } from "@/stores/changelog";
+import { useCleanStorage } from "@/utils/clean-storage";
+import { useChangelogStore } from "@/stores/changelogStore";
 
 function UpdateDetail(props) {
   const typeColor = (type) => {

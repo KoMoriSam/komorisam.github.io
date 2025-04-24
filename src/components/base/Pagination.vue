@@ -38,7 +38,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 // 状态管理
 const novelStore = useNovelStore();

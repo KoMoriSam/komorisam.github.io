@@ -29,7 +29,7 @@ import { storeToRefs } from "pinia";
 
 import { useChapters } from "@/composables/useChapters";
 
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 import Pagination from "@/components/base/Pagination.vue";
 

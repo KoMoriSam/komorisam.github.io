@@ -77,8 +77,8 @@ import { useFullscreen } from "@vueuse/core";
 import { useScrollTo } from "@/composables/useScrollTo";
 import { useToggleComponent } from "@/composables/useToggleComponent";
 
-import { useNovelStore } from "@/stores/novel";
-import { useThemeStore } from "@/stores/theme";
+import { useNovelStore } from "@/stores/novelStore";
+import { useThemeStore } from "@/stores/themeStore";
 
 import SideBar from "@/components/layout/SideBar.vue";
 import ChapterList from "@/components/novel/ChapterList.vue";

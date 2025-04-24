@@ -82,7 +82,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 import { useChapters } from "@/composables/useChapters";
 

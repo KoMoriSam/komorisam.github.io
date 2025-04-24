@@ -73,8 +73,8 @@ import Giscus from "@giscus/vue";
 import { useChapters } from "@/composables/useChapters";
 import { useImageLoad } from "@/composables/useImageLoad";
 
-import { useNovelStore } from "@/stores/novel";
-import { useThemeStore } from "@/stores/theme";
+import { useNovelStore } from "@/stores/novelStore";
+import { useThemeStore } from "@/stores/themeStore";
 
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import ChapterList from "@/components/novel/ChapterList.vue";

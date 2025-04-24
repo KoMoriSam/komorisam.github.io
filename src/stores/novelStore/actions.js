@@ -2,7 +2,7 @@ import { useTitle, useDebounceFn } from "@vueuse/core";
 
 import { useToast } from "@/composables/useToast";
 
-import { useChapterApi } from "@/services/apiChapters";
+import { useChapterApi } from "@/services/api-chapters";
 
 import CONFIG from "@/constants/config.js";
 import fm from "front-matter";

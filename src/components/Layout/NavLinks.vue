@@ -13,7 +13,7 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 const route = useRoute();
 

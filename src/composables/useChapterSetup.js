@@ -1,7 +1,7 @@
 import { watch, onMounted, onActivated } from "vue";
 import { useRoute } from "vue-router";
 
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 export function useChapterSetup() {
   const route = useRoute();

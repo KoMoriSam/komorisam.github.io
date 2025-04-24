@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 
 import { useScrollTo } from "@/composables/useScrollTo";
 
-import { useNovelStore } from "@/stores/novel";
+import { useNovelStore } from "@/stores/novelStore";
 
 import { useToast } from "@/composables/useToast";
 
