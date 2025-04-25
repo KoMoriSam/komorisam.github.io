@@ -43,7 +43,7 @@
     </section>
 
     <section class="basis-xs">
-      <ChapterList :togglePage :currentPage />
+      <ChapterList :togglePage />
     </section>
 
     <Giscus
@@ -91,10 +91,6 @@ const { handleFirstChapter } = useChapters();
 const props = defineProps({
   togglePage: {
     type: Function,
-    required: true,
-  },
-  currentPage: {
-    type: String,
     required: true,
   },
 });
