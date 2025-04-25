@@ -3,10 +3,13 @@
     <div
       v-for="toast in toasts"
       :key="toast.id"
-      class="alert transition-opacity duration-300 shadow-sm"
       :class="[
-        `alert-${toast.type}`,
+        `alert mx-6 lg:mx-20 h-12 transition-opacity duration-300 shadow-sm`,
         {
+          'alert-info': toast.type === 'info',
+          'alert-success': toast.type === 'success',
+          'alert-error': toast.type === 'error',
+          'alert-warning': toast.type === 'warning',
           'alert-soft': toast.soft !== false,
           'opacity-0': toast.fading,
         },
