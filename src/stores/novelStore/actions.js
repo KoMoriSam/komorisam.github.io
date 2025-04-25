@@ -191,7 +191,14 @@ export const useNovelActions = (state, getters) => {
   }, 500);
 
   const updateTitle = () => {
-    if (getters.currentChapter.value) {
+    if (state.currentComponent.value === "BookDetail") {
+      state.title.value = "向远方 | KoMoriSam";
+      useTitle(state.title.value);
+    }
+    if (
+      getters.currentChapter.value &&
+      state.currentComponent.value === "Reader"
+    ) {
       state.title.value = `${getters.currentChapter.value.title} | KoMoriSam`;
       useTitle(state.title.value);
     }

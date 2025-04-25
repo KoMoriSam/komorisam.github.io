@@ -1,11 +1,14 @@
 import { watch, onMounted, onActivated } from "vue";
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
 
 import { useNovelStore } from "@/stores/novelStore";
 
 export function useChapterSetup() {
   const route = useRoute();
   const novelStore = useNovelStore();
+
+  const { currentComponent } = storeToRefs(novelStore);
 
   // 监听路由参数变化
   const watchRouteParams = () => {
@@ -24,6 +27,17 @@ export function useChapterSetup() {
         if (newPage) {
           novelStore.setPage(Number(newPage));
         }
+      }
+    );
+  };
+
+  // 监听当前组件变化
+  const watchCurrentComponent = () => {
+    watch(
+      () => currentComponent.value,
+      () => {
+        console.log("currentComponent changed:", currentComponent.value);
+        novelStore.updateTitle();
       }
     );
   };
@@ -65,6 +79,7 @@ export function useChapterSetup() {
   const setupWatchers = () => {
     watchRouteParams();
     watchChapterChanges();
+    watchCurrentComponent();
     handleActivation();
   };
 
