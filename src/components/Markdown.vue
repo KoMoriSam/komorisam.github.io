@@ -21,7 +21,7 @@
       <li>
         <span class="badge badge-sm">
           <i class="ri-time-line"></i>
-          {{ formatDate(currentChapter.date) }}
+          {{ useDateFormat(currentChapter.date, "YYYY/M/D HH:mm") }}
         </span>
       </li>
       <li>
@@ -60,6 +60,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useDateFormat } from "@vueuse/core";
 
 import { useChapters } from "@/composables/useChapters";
 
