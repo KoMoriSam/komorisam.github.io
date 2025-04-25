@@ -8,25 +8,9 @@ const modal = useModal();
 
 import { useCleanStorage } from "@/utils/clean-storage";
 import { useChangelogStore } from "@/stores/changelogStore";
+import { typeColor, typeText } from "@/utils/type-changelog";
 
 function UpdateDetail(props) {
-  const typeColor = (type) => {
-    switch (type) {
-      case "feature":
-        return "badge-warning";
-      case "bugfix":
-        return "badge-error";
-      case "ui":
-        return "badge-secondary";
-      case "performance":
-        return "badge-success";
-      case "refactor":
-        return "badge-primary";
-      default:
-        return "badge-info";
-    }
-  };
-
   return h("section", { class: "prose prose-sm" }, [
     h("h4", { class: "mt-0" }, [
       h("span", { class: "text-primary" }, props.version),
@@ -85,7 +69,7 @@ function UpdateDetail(props) {
             {
               class: `badge badge-soft badge-sm ${typeColor(change.type)}`,
             },
-            change.type
+            typeText(change.type)
           ),
           " ",
           change.description,
