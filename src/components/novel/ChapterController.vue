@@ -3,8 +3,8 @@
     <!-- 上一章 -->
     <button
       class="btn btn-primary px-2 md:px-auto"
-      :disabled="!hasPrevious || isLoadingContent"
-      @click="handlePrev"
+      :disabled="!hasPrevious || isLoadingContent || isDisabled"
+      @click="onHandlePrev"
     >
       <i class="ri-arrow-left-s-line"></i>
       <span>上一章</span>
@@ -15,8 +15,8 @@
     <!-- 下一章 -->
     <button
       class="btn btn-primary px-2 md:px-auto"
-      :disabled="!hasNext || isLoadingContent"
-      @click="handleNext"
+      :disabled="!hasNext || isLoadingContent || isDisabled"
+      @click="onHandleNext"
     >
       <span>下一章</span>
       <i class="ri-arrow-right-s-line"></i>
@@ -37,4 +37,17 @@ const novelStore = useNovelStore();
 const { totalPages, isLoadingContent } = storeToRefs(novelStore);
 
 const { hasPrevious, hasNext, handlePrev, handleNext } = useChapters();
+
+import { useClickLimit } from "@/composables/useClickLimit";
+
+const { isDisabled, handleClick } = useClickLimit();
+
+// 点击事件
+const onHandlePrev = () => {
+  handleClick(handlePrev);
+};
+
+const onHandleNext = () => {
+  handleClick(handleNext);
+};
 </script>
