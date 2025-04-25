@@ -7,8 +7,9 @@
             v-if="latestChapter"
             badgeText="最新章节"
             :content="latestChapter.title"
-            additionalClasses="btn-soft lg:btn-lg"
-            :onClick="handleRecentChapter"
+            :additionalClasses="`btn-soft lg:btn-lg
+            ${isDisabled ? 'btn-disabled' : ''}`"
+            :onClick="onClick"
           />
           <ChapterController />
           <Markdown />
@@ -120,4 +121,13 @@ const props = defineProps({
     required: true,
   },
 });
+
+import { useClickLimit } from "@/composables/useClickLimit";
+
+const { isDisabled, handleClick } = useClickLimit();
+
+// 点击事件
+const onClick = () => {
+  handleClick(handleRecentChapter);
+};
 </script>
