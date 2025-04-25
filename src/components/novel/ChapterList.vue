@@ -29,12 +29,13 @@
           <li v-for="chapter in volume.chapters" :key="chapter.uuid">
             <a
               v-if="chapter"
-              @click="handleClick(chapter.uuid)"
+              @click="onClick(chapter.uuid)"
               class="block"
               :class="{
                 'menu-active':
-                  currentPage !== 'BookDetail' &&
+                  currentComponent !== 'BookDetail' &&
                   chapter.uuid === currentChapterUuid,
+                'btn-disabled': isDisabled,
               }"
             >
               <!-- 章节名称 -->
@@ -64,7 +65,7 @@
                 </span>
                 <span class="badge badge-xs">
                   <i class="ri-time-line"></i>
-                  {{ formatDate(chapter.date) }}
+                  {{ useDateFormat(chapter.date, "YYYY/M/D HH:mm") }}
                 </span>
                 <span class="badge badge-xs">
                   <i class="ri-file-text-line"></i>
@@ -81,6 +82,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useDateFormat } from "@vueuse/core";
 
 import { useNovelStore } from "@/stores/novelStore";
 
@@ -90,24 +92,30 @@ import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";
 
 const novelStore = useNovelStore();
-const { isLoadingList, chapterList, currentChapterUuid } =
+const { currentComponent, isLoadingList, chapterList, currentChapterUuid } =
   storeToRefs(novelStore);
 
-const { isRead, handleAnyChapter, formatDate, isRecent } = useChapters();
+const { isRead, handleAnyChapter, isRecent } = useChapters();
 
-const handleClick = (newId) => {
+const handleChapter = (newId) => {
   handleAnyChapter(newId);
-  if (props.currentPage === "BookDetail") {
+  if (currentComponent.value === "BookDetail") {
     props.togglePage();
   }
+};
+
+import { useClickLimit } from "@/composables/useClickLimit";
+
+const { isDisabled, handleClick } = useClickLimit();
+
+// 点击事件
+const onClick = (newId) => {
+  handleClick(handleChapter, newId);
 };
 
 const props = defineProps({
   togglePage: {
     type: Function,
-  },
-  currentPage: {
-    type: String,
   },
 });
 </script>
