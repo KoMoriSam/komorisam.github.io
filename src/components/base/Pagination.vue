@@ -7,7 +7,9 @@
     >
       <i class="ri-arrow-left-s-line"></i>
     </button>
-    <button class="join-item lg:hidden btn text-xs md:text-sm px-2 md:px-auto">
+    <button
+      class="join-item lg:hidden btn text-xs md:text-sm px-2 md:px-auto cursor-default"
+    >
       <span class="hidden md:inline">第</span>
       {{ currentChapterPage }}
       <span class="hidden md:inline">页</span>
