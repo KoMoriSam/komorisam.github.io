@@ -3,10 +3,9 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { useScrollTo } from "@/composables/useScrollTo";
+import { useToast } from "@/composables/useToast";
 
 import { useNovelStore } from "@/stores/novelStore";
-
-import { useToast } from "@/composables/useToast";
 
 export function useChapters() {
   const toast = useToast({ position: "center", closable: false });
@@ -15,6 +14,7 @@ export function useChapters() {
 
   const novelStore = useNovelStore();
   const {
+    currentComponent,
     currentChapter,
     currentChapterUuid,
     currentChapterIndex,
@@ -32,8 +32,11 @@ export function useChapters() {
     scrollToTop(80);
   };
 
-  const handleFirstChapter = (toast) => {
-    if (currentChapterUuid.value === "7d5e9b50-a9cb-428a-9264-903046354e22") {
+  const handleFirstChapter = () => {
+    if (
+      currentChapterIndex.value === 0 &&
+      currentComponent.value === "Reader"
+    ) {
       toast.info("已经是第一章啦！");
     } else {
       handleChapter("7d5e9b50-a9cb-428a-9264-903046354e22");
@@ -41,7 +44,10 @@ export function useChapters() {
   };
 
   const handleAnyChapter = (uuid) => {
-    if (uuid === currentChapterUuid.value) {
+    if (
+      uuid === currentChapterUuid.value &&
+      currentComponent.value === "Reader"
+    ) {
       toast.info("已经是当前章啦！");
     } else {
       handleChapter(uuid);
@@ -49,7 +55,10 @@ export function useChapters() {
   };
 
   const handleRecentChapter = () => {
-    if (latestChapter.value.uuid === currentChapterUuid.value) {
+    if (
+      latestChapter.value.uuid === currentChapterUuid.value &&
+      currentComponent.value === "Reader"
+    ) {
       toast.info("已经是最新章啦！");
     } else {
       handleChapter(latestChapter.value.uuid);
@@ -63,23 +72,11 @@ export function useChapters() {
   );
 
   const handlePrev = () => {
-    router.push({
-      query: {
-        chapter: flatChapterList.value[currentChapterIndex.value - 1].uuid,
-        page: 1,
-      },
-    });
-    scrollToTop(80);
+    handleChapter(flatChapterList.value[currentChapterIndex.value - 1].uuid);
   };
 
   const handleNext = () => {
-    router.push({
-      query: {
-        chapter: flatChapterList.value[currentChapterIndex.value + 1].uuid,
-        page: 1,
-      },
-    });
-    scrollToTop(80);
+    handleChapter(flatChapterList.value[currentChapterIndex.value + 1].uuid);
   };
 
   const handleAnyPage = (index) => {
@@ -87,16 +84,6 @@ export function useChapters() {
       query: { chapter: currentChapter.value.uuid, page: index },
     });
     scrollToTop(80);
-  };
-
-  const formatDate = (dateStr) => {
-    return new Date(dateStr).toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
   };
 
   const isRecent = (uuid, dateStr) => {
@@ -118,7 +105,6 @@ export function useChapters() {
     handlePrev,
     handleNext,
     handleAnyPage,
-    formatDate,
     isRecent,
   };
 }
