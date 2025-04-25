@@ -3,7 +3,6 @@
     <component
       :is="components[currentComponent]"
       :togglePage="toggleComponent"
-      :currentPage="currentComponent"
     ></component>
   </KeepAlive>
 </template>
