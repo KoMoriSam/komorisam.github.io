@@ -22,6 +22,7 @@ export const useNovelState = () => {
 
   // 其他状态
   const title = ref("向远方 | KoMoriSam");
+  const currentComponent = useStorage("NOVEL_CURRENT_COMPONENT");
   const isLoadingList = ref(true);
   const isLoadingContent = ref(true);
 
@@ -36,6 +37,7 @@ export const useNovelState = () => {
     currentChapterUuid,
     currentChapterPage,
     title,
+    currentComponent,
     isLoadingList,
     isLoadingContent,
   };
