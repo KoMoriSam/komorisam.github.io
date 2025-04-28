@@ -12,7 +12,29 @@
             :onClick="onClick"
           />
           <ChapterController />
-          <Markdown />
+          <Markdown
+            v-if="currentChapter"
+            :content="currentPageContent"
+            :is-loading="isLoadingContent"
+            :show-refresh="true"
+            @refresh="novelStore.refreshContent"
+            :header-data="{
+              title: currentChapter.title,
+              meta: currentChapter.volumeTitle,
+              icon: 'ri-book-shelf-line',
+              stats: [
+                {
+                  icon: 'ri-time-line',
+                  text: useDateFormat(currentChapter.date, 'YYYY/M/D HH:mm'),
+                },
+                {
+                  icon: 'ri-file-text-line',
+                  text: `${currentChapter.length} 字`,
+                },
+              ],
+            }"
+            :style-configs="styleConfigs"
+          />
           <ChapterController v-if="!isLoadingContent" />
         </section>
 
@@ -70,17 +92,11 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import Giscus from "@giscus/vue";
-
-import { useChapters } from "@/composables/useChapters";
-import { useGiscus } from "@/composables/useGiscus";
-import { useFullscreen } from "@vueuse/core";
-import { useScrollTo } from "@/composables/useScrollTo";
-import { useToggleComponent } from "@/composables/useToggleComponent";
-
 import { useNovelStore } from "@/stores/novelStore";
+import { useReaderStore } from "@/stores/readerStore";
 import { useThemeStore } from "@/stores/themeStore";
 
+import Giscus from "@giscus/vue";
 import SideBar from "@/components/layout/SideBar.vue";
 import ChapterList from "@/components/novel/ChapterList.vue";
 import ChapterController from "@/components/novel/ChapterController.vue";
@@ -89,20 +105,23 @@ import Markdown from "@/components/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
 
-// 状态管理
+import { useDateFormat } from "@vueuse/core";
+import { useFullscreen } from "@vueuse/core";
+import { useChapters } from "@/composables/useChapters";
+import { useGiscus } from "@/composables/useGiscus";
+import { useScrollTo } from "@/composables/useScrollTo";
+import { useToggleComponent } from "@/composables/useToggleComponent";
+import { useClickLimit } from "@/composables/useClickLimit";
+
 const novelStore = useNovelStore();
-const { latestChapter, currentChapter, isLoadingContent } =
+const { currentPageContent, latestChapter, currentChapter, isLoadingContent } =
   storeToRefs(novelStore);
+
+const readerStore = useReaderStore;
+const { styleConfigs } = readerStore();
+
 const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);
-
-const { currentMapping, commentToggle } = useGiscus();
-
-const { isFullscreen, toggle } = useFullscreen();
-
-const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
-
-const { handleRecentChapter } = useChapters();
 
 const components = {
   ChapterList,
@@ -115,19 +134,23 @@ const { currentComponent } = useToggleComponent(
   components
 );
 
+const { currentMapping, commentToggle } = useGiscus();
+
+const { isFullscreen, toggle } = useFullscreen();
+
+const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
+
+const { handleRecentChapter } = useChapters();
+
+const { isDisabled, handleClick } = useClickLimit();
+const onClick = () => {
+  handleClick(handleRecentChapter);
+};
+
 const props = defineProps({
   togglePage: {
     type: Function,
     required: true,
   },
 });
-
-import { useClickLimit } from "@/composables/useClickLimit";
-
-const { isDisabled, handleClick } = useClickLimit();
-
-// 点击事件
-const onClick = () => {
-  handleClick(handleRecentChapter);
-};
 </script>
