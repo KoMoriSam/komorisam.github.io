@@ -1,21 +1,65 @@
 import { watch, onMounted, onActivated } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { useNovelStore } from "@/stores/novelStore";
 
+import { useToast } from "@/composables/useToast";
+
 export function useChapterSetup() {
   const route = useRoute();
+  const router = useRouter();
+
+  const toast = useToast({ closable: false, position: "center" });
+
   const novelStore = useNovelStore();
 
-  const { currentComponent } = storeToRefs(novelStore);
+  const {
+    currentComponent,
+    currentChapterUuid,
+    currentChapterPage,
+    flatChapterList,
+  } = storeToRefs(novelStore);
+
+  // 检查并补充路由参数
+  const checkAndSupplementRouteParams = () => {
+    watch(
+      () => currentComponent.value,
+      async (newComponent) => {
+        if (newComponent !== "Reader") return;
+        if (route.query.chapter) {
+          await novelStore.setChapter(route.query.chapter);
+          if (route.query.page) {
+            novelStore.setPage(Number(route.query.page));
+          } else {
+            novelStore.setPage(1);
+          }
+          toast.success("已继续上次阅读！");
+          return;
+        }
+        if (!route.query.chapter) {
+          if (currentChapterUuid.value) {
+            toast.success("已继续上次阅读！");
+            router.push({
+              query: {
+                chapter: currentChapterUuid.value,
+                page: currentChapterPage.value,
+              },
+            });
+            return;
+          }
+        }
+      },
+      { immediate: true }
+    );
+  };
 
   // 监听路由参数变化
   const watchRouteParams = () => {
     watch(
       () => route.query.chapter,
       async (newId) => {
-        if (newId !== novelStore.currentChapterUuid) {
+        if (newId) {
           await novelStore.setChapter(newId);
         }
       }
@@ -46,13 +90,8 @@ export function useChapterSetup() {
   const initialize = async () => {
     try {
       await novelStore.setChapterList();
-      if (route.query.chapter) {
-        await novelStore.setChapter(route.query.chapter);
-      }
+      checkAndSupplementRouteParams();
       novelStore.updateTitle();
-      if (route.query.page) {
-        novelStore.setPage(Number(route.query.page));
-      }
     } catch (error) {
       console.error("Error during initialization:", error);
     }

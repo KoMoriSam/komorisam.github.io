@@ -31,13 +31,7 @@ const navLinks = computed(() => [
   {
     name: "小说",
     icon: "ri-book-3-line lg:text-xl",
-    to: {
-      name: "novel",
-      query: {
-        chapter: novelStore.currentChapterUuid,
-        page: novelStore.currentChapterPage,
-      },
-    },
+    to: { name: "novel" },
   },
   {
     name: "联系",
