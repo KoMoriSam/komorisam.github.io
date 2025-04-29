@@ -21,21 +21,26 @@
             慌张中，才学会张口……<br />
             匆忙中，才学会乡音……
           </p>
-          <button
-            class="btn btn-primary w-full"
-            @click="handleFirstChapter(), togglePage()"
-          >
-            开始阅读
-          </button>
           <ChapterInfo
-            v-if="novelStore.currentChapter"
-            badgeText="继续阅读"
+            badge="开始阅读"
             :content="
-              novelStore.readChapterList.length > 0
-                ? novelStore.currentChapter?.title
-                : ''
+              flatChapterList.length > 0
+                ? flatChapterList[0]?.title
+                : '加载中……'
             "
-            additionalClasses="w-full my-6 truncate"
+            additionalClasses="btn-primary"
+            :onClick="
+              () => {
+                handleFirstChapter();
+                togglePage();
+              }
+            "
+          />
+          <ChapterInfo
+            v-if="readChapterList.length > 0"
+            badge="继续阅读"
+            :content="currentChapter ? currentChapter?.title : '加载中……'"
+            additionalClasses="mt-6"
             :onClick="() => togglePage()"
           />
         </figcaption>
@@ -73,6 +78,7 @@ import Giscus from "@giscus/vue";
 import { useChapters } from "@/composables/useChapters";
 import { useImageLoad } from "@/composables/useImageLoad";
 
+import { storeToRefs } from "pinia";
 import { useNovelStore } from "@/stores/novelStore";
 import { useThemeStore } from "@/stores/themeStore";
 
@@ -82,6 +88,8 @@ import ToTop from "@/components/base/ToTop.vue";
 import FootBar from "@/components/layout/FootBar.vue";
 
 const novelStore = useNovelStore();
+const { readChapterList, flatChapterList, currentChapter } =
+  storeToRefs(novelStore);
 const themeStore = useThemeStore();
 
 const { imageLoaded, handleImageLoad } = useImageLoad();

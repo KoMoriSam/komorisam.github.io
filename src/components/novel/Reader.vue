@@ -5,7 +5,7 @@
         <section class="flex-2 basis-xl m-6 max-lg:mb-0" ref="scrollRef">
           <ChapterInfo
             v-if="latestChapter"
-            badgeText="最新章节"
+            badge="最新章节"
             :content="latestChapter.title"
             :additionalClasses="`btn-soft lg:btn-lg
             ${isDisabled ? 'btn-disabled' : ''}`"
@@ -101,7 +101,7 @@ import SideBar from "@/components/layout/SideBar.vue";
 import ChapterList from "@/components/novel/ChapterList.vue";
 import ChapterController from "@/components/novel/ChapterController.vue";
 import FormatToolbox from "@/components/novel/FormatToolbox.vue";
-import Markdown from "@/components/Markdown.vue";
+import Markdown from "@/components/base/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
 
