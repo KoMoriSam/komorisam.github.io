@@ -42,11 +42,14 @@ export const useNovelActions = (state, getters) => {
   };
 
   const setRead = () => {
-    if (
-      !state.readChapterList.value.some(
-        (item) => item.uuid === getters.currentChapter.value.uuid
-      )
-    ) {
+    if (state.currentComponent.value === "BookDetail") {
+      console.log("setRead: not in Reader component, skipping");
+      return;
+    }
+    const chapterSet = new Set(
+      state.readChapterList.value.map((item) => item.uuid)
+    );
+    if (!chapterSet.has(getters.currentChapter.value.uuid)) {
       state.readChapterList.value = [
         ...state.readChapterList.value,
         getters.currentChapter.value,
