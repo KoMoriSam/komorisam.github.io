@@ -19,8 +19,8 @@ export function useChapters() {
     currentChapterUuid,
     currentChapterIndex,
     latestChapter,
-    flatChapterList,
-    readChapterList,
+    flatChapters,
+    readChapters,
   } = storeToRefs(novelStore);
 
   const router = useRouter();
@@ -68,15 +68,15 @@ export function useChapters() {
   const hasPrevious = computed(() => currentChapterIndex.value > 0);
 
   const hasNext = computed(
-    () => currentChapterIndex.value + 1 < flatChapterList.value.length
+    () => currentChapterIndex.value + 1 < flatChapters.value.length
   );
 
   const handlePrev = () => {
-    handleChapter(flatChapterList.value[currentChapterIndex.value - 1].uuid);
+    handleChapter(flatChapters.value[currentChapterIndex.value - 1].uuid);
   };
 
   const handleNext = () => {
-    handleChapter(flatChapterList.value[currentChapterIndex.value + 1].uuid);
+    handleChapter(flatChapters.value[currentChapterIndex.value + 1].uuid);
   };
 
   const handleAnyPage = (index) => {
@@ -92,7 +92,7 @@ export function useChapters() {
   };
 
   const isRead = computed(() => (uuid) => {
-    return readChapterList.value.some((g) => g.uuid === uuid);
+    return readChapters.value.some((g) => g.uuid === uuid);
   });
 
   return {

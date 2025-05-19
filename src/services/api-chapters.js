@@ -1,10 +1,9 @@
 import { useFetch } from "@vueuse/core";
-import CONFIG from "@/constants/config.js";
 
-const BASE_URL = CONFIG.BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_NOVEL_URL;
 
 export function useChapterApi() {
-  const fetchChapterList = async () => {
+  const fetchChapters = async () => {
     const { data, error } = await useFetch(
       `${BASE_URL}/content/index.json`
     ).json();
@@ -14,7 +13,7 @@ export function useChapterApi() {
     return data.value;
   };
 
-  const fetchChapterContent = async (path) => {
+  const fetchContent = async (path) => {
     const { data: markdownRaw, error } = await useFetch(
       `${BASE_URL}/${path}`
     ).text();
@@ -25,7 +24,7 @@ export function useChapterApi() {
   };
 
   return {
-    fetchChapterList,
-    fetchChapterContent,
+    fetchChapters,
+    fetchContent,
   };
 }

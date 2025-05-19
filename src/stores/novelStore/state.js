@@ -3,11 +3,11 @@ import { useStorage } from "@vueuse/core";
 
 export const useNovelState = () => {
   // 章节相关状态
-  const chapterList = ref([]);
-  const storedChapterList = useStorage("CHAPTER_LIST", {});
+  const chapters = ref([]);
+  const storedChapters = useStorage("CHAPTER_LIST", {});
   const lastUpdated = useStorage("CHAPTER_LIST_UPDATED_AT", 0);
-  const flatChapterList = ref([]);
-  const readChapterList = useStorage("READ_CHS", []);
+  const flatChapters = ref([]);
+  const readChapters = useStorage("READ_CHS", []);
 
   // 内容相关状态
   const currentChapterContent = ref([]);
@@ -27,11 +27,11 @@ export const useNovelState = () => {
   const isLoadingContent = ref(true);
 
   return {
-    chapterList,
-    storedChapterList,
+    chapters,
+    storedChapters,
     lastUpdated,
-    flatChapterList,
-    readChapterList,
+    flatChapters,
+    readChapters,
     currentChapterContent,
     contentCache,
     currentChapterUuid,

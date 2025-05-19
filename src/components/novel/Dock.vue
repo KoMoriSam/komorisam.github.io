@@ -14,7 +14,7 @@
       label="目录"
       position-classes="lg:bottom-74"
       button-class="lg:btn-primary"
-      :onClick="() => emitToolChange('ChapterList')"
+      :onClick="() => emitToolChange('Chapters')"
     />
     <FloatingButton
       for=""

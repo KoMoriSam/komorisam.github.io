@@ -8,19 +8,19 @@ export const useNovelGetters = (state) => {
 
   return {
     currentChapter: computed(() => {
-      return state.flatChapterList.value.find(
+      return state.flatChapters.value.find(
         (chapter) => chapter.uuid === state.currentChapterUuid.value
       );
     }),
 
     currentChapterIndex: computed(() => {
-      return state.flatChapterList.value.findIndex(
+      return state.flatChapters.value.findIndex(
         (chapter) => chapter.uuid === state.currentChapterUuid.value
       );
     }),
 
     latestChapter: computed(() => {
-      const recentChapters = state.flatChapterList.value.filter((chapter) =>
+      const recentChapters = state.flatChapters.value.filter((chapter) =>
         isRecent(chapter.date)
       );
 
@@ -28,9 +28,7 @@ export const useNovelGetters = (state) => {
         return recentChapters[recentChapters.length - 1];
       }
 
-      return state.flatChapterList.value[
-        state.flatChapterList.value.length - 1
-      ];
+      return state.flatChapters.value[state.flatChapters.value.length - 1];
     }),
 
     totalPages: computed(() => {

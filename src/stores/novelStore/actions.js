@@ -9,7 +9,7 @@ import fm from "front-matter";
 
 export const useNovelActions = (state, getters) => {
   const CACHE_EXPIRATION = CONFIG.getDynamicCacheExpiration();
-  const { fetchChapterList, fetchChapterContent } = useChapterApi();
+  const { fetchChapters, fetchContent } = useChapterApi();
 
   const toast = useToast({ position: "center-top", closable: false });
 
@@ -32,7 +32,7 @@ export const useNovelActions = (state, getters) => {
   };
 
   const flatList = (list) => {
-    state.flatChapterList.value = Object.values(list).flatMap((volume) =>
+    state.flatChapters.value = Object.values(list).flatMap((volume) =>
       volume.chapters.map((chapter) => ({
         ...chapter,
         volumeTitle: volume.volumeInfo.title,
@@ -47,11 +47,11 @@ export const useNovelActions = (state, getters) => {
       return;
     }
     const chapterSet = new Set(
-      state.readChapterList.value.map((item) => item.uuid)
+      state.readChapters.value.map((item) => item.uuid)
     );
     if (!chapterSet.has(getters.currentChapter.value.uuid)) {
-      state.readChapterList.value = [
-        ...state.readChapterList.value,
+      state.readChapters.value = [
+        ...state.readChapters.value,
         getters.currentChapter.value,
       ];
       console.log("setRead: new read", getters.currentChapter.value.title);
@@ -61,17 +61,17 @@ export const useNovelActions = (state, getters) => {
   };
 
   // 章节相关操作
-  const setChapterList = useDebounceFn(async (forceUpdate = false) => {
+  const setChapters = useDebounceFn(async (forceUpdate = false) => {
     const now = Date.now();
 
     if (
       !forceUpdate &&
-      Object.keys(state.storedChapterList.value).length > 0 &&
+      Object.keys(state.storedChapters.value).length > 0 &&
       now - state.lastUpdated.value < CACHE_EXPIRATION
     ) {
-      console.log("setChapterList: Call cache");
-      state.chapterList.value = state.storedChapterList.value;
-      flatList(state.storedChapterList.value);
+      console.log("setChapters: Call cache");
+      state.chapters.value = state.storedChapters.value;
+      flatList(state.storedChapters.value);
       state.isLoadingList.value = false;
       if (state.currentChapterContent.value.length < 0) {
         await loadChapterContent();
@@ -83,16 +83,16 @@ export const useNovelActions = (state, getters) => {
 
     try {
       state.isLoadingList.value = true;
-      const data = await fetchChapterList();
-      state.chapterList.value = data;
-      state.storedChapterList.value = state.chapterList.value;
+      const data = await fetchChapters();
+      state.chapters.value = data;
+      state.storedChapters.value = state.chapters.value;
       state.lastUpdated.value = now;
       flatList(data);
       if (forceUpdate) {
-        console.log("setChapterList: Force update");
+        console.log("setChapters: Force update");
         toast.success("章节目录已刷新！");
       } else {
-        console.log("setChapterList: First loading");
+        console.log("setChapters: First loading");
         toast.success("章节目录加载完成！");
       }
       if (state.currentChapterContent.value.length < 0) {
@@ -107,14 +107,14 @@ export const useNovelActions = (state, getters) => {
     }
   }, 500);
 
-  const refreshChapterList = useDebounceFn(async () => {
-    await setChapterList(true);
+  const refreshChapters = useDebounceFn(async () => {
+    await setChapters(true);
     state.contentCache.value = {};
     await loadChapterContent(true);
   }, 500);
 
-  const refreshReadChapterList = useDebounceFn(async () => {
-    state.readChapterList.value = [];
+  const refreshReadChapters = useDebounceFn(async () => {
+    state.readChapters.value = [];
     toast.success("已清空阅读记录！");
     await loadChapterContent(true);
   }, 500);
@@ -139,9 +139,7 @@ export const useNovelActions = (state, getters) => {
     try {
       state.isLoadingContent.value = true;
 
-      const markdownRaw = await fetchChapterContent(
-        getters.currentChapter.value.path
-      );
+      const markdownRaw = await fetchContent(getters.currentChapter.value.path);
       const { body: content } = fm(markdownRaw);
       const parsedContent = splitContent(content);
       state.currentChapterContent.value = parsedContent;
@@ -209,9 +207,9 @@ export const useNovelActions = (state, getters) => {
 
   return {
     // 章节操作
-    setChapterList,
-    refreshChapterList,
-    refreshReadChapterList,
+    setChapters,
+    refreshChapters,
+    refreshReadChapters,
 
     // 内容操作
     loadChapterContent,

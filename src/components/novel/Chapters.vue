@@ -3,7 +3,7 @@
     <template #btn>
       <button
         class="btn btn-info btn-square btn-sm btn-soft ml-auto"
-        @click="novelStore.refreshChapterList()"
+        @click="novelStore.refreshChapters()"
         :disabled="isLoadingList"
       >
         <div class="tooltip" data-tip="刷新章节目录">
@@ -12,7 +12,7 @@
       </button>
       <button
         class="btn btn-info btn-square btn-sm btn-soft"
-        @click="novelStore.refreshReadChapterList()"
+        @click="novelStore.refreshReadChapters()"
         :disabled="isLoadingList"
       >
         <div class="tooltip" data-tip="清除阅读记录">
@@ -22,7 +22,7 @@
     </template>
     <Loading v-if="isLoadingList" />
 
-    <li v-else v-for="volume in chapterList" :key="volume.volumeInfo.uuid">
+    <li v-else v-for="volume in chapters" :key="volume.volumeInfo.uuid">
       <details open>
         <summary class="font-bold">{{ volume.volumeInfo.title }}</summary>
         <ul v-if="volume.chapters && volume.chapters.length > 0">
@@ -92,7 +92,7 @@ import Loading from "@/components/base/Loading.vue";
 import Submenu from "@/components/ui/menu/Submenu.vue";
 
 const novelStore = useNovelStore();
-const { currentComponent, isLoadingList, chapterList, currentChapterUuid } =
+const { currentComponent, isLoadingList, chapters, currentChapterUuid } =
   storeToRefs(novelStore);
 
 const { isRead, handleAnyChapter, isRecent } = useChapters();

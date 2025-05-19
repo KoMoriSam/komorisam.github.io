@@ -24,9 +24,7 @@
           <ChapterInfo
             badge="开始阅读"
             :content="
-              flatChapterList.length > 0
-                ? flatChapterList[0]?.title
-                : '加载中……'
+              flatChapters.length > 0 ? flatChapters[0]?.title : '加载中……'
             "
             additionalClasses="btn-primary"
             :onClick="
@@ -37,7 +35,7 @@
             "
           />
           <ChapterInfo
-            v-if="readChapterList.length > 0"
+            v-if="readChapters.length > 0"
             badge="继续阅读"
             :content="currentChapter ? currentChapter?.title : '加载中……'"
             additionalClasses="mt-6"
@@ -48,7 +46,7 @@
     </section>
 
     <section class="basis-xs">
-      <ChapterList :togglePage />
+      <Chapters :togglePage />
     </section>
 
     <Giscus
@@ -83,13 +81,12 @@ import { useNovelStore } from "@/stores/novelStore";
 import { useThemeStore } from "@/stores/themeStore";
 
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
-import ChapterList from "@/components/novel/ChapterList.vue";
+import Chapters from "@/components/novel/Chapters.vue";
 import ToTop from "@/components/base/ToTop.vue";
 import FootBar from "@/components/layout/FootBar.vue";
 
 const novelStore = useNovelStore();
-const { readChapterList, flatChapterList, currentChapter } =
-  storeToRefs(novelStore);
+const { readChapters, flatChapters, currentChapter } = storeToRefs(novelStore);
 const themeStore = useThemeStore();
 
 const { imageLoaded, handleImageLoad } = useImageLoad();

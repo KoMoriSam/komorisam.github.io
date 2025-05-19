@@ -18,7 +18,7 @@ export function useChapterSetup() {
     currentComponent,
     currentChapterUuid,
     currentChapterPage,
-    flatChapterList,
+    flatChapters,
   } = storeToRefs(novelStore);
 
   // 检查并补充路由参数
@@ -89,7 +89,7 @@ export function useChapterSetup() {
   // 初始化加载
   const initialize = async () => {
     try {
-      await novelStore.setChapterList();
+      await novelStore.setChapters();
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
     } catch (error) {
