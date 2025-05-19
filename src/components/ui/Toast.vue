@@ -4,7 +4,7 @@
       v-for="toast in toasts"
       :key="toast.id"
       :class="[
-        `alert mx-6 lg:mx-20 h-12 transition-opacity duration-300 shadow-sm`,
+        `alert alert-soft mx-6 lg:mx-20 h-12 transition-opacity duration-300 shadow-sm`,
         {
           'alert-info': toast.type === 'info',
           'alert-success': toast.type === 'success',
