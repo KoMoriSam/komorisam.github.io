@@ -1,4 +1,68 @@
 {
+  "1.5.0": {
+    "title": "Markdown 支持增强与样式系统升级",
+    "releaseDate": "2025-05-19",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "新增 Markdown 渲染插件支持，优化 vue-markdown 组件配置",
+        "impact": "high"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Reader 组件样式，增强文本排版和脚注显示效果",
+        "impact": "medium"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Toast 组件样式",
+        "impact": "low"
+      },
+      {
+        "type": "refactor",
+        "description": "简化相关命名",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": true,
+      "note": "Markdown 组件配置方式变更，需安装新依赖项、检查 Markdown 组件配置、环境变量文件需要同步"
+    }
+  },
+  "1.4.1": {
+    "title": "阅读器逻辑优化与架构调整",
+    "releaseDate": "2025-04-29",
+    "changelog": [
+      {
+        "type": "refactor",
+        "description": "优化设置已读章节的逻辑",
+        "impact": "medium"
+      },
+      {
+        "type": "perf",
+        "description": "优化小说阅读器检查监听路由参数逻辑",
+        "impact": "medium"
+      },
+      {
+        "type": "refactor",
+        "description": "解耦数据依赖，使 Markdown 组件更加通用",
+        "impact": "high"
+      },
+      {
+        "type": "ui",
+        "description": "调整样式",
+        "impact": "low"
+      },
+      {
+        "type": "architecture",
+        "description": "规范组件存放位置",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.4.0": {
     "title": "阅读器核心功能增强与交互优化",
     "releaseDate": "2025-04-25",
