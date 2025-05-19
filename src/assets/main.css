@@ -199,12 +199,20 @@
 }
 
 @layer utilities {
-  .prose p {
-    margin: var(--para-margin-inline) 0;
-    text-indent: var(--para-text-indent);
+  .prose {
+    @apply overflow-visible;
   }
 
-  .prose blockquote p {
+  .prose p {
+    font-size: var(--para-font-size);
+    margin: var(--para-margin-inline) 0;
+    text-indent: var(--para-text-indent);
+    letter-spacing: var(--para-letter-spacing);
+    line-height: var(--para-line-height);
+  }
+
+  .prose blockquote p,
+  .prose .footnotes p {
     text-indent: 0;
   }
 
@@ -212,5 +220,51 @@
   .prose em {
     quotes: none;
     font-family: var(--font-fang);
+  }
+
+  .prose .footnote-ref a {
+    @apply badge badge-sm no-underline indent-0 px-1 font-hei;
+  }
+
+  .prose .footnote-ref a:hover {
+    @apply badge-info;
+  }
+
+  .prose .footnote-backref {
+    font-size: calc(var(--para-font-size) * 0.5);
+    text-decoration-line: none;
+    color: var(--color-info);
+  }
+
+  .prose .footnote-backref:hover {
+    text-decoration-line: underline;
+  }
+
+  .prose .footnotes,
+  .prose .footnotes p {
+    font-size: calc(var(--para-font-size) * 0.75);
+    font-family: var(--font-song);
+  }
+
+  .prose ol.footnotes-list li.footnote-item::marker {
+    content: "[" counter(list-item) "]";
+  }
+
+  .prose pre {
+    @apply mockup-code w-full;
+  }
+
+  .prose pre code.hljs {
+    font-size: calc(var(--para-font-size) * 0.75);
+    background-color: var(--color-neutral) !important;
+    line-height: unset;
+  }
+
+  .prose ul.contains-task-list {
+    @apply list-none ps-0;
+  }
+
+  .prose input.task-list-item-checkbox {
+    @apply checkbox checkbox-primary;
   }
 }

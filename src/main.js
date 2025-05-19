@@ -1,5 +1,6 @@
 import "@/assets/main.css";
 import "nprogress/nprogress.css";
+import "highlight.js/styles/github-dark.css";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
