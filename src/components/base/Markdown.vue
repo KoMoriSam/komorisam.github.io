@@ -51,7 +51,12 @@
       + ${styleConfigs.fontGap * 0.7}rem)`,
     }"
   >
-    <vue-markdown v-if="content" :source="content" :options="options" />
+    <vue-markdown
+      v-if="content"
+      :source="content"
+      :options="options"
+      :plugins="plugins"
+    />
     <h1 v-else-if="!headerData">请选择内容</h1>
     <h1 v-else>加载失败，请稍后重试。</h1>
   </article>
@@ -111,4 +116,16 @@ const options = {
   html: true,
   typographer: true,
 };
+
+import MarkdownItAnchor from "markdown-it-anchor";
+import MarkdownItFootnote from "markdown-it-footnote";
+import MarkdownItHighlightjs from "markdown-it-highlightjs";
+import MarkdownItTaskLists from "markdown-it-task-lists";
+
+const plugins = [
+  MarkdownItAnchor,
+  MarkdownItFootnote,
+  MarkdownItHighlightjs,
+  MarkdownItTaskLists,
+];
 </script>
