@@ -2,7 +2,10 @@
   <main class="flex-1 m-0 p-0 w-full h-full">
     <SideBar>
       <template #content>
-        <section class="flex-2 basis-xl m-6 max-lg:mb-0" ref="scrollRef">
+        <section
+          class="flex-2 basis-xl m-6 max-lg:mb-0 max-w-6/7"
+          ref="scrollRef"
+        >
           <ChapterInfo
             v-if="latestChapter"
             badge="最新章节"
@@ -98,7 +101,7 @@ import { useThemeStore } from "@/stores/themeStore";
 
 import Giscus from "@giscus/vue";
 import SideBar from "@/components/layout/SideBar.vue";
-import ChapterList from "@/components/novel/ChapterList.vue";
+import Chapters from "@/components/novel/Chapters.vue";
 import ChapterController from "@/components/novel/ChapterController.vue";
 import FormatToolbox from "@/components/novel/FormatToolbox.vue";
 import Markdown from "@/components/base/Markdown.vue";
@@ -124,13 +127,13 @@ const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);
 
 const components = {
-  ChapterList,
+  Chapters,
   FormatToolbox,
 };
 
 const { currentComponent } = useToggleComponent(
   "NOVEL_SIDE_CURRENT_COMPONENT",
-  "ChapterList",
+  "Chapters",
   components
 );
 
