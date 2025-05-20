@@ -41,11 +41,12 @@
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
     :class="styleConfigs.fontStyle"
     :style="{
-      fontSize: `${styleConfigs.fontSize}px`,
-      letterSpacing: `${styleConfigs.fontGap * 0.25}rem`,
-      lineHeight: styleConfigs.lineHeight,
+      '--para-font-size': `${styleConfigs.fontSize}px`,
+      '--para-letter-spacing': `${styleConfigs.fontGap * 0.25}rem`,
+      '--para-line-height': styleConfigs.lineHeight,
       '--para-margin-inline': `${
-        styleConfigs.paraHeight / styleConfigs.lineHeight
+        styleConfigs.paraHeight *
+        ((styleConfigs.fontSize * styleConfigs.lineHeight * 0.5) / 24)
       }rem`,
       '--para-text-indent': `calc(${styleConfigs.fontSize * 2}px 
       + ${styleConfigs.fontGap * 0.7}rem)`,
@@ -118,14 +119,74 @@ const options = {
 };
 
 import MarkdownItAnchor from "markdown-it-anchor";
+import MarkdownItContainer from "markdown-it-container";
 import MarkdownItFootnote from "markdown-it-footnote";
 import MarkdownItHighlightjs from "markdown-it-highlightjs";
+import MarkdownItKatex from "@vscode/markdown-it-katex";
 import MarkdownItTaskLists from "markdown-it-task-lists";
 
+// 封装 MarkdownItAnchor 插件（必须返回一个函数）
+function anchorPlugin(md) {
+  md.use(MarkdownItAnchor, {
+    permalink: MarkdownItAnchor.permalink.linkAfterHeader({
+      style: "visually-hidden",
+      assistiveText: (title) => `跳转至 “${title}”`,
+      visuallyHiddenClass: "hidden",
+      wrapper: ['<div class="wrapper">', "</div>"],
+    }),
+  });
+}
+
+// 类型与图标/标题映射
+const containerMeta = {
+  success: {
+    icon: "ri-checkbox-circle-line",
+    title: "成功",
+  },
+  warning: {
+    icon: "ri-alert-line",
+    title: "警告",
+  },
+  error: {
+    icon: "ri-close-circle-line",
+    title: "错误",
+  },
+  info: {
+    icon: "ri-information-line",
+    title: "信息",
+  },
+  tip: {
+    icon: "ri-lightbulb-flash-line",
+    title: "Tip",
+  },
+};
+
+function containerPlugin(md) {
+  Object.keys(containerMeta).forEach((type) => {
+    const { icon, title } = containerMeta[type];
+    md.use(MarkdownItContainer, type, {
+      render(tokens, idx) {
+        const token = tokens[idx];
+        if (token.nesting === 1) {
+          return `<div role="alert" class="alert alert-${type} alert-soft alert-vertical sm:alert-horizontal sm:gap-2 mb-4">
+            <i class="${icon}"></i>
+            <div>
+              <h3>${title}</h3>
+              <div>`;
+        } else {
+          return "</div></div></div>\n";
+        }
+      },
+    });
+  });
+}
+
 const plugins = [
-  MarkdownItAnchor,
+  anchorPlugin,
+  containerPlugin,
   MarkdownItFootnote,
   MarkdownItHighlightjs,
+  MarkdownItKatex,
   MarkdownItTaskLists,
 ];
 </script>

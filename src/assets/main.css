@@ -199,10 +199,28 @@
 }
 
 @layer utilities {
+  /* 基础设置 */
   .prose {
     @apply overflow-visible;
   }
 
+  /* 标题样式 */
+  .prose h2 {
+    @apply font-hei mt-4 mb-0;
+    font-size: calc(var(--para-font-size) * 1.25);
+  }
+
+  .prose h3 {
+    @apply font-kai mt-2 mb-0;
+    font-size: var(--para-font-size);
+  }
+
+  .prose h4 {
+    @apply font-normal mt-2 mb-0;
+    font-size: var(--para-font-size);
+  }
+
+  /* 段落与列表 */
   .prose p {
     font-size: var(--para-font-size);
     margin: var(--para-margin-inline) 0;
@@ -211,17 +229,61 @@
     line-height: var(--para-line-height);
   }
 
-  .prose blockquote p,
-  .prose .footnotes p {
-    text-indent: 0;
+  .prose li {
+    font-size: var(--para-font-size);
   }
 
+  .prose table,
+  .prose ul,
+  .prose ol,
+  .prose blockquote,
+  .prose pre {
+    margin: var(--para-margin-inline) 0;
+  }
+
+  .prose hr {
+    margin: calc(var(--para-font-size) * 1.5) 0;
+  }
+
+  /* 包裹元素与标题锚点 (.wrapper) */
+  .prose .wrapper {
+    @apply flex items-center gap-2;
+  }
+
+  .prose .wrapper a.header-anchor {
+    @apply badge badge-md hover:badge-primary no-underline px-2 mt-3 hidden;
+  }
+
+  .prose .wrapper:hover a.header-anchor {
+    @apply inline;
+  }
+
+  /* Alert 警告框样式 */
+  .prose .alert i {
+    font-size: calc(var(--para-font-size) * 1.5);
+  }
+
+  .prose .alert h3,
+  .prose .alert p {
+    @apply indent-0 font-hei m-1 text-base-content;
+    font-size: calc(var(--para-font-size) * 0.75);
+    line-height: unset;
+    letter-spacing: unset;
+  }
+
+  /* 引用与强调文本 */
   .prose blockquote,
   .prose em {
     quotes: none;
     font-family: var(--font-fang);
   }
 
+  .prose blockquote p,
+  .prose .footnotes p {
+    text-indent: 0;
+  }
+
+  /* 脚注样式 */
   .prose .footnote-ref a {
     @apply badge badge-sm no-underline indent-0 px-1 font-hei;
   }
@@ -243,13 +305,22 @@
   .prose .footnotes,
   .prose .footnotes p {
     font-size: calc(var(--para-font-size) * 0.75);
+    line-height: calc(var(--para-line-height) * 0.75);
+    margin: calc(var(--para-margin-inline) * 0.75) 0;
     font-family: var(--font-song);
   }
 
-  .prose ol.footnotes-list li.footnote-item::marker {
+  .prose li.footnote-item::marker {
+    font-size: calc(var(--para-font-size) * 0.75);
     content: "[" counter(list-item) "]";
   }
 
+  .prose li.footnote-item ul,
+  .prose li.footnote-item ul li {
+    font-size: calc(var(--para-font-size) * 0.75);
+  }
+
+  /* 代码块样式 */
   .prose pre {
     @apply mockup-code w-full;
   }
@@ -260,11 +331,25 @@
     line-height: unset;
   }
 
+  /* Task List 任务列表 */
   .prose ul.contains-task-list {
     @apply list-none ps-0;
   }
 
   .prose input.task-list-item-checkbox {
     @apply checkbox checkbox-primary;
+  }
+
+  /* KaTeX 数学公式 */
+  .prose span.katex {
+    @apply max-sm:text-lg;
+  }
+
+  .prose p:has(span.katex-display) {
+    @apply indent-0 text-center;
+  }
+
+  .prose span.katex-html {
+    @apply hidden;
   }
 }
