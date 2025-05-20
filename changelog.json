@@ -1,4 +1,28 @@
 {
+  "1.5.1": {
+    "title": "Markdown 数学公式支持与渲染优化",
+    "releaseDate": "2025-05-20",
+    "changelog": [
+      {
+        "type": "deps",
+        "description": "新增 @vscode/markdown-it-katex 和 markdown-it-container 依赖",
+        "impact": "high"
+      },
+      {
+        "type": "deps",
+        "description": "升级 katex 版本，移除旧版 markdown-it-katex",
+        "impact": "medium"
+      },
+      {
+        "type": "perf",
+        "description": "优化 Markdown 渲染和分页逻辑，调整段落高度配置",
+        "impact": "high"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.5.0": {
     "title": "Markdown 支持增强与样式系统升级",
     "releaseDate": "2025-05-19",
