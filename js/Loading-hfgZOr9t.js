@@ -1,0 +1,1 @@
+import{a as n}from"./ToTop-LTlL7NRh.js";import{c as s,b as t,d as o}from"./index-CNf_bIjw.js";const r={},a={class:"my-48 flex items-center justify-center"};function c(i,e){return t(),s("main",a,e[0]||(e[0]=[o("span",{class:"loading loading-spinner loading-xl text-primary"},null,-1)]))}const d=n(r,[["render",c]]);export{d as L};
