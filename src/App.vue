@@ -4,11 +4,21 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import NavBar from "@/components/layout/NavBar.vue";
 
 import { checkUpdateNotice } from "@/utils/update-notice";
-import { useCleanOldStorage } from "@/utils/discard-storage";
+import { useDiscardStorage } from "@/utils/discard-storage";
 
-checkUpdateNotice();
-useCleanOldStorage();
+const isPrerenderBot = /HeadlessChrome|Prerender/i.test(navigator.userAgent);
+
+onMounted(() => {
+  if (isPrerenderBot) {
+    localStorage.clear();
+    return;
+  }
+  checkUpdateNotice();
+});
+
+useDiscardStorage();
 </script>
