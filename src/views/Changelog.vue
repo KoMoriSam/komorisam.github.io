@@ -8,7 +8,7 @@
         </router-link>
       </h1>
 
-      <Loading v-if="isLoading" />
+      <Loading :size="`my-32`" v-if="isLoading" />
       <div v-else-if="error" class="text-error">{{ error }}</div>
 
       <template v-else>
