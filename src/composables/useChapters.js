@@ -4,6 +4,7 @@ import { storeToRefs } from "pinia";
 
 import { useScrollTo } from "@/composables/useScrollTo";
 import { useToast } from "@/composables/useToast";
+import { useHeadingTracker } from "@/composables/useHeadingTracker";
 
 import { useNovelStore } from "@/stores/novelStore";
 
@@ -30,6 +31,7 @@ export function useChapters() {
       query: { chapter: uuid, page: 1 },
     });
     scrollToTop(80);
+    useHeadingTracker();
   };
 
   const handleFirstChapter = () => {

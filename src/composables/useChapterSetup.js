@@ -1,10 +1,12 @@
-import { watch, onMounted, onActivated } from "vue";
+import { watch, onMounted, onActivated, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { useNovelStore } from "@/stores/novelStore";
 
 import { useToast } from "@/composables/useToast";
+
+import { scrollToHash } from "@/utils/scrollto-hash";
 
 export function useChapterSetup() {
   const route = useRoute();
@@ -18,7 +20,7 @@ export function useChapterSetup() {
     currentComponent,
     currentChapterUuid,
     currentChapterPage,
-    flatChapters,
+    isLoadingContent,
   } = storeToRefs(novelStore);
 
   // 检查并补充路由参数
@@ -107,6 +109,18 @@ export function useChapterSetup() {
     );
   };
 
+  const watchHash = () => {
+    watch(
+      () => isLoadingContent.value,
+      async (loading) => {
+        if (!loading) {
+          await nextTick();
+          scrollToHash();
+        }
+      }
+    );
+  };
+
   // 在组件挂载或激活时重新更新标题
   const handleActivation = () => {
     onActivated(() => {
@@ -119,10 +133,13 @@ export function useChapterSetup() {
     watchRouteParams();
     watchChapterChanges();
     watchCurrentComponent();
+    watchHash();
     handleActivation();
   };
 
-  onMounted(initialize);
+  onMounted(() => {
+    initialize();
+  });
 
   return {
     setupWatchers,
