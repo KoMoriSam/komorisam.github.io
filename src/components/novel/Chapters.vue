@@ -20,7 +20,7 @@
         </div>
       </button>
     </template>
-    <Loading v-if="isLoadingList" />
+    <Loading :size="`my-48`" v-if="isLoadingList" />
 
     <li v-else v-for="volume in chapters" :key="volume.volumeInfo.uuid">
       <details open>

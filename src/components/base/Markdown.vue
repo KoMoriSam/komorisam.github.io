@@ -34,10 +34,11 @@
     </ul>
   </header>
 
-  <Loading v-if="isLoading" />
+  <Loading :size="`my-64`" v-if="isLoading" />
 
   <article
     v-else
+    id="markdown-content"
     class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
     :class="styleConfigs.fontStyle"
     :style="{
@@ -118,10 +119,14 @@ const options = {
   typographer: true,
 };
 
+import MarkdownItAbbr from "markdown-it-abbr";
 import MarkdownItAnchor from "markdown-it-anchor";
 import MarkdownItContainer from "markdown-it-container";
+import { full as emojiPlugin } from "markdown-it-emoji";
 import MarkdownItFootnote from "markdown-it-footnote";
 import MarkdownItHighlightjs from "markdown-it-highlightjs";
+import MarkdownItSub from "markdown-it-sub";
+import MarkdownItSup from "markdown-it-sup";
 import MarkdownItKatex from "@vscode/markdown-it-katex";
 import MarkdownItTaskLists from "markdown-it-task-lists";
 
@@ -168,7 +173,7 @@ function containerPlugin(md) {
       render(tokens, idx) {
         const token = tokens[idx];
         if (token.nesting === 1) {
-          return `<div role="alert" class="alert alert-${type} alert-soft alert-vertical sm:alert-horizontal sm:gap-2 mb-4">
+          return `<div role="alert" class="alert alert-${type} alert-soft alert-vertical sm:alert-horizontal sm:gap-2">
             <i class="${icon}"></i>
             <div>
               <h3>${title}</h3>
@@ -182,10 +187,14 @@ function containerPlugin(md) {
 }
 
 const plugins = [
+  MarkdownItAbbr,
   anchorPlugin,
   containerPlugin,
+  emojiPlugin,
   MarkdownItFootnote,
   MarkdownItHighlightjs,
+  MarkdownItSub,
+  MarkdownItSup,
   MarkdownItKatex,
   MarkdownItTaskLists,
 ];
