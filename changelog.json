@@ -1,4 +1,69 @@
 {
+  "1.6.0": {
+    "title": "阅读体验增强与架构优化",
+    "releaseDate": "2025-07-01",
+    "changelog": [
+      {
+        "type": "performance",
+        "description": "分离 splitMarkdown 函数，优化章节内容加载逻辑",
+        "impact": "high"
+      },
+      {
+        "type": "feature",
+        "description": "新增 useServerApi 函数实现服务器信息获取",
+        "impact": "medium"
+      },
+      {
+        "type": "refactor",
+        "description": "重命名 useCleanOldStorage 为 useDiscardStorage 提高可读性",
+        "impact": "low"
+      },
+      {
+        "type": "feature",
+        "description": "新增 useHeadingTracker 组件实现阅读位置跟踪",
+        "impact": "high"
+      },
+      {
+        "type": "feature",
+        "description": "新增 scrollToHash 工具函数支持精准页面跳转",
+        "impact": "medium"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Loading 组件支持动态尺寸调整",
+        "impact": "low",
+        "note": "三次提交合并为一条记录"
+      },
+      {
+        "type": "performance",
+        "description": "优化 Modal 组件插槽机制防御 XSS 攻击",
+        "impact": "high"
+      },
+      {
+        "type": "feature",
+        "description": "新增 ServerInfo 组件展示服务器状态",
+        "impact": "medium"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复更新日志与阅读器样式冲突问题",
+        "impact": "medium"
+      },
+      {
+        "type": "performance",
+        "description": "优化存储清理逻辑和预渲染",
+        "impact": "high"
+      },
+      {
+        "type": "feature",
+        "description": "Markdown 渲染新增 markdown-it-abbr/emoji/sub/sup 扩展支持",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.5.1": {
     "title": "Markdown 数学公式支持与渲染优化",
     "releaseDate": "2025-05-20",
