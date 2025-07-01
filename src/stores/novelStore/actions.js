@@ -4,6 +4,8 @@ import { useToast } from "@/composables/useToast";
 
 import { useChapterApi } from "@/services/api-chapters";
 
+import { splitMarkdown } from "@/utils/split-markdown";
+
 import CONFIG from "@/constants/config.js";
 import fm from "front-matter";
 
@@ -12,80 +14,6 @@ export const useNovelActions = (state, getters) => {
   const { fetchChapters, fetchContent } = useChapterApi();
 
   const toast = useToast({ position: "center-top", closable: false });
-
-  const splitContent = (content) => {
-    const PAGE_SIZE = 1200;
-    const pages = [];
-    let currentPage = "";
-    let inCodeBlock = false;
-    let tempBuffer = "";
-
-    const paras = content.split("\n");
-
-    const flushPage = () => {
-      if (currentPage.trim()) {
-        pages.push(currentPage);
-        currentPage = "";
-      }
-    };
-
-    for (let i = 0; i < paras.length; i++) {
-      const para = paras[i];
-
-      // 检测代码块起止
-      if (para.trim().startsWith("```")) {
-        inCodeBlock = !inCodeBlock;
-      }
-
-      // 累积段内容（保证换行符）
-      let candidate = currentPage.length > 0 ? currentPage + "\n" + para : para;
-
-      // 如果是代码块内，不分页
-      if (inCodeBlock) {
-        currentPage = candidate;
-        continue;
-      }
-
-      // 判断是否是表格行（包含 | 且不是纯空行）
-      const isTableRow = para.includes("|") && para.trim().length > 0;
-
-      if (isTableRow) {
-        // 暂时缓存表格连续行
-        tempBuffer += (tempBuffer ? "\n" : "") + para;
-        // 如果下一个不是表格行或到结尾了，尝试整体加进去
-        const nextLine = paras[i + 1] || "";
-        const nextIsTable =
-          nextLine.includes("|") && nextLine.trim().length > 0;
-
-        if (!nextIsTable || i === paras.length - 1) {
-          const tableCandidate =
-            (currentPage ? currentPage + "\n" : "") + tempBuffer;
-          if (tableCandidate.length > PAGE_SIZE) {
-            flushPage();
-            currentPage = tempBuffer;
-          } else {
-            currentPage = tableCandidate;
-          }
-          tempBuffer = "";
-        }
-        continue;
-      }
-
-      // 非代码块、非表格，正常分页判断
-      if (candidate.length > PAGE_SIZE) {
-        flushPage();
-        currentPage = para;
-      } else {
-        currentPage = candidate;
-      }
-    }
-
-    if (currentPage.length > 0) {
-      pages.push(currentPage);
-    }
-
-    return pages;
-  };
 
   const flatList = (list) => {
     state.flatChapters.value = Object.values(list).flatMap((volume) =>
@@ -197,7 +125,7 @@ export const useNovelActions = (state, getters) => {
 
       const markdownRaw = await fetchContent(getters.currentChapter.value.path);
       const { body: content } = fm(markdownRaw);
-      const parsedContent = splitContent(content);
+      const parsedContent = splitMarkdown(content);
       state.currentChapterContent.value = parsedContent;
 
       state.contentCache.value[state.currentChapterUuid.value] =
@@ -225,6 +153,7 @@ export const useNovelActions = (state, getters) => {
       delete state.contentCache.value[state.currentChapterUuid.value];
       console.log("refreshContent: Clear cache");
       await loadChapterContent(true);
+
       console.log("refreshContent: Reload content");
     } catch (error) {
       console.error("刷新内容失败:", error);
