@@ -7,7 +7,12 @@
   >
     <section ref="modalRef" class="modal-box">
       <h3 class="text-lg font-bold">{{ title }}</h3>
-      <section class="py-4" v-html="description"></section>
+      <section class="py-4">
+        <slot name="description">
+          <p>{{ description }}</p>
+          <!-- fallback -->
+        </slot>
+      </section>
       <form class="modal-action" method="dialog" @submit.prevent="handleSubmit">
         <button class="btn" type="submit">
           {{ buttonText }}

@@ -1,12 +1,11 @@
 import { useStorage } from "@vueuse/core";
-import { createApp, h } from "vue";
-import { renderToString } from "@vue/server-renderer";
+import { h } from "vue";
 
 import { useModal } from "@/composables/useModal";
 
 const modal = useModal();
 
-import { useCleanStorage } from "@/utils/clean-storage";
+import { useDiscardStorage } from "@/utils/discard-storage";
 import { useChangelogStore } from "@/stores/changelogStore";
 import { typeColor, typeText } from "@/utils/type-changelog";
 
@@ -22,7 +21,7 @@ function UpdateDetail(props) {
         { class: "badge badge-xs text-base-content/50" },
         props.releaseDate
       ),
-      h("div", { class: "dropdown dropdown-end md:dropdown-center" }, [
+      h("div", { class: "dropdown dropdown-center" }, [
         h(
           "div",
           {
@@ -49,8 +48,11 @@ function UpdateDetail(props) {
               h(
                 "a",
                 {
-                  target: "_blank",
                   href: "/changelog",
+                  onClick: (e) => {
+                    e.stopPropagation(); // 避免冒泡干扰弹窗
+                    props.onViewLog?.(); // ✅ 调用传入的函数
+                  },
                   class: "link link-primary no-underline",
                 },
                 ["点击此处", h("i", { class: "ri-arrow-right-up-line" })]
@@ -129,24 +131,19 @@ export async function checkUpdateNotice() {
 
   const updateVersion = () => {
     if (migration?.required) {
-      useCleanStorage();
+      useDiscardStorage();
     }
     currentVersion.value = latestVersion;
   };
 
-  const app = createApp({
-    render() {
-      return h(UpdateDetail, {
-        version: latestVersion,
-        releaseDate,
-        title,
-        changelog: changes,
-        migration,
-      });
-    },
+  const description = h(UpdateDetail, {
+    version: latestVersion,
+    releaseDate,
+    title,
+    changelog: changes,
+    migration,
+    onViewLog: updateVersion,
   });
-
-  const description = await renderToString(app);
 
   modal.show({
     title: "新版本更新！",

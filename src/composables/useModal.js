@@ -26,14 +26,23 @@ const modal = {
         };
 
         return () =>
-          h(Modal, {
-            title,
-            description,
-            buttonText,
-            onSubmit,
-            onClose: close,
-            visible: visible.value,
-          });
+          h(
+            Modal,
+            {
+              title,
+              description,
+              buttonText,
+              onSubmit,
+              onClose: close,
+              visible: visible.value,
+            },
+            {
+              description: () =>
+                typeof description === "string"
+                  ? h("p", description)
+                  : h("div", description),
+            }
+          );
       },
     });
 
