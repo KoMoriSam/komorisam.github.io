@@ -6,23 +6,25 @@
     description="这是 KoMoriSam 的个人网站"
   >
     <p>在这里会分享一些正在做的小玩意</p>
-    <router-link class="btn btn-xs no-underline mb-px" to="/changelog">
-      更新日志
-    </router-link>
-    <br />
-    <br />
+    <ServerInfo />
     <small class="text-xs lg:text-sm text-base-content/50">
-      在找旧版网页？
-      <a
-        class="btn btn-primary btn-soft btn-xs no-underline mb-px"
-        href="/archive/home/index.html"
-      >
-        这里跳转
-      </a>
+      <router-link class="btn btn-xs no-underline my-4" to="/changelog">
+        更新日志
+      </router-link>
+      <p>
+        在找旧版网页？
+        <a
+          class="btn btn-primary btn-soft btn-xs no-underline mb-px"
+          href="/archive/home/index.html"
+        >
+          这里跳转
+        </a>
+      </p>
     </small>
   </BasePage>
 </template>
 
 <script setup>
 import BasePage from "@/components/layout/BasePage.vue";
+import ServerInfo from "@/components/ServerInfo.vue";
 </script>
