@@ -31,7 +31,7 @@ export function useHeadingTracker() {
     const headings = Array.from(document.querySelectorAll(headingSelector));
 
     const scrollTop = window.scrollY;
-    const offset = -15; // 提前判断的偏移量，可微调
+    const offset = 25; // 提前判断的偏移量，可微调
 
     for (let i = headings.length - 1; i >= 0; i--) {
       const el = headings[i];
