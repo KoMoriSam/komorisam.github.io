@@ -1,4 +1,23 @@
 {
+  "1.6.4": {
+    "title": "聊天界面优化与阅读提示改进",
+    "releaseDate": "2025-07-02",
+    "changelog": [
+      {
+        "type": "ui",
+        "description": "改进 Markdown 渲染后的聊天界面视觉表现，优化响应式设计（图标/文字/头像）",
+        "impact": "medium"
+      },
+      {
+        "type": "performance",
+        "description": "优化『已继续上次阅读』提示的触发逻辑",
+        "impact": "low"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.3": {
     "title": "阅读定位系统增强",
     "releaseDate": "2025-07-02",
@@ -141,12 +160,12 @@
     "releaseDate": "2025-05-20",
     "changelog": [
       {
-        "type": "deps",
+        "type": "performance",
         "description": "新增 @vscode/markdown-it-katex 和 markdown-it-container 依赖",
         "impact": "high"
       },
       {
-        "type": "deps",
+        "type": "performance",
         "description": "升级 katex 版本，移除旧版 markdown-it-katex",
         "impact": "medium"
       },
