@@ -3,6 +3,7 @@ import { useEventListener, useStorage, useThrottleFn } from "@vueuse/core";
 export function useHeadingTracker() {
   const READ_HEADING_KEY = "READ_HEADING";
   const readHeading = useStorage(READ_HEADING_KEY, "");
+  let isManualHashChange = false;
 
   const headingSelector = "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]";
 
@@ -10,35 +11,37 @@ export function useHeadingTracker() {
   function scrollToLastReadHeading() {
     const id = readHeading.value;
     if (id) {
-      // 使用 setTimeout 确保在其他路由处理完成后执行
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) {
-          // 更新 URL（确保不会被其他路由代码覆盖）
+          isManualHashChange = true;
           history.replaceState(
             null,
             "",
             `${window.location.pathname}${window.location.search}#${id}`
           );
-          // 滚动到元素
           el.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            isManualHashChange = false;
+          }, 1000);
         }
       }, 750);
     }
   }
 
   const updateCurrentHeading = useThrottleFn(() => {
+    if (isManualHashChange) return; // 如果是手动触发的hash变化，不更新
+
     const headings = Array.from(document.querySelectorAll(headingSelector));
+    if (headings.length === 0) return;
 
     const scrollTop = window.scrollY;
-    const offset = 25; // 提前判断的偏移量，可微调
+    const offset = 25;
 
-    // 获取第一个标题的位置
     const firstHeading = headings[0];
     const firstHeadingTop =
       firstHeading.getBoundingClientRect().top + window.scrollY;
 
-    // 只有当滚动位置超过第一个标题时才记录
     if (scrollTop + offset >= firstHeadingTop) {
       for (let i = headings.length - 1; i >= 0; i--) {
         const el = headings[i];
@@ -47,30 +50,52 @@ export function useHeadingTracker() {
         if (scrollTop + offset >= top) {
           const id = el.id;
           if (id) {
-            // 更新 URL hash（不会触发跳转）
+            isManualHashChange = true;
             history.replaceState(null, "", `#${id}`);
-            // 存入 localStorage
             readHeading.value = id;
+            setTimeout(() => {
+              isManualHashChange = false;
+            }, 300);
           }
           break;
         }
       }
     } else {
-      // 如果还没滚动到第一个标题，清除记录
-      if (readHeading.value) {
+      if (readHeading.value && !readHeading.value.startsWith("#fn")) {
         readHeading.value = "";
+        history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search
+        );
       }
-      history.replaceState(
-        null,
-        "",
-        window.location.pathname + window.location.search
-      );
     }
   }, 300);
 
-  // 监听滚动事件
-  useEventListener(window, "scroll", updateCurrentHeading);
+  // 监听hash变化事件（包括脚注跳转）
+  useEventListener(window, "hashchange", (e) => {
+    const hash = window.location.hash;
+    if (hash.startsWith("#fn")) {
+      isManualHashChange = true;
+      readHeading.value = hash.substring(1); // 记录脚注（如 "fn1"）
+      setTimeout(() => {
+        isManualHashChange = false;
+      }, 300);
+    }
+  });
 
-  // 页面加载时滚动到上次阅读的标题
+  // 监听点击事件，检测脚注链接点击
+  useEventListener(document, "click", (e) => {
+    const target = e.target.closest("a");
+    if (target?.getAttribute("href")?.startsWith("#fn")) {
+      isManualHashChange = true;
+      readHeading.value = target.getAttribute("href")?.substring(1) || ""; // 记录脚注（如 "fn1"）
+      setTimeout(() => {
+        isManualHashChange = false;
+      }, 300);
+    }
+  });
+
   scrollToLastReadHeading();
+  useEventListener(window, "scroll", updateCurrentHeading);
 }

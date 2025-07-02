@@ -7,8 +7,6 @@ import { useNovelStore } from "@/stores/novelStore";
 import { useToast } from "@/composables/useToast";
 import { useHeadingTracker } from "@/composables/useHeadingTracker";
 
-import { scrollToHash } from "@/utils/scrollto-hash";
-
 export function useChapterSetup() {
   const route = useRoute();
   const router = useRouter();
@@ -17,12 +15,8 @@ export function useChapterSetup() {
 
   const novelStore = useNovelStore();
 
-  const {
-    currentComponent,
-    currentChapterUuid,
-    currentChapterPage,
-    isLoadingContent,
-  } = storeToRefs(novelStore);
+  const { currentComponent, currentChapterUuid, currentChapterPage } =
+    storeToRefs(novelStore);
 
   // 检查并补充路由参数
   const checkAndSupplementRouteParams = () => {
@@ -111,18 +105,6 @@ export function useChapterSetup() {
     );
   };
 
-  const watchHash = () => {
-    watch(
-      () => isLoadingContent.value,
-      async (loading) => {
-        if (!loading) {
-          await nextTick();
-          scrollToHash();
-        }
-      }
-    );
-  };
-
   // 在组件挂载或激活时重新更新标题
   const handleActivation = () => {
     onActivated(() => {
@@ -135,7 +117,6 @@ export function useChapterSetup() {
     watchRouteParams();
     watchChapterChanges();
     watchCurrentComponent();
-    watchHash();
     handleActivation();
   };
 
