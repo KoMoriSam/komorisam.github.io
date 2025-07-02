@@ -105,8 +105,8 @@ const props = defineProps({
       fontStyle: "font-kai", // 字体样式类名
       fontSize: 24, // 字体大小(px)
       fontGap: 0, // 字间距
-      lineHeight: 1.5, // 行高
-      paraHeight: 1.5, // 段落高度
+      lineHeight: 1.5, // 行间距
+      paraHeight: 1, // 段间距
     }),
   },
 });
