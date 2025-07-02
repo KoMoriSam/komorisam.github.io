@@ -9,7 +9,13 @@ const avatarMap = {
   真正群主: "/assets/images/avatar/talloran.jpg",
   牛子: "/assets/images/avatar/niuzi.jpg",
   欢乐豆人: "/assets/images/avatar/joybean.jpg",
+  天天: "/assets/images/avatar/smellycat7.jpg",
+  量子: "/assets/images/avatar/quantum.jpg",
+  泡泡冰: "/assets/images/avatar/paopao.jpg",
   李焰老师: "/assets/images/avatar/liyan.jpg",
+  赵天明老师: "/assets/images/avatar/zhaotianming.jpg",
+  爸: "/assets/images/avatar/dad.jpg",
+  妈: "/assets/images/avatar/mom.jpg",
 };
 
 const footerStyleMap = [
