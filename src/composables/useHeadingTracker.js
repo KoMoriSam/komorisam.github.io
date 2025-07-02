@@ -33,20 +33,38 @@ export function useHeadingTracker() {
     const scrollTop = window.scrollY;
     const offset = 25; // 提前判断的偏移量，可微调
 
-    for (let i = headings.length - 1; i >= 0; i--) {
-      const el = headings[i];
-      const top = el.getBoundingClientRect().top + window.scrollY;
+    // 获取第一个标题的位置
+    const firstHeading = headings[0];
+    const firstHeadingTop =
+      firstHeading.getBoundingClientRect().top + window.scrollY;
 
-      if (scrollTop + offset >= top) {
-        const id = el.id;
-        if (id) {
-          // 更新 URL hash（不会触发跳转）
-          history.replaceState(null, "", `#${id}`);
-          // 存入 localStorage
-          readHeading.value = id;
+    // 只有当滚动位置超过第一个标题时才记录
+    if (scrollTop + offset >= firstHeadingTop) {
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const el = headings[i];
+        const top = el.getBoundingClientRect().top + window.scrollY;
+
+        if (scrollTop + offset >= top) {
+          const id = el.id;
+          if (id) {
+            // 更新 URL hash（不会触发跳转）
+            history.replaceState(null, "", `#${id}`);
+            // 存入 localStorage
+            readHeading.value = id;
+          }
+          break;
         }
-        break;
       }
+    } else {
+      // 如果还没滚动到第一个标题，清除记录
+      if (readHeading.value) {
+        readHeading.value = "";
+      }
+      history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
     }
   }, 300);
 
