@@ -31,12 +31,10 @@ export function useChapterSetup() {
           } else {
             novelStore.setPage(1);
           }
-          toast.success("已继续上次阅读！");
           return;
         }
         if (!route.query.chapter) {
           if (currentChapterUuid.value) {
-            toast.success("已继续上次阅读！");
             router.push({
               query: {
                 chapter: currentChapterUuid.value,
@@ -90,6 +88,9 @@ export function useChapterSetup() {
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
       useHeadingTracker();
+      setTimeout(() => {
+        toast.success("已继续上次阅读！");
+      }, 750);
     } catch (error) {
       console.error("Error during initialization:", error);
     }
