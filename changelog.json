@@ -1,4 +1,28 @@
 {
+  "1.6.2": {
+    "title": "性能优化与视觉修复",
+    "releaseDate": "2025-07-02",
+    "changelog": [
+      {
+        "type": "ui",
+        "description": "调整底部导航栏样式，优化更新日志链接位置",
+        "impact": "low"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复 ServerInfo 组件在亮色主题下的配色问题",
+        "impact": "medium"
+      },
+      {
+        "type": "performance",
+        "description": "全面采用 WEBP 图片格式，提升加载性能",
+        "impact": "high"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.1": {
     "title": "Markdown 组件增强",
     "releaseDate": "2025-07-02",
