@@ -203,6 +203,13 @@
     letter-spacing: unset;
   }
 
+  #markdown-content.prose .chat-content p {
+    @apply indent-0 text-center text-base-content/50;
+    font-size: calc(var(--para-font-size) * 0.75);
+    line-height: unset;
+    letter-spacing: unset;
+  }
+
   #markdown-content.prose .chat-bubble {
     @apply px-1 py-2 bg-base-200/75;
   }

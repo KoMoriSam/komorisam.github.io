@@ -119,12 +119,12 @@ export function chatHeaderPlugin(md) {
       let infoLine = "";
       if (isGroup) {
         infoLine = `
-        <span class="badge">
+        <span class="badge max-sm:badge-xs">
           ${extra}
         </span>`;
       } else if (status) {
         infoLine = `
-        <span class="badge badge-soft ${status.class}">
+        <span class="badge badge-soft ${status.class} max-sm:badge-xs">
           ${status.text}
         </span>`;
       }
@@ -132,9 +132,9 @@ export function chatHeaderPlugin(md) {
       if (token.nesting === 1) {
         return `
         <div class="chat-bar">
-          <i class="ri-arrow-left-wide-line ml-2 mr-0"></i>
+          <i class="ri-arrow-left-wide-line ml-0.5 sm:ml-2 mr-0"></i>
           <div class="chat-image avatar">
-            <div class="w-10 rounded-full">
+            <div class="w-8 sm:w-10 rounded-full">
               <img alt="${title}" src="${avatar}"/>
             </div>
           </div>
@@ -142,10 +142,11 @@ export function chatHeaderPlugin(md) {
             ${title}
           </span>
           ${infoLine}
-          <i class="ri-menu-line ml-auto mr-2"></i>
-        </div>\n`;
+          <i class="ri-menu-line ml-auto mr-0.5 sm:mr-2"></i>
+        </div>
+        <div class="chat-content">`;
       } else {
-        return "";
+        return `</div>\n`;
       }
     },
   });
