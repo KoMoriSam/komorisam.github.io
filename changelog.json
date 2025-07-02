@@ -1,4 +1,23 @@
 {
+  "1.6.1": {
+    "title": "Markdown 组件增强",
+    "releaseDate": "2025-07-02",
+    "changelog": [
+      {
+        "type": "refactor",
+        "description": "独立 Markdown 组件的 alertPlugin 插件，提升可维护性",
+        "impact": "low"
+      },
+      {
+        "type": "feature",
+        "description": "新增 Markdown 自定义容器：聊天气泡样式支持",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.0": {
     "title": "阅读体验增强与架构优化",
     "releaseDate": "2025-07-01",
