@@ -6,6 +6,7 @@ export function splitMarkdown(content) {
   let inCodeBlock = false;
   let inCustomContainer = false;
   let tempBuffer = "";
+  let pendingClosure = false; // 标记是否有待处理的结束标记
 
   const paras = content.split("\n");
 
@@ -41,11 +42,19 @@ export function splitMarkdown(content) {
 
     // 检测代码块起止
     if (para.trim().startsWith("```")) {
+      if (inCodeBlock) {
+        // 遇到结束标记，标记需要强制包含
+        pendingClosure = true;
+      }
       inCodeBlock = !inCodeBlock;
     }
 
     // 检测自定义容器起止
     if (para.trim().startsWith(":::")) {
+      if (inCustomContainer) {
+        // 遇到结束标记，标记需要强制包含
+        pendingClosure = true;
+      }
       inCustomContainer = !inCustomContainer;
     }
 
@@ -84,10 +93,20 @@ export function splitMarkdown(content) {
 
     // 非代码块、非表格、非自定义容器，使用视觉长度进行分页判断
     if (visualLength(candidate) > PAGE_SIZE) {
-      flushPage();
-      currentPage = para;
+      // 如果有待处理的结束标记，强制包含在当前页
+      if (pendingClosure) {
+        currentPage = candidate;
+        pendingClosure = false;
+      } else {
+        flushPage();
+        currentPage = para;
+      }
     } else {
       currentPage = candidate;
+      // 如果当前行是结束标记，重置pending标记
+      if (pendingClosure && (para.trim() === "```" || para.trim() === ":::")) {
+        pendingClosure = false;
+      }
     }
   }
 
