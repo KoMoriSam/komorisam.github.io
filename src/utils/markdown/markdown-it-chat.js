@@ -132,6 +132,7 @@ export function chatHeaderPlugin(md) {
       if (token.nesting === 1) {
         return `
         <div class="chat-bar">
+          <i class="ri-arrow-left-wide-line ml-2 mr-0"></i>
           <div class="chat-image avatar">
             <div class="w-10 rounded-full">
               <img alt="${title}" src="${avatar}"/>
@@ -141,6 +142,7 @@ export function chatHeaderPlugin(md) {
             ${title}
           </span>
           ${infoLine}
+          <i class="ri-menu-line ml-auto mr-2"></i>
         </div>\n`;
       } else {
         return "";
