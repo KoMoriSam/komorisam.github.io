@@ -1,31 +1,20 @@
 export function splitMarkdown(content) {
   const PAGE_SIZE = 1200;
-  const ENGLISH_CHAR_WEIGHT = 0.6; // 英文字符的视觉权重
+  const ENGLISH_CHAR_WEIGHT = 0.6;
   const pages = [];
   let currentPage = "";
   let inCodeBlock = false;
   let inCustomContainer = false;
   let tempBuffer = "";
-  let pendingClosure = false; // 标记是否有待处理的结束标记
+  let pendingClosure = false;
 
   const paras = content.split("\n");
 
-  // 使用正则表达式判断字符类型
-  const isEnglishChar = (char) => {
-    // 匹配ASCII字符（英文字母、数字、标点等）
-    // 包括半角符号但不包括全角符号
-    return /^[\x00-\xFF]$/.test(char);
-  };
-
-  // 计算字符串的视觉长度（使用正则判断中英文）
+  const isEnglishChar = (char) => /^[\x00-\xFF]$/.test(char);
   const visualLength = (str) => {
     let length = 0;
     for (const char of str) {
-      if (isEnglishChar(char)) {
-        length += ENGLISH_CHAR_WEIGHT;
-      } else {
-        length += 1; // 中文字符和其他非ASCII字符算1
-      }
+      length += isEnglishChar(char) ? ENGLISH_CHAR_WEIGHT : 1;
     }
     return length;
   };
@@ -37,43 +26,32 @@ export function splitMarkdown(content) {
     }
   };
 
+  const isHeading = (line) => /^#{1,6}\s/.test(line.trim());
+
   for (let i = 0; i < paras.length; i++) {
     const para = paras[i];
 
-    // 检测代码块起止
     if (para.trim().startsWith("```")) {
-      if (inCodeBlock) {
-        // 遇到结束标记，标记需要强制包含
-        pendingClosure = true;
-      }
+      if (inCodeBlock) pendingClosure = true;
       inCodeBlock = !inCodeBlock;
     }
 
-    // 检测自定义容器起止
     if (para.trim().startsWith(":::")) {
-      if (inCustomContainer) {
-        // 遇到结束标记，标记需要强制包含
-        pendingClosure = true;
-      }
+      if (inCustomContainer) pendingClosure = true;
       inCustomContainer = !inCustomContainer;
     }
 
-    // 累积段内容（保证换行符）
-    let candidate = currentPage.length > 0 ? currentPage + "\n" + para : para;
+    const candidate = currentPage.length > 0 ? currentPage + "\n" + para : para;
 
-    // 如果是代码块或自定义容器内，不分页
     if (inCodeBlock || inCustomContainer) {
       currentPage = candidate;
       continue;
     }
 
-    // 判断是否是表格行（包含 | 且不是纯空行）
     const isTableRow = para.includes("|") && para.trim().length > 0;
 
     if (isTableRow) {
-      // 暂时缓存表格连续行
       tempBuffer += (tempBuffer ? "\n" : "") + para;
-      // 如果下一个不是表格行或到结尾了，尝试整体加进去
       const nextLine = paras[i + 1] || "";
       const nextIsTable = nextLine.includes("|") && nextLine.trim().length > 0;
 
@@ -91,9 +69,7 @@ export function splitMarkdown(content) {
       continue;
     }
 
-    // 非代码块、非表格、非自定义容器，使用视觉长度进行分页判断
     if (visualLength(candidate) > PAGE_SIZE) {
-      // 如果有待处理的结束标记，强制包含在当前页
       if (pendingClosure) {
         currentPage = candidate;
         pendingClosure = false;
@@ -103,7 +79,6 @@ export function splitMarkdown(content) {
       }
     } else {
       currentPage = candidate;
-      // 如果当前行是结束标记，重置pending标记
       if (pendingClosure && (para.trim() === "```" || para.trim() === ":::")) {
         pendingClosure = false;
       }
@@ -112,6 +87,18 @@ export function splitMarkdown(content) {
 
   if (currentPage.length > 0) {
     pages.push(currentPage);
+  }
+
+  // 后处理：确保非最后一页不以标题结尾
+  for (let i = 0; i < pages.length - 1; i++) {
+    const lines = pages[i].trimEnd().split("\n");
+    const lastLine = lines[lines.length - 1];
+
+    if (isHeading(lastLine)) {
+      const movedHeading = lines.pop();
+      pages[i] = lines.join("\n").trimEnd();
+      pages[i + 1] = movedHeading + "\n" + pages[i + 1];
+    }
   }
 
   return pages;
