@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import { useNovelStore } from "@/stores/novelStore";
 
 import { useToast } from "@/composables/useToast";
+import { useHeadingTracker } from "@/composables/useHeadingTracker";
 
 import { scrollToHash } from "@/utils/scrollto-hash";
 
@@ -94,6 +95,7 @@ export function useChapterSetup() {
       await novelStore.setChapters();
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
+      useHeadingTracker();
     } catch (error) {
       console.error("Error during initialization:", error);
     }
