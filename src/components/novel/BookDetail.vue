@@ -10,7 +10,7 @@
         ></div>
         <img
           v-fade-in
-          src="/assets/images/covers/theHorizon.png"
+          src="/assets/images/covers/theHorizon.webp"
           alt="向远方"
           class="w-full aspect-12/17 object-cover rounded-lg shadow-2xl z-10"
           @load="handleImageLoad"

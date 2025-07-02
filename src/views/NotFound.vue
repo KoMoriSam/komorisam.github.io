@@ -1,6 +1,6 @@
 <template>
   <BasePage
-    :imageSrc="`/assets/images/profile/me4.png`"
+    :imageSrc="`/assets/images/profile/me4.webp`"
     imageAlt="me!"
     title="Ah Oh!"
     description="404 Not Found :("

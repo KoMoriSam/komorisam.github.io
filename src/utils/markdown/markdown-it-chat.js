@@ -3,19 +3,19 @@ import MarkdownItContainer from "markdown-it-container";
 
 const selfNames = ["我", "小群主", "Mori", "KoMoriSam"];
 const avatarMap = {
-  "🈚️内👻，LG": "/assets/images/avatar/lg.jpg",
-  小群主: "/assets/images/avatar/komorisam.jpg",
-  Mori: "/assets/images/avatar/komorisam.jpg",
-  真正群主: "/assets/images/avatar/talloran.jpg",
-  牛子: "/assets/images/avatar/niuzi.jpg",
-  欢乐豆人: "/assets/images/avatar/joybean.jpg",
-  天天: "/assets/images/avatar/smellycat7.jpg",
-  量子: "/assets/images/avatar/quantum.jpg",
-  泡泡冰: "/assets/images/avatar/paopao.jpg",
-  李焰老师: "/assets/images/avatar/liyan.jpg",
-  赵天明老师: "/assets/images/avatar/zhaotianming.jpg",
-  爸: "/assets/images/avatar/dad.jpg",
-  妈: "/assets/images/avatar/mom.jpg",
+  "🈚️内👻，LG": "/assets/images/avatar/lg.webp",
+  小群主: "/assets/images/avatar/komorisam.webp",
+  Mori: "/assets/images/avatar/komorisam.webp",
+  真正群主: "/assets/images/avatar/talloran.webp",
+  牛子: "/assets/images/avatar/niuzi.webp",
+  欢乐豆人: "/assets/images/avatar/joybean.webp",
+  天天: "/assets/images/avatar/smellycat7.webp",
+  量子: "/assets/images/avatar/quantum.webp",
+  泡泡冰: "/assets/images/avatar/paopao.webp",
+  李焰老师: "/assets/images/avatar/liyan.webp",
+  赵天明老师: "/assets/images/avatar/zhaotianming.webp",
+  爸: "/assets/images/avatar/dad.webp",
+  妈: "/assets/images/avatar/mom.webp",
 };
 
 const footerStyleMap = [
@@ -55,7 +55,7 @@ export function chatContainerPlugin(md) {
 
       const isSelf = selfNames.includes(username);
       const avatar =
-        avatarMap[username.trim()] || "/assets/images/avatar/default.png";
+        avatarMap[username.trim()] || "/assets/images/avatar/default.webp";
 
       if (token.nesting === 1) {
         const footerHTML =
@@ -103,7 +103,7 @@ export function chatHeaderPlugin(md) {
       const title = match?.[1]?.trim() || "聊天对象";
       const extra = match?.[2]?.trim();
 
-      const avatar = avatarMap[title] || "/assets/images/avatar/default.png";
+      const avatar = avatarMap[title] || "/assets/images/avatar/default.webp";
 
       // 状态字段映射
       const statusMap = {

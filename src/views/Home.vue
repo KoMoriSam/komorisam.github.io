@@ -1,6 +1,6 @@
 <template>
   <BasePage
-    :imageSrc="`/assets/images/profile/me1.png`"
+    :imageSrc="`/assets/images/profile/me1.webp`"
     imageAlt="Hello Me!"
     title="你好！"
     description="这是 KoMoriSam 的个人网站"

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://komorisam.github.io/">
-    <img src="https://komorisam.github.io/favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://komorisam.github.io/favicon.webp" alt="Logo" width="80" height="80">
   </a>
 
   <h1 align="center">✨ 基于 Vite + Vue3 重构的个人博客 ✨</h1>
