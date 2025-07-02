@@ -1,4 +1,28 @@
 {
+  "1.6.5": {
+    "title": "Markdown 分页算法增强",
+    "releaseDate": "2025-07-02",
+    "changelog": [
+      {
+        "type": "performance",
+        "description": "优化 splitMarkdown 分页逻辑，增加标题悬挂检测，防止标题单独出现在页尾",
+        "impact": "high"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复容器被意外分割的问题，增强代码块和自定义容器的分页处理",
+        "impact": "high"
+      },
+      {
+        "type": "performance",
+        "description": "引入视觉长度计算算法，优化分页准确性",
+        "impact": "high"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.4": {
     "title": "聊天界面优化与阅读提示改进",
     "releaseDate": "2025-07-02",
@@ -170,7 +194,7 @@
         "impact": "medium"
       },
       {
-        "type": "perf",
+        "type": "performance",
         "description": "优化 Markdown 渲染和分页逻辑，调整段落高度配置",
         "impact": "high"
       }
@@ -219,7 +243,7 @@
         "impact": "medium"
       },
       {
-        "type": "perf",
+        "type": "performance",
         "description": "优化小说阅读器检查监听路由参数逻辑",
         "impact": "medium"
       },
