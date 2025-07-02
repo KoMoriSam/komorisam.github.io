@@ -186,10 +186,17 @@ function containerPlugin(md) {
   });
 }
 
+import {
+  chatHeaderPlugin,
+  chatContainerPlugin,
+} from "@/utils/markdown-it-chat";
+
 const plugins = [
   MarkdownItAbbr,
   anchorPlugin,
   containerPlugin,
+  chatHeaderPlugin,
+  chatContainerPlugin,
   emojiPlugin,
   MarkdownItFootnote,
   MarkdownItHighlightjs,

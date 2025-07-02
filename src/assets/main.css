@@ -182,10 +182,61 @@
 
   #markdown-content.prose .alert h3,
   #markdown-content.prose .alert p {
-    @apply indent-0 font-hei m-1 text-base-content;
+    @apply indent-0 m-1 text-base-content;
     font-size: calc(var(--para-font-size) * 0.75);
     line-height: unset;
     letter-spacing: unset;
+  }
+
+  #markdown-content.prose .chat {
+    @apply mx-4 md:mx-12;
+  }
+
+  #markdown-content.prose .chat a {
+    @apply no-underline hover:font-bold;
+  }
+
+  #markdown-content.prose .chat-bubble-primary a {
+    @apply text-primary-content;
+  }
+
+  #markdown-content.prose .chat-bar {
+    @apply flex justify-start items-center gap-2 mb-4 bg-base-200/50 p-2 rounded-xl mx-4 md:mx-12;
+    font-size: calc(var(--para-font-size) * 0.75);
+    line-height: 1;
+    letter-spacing: unset;
+  }
+
+  #markdown-content.prose .chat-bubble p {
+    @apply indent-0 m-1;
+    font-size: calc(var(--para-font-size) * 0.75);
+    line-height: 1;
+    letter-spacing: unset;
+  }
+
+  #markdown-content.prose .chat-header {
+    font-size: calc(var(--para-font-size) * 0.5);
+    line-height: unset;
+    letter-spacing: unset;
+  }
+
+  #markdown-content.prose .chat-footer {
+    font-size: calc(var(--para-font-size) * 0.5);
+    line-height: unset;
+    letter-spacing: unset;
+  }
+
+  #markdown-content.prose .chat img,
+  #markdown-content.prose .chat-image img {
+    @apply m-0;
+  }
+
+  #markdown-content.prose .chat-bubble img {
+    @apply rounded-lg max-w-24 min-w-8;
+  }
+
+  #markdown-content.prose .chat-bubble:has(img) {
+    @apply p-0;
   }
 
   /* 引用与强调文本 */
