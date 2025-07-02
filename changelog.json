@@ -1,4 +1,33 @@
 {
+  "1.6.3": {
+    "title": "阅读定位系统增强",
+    "releaseDate": "2025-07-02",
+    "changelog": [
+      {
+        "type": "performance",
+        "description": "重构标题跟踪逻辑，采用手动哈希变化标识，移除实验性滚动功能",
+        "impact": "high"
+      },
+      {
+        "type": "bugfix",
+        "description": "优化标题更新时机，确保首标题可见后才记录进度",
+        "impact": "high"
+      },
+      {
+        "type": "performance",
+        "description": "调整标题检测偏移量，提升定位准确性",
+        "impact": "medium"
+      },
+      {
+        "type": "bugfix",
+        "description": "修复标题跟随失效问题，优化跳转流畅度",
+        "impact": "high"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.2": {
     "title": "性能优化与视觉修复",
     "releaseDate": "2025-07-02",
