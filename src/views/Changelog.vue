@@ -12,46 +12,74 @@
       <div v-else-if="error" class="text-error">{{ error }}</div>
 
       <template v-else>
-        <section v-for="(item, version) in log" :key="version">
-          <h2 class="mt-0">
-            <span class="text-primary">{{ version }}</span> - {{ item.title }}
-            <span class="badge badge-sm text-base-content/50 mb-1">
-              {{ item.releaseDate }}
-            </span>
-          </h2>
-
-          <ul>
-            <li v-for="(change, index) in item.changelog" :key="index">
-              <strong class="badge badge-soft" :class="typeColor(change.type)">
-                {{ typeText(change.type) }}
-              </strong>
-              {{ change.description }}
-              <span v-if="change.impact" class="ml-2">
-                <span class="badge badge-xs text-base-content/50">
-                  影响 {{ change.impact }}
-                </span>
-              </span>
-            </li>
-          </ul>
-
-          <p v-if="item.migration" class="mt-3 text-sm">
-            <span
-              :class="[
-                'badge badge-xs',
-                item.migration.required ? 'badge-warning' : 'badge-success',
-              ]"
-            >
+        <ul
+          class="timeline timeline-snap-icon timeline-compact timeline-vertical p-0"
+        >
+          <li
+            class="m-0! p-0!"
+            v-for="(item, version, index) in log"
+            :key="version"
+          >
+            <hr v-if="index !== 0" />
+            <div class="timeline-middle">
               <i
-                :class="
-                  item.migration.required ? 'ri-alert-line' : 'ri-check-line'
-                "
+                class="ri-checkbox-circle-fill text-xl"
+                :class="index === 0 ? 'text-primary' : ''"
               ></i>
-              {{ item.migration.required ? "包含迁移操作" : "无迁移操作" }}
-            </span>
-            {{ item.migration.note || "" }}
-          </p>
-          <div class="divider"></div>
-        </section>
+            </div>
+            <div class="timeline-end m-0">
+              <time class="badge badge-outline font-mono">
+                {{ item.releaseDate }}
+              </time>
+              <h2 class="my-2!">
+                <strong
+                  class="badge badge-lg"
+                  :class="index === 0 ? 'badge-primary' : ''"
+                >
+                  {{ version }}
+                </strong>
+                {{ item.title }}
+              </h2>
+              <ul class="pl-3">
+                <li
+                  class="list-none"
+                  v-for="(change, index) in item.changelog"
+                  :key="index"
+                >
+                  <strong
+                    class="badge badge-soft"
+                    :class="typeColor(change.type)"
+                  >
+                    {{ typeText(change.type) }}
+                  </strong>
+                  {{ change.description }}
+                </li>
+              </ul>
+              <p v-if="item.migration" class="mt-3 text-sm">
+                <span
+                  :class="[
+                    'badge badge-sm',
+                    item.migration.required ? 'badge-warning' : 'badge-success',
+                  ]"
+                >
+                  <i
+                    :class="
+                      item.migration.required
+                        ? 'ri-alert-line'
+                        : 'ri-check-line'
+                    "
+                  ></i>
+                  {{ item.migration.required ? "包含迁移操作" : "无迁移操作" }}
+                </span>
+              </p>
+              <p class="text-base-content/50 text-sm">
+                <i v-if="item.migration.note" class="ri-information-line"></i>
+                {{ item.migration.note || "" }}
+              </p>
+            </div>
+            <hr v-if="index !== Object.keys(log).length - 1" />
+          </li>
+        </ul>
       </template>
     </article>
   </main>
