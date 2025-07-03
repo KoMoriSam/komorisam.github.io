@@ -28,7 +28,7 @@
               ></i>
             </div>
             <div class="timeline-end m-0">
-              <time class="badge badge-outline font-mono">
+              <time class="badge badge-outline font-mono mt-2">
                 {{ item.releaseDate }}
               </time>
               <h2 class="my-2!">
