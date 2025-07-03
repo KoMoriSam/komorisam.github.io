@@ -8,7 +8,7 @@
         </router-link>
       </h1>
 
-      <Loading :size="`my-32`" v-if="isLoading" />
+      <Loading size="my-32" v-if="isLoading" />
       <div v-else-if="error" class="text-error">{{ error }}</div>
 
       <template v-else>
@@ -28,19 +28,22 @@
               ></i>
             </div>
             <div class="timeline-end m-0">
-              <time class="badge badge-outline font-mono mt-2">
+              <strong
+                class="badge badge-lg badge-primary mt-2 ml-1.5"
+                :class="index === 0 ? '' : 'badge-outline'"
+              >
+                {{ version }}
+              </strong>
+              <time
+                class="badge badge-info font-mono mt-2 ml-1.5"
+                :class="index === 0 ? 'badge-soft' : 'badge-outline'"
+              >
                 {{ item.releaseDate }}
               </time>
-              <h2 class="my-2!">
-                <strong
-                  class="badge badge-lg"
-                  :class="index === 0 ? 'badge-primary' : ''"
-                >
-                  {{ version }}
-                </strong>
+              <h2 class="ml-1.5 my-2!">
                 {{ item.title }}
               </h2>
-              <ul class="pl-3">
+              <ul class="pl-2">
                 <li
                   class="list-none"
                   v-for="(change, index) in item.changelog"
@@ -55,7 +58,7 @@
                   {{ change.description }}
                 </li>
               </ul>
-              <p v-if="item.migration" class="mt-3 text-sm">
+              <p v-if="item.migration" class="ml-1.5 mt-4 text-sm">
                 <span
                   :class="[
                     'badge badge-sm',
@@ -72,7 +75,7 @@
                   {{ item.migration.required ? "包含迁移操作" : "无迁移操作" }}
                 </span>
               </p>
-              <p class="text-base-content/50 text-sm">
+              <p class="ml-1.5 text-base-content/50 text-sm">
                 <i v-if="item.migration.note" class="ri-information-line"></i>
                 {{ item.migration.note || "" }}
               </p>
