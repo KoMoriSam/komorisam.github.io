@@ -1,5 +1,5 @@
 <template>
-  <main class="m-12">
+  <main class="my-12 mx-6 md:mx-12">
     <article class="mx-auto prose">
       <h1>
         更新日志
