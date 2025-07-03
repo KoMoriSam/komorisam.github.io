@@ -148,7 +148,7 @@ import {
   chatContainerPlugin,
 } from "@/utils/markdown/markdown-it-chat";
 
-import codeCopyPlugin from "@/utils/markdown/markdown-it-code-copy";
+import codePlugin from "@/utils/markdown/markdown-it-code";
 
 // 自定义脚注渲染函数
 function footnotePlugin(md) {
@@ -174,7 +174,7 @@ const plugins = [
   emojiPlugin,
   footnotePlugin,
   MarkdownItHighlightjs,
-  codeCopyPlugin,
+  codePlugin,
   MarkdownItSub,
   MarkdownItSup,
   MarkdownItKatex,
