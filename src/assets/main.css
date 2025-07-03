@@ -158,16 +158,16 @@
     margin: calc(var(--para-font-size) * 1.5) 0;
   }
 
-  /* 包裹元素与标题锚点 (.wrapper) */
-  #markdown-content.prose .wrapper {
+  /* 包裹元素与标题锚点 (.heading-wrapper) */
+  #markdown-content.prose .heading-wrapper {
     @apply flex items-center gap-2;
   }
 
-  #markdown-content.prose .wrapper a.header-anchor {
-    @apply badge badge-md hover:badge-secondary no-underline px-2 mt-2.5 hidden text-center items-center;
+  #markdown-content.prose .heading-wrapper a.header-anchor {
+    @apply badge badge-md hover:badge-accent no-underline px-2 mt-2.5 hidden text-center items-center;
   }
 
-  #markdown-content.prose .wrapper:hover a.header-anchor {
+  #markdown-content.prose .heading-wrapper:hover a.header-anchor {
     @apply inline;
   }
 
@@ -265,6 +265,10 @@
   #markdown-content.prose blockquote p,
   #markdown-content.prose .footnotes p {
     @apply indent-0;
+  }
+
+  #markdown-content.prose strong {
+    @apply font-hei;
   }
 
   /* 脚注样式 */
