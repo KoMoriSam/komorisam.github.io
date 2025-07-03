@@ -121,7 +121,6 @@ const options = {
 
 import MarkdownItAbbr from "markdown-it-abbr";
 import MarkdownItAnchor from "markdown-it-anchor";
-import MarkdownItContainer from "markdown-it-container";
 import { full as emojiPlugin } from "markdown-it-emoji";
 import MarkdownItFootnote from "markdown-it-footnote";
 import MarkdownItHighlightjs from "markdown-it-highlightjs";
@@ -130,7 +129,7 @@ import MarkdownItSup from "markdown-it-sup";
 import MarkdownItKatex from "@vscode/markdown-it-katex";
 import MarkdownItTaskLists from "markdown-it-task-lists";
 
-// 封装 MarkdownItAnchor 插件（必须返回一个函数）
+// 封装 MarkdownItAnchor 插件
 function anchorPlugin(md) {
   md.use(MarkdownItAnchor, {
     permalink: MarkdownItAnchor.permalink.linkAfterHeader({
@@ -149,6 +148,23 @@ import {
   chatContainerPlugin,
 } from "@/utils/markdown/markdown-it-chat";
 
+import codeCopyPlugin from "@/utils/markdown/markdown-it-code-copy";
+
+// 自定义脚注渲染函数
+function footnotePlugin(md) {
+  md.use(MarkdownItFootnote);
+
+  // 覆盖默认的脚注标题渲染函数，移除方括号
+  md.renderer.rules.footnote_caption = function (
+    tokens,
+    idx /*, options, env, slf */
+  ) {
+    let n = Number(tokens[idx].meta.id + 1).toString();
+    if (tokens[idx].meta.subId > 0) n += `:${tokens[idx].meta.subId}`;
+    return n; // 只返回数字，不带方括号
+  };
+}
+
 const plugins = [
   MarkdownItAbbr,
   anchorPlugin,
@@ -156,8 +172,9 @@ const plugins = [
   chatHeaderPlugin,
   chatContainerPlugin,
   emojiPlugin,
-  MarkdownItFootnote,
+  footnotePlugin,
   MarkdownItHighlightjs,
+  codeCopyPlugin,
   MarkdownItSub,
   MarkdownItSup,
   MarkdownItKatex,
