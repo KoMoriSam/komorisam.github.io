@@ -11,16 +11,16 @@ import { typeColor, typeText } from "@/utils/type-changelog";
 
 function UpdateDetail(props) {
   return h("section", { class: "prose prose-sm" }, [
+    h("span", { class: "text-primary font-bold" }, props.version),
+    h(
+      "span",
+      { class: "badge badge-xs text-base-content/50" },
+      props.releaseDate
+    ),
     h("h4", { class: "mt-0" }, [
-      h("span", { class: "text-primary" }, props.version),
       " ",
       props.title,
       " ",
-      h(
-        "span",
-        { class: "badge badge-xs text-base-content/50" },
-        props.releaseDate
-      ),
       h("div", { class: "dropdown dropdown-center" }, [
         h(
           "div",
@@ -64,6 +64,9 @@ function UpdateDetail(props) {
     ]),
     h(
       "ul",
+      {
+        class: `list-none p-0`,
+      },
       props.changelog.map((change, index) =>
         h("li", { key: index }, [
           h(
@@ -75,15 +78,6 @@ function UpdateDetail(props) {
           ),
           " ",
           change.description,
-          change.impact
-            ? h("span", { class: "ml-2" }, [
-                h(
-                  "span",
-                  { class: "badge badge-xs text-base-content/50" },
-                  `影响 ${change.impact}`
-                ),
-              ])
-            : null,
         ])
       )
     ),
