@@ -1,6 +1,6 @@
 import { useEventListener, useStorage, useThrottleFn } from "@vueuse/core";
 
-export function useHeadingTracker() {
+export function useHeadingTracker(router) {
   const READ_HEADING_KEY = "READ_HEADING";
   const readHeading = useStorage(READ_HEADING_KEY, "");
   let isManualHashChange = false;
@@ -15,11 +15,11 @@ export function useHeadingTracker() {
         const el = document.getElementById(id);
         if (el) {
           isManualHashChange = true;
-          history.replaceState(
-            null,
-            "",
-            `${window.location.pathname}${window.location.search}#${id}`
-          );
+          router.replace({
+            path: router.currentRoute.value.path,
+            query: router.currentRoute.value.query,
+            hash: `#${decodeURIComponent(id)}`,
+          });
           el.scrollIntoView({ behavior: "smooth" });
           setTimeout(() => {
             isManualHashChange = false;
@@ -51,7 +51,11 @@ export function useHeadingTracker() {
           const id = el.id;
           if (id) {
             isManualHashChange = true;
-            history.replaceState(null, "", `#${id}`);
+            router.replace({
+              path: router.currentRoute.value.path,
+              query: router.currentRoute.value.query,
+              hash: `#${decodeURIComponent(id)}`,
+            });
             readHeading.value = id;
             setTimeout(() => {
               isManualHashChange = false;
@@ -63,11 +67,11 @@ export function useHeadingTracker() {
     } else {
       if (readHeading.value && !readHeading.value.startsWith("#fn")) {
         readHeading.value = "";
-        history.replaceState(
-          null,
-          "",
-          window.location.pathname + window.location.search
-        );
+        router.replace({
+          path: router.currentRoute.value.path,
+          query: router.currentRoute.value.query,
+          hash: "",
+        });
       }
     }
   }, 300);

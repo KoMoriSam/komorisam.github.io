@@ -1,4 +1,4 @@
-import { watch, onMounted, onActivated, nextTick } from "vue";
+import { watch, onMounted, onActivated } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -87,7 +87,7 @@ export function useChapterSetup() {
       await novelStore.setChapters();
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
-      useHeadingTracker();
+      useHeadingTracker(router);
       setTimeout(() => {
         toast.success("已继续上次阅读！");
       }, 750);
