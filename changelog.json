@@ -1,4 +1,43 @@
 {
+  "1.7.0": {
+    "title": "Markdown 渲染升级与组件重构",
+    "releaseDate": "2025-07-03",
+    "changelog": [
+      {
+        "type": "ui",
+        "description": "优化 Markdown 锚点交互设计",
+        "impact": "high"
+      },
+      {
+        "type": "refactor",
+        "description": "独立 Markdown 自定义插件系统，提升可维护性",
+        "impact": "medium"
+      },
+      {
+        "type": "feature",
+        "description": "新增代码块复制功能",
+        "impact": "high"
+      },
+      {
+        "type": "performance",
+        "description": "规范 useHeadingTracker 修改路由方式",
+        "impact": "medium"
+      },
+      {
+        "type": "performance",
+        "description": "优化脚注渲染逻辑与链接样式",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "重构 Changelog 组件采用时间线布局",
+        "impact": "medium"
+      }
+    ],
+    "migration": {
+      "required": false
+    }
+  },
   "1.6.5": {
     "title": "Markdown 分页算法增强",
     "releaseDate": "2025-07-02",
@@ -24,7 +63,7 @@
     }
   },
   "1.6.4": {
-    "title": "聊天界面优化与阅读提示改进",
+    "title": "Markdown 渲染聊天界面优化与阅读提示改进",
     "releaseDate": "2025-07-02",
     "changelog": [
       {
@@ -43,7 +82,7 @@
     }
   },
   "1.6.3": {
-    "title": "阅读定位系统增强",
+    "title": "阅读器定位系统增强",
     "releaseDate": "2025-07-02",
     "changelog": [
       {
