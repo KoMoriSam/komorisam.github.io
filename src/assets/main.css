@@ -188,6 +188,7 @@
     letter-spacing: unset;
   }
 
+  /* Chat 聊天样式 */
   #markdown-content.prose .chat {
     @apply mx-6 md:mx-16;
   }
@@ -268,15 +269,11 @@
 
   /* 脚注样式 */
   #markdown-content.prose .footnote-ref a {
-    @apply badge badge-sm no-underline indent-0 px-1 font-hei;
-  }
-
-  #markdown-content.prose .footnote-ref a:hover {
-    @apply badge-info;
+    @apply badge badge-sm hover:badge-info no-underline indent-0 px-1.5 font-hei;
   }
 
   #markdown-content.prose .footnote-backref {
-    @apply badge badge-xs px-1 no-underline hover:badge-info;
+    @apply badge badge-sm hover:badge-info px-1.5 no-underline;
     font-size: calc(var(--para-font-size) * 0.5);
   }
 
@@ -289,8 +286,10 @@
   }
 
   #markdown-content.prose li.footnote-item::marker {
+    @apply font-hei;
     font-size: calc(var(--para-font-size) * 0.75);
-    content: "[" counter(list-item) "]";
+    list-style-type: decimal;
+    /* content: counter(list-item); */
   }
 
   #markdown-content.prose li.footnote-item ul,
@@ -305,7 +304,7 @@
 
   #markdown-content.prose pre code.hljs {
     @apply bg-transparent!;
-    font-size: calc(var(--para-font-size) * 0.75);
+    font-size: calc(var(--para-font-size) * 0.6);
     line-height: unset;
   }
 
