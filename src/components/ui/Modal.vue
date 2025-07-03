@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, h } from "vue";
 import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps({
@@ -32,8 +32,8 @@ const props = defineProps({
     default: "Hello!",
   },
   description: {
-    type: String,
-    default: '按下 <kbd class="kbd">ESC</kbd> 键或点击按钮以关闭。',
+    type: [String, Object],
+    default: h("p", "这是一个默认的描述文本。"),
   },
   buttonText: {
     type: String,
