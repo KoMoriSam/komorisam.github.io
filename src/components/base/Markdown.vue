@@ -119,51 +119,24 @@ const options = {
   typographer: true,
 };
 
+// 引入常用插件
 import MarkdownItAbbr from "markdown-it-abbr";
-import MarkdownItAnchor from "markdown-it-anchor";
 import { full as emojiPlugin } from "markdown-it-emoji";
-import MarkdownItFootnote from "markdown-it-footnote";
 import MarkdownItHighlightjs from "markdown-it-highlightjs";
 import MarkdownItSub from "markdown-it-sub";
 import MarkdownItSup from "markdown-it-sup";
 import MarkdownItKatex from "@vscode/markdown-it-katex";
 import MarkdownItTaskLists from "markdown-it-task-lists";
 
-// 封装 MarkdownItAnchor 插件
-function anchorPlugin(md) {
-  md.use(MarkdownItAnchor, {
-    permalink: MarkdownItAnchor.permalink.linkAfterHeader({
-      style: "visually-hidden",
-      assistiveText: (title) => `跳转至 “${title}”`,
-      visuallyHiddenClass: "hidden",
-      wrapper: ['<div class="wrapper">', "</div>"],
-    }),
-  });
-}
-
+// 引入自定义插件
+import { anchorPlugin } from "@/utils/markdown/markdown-it-anchor";
 import { alertPlugin } from "@/utils/markdown/markdown-it-alert";
-
 import {
   chatHeaderPlugin,
   chatContainerPlugin,
 } from "@/utils/markdown/markdown-it-chat";
-
-import codePlugin from "@/utils/markdown/markdown-it-code";
-
-// 自定义脚注渲染函数
-function footnotePlugin(md) {
-  md.use(MarkdownItFootnote);
-
-  // 覆盖默认的脚注标题渲染函数，移除方括号
-  md.renderer.rules.footnote_caption = function (
-    tokens,
-    idx /*, options, env, slf */
-  ) {
-    let n = Number(tokens[idx].meta.id + 1).toString();
-    if (tokens[idx].meta.subId > 0) n += `:${tokens[idx].meta.subId}`;
-    return n; // 只返回数字，不带方括号
-  };
-}
+import { codePlugin } from "@/utils/markdown/markdown-it-code";
+import { footnotePlugin } from "@/utils/markdown/markdown-it-footnote";
 
 const plugins = [
   MarkdownItAbbr,
@@ -171,10 +144,10 @@ const plugins = [
   alertPlugin,
   chatHeaderPlugin,
   chatContainerPlugin,
+  codePlugin,
   emojiPlugin,
   footnotePlugin,
   MarkdownItHighlightjs,
-  codePlugin,
   MarkdownItSub,
   MarkdownItSup,
   MarkdownItKatex,

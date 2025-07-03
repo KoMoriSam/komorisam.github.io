@@ -1,5 +1,5 @@
 // utils/markdown/markdown-it-code.js
-export default function codePlugin(md) {
+export function codePlugin(md) {
   const defaultFenceRenderer = md.renderer.rules.fence;
 
   md.renderer.rules.fence = (tokens, idx, options, env, self) => {
