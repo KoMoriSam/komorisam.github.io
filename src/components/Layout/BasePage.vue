@@ -2,7 +2,7 @@
   <main
     class="flex-1 flex flex-col md:flex-row mx-12 my-12 items-start md:items-center justify-center md:justify-evenly gap-12"
   >
-    <figure class="relative m-0 p-0">
+    <figure class="relative m-0 p-0" @click="onHandleClick">
       <div
         v-show="!imageLoaded"
         class="skeleton absolute inset-0 h-52 lg:w-52 lg:h-auto lg:basis-3xs rounded-lg z-20"
@@ -17,7 +17,7 @@
     </figure>
     <div class="divider md:divider-horizontal m-0 p-0"></div>
     <section class="prose lg:prose-xl lg:basis-3xl">
-      <h1>{{ title }}</h1>
+      <h2>{{ title }}</h2>
       <p>{{ description }}</p>
       <slot></slot>
     </section>
@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 import { useImageLoad } from "@/composables/useImageLoad";
 
 import FootBar from "@/components/layout/FootBar.vue";
@@ -52,4 +54,31 @@ defineProps({
 });
 
 const { imageLoaded, handleImageLoad } = useImageLoad();
+
+import { TOAST_ICONS } from "@/constants/toast";
+import { EASTER_EGGS } from "@/constants/easter";
+
+import { useToast } from "@/composables/useToast";
+const toast = useToast();
+
+import { useClickLimit } from "@/composables/useClickLimit";
+const { handleClick } = useClickLimit({
+  maxClicks: 10,
+});
+
+const randomContent = ref("");
+const showRandomContent = () => {
+  randomContent.value =
+    EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)];
+  toast.add(randomContent.value, {
+    icon: TOAST_ICONS.star,
+    duration: 1500,
+    position: "center",
+  });
+};
+
+// 点击事件
+const onHandleClick = () => {
+  handleClick(showRandomContent);
+};
 </script>

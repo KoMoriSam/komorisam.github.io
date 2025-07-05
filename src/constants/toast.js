@@ -22,4 +22,5 @@ export const TOAST_ICONS = {
   error: "ri-close-circle-line",
   warning: "ri-alert-line",
   loading: "ri-loader-4-line animate-spin",
+  star: "ri-star-smile-line",
 };
