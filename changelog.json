@@ -19,7 +19,7 @@
         "impact": "low"
       },
       {
-        "type": "fix",
+        "type": "bugfix",
         "description": "修复 Modal 组件 description 属性类型警告",
         "impact": "low"
       },
