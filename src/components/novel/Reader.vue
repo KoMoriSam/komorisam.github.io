@@ -24,7 +24,7 @@
             :header-data="{
               title: currentChapter.title,
               meta: currentChapter.volumeTitle,
-              icon: 'ri-book-shelf-line',
+              icon: 'ri-article-line',
               stats: [
                 {
                   icon: 'ri-time-line',

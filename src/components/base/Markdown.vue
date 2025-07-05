@@ -1,14 +1,11 @@
 <template>
-  <header
-    v-if="headerData"
-    class="flex max-md:flex-col md:items-end gap-2 md:gap-0"
-  >
-    <h1 class="text-3xl font-bold">
+  <header v-if="headerData" class="flex flex-wrap md:items-end gap-2 group">
+    <h1 class="text-4xl font-black">
       <span
         v-if="headerData.meta"
         class="badge badge-outline badge-info font-normal"
       >
-        <i class="ri-book-marked-line"></i>
+        <i class="ri-bookmark-line"></i>
         {{ headerData.meta }}
       </span>
       <br />
@@ -16,15 +13,15 @@
       {{ headerData.title }}
       <div
         v-if="showRefresh"
-        class="tooltip tooltip-bottom"
+        class="tooltip tooltip-bottom opacity-0 group-hover:opacity-100 transition-opacity mb-2.75"
         data-tip="刷新内容"
       >
-        <button class="btn btn-xs mb-1" @click="$emit('refresh')">
+        <button class="btn btn-xs" @click="$emit('refresh')">
           <i class="ri-refresh-line"></i>
         </button>
       </div>
     </h1>
-    <ul v-if="headerData.stats" class="md:ml-auto">
+    <ul v-if="headerData.stats" class="max-md:min-w-full md:ml-auto">
       <li v-for="(stat, index) in headerData.stats" :key="index">
         <span class="badge badge-sm">
           <i v-if="stat.icon" :class="stat.icon"></i>
