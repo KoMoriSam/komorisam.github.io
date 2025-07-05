@@ -1,4 +1,44 @@
 {
+  "1.7.1": {
+    "title": "功能增强与界面优化",
+    "releaseDate": "2025-07-05",
+    "changelog": [
+      {
+        "type": "feature",
+        "description": "新增每日一句 API 接口",
+        "impact": "medium"
+      },
+      {
+        "type": "feature",
+        "description": "实现彩蛋功能，支持动态问候语更新",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Markdown 组件细节样式",
+        "impact": "low"
+      },
+      {
+        "type": "fix",
+        "description": "修复 Modal 组件 description 属性类型警告",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "改进 UpdateDetail 组件版本信息展示",
+        "impact": "low"
+      },
+      {
+        "type": "ui",
+        "description": "优化 Changelog 组件间距和排版",
+        "impact": "low"
+      }
+    ],
+    "breakingChanges": [],
+    "migration": {
+      "required": false
+    }
+  },
   "1.7.0": {
     "title": "Markdown 渲染升级与组件重构",
     "releaseDate": "2025-07-03",
