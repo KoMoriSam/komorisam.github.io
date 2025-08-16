@@ -1,8 +1,8 @@
 <template>
   <dialog
     v-if="visible"
+    ref="dialogRef"
     class="modal modal-bottom sm:modal-middle"
-    :open="visible"
     @keydown.esc="handleSubmit"
   >
     <section ref="modalRef" class="modal-box">
@@ -53,9 +53,13 @@ const props = defineProps({
 const emit = defineEmits(["close"]);
 
 const modalRef = ref(null);
+const dialogRef = ref(null);
 
 // 关闭Modal
 const close = () => {
+  if (dialogRef.value?.close) {
+    dialogRef.value.close();
+  }
   emit("close");
 };
 

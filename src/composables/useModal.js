@@ -1,4 +1,4 @@
-import { createApp, ref, h } from "vue";
+import { createApp, ref, h, nextTick } from "vue";
 import Modal from "@/components/ui/Modal.vue";
 
 const modal = {
@@ -15,15 +15,31 @@ const modal = {
 
     const modalApp = createApp({
       setup() {
-        const visible = ref(true);
+        const visible = ref(false);
+
+        const open = async () => {
+          visible.value = true;
+          await nextTick(); // 确保 DOM 更新完成后调用 showModal()
+          const dialog = container.querySelector("dialog");
+          setTimeout(() => {
+            dialog.showModal();
+          }, 150); // 延迟 50ms，确保动画 CSS 已经应用
+        };
 
         const close = () => {
-          visible.value = false;
+          const dialog = container.querySelector("dialog");
+          dialog.close();
           setTimeout(() => {
+            visible.value = false;
             modalApp.unmount();
-            document.body.removeChild(container);
-          }, 200);
+            if (document.body.contains(container)) {
+              document.body.removeChild(container); // 检查节点是否存在再移除
+            }
+          }, 500);
         };
+
+        // 打开 Modal
+        open();
 
         return () =>
           h(
