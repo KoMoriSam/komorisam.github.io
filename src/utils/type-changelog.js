@@ -2,9 +2,9 @@ export function typeColor(type) {
   switch (type) {
     case "feature":
       return "badge-primary";
-    case "bugfix":
+    case "fix":
       return "badge-error";
-    case "ui":
+    case "improve":
       return "badge-secondary";
     case "performance":
       return "badge-success";
@@ -19,10 +19,10 @@ export function typeText(type) {
   switch (type) {
     case "feature":
       return "功能";
-    case "bugfix":
+    case "fix":
       return "修复";
-    case "ui":
-      return "界面";
+    case "improve":
+      return "改进";
     case "performance":
       return "优化";
     case "refactor":

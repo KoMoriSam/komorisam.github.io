@@ -15,17 +15,11 @@ function UpdateDetail(props) {
     h(
       "span",
       { class: "badge badge-xs text-base-content/50" },
-      props.releaseDate
-    ),
-    h("h4", { class: "mt-0" }, [
-      " ",
-      props.title,
-      " ",
-      h("div", { class: "dropdown dropdown-center" }, [
+      props.releaseDate,
+      h("div", { class: "dropdown dropdown-center dropdown-hover" }, [
         h(
           "div",
           {
-            tabindex: "0",
             role: "button",
             class: "btn btn-circle btn-ghost btn-xs text-info",
           },
@@ -34,12 +28,11 @@ function UpdateDetail(props) {
         h(
           "div",
           {
-            tabindex: "0",
             class:
               "card card-sm dropdown-content bg-base-100 rounded-box z-1 w-48 shadow-sm",
           },
           [
-            h("div", { tabindex: "0", class: "card-body" }, [
+            h("div", { class: "card-body" }, [
               h(
                 "h2",
                 { class: "card-title mt-0 mb-0" },
@@ -51,7 +44,7 @@ function UpdateDetail(props) {
                   href: "/changelog",
                   onClick: (e) => {
                     e.stopPropagation(); // 避免冒泡干扰弹窗
-                    props.onViewLog?.(); // ✅ 调用传入的函数
+                    props.onViewLog?.(); // 调用传入的函数
                   },
                   class: "link link-primary no-underline",
                 },
@@ -60,25 +53,27 @@ function UpdateDetail(props) {
             ]),
           ]
         ),
-      ]),
-    ]),
+      ])
+    ),
     h(
       "ul",
       {
         class: `list-none p-0`,
       },
-      props.changelog.map((change, index) =>
-        h("li", { key: index }, [
-          h(
-            "strong",
-            {
-              class: `badge badge-soft badge-sm ${typeColor(change.type)}`,
-            },
-            typeText(change.type)
-          ),
-          " ",
-          change.description,
-        ])
+      Object.entries(props.changelog).map(([type, descriptions]) =>
+        descriptions.map((description, index) =>
+          h("li", { key: `${type}-${index}` }, [
+            h(
+              "strong",
+              {
+                class: `badge badge-soft badge-sm ${typeColor(type)}`,
+              },
+              typeText(type)
+            ),
+            " ",
+            description,
+          ])
+        )
       )
     ),
     props.migration
@@ -88,20 +83,18 @@ function UpdateDetail(props) {
             {
               class: [
                 "badge badge-xs",
-                props.migration.required ? "badge-warning" : "badge-success",
+                props.warning ? "badge-warning" : "badge-success",
               ],
             },
             [
               h("i", {
-                class: props.migration.required
-                  ? "ri-alert-line"
-                  : "ri-check-line",
+                class: props.warning ? "ri-alert-line" : "ri-check-line",
               }),
-              props.migration.required ? "包含迁移操作" : "无迁移操作",
+              props.warning ? "请注意" : "放心食用",
             ]
           ),
           " ",
-          props.migration.note || "",
+          props.note || props.warning,
         ])
       : null,
   ]);
@@ -121,7 +114,15 @@ export async function checkUpdateNotice() {
   if (!latestVersion || latestVersion === currentVersion.value) return;
 
   const latestLog = changelogStore.getVersionInfo(latestVersion);
-  const { title, releaseDate, migration, changelog: changes } = latestLog;
+  const {
+    date: releaseDate,
+    changes: changelog,
+    note: migrationNote,
+  } = latestLog;
+
+  const migration = migrationNote
+    ? { required: true, note: migrationNote }
+    : null;
 
   const updateVersion = () => {
     if (migration?.required) {
@@ -133,8 +134,7 @@ export async function checkUpdateNotice() {
   const description = h(UpdateDetail, {
     version: latestVersion,
     releaseDate,
-    title,
-    changelog: changes,
+    changelog,
     migration,
     onViewLog: updateVersion,
   });

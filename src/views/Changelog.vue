@@ -38,46 +38,45 @@
                 class="badge badge-info font-mono mt-2 ml-1.5"
                 :class="index === 0 ? 'badge-soft' : 'badge-outline'"
               >
-                {{ item.releaseDate }}
+                {{ item.date }}
               </time>
-              <h2 class="ml-1.5 my-2!">
-                {{ item.title }}
-              </h2>
-              <ul class="pl-2">
+              <ul
+                v-for="(changes, type) in item.changes"
+                :key="type"
+                class="pl-2"
+              >
                 <li
+                  v-for="(change, idx) in changes"
+                  :key="idx"
                   class="list-none"
-                  v-for="(change, index) in item.changelog"
-                  :key="index"
                 >
-                  <strong
-                    class="badge badge-soft"
-                    :class="typeColor(change.type)"
-                  >
-                    {{ typeText(change.type) }}
+                  <strong class="badge badge-soft" :class="typeColor(type)">
+                    {{ typeText(type) }}
                   </strong>
-                  {{ change.description }}
+                  {{ change }}
                 </li>
               </ul>
-              <p v-if="item.migration" class="ml-1.5 mt-4 text-sm">
+              <p class="ml-1.5 mt-4 text-sm">
                 <span
                   :class="[
                     'badge badge-sm',
-                    item.migration.required ? 'badge-warning' : 'badge-success',
+                    item.warning ? 'badge-warning' : 'badge-success',
+                    index === 0 ? '' : 'badge-outline',
                   ]"
                 >
                   <i
-                    :class="
-                      item.migration.required
-                        ? 'ri-alert-line'
-                        : 'ri-check-line'
-                    "
+                    :class="item.warning ? 'ri-alert-line' : 'ri-check-line'"
                   ></i>
-                  {{ item.migration.required ? "包含迁移操作" : "无迁移操作" }}
+                  {{ item.warning ? "请注意" : "放心食用" }}
                 </span>
-              </p>
-              <p class="ml-1.5 text-base-content/50 text-sm">
-                <i v-if="item.migration.note" class="ri-information-line"></i>
-                {{ item.migration.note || "" }}
+                <span
+                  class="ml-1.5 text-sm"
+                  :class="
+                    item.warning ? 'text-warning' : 'text-base-content/50'
+                  "
+                >
+                  {{ item.note || item.warning }}
+                </span>
               </p>
             </div>
             <hr v-if="index !== Object.keys(log).length - 1" />
