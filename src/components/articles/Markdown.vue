@@ -52,6 +52,7 @@
   >
     <vue-markdown
       v-if="content"
+      :key="`${headerData.uuid}-${headerData.page}`"
       :source="content"
       :options="options"
       :plugins="plugins"
@@ -62,6 +63,8 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+
 import VueMarkdown from "vue-markdown-render";
 import Loading from "@/components/base/Loading.vue";
 
@@ -77,6 +80,8 @@ const props = defineProps({
     type: Object,
     default: () => ({
       title: "", // 主标题
+      uuid: "", // 唯一章节 ID
+      page: 1, // 当前页码
       meta: "", // 元信息（副标题）
       icon: "", // 标题图标
       stats: [], // 统计信息数组
@@ -108,6 +113,8 @@ const props = defineProps({
   },
 });
 
+console.log("Markdown.vue props:", props);
+
 const emit = defineEmits(["refresh"]);
 
 // Markdown 渲染选项
@@ -131,16 +138,22 @@ import { alertPlugin } from "@/utils/markdown/markdown-it-alert";
 import {
   chatHeaderPlugin,
   chatContainerPlugin,
+  momentsPlugin,
 } from "@/utils/markdown/markdown-it-chat";
 import { codePlugin } from "@/utils/markdown/markdown-it-code";
 import { footnotePlugin } from "@/utils/markdown/markdown-it-footnote";
+import { useParagraphComments } from "@/utils/markdown/markdown-it-giscus";
 
-const plugins = [
+const paragraphPlugin = useParagraphComments();
+
+const plugins = computed(() => [
+  paragraphPlugin(props.headerData.uuid, props.headerData.page),
   MarkdownItAbbr,
   anchorPlugin,
   alertPlugin,
   chatHeaderPlugin,
   chatContainerPlugin,
+  momentsPlugin,
   codePlugin,
   emojiPlugin,
   footnotePlugin,
@@ -149,5 +162,5 @@ const plugins = [
   MarkdownItSup,
   MarkdownItKatex,
   MarkdownItTaskLists,
-];
+]);
 </script>

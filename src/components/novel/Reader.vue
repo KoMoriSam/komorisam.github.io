@@ -23,6 +23,8 @@
             @refresh="novelStore.refreshContent"
             :header-data="{
               title: currentChapter.title,
+              uuid: currentChapterUuid,
+              page: currentChapterPage,
               meta: currentChapter.volumeTitle,
               icon: 'ri-article-line',
               stats: [
@@ -104,7 +106,7 @@ import SideBar from "@/components/layout/SideBar.vue";
 import Chapters from "@/components/novel/Chapters.vue";
 import ChapterController from "@/components/novel/ChapterController.vue";
 import FormatToolbox from "@/components/novel/FormatToolbox.vue";
-import Markdown from "@/components/base/Markdown.vue";
+import Markdown from "@/components/articles/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
 
@@ -117,8 +119,14 @@ import { useToggleComponent } from "@/composables/useToggleComponent";
 import { useClickLimit } from "@/composables/useClickLimit";
 
 const novelStore = useNovelStore();
-const { currentPageContent, latestChapter, currentChapter, isLoadingContent } =
-  storeToRefs(novelStore);
+const {
+  currentPageContent,
+  latestChapter,
+  currentChapter,
+  currentChapterUuid,
+  currentChapterPage,
+  isLoadingContent,
+} = storeToRefs(novelStore);
 
 const readerStore = useReaderStore;
 const { styleConfigs } = readerStore();

@@ -1,4 +1,3 @@
-// ✅ 完整 Chat Markdown 插件系统
 import MarkdownItContainer from "markdown-it-container";
 
 const selfNames = ["我", "小群主", "Mori", "KoMoriSam"];
@@ -147,6 +146,139 @@ export function chatHeaderPlugin(md) {
         <div class="chat-content">`;
       } else {
         return `</div>\n`;
+      }
+    },
+  });
+}
+
+export function momentsPlugin(md) {
+  md.use(MarkdownItContainer, "moments", {
+    validate: (params) => /^moments\s+.+\|.+/.test(params.trim()),
+    render(tokens, idx) {
+      const token = tokens[idx];
+      const match = token.info
+        .trim()
+        .match(/^moments\s+(.+?)\s*\|\s*(.+?)(?:\s*\|\s*(.+))?$/);
+      const username = match?.[1]?.trim() || "用户";
+      const time = match?.[2]?.trim() || "";
+      const location = match?.[3]?.trim() || "";
+
+      const avatar =
+        avatarMap[username] || "/assets/images/avatar/default.webp";
+      const isSelf = selfNames.includes(username);
+
+      if (token.nesting === 1) {
+        return `
+        <div class="card card-compact bg-base-100 shadow-sm mb-4">
+          <div class="card-body">
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img class="m-0!" src="${avatar}" alt="${username}" />
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="text-lg font-bold">${username}</div>
+                <div class="text-xs opacity-70 flex gap-2">
+                  <span>${time}</span>
+                  ${location ? `<span>· ${location}</span>` : ""}
+                </div>
+              </div>
+              ${isSelf ? '<i class="ri-more-2-line"></i>' : ""}
+            </div>
+            <div class="moments-content mt-3">
+        `;
+      } else {
+        return `
+            </div>
+            <div class="moments-actions flex justify-between mt-3 pt-2 border-t border-base-200">
+              <button class="btn btn-ghost btn-sm">
+                <i class="ri-thumb-up-line"></i>
+                <span class="hidden sm:inline">点赞</span>
+              </button>
+              <button class="btn btn-ghost btn-sm">
+                <i class="ri-chat-3-line"></i>
+                <span class="hidden sm:inline">评论</span>
+              </button>
+              <button class="btn btn-ghost btn-sm">
+                <i class="ri-share-forward-line"></i>
+                <span class="hidden sm:inline">分享</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        `;
+      }
+    },
+  });
+
+  // 朋友圈图片组插件
+  md.use(MarkdownItContainer, "moments-images", {
+    validate: (params) => params.trim() === "moments-images",
+    render(tokens, idx) {
+      if (tokens[idx].nesting === 1) {
+        return `<div class="moments-images grid gap-2 mt-3">\n`;
+      } else {
+        return `</div>\n`;
+      }
+    },
+  });
+
+  // 朋友圈评论插件
+  md.use(MarkdownItContainer, "moments-comments", {
+    validate: (params) => params.trim() === "moments-comments",
+    render(tokens, idx) {
+      if (tokens[idx].nesting === 1) {
+        return `
+        <div class="moments-comments mt-3 border-t border-base-200 pt-3">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="avatar">
+              <div class="w-8 rounded-full">
+                <img src="${avatarMap["小群主"]}" alt="小群主" />
+              </div>
+            </div>
+            <input type="text" placeholder="说点什么..." class="input input-bordered input-sm flex-1" />
+          </div>
+          <div class="comments-list">
+        `;
+      } else {
+        return `
+          </div>
+        </div>
+        `;
+      }
+    },
+  });
+
+  // 单条评论插件
+  md.use(MarkdownItContainer, "comment", {
+    validate: (params) => /^comment\s+.+\|.+/.test(params.trim()),
+    render(tokens, idx) {
+      const token = tokens[idx];
+      const match = token.info.trim().match(/^comment\s+(.+?)\s*\|\s*(.+)/);
+      const username = match?.[1]?.trim() || "用户";
+      const content = match?.[2]?.trim() || "";
+      const avatar =
+        avatarMap[username] || "/assets/images/avatar/default.webp";
+      const isSelf = selfNames.includes(username);
+
+      if (token.nesting === 1) {
+        return `
+        <div class="flex gap-2 mb-2">
+          <div class="avatar">
+            <div class="w-6 rounded-full">
+              <img class="m-0!" src="${avatar}" alt="${username}" />
+            </div>
+          </div>
+          <p class="indent-0 px-3 py-1 text-xs">
+            ${
+              !isSelf ? `<span class="font-bold">${username}</span>` : ""
+            } : ${content}
+          </p>
+        </div>
+        `;
+      } else {
+        return "";
       }
     },
   });
