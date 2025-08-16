@@ -1,11 +1,10 @@
 import ParaGiscus from "@/components/articles/ParaGiscus.vue";
 import { h } from "vue";
 import { useModal } from "@/composables/useModal";
-import { onUnmounted } from "vue";
+import { useGlobalEventListener } from "@/composables/useGlobalEventListener";
 
 export const useParagraphComments = () => {
   const modal = useModal();
-  let isListenerAdded = false;
 
   const handleCommentClick = (e) => {
     const trigger = e.target.closest(".comment-trigger");
@@ -16,26 +15,18 @@ export const useParagraphComments = () => {
 
     const paragraphId = trigger.dataset.paragraphId;
     if (!paragraphId) {
-      console.error("No paragraphId found on trigger");
+      console.error("段落 ID 未找到");
       return;
     }
 
     modal.info("当前段评", h(ParaGiscus, { paragraphId }));
   };
 
-  const setupCommentTriggers = () => {
-    if (isListenerAdded) return;
-
-    // 使用capture阶段确保能捕获到事件
-    document.addEventListener("click", handleCommentClick, true);
-    isListenerAdded = true;
-
-    // 添加清理逻辑
-    onUnmounted(() => {
-      document.removeEventListener("click", handleCommentClick, true);
-      isListenerAdded = false;
-    });
-  };
+  const { addEventListener } = useGlobalEventListener(
+    "click",
+    handleCommentClick,
+    true
+  );
 
   const paragraphPlugin = (uuid, page) => {
     return (md) => {
@@ -81,7 +72,7 @@ export const useParagraphComments = () => {
     };
   };
 
-  setupCommentTriggers();
+  addEventListener();
 
   return paragraphPlugin;
 };
