@@ -5,7 +5,7 @@ import { storeToRefs } from "pinia";
 import { useNovelStore } from "@/stores/novelStore";
 
 import { useToast } from "@/composables/useToast";
-import { useHeadingTracker } from "@/composables/useHeadingTracker";
+import { usePosTracker } from "@/composables/usePosTracker";
 
 export function useChapterSetup() {
   const route = useRoute();
@@ -87,7 +87,7 @@ export function useChapterSetup() {
       await novelStore.setChapters();
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
-      useHeadingTracker(router);
+      usePosTracker(router);
       setTimeout(() => {
         toast.success("已继续上次阅读！");
       }, 750);
