@@ -3,7 +3,7 @@
     <h2 class="text-primary font-black">
       {{ props.version }}
       <span class="badge badge-xs text-base-content/50 ml-1">
-        {{ props.releaseDate }}
+        {{ props.date }}
       </span>
       <div class="dropdown dropdown-center dropdown-hover">
         <div role="button" class="btn btn-circle btn-ghost btn-xs text-info">
@@ -29,7 +29,7 @@
     <ul class="list-none p-0">
       <template
         v-for="([type, descriptions], typeIndex) in Object.entries(
-          props.changelog
+          props.changes
         )"
         :key="typeIndex"
       >
@@ -37,7 +37,9 @@
           v-for="(description, descIndex) in descriptions"
           :key="`${type}-${descIndex}`"
         >
-          <strong :class="`badge badge-soft badge-sm ${typeColor(type)}`">
+          <strong
+            :class="`badge badge-soft badge-sm font-bold ${typeColor(type)}`"
+          >
             {{ typeText(type) }}
           </strong>
           {{ description }}
@@ -63,12 +65,8 @@
 <script setup>
 const props = defineProps({
   version: String,
-  releaseDate: String,
-  changelog: {
-    type: Object,
-    required: true,
-  },
-  migration: Boolean,
+  date: String,
+  changes: Object,
   warning: String,
   note: String,
   onViewLog: Function,

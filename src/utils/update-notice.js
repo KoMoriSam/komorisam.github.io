@@ -1,13 +1,12 @@
 import { useStorage } from "@vueuse/core";
 import { h } from "vue";
 
-import { useModal } from "@/composables/useModal";
+import UpdateDetail from "@/components/UpdateDetail.vue";
 
+import { useModal } from "@/composables/useModal";
 const modal = useModal();
 
-import { useDiscardStorage } from "@/utils/discard-storage";
 import { useChangelogStore } from "@/stores/changelogStore";
-import UpdateDetail from "@/components/UpdateDetail.vue";
 
 export async function checkUpdateNotice() {
   const VERSION_KEY = "APP_VERSION";
@@ -23,28 +22,20 @@ export async function checkUpdateNotice() {
   if (!latestVersion || latestVersion === currentVersion.value) return;
 
   const latestLog = changelogStore.getVersionInfo(latestVersion);
-  const {
-    date: releaseDate,
-    changes: changelog,
-    note: migrationNote,
-  } = latestLog;
+  const { date, changes, note, warning } = latestLog;
 
-  const migration = migrationNote
-    ? { required: true, note: migrationNote }
-    : null;
+  console.log("latestLog", latestLog);
 
   const updateVersion = () => {
-    if (migration?.required) {
-      useDiscardStorage();
-    }
     currentVersion.value = latestVersion;
   };
 
   const description = h(UpdateDetail, {
     version: latestVersion,
-    releaseDate,
-    changelog,
-    migration,
+    date,
+    changes,
+    note,
+    warning,
     onViewLog: updateVersion,
   });
 
