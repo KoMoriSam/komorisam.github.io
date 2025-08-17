@@ -13,7 +13,7 @@
       {{ headerData.title }}
       <div
         v-if="showRefresh"
-        class="tooltip tooltip-bottom opacity-0 group-hover:opacity-100 transition-opacity mb-2.75"
+        class="tooltip tooltip-bottom md:opacity-0 group-hover:opacity-100 transition-opacity mb-2.75"
         data-tip="刷新内容"
       >
         <button class="btn btn-xs" @click="$emit('refresh')">

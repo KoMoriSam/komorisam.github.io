@@ -49,7 +49,7 @@ export const useParagraphComments = () => {
       ) {
         const paragraphId = `${uuid}-${page}-${idx}`;
         tokens[idx].attrSet("id", paragraphId);
-        tokens[idx].attrSet("class", "group relative");
+        tokens[idx].attrSet("class", "group");
         return defaultRender(tokens, idx, options, env, self);
       };
 
@@ -63,11 +63,10 @@ export const useParagraphComments = () => {
         const paragraphId = `${uuid}-${page}-${idx - 2}`;
 
         return `
-          <button class="comment-trigger md:opacity-0 group-hover:opacity-100 transition-opacity btn btn-primary btn-circle btn-soft btn-xs text-xs absolute bottom-1 right-1" data-paragraph-id="${paragraphId}">
+          <button class="comment-trigger" data-paragraph-id="${paragraphId}">
             <i class="ri-chat-3-line"></i>
           </button>
-          </p>
-        `;
+        </p>`;
       };
     };
   };
