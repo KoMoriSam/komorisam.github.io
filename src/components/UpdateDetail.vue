@@ -47,17 +47,22 @@
       </template>
     </ul>
 
-    <p v-if="props.migration" class="mt-3 text-sm">
+    <p v-if="props.note || props.warning" class="mt-3 text-sm">
       <span
         :class="[
-          'badge badge-xs',
+          'badge badge-xs mr-1',
           props.warning ? 'badge-warning' : 'badge-success',
         ]"
       >
         <i :class="props.warning ? 'ri-alert-line' : 'ri-check-line'"></i>
         {{ props.warning ? "请注意" : "放心食用" }}
       </span>
-      {{ props.note || props.warning }}
+      <span v-if="props.note" class="text-base-content/50 text-xs">
+        {{ props.note }}
+      </span>
+      <span v-if="props.warning" class="text-warning text-xs">
+        {{ props.warning }}
+      </span>
     </p>
   </section>
 </template>
