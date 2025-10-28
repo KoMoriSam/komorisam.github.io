@@ -1,14 +1,14 @@
 {
   "name": "komorisam",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "homepage": "https://komorisam.github.io/",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "deploy": "gh-pages -d dist -r https://github.com/KoMoriSam/komorisam.github.io.git",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0",
     "generate": "node mock/generateIndex.js"
   },
   "dependencies": {

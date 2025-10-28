@@ -4,9 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_NOVEL_URL;
 
 export function useChapterApi() {
   const fetchChapters = async () => {
-    const { data, error } = await useFetch(
-      `${BASE_URL}/content/index.json`
-    ).json();
+    const { data, error } = await useFetch(`${BASE_URL}/index.json`).json();
     if (error.value) {
       throw new Error("获取章节列表失败");
     }
