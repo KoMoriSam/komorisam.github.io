@@ -30,11 +30,25 @@
               stats: [
                 {
                   icon: 'ri-time-line',
-                  text: useDateFormat(currentChapter.date, 'YYYY/M/D HH:mm'),
+                  text: useDateFormat(
+                    currentChapter.uploadDate,
+                    'YYYY/M/D H:mm 上传'
+                  ),
                 },
+                ...(currentChapter.modifiedDate
+                  ? [
+                      {
+                        icon: 'ri-file-edit-line',
+                        text: useDateFormat(
+                          currentChapter.modifiedDate,
+                          'YYYY/M/D H:mm 修改'
+                        ),
+                      },
+                    ]
+                  : []),
                 {
                   icon: 'ri-file-text-line',
-                  text: `${currentChapter.length} 字`,
+                  text: `约 ${currentChapter.length} 字`,
                 },
               ],
             }"

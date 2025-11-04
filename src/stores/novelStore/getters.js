@@ -20,9 +20,10 @@ export const useNovelGetters = (state) => {
     }),
 
     latestChapter: computed(() => {
-      const recentChapters = state.flatChapters.value.filter((chapter) =>
-        isRecent(chapter.date)
-      );
+      const recentChapters = state.flatChapters.value.filter((chapter) => {
+        const dateToCheck = chapter.modifiedDate || chapter.uploadDate;
+        return isRecent(dateToCheck);
+      });
 
       if (recentChapters.length > 0) {
         return recentChapters[recentChapters.length - 1];

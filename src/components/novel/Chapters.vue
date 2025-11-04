@@ -45,7 +45,8 @@
               <!-- 章节状态指示 -->
               <span
                 v-if="
-                  isRecent(chapter.uuid, chapter.date) && !isRead(chapter.uuid)
+                  isRecent(chapter.uuid, chapter.uploadDate) &&
+                  !isRead(chapter.uuid)
                 "
                 class="badge badge-xs badge-warning mx-1"
               >
@@ -65,7 +66,11 @@
                 </span>
                 <span class="badge badge-xs">
                   <i class="ri-time-line"></i>
-                  {{ useDateFormat(chapter.date, "YYYY/M/D HH:mm") }}
+                  {{ useDateFormat(chapter.uploadDate, "YYYY/M/D HH:mm") }}
+                </span>
+                <span v-if="chapter.modifiedDate" class="badge badge-xs">
+                  <i class="ri-file-edit-line"></i>
+                  {{ useDateFormat(chapter.modifiedDate, "YYYY/M/D HH:mm") }}
                 </span>
                 <span class="badge badge-xs">
                   <i class="ri-file-text-line"></i>
