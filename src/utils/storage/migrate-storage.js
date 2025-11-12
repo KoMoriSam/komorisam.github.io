@@ -7,6 +7,8 @@ export function useStorageMigration() {
 
     if (migrationFlag.value) {
       console.log("迁移已完成，跳过");
+      // 清理旧键名（可选，建议先注释掉测试）
+      cleanupOldKeys();
       return;
     }
 
@@ -22,7 +24,7 @@ export function useStorageMigration() {
     migrateReadingState();
 
     // 清理旧键名（可选，建议先注释掉测试）
-    // cleanupOldKeys();
+    cleanupOldKeys();
 
     migrationFlag.value = true;
     console.log("迁移完成");
@@ -114,13 +116,13 @@ export function useStorageMigration() {
       "CONTENT_PARA_HEIGHT",
       "NOVEL_CURRENT_COMPONENT",
       "NOVEL_SIDE_CURRENT_COMPONENT",
-      "CHAPTERS_CONTENT",
-      "CHAPTER_LIST",
-      "CHAPTER_LIST_UPDATED_AT",
-      "READ_CHS",
-      "READ_CH_ID",
-      "READ_PAGE",
-      "READ_POS",
+      // "CHAPTERS_CONTENT",
+      // "CHAPTER_LIST",
+      // "CHAPTER_LIST_UPDATED_AT",
+      // "READ_CHS",
+      // "READ_CH_ID",
+      // "READ_PAGE",
+      // "READ_POS",
     ];
 
     keysToClear.forEach((key) => {

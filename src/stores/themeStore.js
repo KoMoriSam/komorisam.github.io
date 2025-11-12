@@ -22,7 +22,7 @@ export const useThemeStore = defineStore("theme", () => {
 
   const currentTheme = computed(() => {
     return (
-      themeList.value.find((t) => t.value === theme) || {
+      themeList.value.find((t) => t.value === theme.value) || {
         icon: "ri-contrast-line",
       }
     );
@@ -30,11 +30,11 @@ export const useThemeStore = defineStore("theme", () => {
 
   // 当前主题
   const giscusTheme = computed(() => {
-    if (theme === "default") {
+    if (theme.value === "default") {
       return isDark.value ? "noborder_dark" : "noborder_light";
-    } else if (theme === "corporate") {
+    } else if (theme.value === "corporate") {
       return "catppuccin_latte";
-    } else if (theme === "dim") {
+    } else if (theme.value === "dim") {
       return "catppuccin_macchiato";
     }
     return "preferred_color_scheme";
@@ -42,7 +42,7 @@ export const useThemeStore = defineStore("theme", () => {
 
   // 修改主题并存储
   function setTheme(newTheme) {
-    theme = newTheme;
+    theme.value = newTheme;
   }
 
   return { theme, themeList, currentTheme, giscusTheme, setTheme };
