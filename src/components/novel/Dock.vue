@@ -74,7 +74,7 @@ defineProps({
     type: Function,
     required: true,
   },
-  currentComponent: {
+  sideCurrentComponent: {
     type: String,
     required: true,
   },
@@ -89,8 +89,8 @@ defineProps({
 });
 
 // 触发父组件事件
-const emit = defineEmits(["update:currentComponent"]);
+const emit = defineEmits(["update:sideCurrentComponent"]);
 const emitToolChange = (component) => {
-  emit("update:currentComponent", component);
+  emit("update:sideCurrentComponent", component);
 };
 </script>

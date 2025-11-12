@@ -1,5 +1,5 @@
-import { useStorage } from "@vueuse/core";
-import { h } from "vue";
+import { h, computed } from "vue";
+import { useGlobalStorage } from "@/utils/storage/new-global-storage";
 
 import UpdateDetail from "@/components/UpdateDetail.vue";
 
@@ -9,8 +9,13 @@ const modal = useModal();
 import { useChangelogStore } from "@/stores/changelogStore";
 
 export async function checkUpdateNotice() {
-  const VERSION_KEY = "APP_VERSION";
-  const currentVersion = useStorage(VERSION_KEY, "0.0.0");
+  const { GLOBAL_INFO } = useGlobalStorage();
+  const currentVersion = computed({
+    get: () => GLOBAL_INFO.value.APP_VERSION || "0.0.0",
+    set: (value) => {
+      GLOBAL_INFO.value.APP_VERSION = value;
+    },
+  });
   const changelogStore = useChangelogStore();
 
   // 获取 changelog 数据

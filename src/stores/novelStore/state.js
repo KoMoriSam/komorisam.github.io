@@ -1,5 +1,6 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useStorage } from "@vueuse/core";
+import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings-storage";
 
 export const useNovelState = () => {
   // 章节相关状态
@@ -22,7 +23,11 @@ export const useNovelState = () => {
 
   // 其他状态
   const title = ref("向远方 | KoMoriSam");
-  const currentComponent = useStorage("NOVEL_CURRENT_COMPONENT");
+  const { getValue, setValue } = useReaderSettingsStorage();
+  const currentComponent = computed({
+    get: () => getValue("NOVEL_CURRENT_COMPONENT", "BookDetail"),
+    set: (value) => setValue("NOVEL_CURRENT_COMPONENT", value),
+  });
   const isLoadingList = ref(true);
   const isLoadingContent = ref(true);
 
@@ -36,8 +41,8 @@ export const useNovelState = () => {
     contentCache,
     currentChapterUuid,
     currentChapterPage,
-    title,
     currentComponent,
+    title,
     isLoadingList,
     isLoadingContent,
   };

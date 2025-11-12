@@ -91,18 +91,16 @@
           :togglePage
           :scrollToTop
           :scrollToBottom
-          :currentComponent
+          :sideCurrentComponent
           :isFullscreen
           :toggle
-          @update:currentComponent="
-            (component) => (currentComponent = component)
-          "
+          @update:sideCurrentComponent="handleSideComponentUpdate"
         />
       </template>
 
       <template #aside>
         <KeepAlive>
-          <component :is="components[currentComponent]"></component>
+          <component :is="components[sideCurrentComponent]"></component>
         </KeepAlive>
       </template>
     </SideBar>
@@ -129,7 +127,6 @@ import { useFullscreen } from "@vueuse/core";
 import { useChapters } from "@/composables/useChapters";
 import { useGiscus } from "@/composables/useGiscus";
 import { useScrollTo } from "@/composables/useScrollTo";
-import { useToggleComponent } from "@/composables/useToggleComponent";
 import { useClickLimit } from "@/composables/useClickLimit";
 
 const novelStore = useNovelStore();
@@ -142,8 +139,8 @@ const {
   isLoadingContent,
 } = storeToRefs(novelStore);
 
-const readerStore = useReaderStore;
-const { styleConfigs } = readerStore();
+const readerStore = useReaderStore();
+const { styleConfigs } = storeToRefs(readerStore);
 
 const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);
@@ -153,11 +150,24 @@ const components = {
   FormatToolbox,
 };
 
-const { currentComponent } = useToggleComponent(
-  "NOVEL_SIDE_CURRENT_COMPONENT",
-  "Chapters",
-  components
+import { ref, watch } from "vue";
+import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings-storage";
+const { getValue, setValue } = useReaderSettingsStorage();
+const sideCurrentComponent = ref(
+  getValue("NOVEL_SIDE_CURRENT_COMPONENT", "Chapters")
 );
+
+// 同样监听侧边栏组件变化
+watch(
+  () => getValue("NOVEL_SIDE_CURRENT_COMPONENT"),
+  (newValue) => {
+    sideCurrentComponent.value = newValue;
+  }
+);
+
+const handleSideComponentUpdate = (component) => {
+  setValue("NOVEL_SIDE_CURRENT_COMPONENT", component);
+};
 
 const { currentMapping, commentToggle } = useGiscus();
 
