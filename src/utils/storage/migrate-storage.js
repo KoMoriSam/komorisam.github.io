@@ -26,7 +26,7 @@ export function useStorageMigration() {
     // 清理旧键名（可选，建议先注释掉测试）
     cleanupOldKeys();
 
-    migrationFlag.value = true;
+    // migrationFlag.value = true;
     console.log("迁移完成");
   };
 
@@ -105,7 +105,7 @@ export function useStorageMigration() {
   };
 
   const cleanupOldKeys = () => {
-    // 等迁移稳定后再取消注释
+    // 迁移稳定后再取消注释
     const keysToClear = [
       "APP_VERSION",
       "SET_THEME",
@@ -116,13 +116,13 @@ export function useStorageMigration() {
       "CONTENT_PARA_HEIGHT",
       "NOVEL_CURRENT_COMPONENT",
       "NOVEL_SIDE_CURRENT_COMPONENT",
-      // "CHAPTERS_CONTENT",
-      // "CHAPTER_LIST",
-      // "CHAPTER_LIST_UPDATED_AT",
-      // "READ_CHS",
-      // "READ_CH_ID",
-      // "READ_PAGE",
-      // "READ_POS",
+      "CHAPTERS_CONTENT",
+      "CHAPTER_LIST",
+      "CHAPTER_LIST_UPDATED_AT",
+      "READ_CHS",
+      "READ_CH_ID",
+      "READ_PAGE",
+      "READ_POS",
     ];
 
     keysToClear.forEach((key) => {

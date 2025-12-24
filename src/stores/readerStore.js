@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 import { computed } from "vue";
 import { STYLE_CONFIG_KEYS } from "@/constants/reader";
-import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings-storage";
+import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings";
 
 export const useReaderStore = defineStore("reader", () => {
-  const { getValue, setValue } = useReaderSettingsStorage();
+  const { getSetting, setSetting } = useReaderSettingsStorage();
 
   const styleConfigs = computed(() => {
     const configs = {};
     STYLE_CONFIG_KEYS.forEach((config) => {
-      configs[config.key] = getValue(config.storageKey, config.default);
+      configs[config.key] = getSetting(config.storageKey, config.default);
     });
     return configs;
   });
@@ -17,21 +17,21 @@ export const useReaderStore = defineStore("reader", () => {
   const isDefault = (key) => {
     const config = STYLE_CONFIG_KEYS.find((item) => item.key === key);
     if (!config) return false;
-    const currentValue = getValue(config.storageKey, config.default);
+    const currentValue = getSetting(config.storageKey, config.default);
     return currentValue === config.default;
   };
 
   const resetStyle = (key) => {
     const config = STYLE_CONFIG_KEYS.find((item) => item.key === key);
     if (config) {
-      setValue(config.storageKey, config.default);
+      setSetting(config.storageKey, config.default);
     }
   };
 
   const setStyle = (key, value) => {
     const config = STYLE_CONFIG_KEYS.find((item) => item.key === key);
     if (config) {
-      setValue(config.storageKey, value);
+      setSetting(config.storageKey, value);
     }
   };
 

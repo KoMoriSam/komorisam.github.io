@@ -151,22 +151,22 @@ const components = {
 };
 
 import { ref, watch } from "vue";
-import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings-storage";
-const { getValue, setValue } = useReaderSettingsStorage();
+import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings";
+const { getSetting, setSetting } = useReaderSettingsStorage();
 const sideCurrentComponent = ref(
-  getValue("NOVEL_SIDE_CURRENT_COMPONENT", "Chapters")
+  getSetting("NOVEL_SIDE_CURRENT_COMPONENT", "Chapters")
 );
 
 // 同样监听侧边栏组件变化
 watch(
-  () => getValue("NOVEL_SIDE_CURRENT_COMPONENT"),
+  () => getSetting("NOVEL_SIDE_CURRENT_COMPONENT"),
   (newValue) => {
     sideCurrentComponent.value = newValue;
   }
 );
 
 const handleSideComponentUpdate = (component) => {
-  setValue("NOVEL_SIDE_CURRENT_COMPONENT", component);
+  setSetting("NOVEL_SIDE_CURRENT_COMPONENT", component);
 };
 
 const { currentMapping, commentToggle } = useGiscus();

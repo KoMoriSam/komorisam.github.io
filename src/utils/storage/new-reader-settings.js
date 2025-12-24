@@ -26,7 +26,7 @@ export function useReaderSettingsStorage() {
   ];
 
   // 通用兼容性获取函数
-  const getValue = (key, defaultValue) => {
+  const getSetting = (key, defaultValue) => {
     const newKey = keyMapping[key] || key;
 
     // 优先从新结构获取
@@ -55,14 +55,14 @@ export function useReaderSettingsStorage() {
   };
 
   // 通用设置函数
-  const setValue = (key, value) => {
+  const setSetting = (key, value) => {
     const newKey = keyMapping[key] || key;
     READER_SETTINGS.value[newKey] = value;
   };
 
   return {
     READER_SETTINGS,
-    getValue,
-    setValue,
+    getSetting,
+    setSetting,
   };
 }

@@ -1,14 +1,25 @@
-import { useEventListener, useStorage, useThrottleFn } from "@vueuse/core";
+import { useEventListener, useThrottleFn } from "@vueuse/core";
+import { computed } from "vue";
+import { useReadingStateStorage } from "@/utils/storage/new-reading-state";
 
 export function usePosTracker(router) {
-  const READ_POS_KEY = "READ_POS";
-  const readPos = useStorage(READ_POS_KEY, "");
+  // const READ_POS_KEY = "READ_POS";
+  // const readPos = useStorage(READ_POS_KEY, "");
+  const { getState, setState } = useReadingStateStorage();
+  const readPos = computed({
+    get: () => getState("READ_POS", ""),
+    set: (value) => setState("READ_POS", value),
+  });
   let isManualHashChange = false;
 
   const posSelector = "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], p[id]";
 
   // 动态生成完整的段落 id
   function getFullId(shortId) {
+    // 保证 shortId 是字符串
+    if (shortId == null) return "";
+    if (typeof shortId !== "string") shortId = String(shortId);
+
     // 如果已经是完整ID格式（包含章节和页码），直接返回
     if (
       shortId.match(
@@ -35,6 +46,10 @@ export function usePosTracker(router) {
 
   // 提取简化的段落 id
   function getShortId(fullId) {
+    // 保证 fullId 是字符串
+    if (fullId == null) return "";
+    if (typeof fullId !== "string") fullId = String(fullId);
+
     // 如果已经是简化ID格式，直接返回
     if (
       !fullId.match(
@@ -53,6 +68,7 @@ export function usePosTracker(router) {
   // 跳转到 READ_POS
   function scrollToLastReadPos() {
     const shortId = readPos.value;
+    console.log("短ID", shortId);
     if (shortId) {
       const id = getFullId(shortId); // 动态生成完整的段落ID
       const el = document.getElementById(id);
