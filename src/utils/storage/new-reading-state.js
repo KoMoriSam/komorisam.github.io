@@ -26,12 +26,6 @@ export function useReadingStateStorage() {
     if (oldValue !== null) {
       // 根据类型转换
       let value = oldValue;
-      if (numberKeys.includes(key)) {
-        value =
-          key.includes("LINE_HEIGHT") || key.includes("PARA_HEIGHT")
-            ? parseFloat(oldValue)
-            : Number(oldValue);
-      }
 
       // 自动迁移到新结构
       READING_STATE.value[newKey] = value;
