@@ -8,7 +8,7 @@ export function useStorageMigration() {
     if (migrationFlag.value) {
       console.log("迁移已完成，跳过");
       // 清理旧键名（可选，建议先注释掉测试）
-      cleanupOldKeys();
+      // cleanupOldKeys();
       return;
     }
 
