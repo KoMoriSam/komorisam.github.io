@@ -1,17 +1,17 @@
 export function typeColor(type) {
   switch (type) {
     case "feature":
-      return "badge-primary";
+      return "primary";
     case "fix":
-      return "badge-error";
+      return "error";
     case "improve":
-      return "badge-secondary";
+      return "secondary";
     case "performance":
-      return "badge-success";
+      return "success";
     case "refactor":
-      return "badge-warning";
+      return "warning";
     default:
-      return "badge-info";
+      return "info";
   }
 }
 

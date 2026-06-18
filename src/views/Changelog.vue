@@ -30,7 +30,7 @@
             <div class="timeline-end m-0">
               <strong
                 class="badge badge-lg badge-primary font-black mt-2 ml-1.5"
-                :class="index === 0 ? '' : 'badge-outline'"
+                :class="index === 0 ? 'text-primary-content' : 'badge-outline'"
               >
                 {{ version }}
               </strong>
@@ -52,7 +52,7 @@
                 >
                   <strong
                     class="badge badge-soft translate-y-0.5"
-                    :class="typeColor(type)"
+                    :class="`badge-${typeColor(type)} text-${typeColor(type)}`"
                   >
                     {{ typeText(type) }}
                   </strong>
