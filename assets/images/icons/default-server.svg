@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="oklch(var(--b2, 0.96 0 0))" stroke="oklch(var(--b3, 0.9 0 0))" stroke-width="2"/>
+  <g transform="translate(32,32)">
+    <!-- 服务器机箱 -->
+    <rect x="-14" y="-10" width="28" height="10" rx="2" fill="oklch(var(--bc, 0.3 0 0) / 0.3)"/>
+    <rect x="-14" y="4" width="28" height="10" rx="2" fill="oklch(var(--bc, 0.3 0 0) / 0.3)"/>
+    <!-- 指示灯 -->
+    <circle cx="-8" cy="-5" r="2" fill="oklch(var(--su, 0.6 0.15 145))"/>
+    <circle cx="0" cy="-5" r="2" fill="oklch(var(--wa, 0.65 0.12 85))"/>
+    <circle cx="8" cy="-5" r="2" fill="oklch(var(--er, 0.55 0.2 25))"/>
+    <!-- 槽位 -->
+    <rect x="-6" y="6.5" width="12" height="2" rx="1" fill="oklch(var(--bc, 0.3 0 0) / 0.5)"/>
+    <rect x="-6" y="10" width="8" height="2" rx="1" fill="oklch(var(--bc, 0.3 0 0) / 0.5)"/>
+  </g>
+</svg>
