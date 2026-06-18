@@ -51,7 +51,9 @@ export function useReaderSettingsStorage() {
       return value;
     }
 
-    return defaultValue;
+    // 初始化默认值到新结构，确保后续引用修改能被持久化
+    READER_SETTINGS.value[newKey] = defaultValue;
+    return READER_SETTINGS.value[newKey];
   };
 
   // 通用设置函数

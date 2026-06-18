@@ -59,7 +59,7 @@ export function useStorageMigration() {
       GLOBAL_INFO.value[oldKey] = value;
       console.log(
         `migrateGlobalSettings: ${oldKey} -> GLOBAL_INFO.${oldKey}`,
-        value
+        value,
       );
     });
   };
@@ -113,7 +113,7 @@ export function useStorageMigration() {
       READER_SETTINGS.value[newKey] = value;
       console.log(
         `migrateReaderSettings: ${oldKey} -> READER_SETTINGS.${newKey}`,
-        value
+        value,
       );
     });
   };
@@ -124,6 +124,7 @@ export function useStorageMigration() {
     const mapping = {
       CHAPTER_LIST: "CHAPTER_LIST",
       CHAPTER_LIST_UPDATED_AT: "CHAPTER_LIST_UPDATED_AT",
+      CHAPTERS_CONTENT: "CHAPTERS_CONTENT",
       READ_CHS: "READ_CHS",
       READ_CH_ID: "READ_CH_ID",
       READ_PAGE: "READ_PAGE",
@@ -151,7 +152,7 @@ export function useStorageMigration() {
       READING_STATE.value[newKey] = value;
       console.log(
         `migrateReadingState: ${oldKey} -> READING_STATE.${newKey}`,
-        value
+        value,
       );
     });
 
@@ -192,15 +193,13 @@ export function useStorageMigration() {
     ];
 
     keysToClear.forEach((key) => {
-      const storageItem = useStorage(key, null);
-      storageItem.value = null;
+      localStorage.removeItem(key);
     });
 
     // 清除所有 chapter_XXX 格式的键
     Object.keys(localStorage).forEach((key) => {
       if (key.startsWith("chapter_")) {
-        const storageItem = useStorage(key, null);
-        storageItem.value = null;
+        localStorage.removeItem(key);
       }
     });
   };

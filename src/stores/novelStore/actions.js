@@ -21,7 +21,7 @@ export const useNovelActions = (state, getters) => {
         ...chapter,
         volumeTitle: volume.volumeInfo.title,
         volumeUuid: volume.volumeInfo.uuid,
-      }))
+      })),
     );
   };
 
@@ -31,7 +31,7 @@ export const useNovelActions = (state, getters) => {
       return;
     }
     const chapterSet = new Set(
-      state.readChapters.value.map((item) => item.uuid)
+      state.readChapters.value.map((item) => item.uuid),
     );
     if (!chapterSet.has(getters.currentChapter.value.uuid)) {
       state.readChapters.value = [
@@ -57,7 +57,7 @@ export const useNovelActions = (state, getters) => {
       state.chapters.value = state.storedChapters.value;
       flatList(state.storedChapters.value);
       state.isLoadingList.value = false;
-      if (state.currentChapterContent.value.length < 0) {
+      if (state.currentChapterContent.value.length === 0) {
         await loadChapterContent();
       }
       return;
@@ -79,7 +79,7 @@ export const useNovelActions = (state, getters) => {
         console.log("setChapters: First loading");
         toast.success("章节目录加载完成！");
       }
-      if (state.currentChapterContent.value.length < 0) {
+      if (state.currentChapterContent.value.length === 0) {
         await loadChapterContent();
       }
     } catch (error) {

@@ -24,15 +24,28 @@ export function useReadingStateStorage() {
     // 尝试从旧键名获取
     const oldValue = localStorage.getItem(key);
     if (oldValue !== null) {
-      // 根据类型转换
+      // 根据类型转换（与 migrateReadingState 保持一致）
       let value = oldValue;
+      try {
+        if (/^[\[{]/.test(oldValue)) {
+          value = JSON.parse(oldValue);
+        } else if (/^-?\d+(\.\d+)?$/.test(oldValue)) {
+          value = oldValue.includes(".")
+            ? parseFloat(oldValue)
+            : Number(oldValue);
+        }
+      } catch (e) {
+        value = oldValue;
+      }
 
       // 自动迁移到新结构
       READING_STATE.value[newKey] = value;
       return value;
     }
 
-    return defaultValue;
+    // 初始化默认值到新结构，确保后续引用修改能被持久化
+    READING_STATE.value[newKey] = defaultValue;
+    return READING_STATE.value[newKey];
   };
 
   // 通用设置函数

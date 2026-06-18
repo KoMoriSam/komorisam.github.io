@@ -15,8 +15,8 @@ export function useGlobalStorage() {
     const newKey = keyMapping[key] || key;
 
     // 优先从新结构获取
-    if (READER_SETTINGS.value[newKey] !== undefined) {
-      return READER_SETTINGS.value[newKey];
+    if (GLOBAL_INFO.value[newKey] !== undefined) {
+      return GLOBAL_INFO.value[newKey];
     }
 
     // 尝试从旧键名获取
@@ -24,9 +24,20 @@ export function useGlobalStorage() {
     if (oldValue !== null) {
       // 根据类型转换
       let value = oldValue;
+      try {
+        if (/^[\[{]/.test(oldValue)) {
+          value = JSON.parse(oldValue);
+        } else if (/^-?\d+(\.\d+)?$/.test(oldValue)) {
+          value = oldValue.includes(".")
+            ? parseFloat(oldValue)
+            : Number(oldValue);
+        }
+      } catch (e) {
+        value = oldValue;
+      }
 
       // 自动迁移到新结构
-      READER_SETTINGS.value[newKey] = value;
+      GLOBAL_INFO.value[newKey] = value;
       return value;
     }
 
@@ -36,7 +47,7 @@ export function useGlobalStorage() {
   // 通用设置函数
   const setInfo = (key, value) => {
     const newKey = keyMapping[key] || key;
-    READER_SETTINGS.value[newKey] = value;
+    GLOBAL_INFO.value[newKey] = value;
   };
 
   return {

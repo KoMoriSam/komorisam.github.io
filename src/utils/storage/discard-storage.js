@@ -1,5 +1,3 @@
-import { useStorage } from "@vueuse/core";
-
 export function useDiscardStorage() {
   const keysToClear = [
     "READ_CHAPTER",
@@ -12,16 +10,15 @@ export function useDiscardStorage() {
     "sidebarState",
   ];
 
+  // 清除指定键
   keysToClear.forEach((key) => {
-    const storageItem = useStorage(key, null);
-    storageItem.value = null;
+    localStorage.removeItem(key);
   });
 
   // 清除所有 chapter_XXX 格式的键
   Object.keys(localStorage).forEach((key) => {
     if (key.startsWith("chapter_")) {
-      const storageItem = useStorage(key, null);
-      storageItem.value = null;
+      localStorage.removeItem(key);
     }
   });
 }

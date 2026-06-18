@@ -23,7 +23,7 @@ export function usePosTracker(router) {
     // 如果已经是完整ID格式（包含章节和页码），直接返回
     if (
       shortId.match(
-        /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-\d+-/
+        /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-\d+-/,
       )
     ) {
       return shortId;
@@ -53,7 +53,7 @@ export function usePosTracker(router) {
     // 如果已经是简化ID格式，直接返回
     if (
       !fullId.match(
-        /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-\d+-/
+        /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-\d+-/,
       )
     ) {
       return fullId;
@@ -69,38 +69,53 @@ export function usePosTracker(router) {
   function scrollToLastReadPos() {
     const shortId = readPos.value;
     console.log("短ID", shortId);
-    if (shortId) {
-      const id = getFullId(shortId); // 动态生成完整的段落ID
-      const el = document.getElementById(id);
-      if (el) {
-        isManualHashChange = true;
-        router.replace({
-          path: router.currentRoute.value.path,
-          query: router.currentRoute.value.query,
-          hash: `#${decodeURIComponent(shortId)}`, // URL中只使用简化的ID
-        });
-        el.scrollIntoView({ behavior: "smooth" });
-        setTimeout(() => {
-          isManualHashChange = false;
-        }, 1000);
-      }
+    if (!shortId) return;
 
-      // 确保路由已加载完成后再执行
-      if (
-        router.currentRoute.value.query.chapter &&
-        router.currentRoute.value.query.page
-      ) {
-        setTimeout(() => {
-          const id = getFullId(shortId);
-          const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 750); // 初始延迟
-      } else {
-        console.warn("路由参数未准备好，无法滚动到上次阅读位置");
-      }
+    const id = getFullId(shortId); // 动态生成完整的段落ID
+    const el = document.getElementById(id);
+    if (el) {
+      performScroll(shortId, id, el);
+      return;
     }
+
+    // 确保路由已加载完成后再重试
+    if (
+      router.currentRoute.value.query.chapter &&
+      router.currentRoute.value.query.page
+    ) {
+      // 轮询等待 DOM 渲染，最多重试 8 次（总计约 4 秒）
+      let retries = 0;
+      const maxRetries = 8;
+      const tryScroll = () => {
+        const id = getFullId(shortId);
+        const el = document.getElementById(id);
+        if (el) {
+          performScroll(shortId, id, el);
+        } else if (retries < maxRetries) {
+          retries++;
+          setTimeout(tryScroll, Math.min(300 + retries * 200, 1000));
+        } else {
+          console.warn("滚动到上次阅读位置失败：元素未找到", shortId);
+        }
+      };
+      setTimeout(tryScroll, 200); // 初始延迟，给内容渲染一些时间
+    } else {
+      console.warn("路由参数未准备好，无法滚动到上次阅读位置");
+    }
+  }
+
+  // 执行滚动操作
+  function performScroll(shortId, id, el) {
+    isManualHashChange = true;
+    router.replace({
+      path: router.currentRoute.value.path,
+      query: router.currentRoute.value.query,
+      hash: `#${decodeURIComponent(shortId)}`, // URL中只使用简化的ID
+    });
+    el.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      isManualHashChange = false;
+    }, 1000);
   }
 
   const updateCurrentPos = useThrottleFn(() => {
