@@ -3,7 +3,7 @@
     <nav class="navbar-start">
       <a
         @click="router.push('/')"
-        class="hidden lg:btn lg:btn-ghost lg:text-xl"
+        class="max-lg:hidden lg:btn lg:btn-ghost lg:text-xl"
       >
         <img src="/assets/images/icons/logo.webp" alt="KoMoriSam" class="h-8" />
       </a>

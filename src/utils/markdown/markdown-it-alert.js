@@ -38,15 +38,27 @@ export function alertPlugin(md) {
             separatorIndex !== -1
               ? info.slice(separatorIndex + 1).trim()
               : null;
-          const title = customTitle || defaultTitle;
 
-          return `<div role="alert" class="alert alert-${type} alert-soft alert-vertical sm:alert-horizontal sm:gap-2">
-            <i class="${icon}"></i>
-            <div>
-              <h3>${title}</h3>
-              <div>`;
+          // 图标始终显示；仅当显式指定自定义标题时才渲染标题
+          const hasTitle = !!customTitle;
+
+          // 有标题时：标题行与正文分行；无标题时：图标与正文同行
+          const alertLayoutClass = hasTitle
+            ? "alert-vertical"
+            : "alert-horizontal";
+
+          const titleRow = hasTitle
+            ? `<div class="flex items-center gap-2">
+                <i class="${icon} translate-y-0.75 scale-150"></i>
+                <h3>${customTitle}</h3>
+              </div>`
+            : "";
+
+          return `<div role="alert" class="alert alert-${type} alert-soft ${alertLayoutClass} sm:gap-2">
+            ${titleRow || `<i class="${icon} translate-y-0.75 scale-150"></i>`}
+            <div>`;
         } else {
-          return "</div></div></div>\n";
+          return "</div></div>\n";
         }
       },
     });

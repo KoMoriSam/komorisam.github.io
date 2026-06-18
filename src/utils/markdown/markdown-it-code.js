@@ -8,7 +8,7 @@ export function codePlugin(md) {
       idx,
       options,
       env,
-      self
+      self,
     );
     const codeContent = tokens[idx].content;
     const lang = tokens[idx].info.trim();
@@ -17,11 +17,11 @@ export function codePlugin(md) {
     return `
   <div class="code-wrapper relative group" id="${mountId}">
 	${highlightedHtml}
-	<span class="font-mono badge absolute left-26 top-3.75 text-xs">
+	<span class="font-mono badge absolute left-20 top-3.75 text-xs">
 		${lang || "代码块"}
 	</span>
 	<div 
-	  class="absolute right-4 top-2 opacity-0 group-hover:opacity-100 transition-opacity tooltip tooltip-left tooltip-accent"
+	  class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity tooltip tooltip-left tooltip-accent"
 	  data-tip="复制到剪贴板">
 	  <button class="btn btn-sm btn-ghost btn-square"
 		onclick="(function(btn){

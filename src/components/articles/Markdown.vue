@@ -1,15 +1,15 @@
 <template>
   <header v-if="headerData" class="flex flex-wrap md:items-end gap-2 group">
-    <h1 class="text-4xl font-black">
+    <h1 class="text-4xl font-black text-pretty">
       <span
         v-if="headerData.meta"
-        class="badge badge-outline badge-info font-normal"
+        class="badge badge-outline badge-info font-normal mb-2"
       >
         <i class="ri-bookmark-line"></i>
         {{ headerData.meta }}
       </span>
       <br />
-      <i v-if="headerData.icon" :class="headerData.icon + ' font-normal'"></i>
+      <!-- <i v-if="headerData.icon" :class="headerData.icon + ' font-normal'"></i> -->
       {{ headerData.title }}
       <div
         v-if="showRefresh"

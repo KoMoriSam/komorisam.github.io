@@ -194,12 +194,14 @@
     margin-bottom: var(--para-margin-inline);
   }
 
-  #markdown-content.prose .alert > i {
-    @apply mt-1;
-    font-size: var(--para-font-size);
+  #markdown-content.prose .alert h3 {
+    @apply indent-0 m-1 font-hei translate-y-0.75;
+    font-size: calc(var(--para-font-size) * 0.85);
+    color: inherit;
+    line-height: unset;
+    letter-spacing: unset;
   }
 
-  #markdown-content.prose .alert h3,
   #markdown-content.prose .alert p {
     @apply indent-0 m-1 text-base-content;
     font-size: calc(var(--para-font-size) * 0.75);
@@ -321,13 +323,17 @@
   }
 
   /* 代码块样式 */
-  #markdown-content.prose pre {
+  #markdown-content.prose .code-wrapper {
     @apply mockup-code w-full;
   }
 
+  #markdown-content.prose pre {
+    @apply mt-0 py-0;
+  }
+
   #markdown-content.prose pre code.hljs {
-    @apply bg-transparent!;
-    font-size: calc(var(--para-font-size) * 0.6);
+    @apply bg-transparent! mt-0! py-0!;
+    font-size: calc(var(--para-font-size) * 0.75);
     line-height: unset;
   }
 
