@@ -48,15 +48,20 @@
                 <li
                   v-for="(change, idx) in changes"
                   :key="idx"
-                  class="list-none"
+                  class="list-none grid grid-cols-[auto_1fr] gap-2 items-start"
                 >
-                  <strong class="badge badge-soft" :class="typeColor(type)">
+                  <strong
+                    class="badge badge-soft translate-y-0.5"
+                    :class="typeColor(type)"
+                  >
                     {{ typeText(type) }}
                   </strong>
                   {{ change }}
                 </li>
               </ul>
-              <p class="ml-1.5 mt-4 text-sm">
+              <p
+                class="ml-1.5 mt-4 text-sm grid grid-cols-[auto_1fr] gap-2 items-start"
+              >
                 <span
                   :class="[
                     'badge badge-sm',

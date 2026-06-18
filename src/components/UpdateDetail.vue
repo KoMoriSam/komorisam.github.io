@@ -29,16 +29,17 @@
     <ul class="list-none p-0">
       <template
         v-for="([type, descriptions], typeIndex) in Object.entries(
-          props.changes
+          props.changes,
         )"
         :key="typeIndex"
       >
         <li
           v-for="(description, descIndex) in descriptions"
           :key="`${type}-${descIndex}`"
+          class="grid grid-cols-[auto_1fr] gap-2 items-start"
         >
           <strong
-            :class="`badge badge-soft badge-sm font-bold ${typeColor(type)}`"
+            :class="`badge badge-soft badge-sm font-bold ${typeColor(type)} translate-y-0.5`"
           >
             {{ typeText(type) }}
           </strong>
@@ -47,7 +48,10 @@
       </template>
     </ul>
 
-    <p v-if="props.note || props.warning" class="mt-3 text-sm">
+    <p
+      v-if="props.note || props.warning"
+      class="mt-3 text-sm grid grid-cols-[auto_1fr] gap-2 items-start"
+    >
       <span
         :class="[
           'badge badge-xs mr-1',
