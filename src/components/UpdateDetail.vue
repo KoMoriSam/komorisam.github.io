@@ -5,47 +5,33 @@
       <span class="badge badge-xs text-base-content/50 ml-1">
         {{ props.date }}
       </span>
-      <div class="dropdown dropdown-center dropdown-hover">
-        <div role="button" class="btn btn-circle btn-ghost btn-xs text-info">
-          <i class="ri-information-line"></i>
-        </div>
-        <div
-          class="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-48 shadow-sm"
-        >
-          <section class="card-body">
-            <h2 class="card-title mt-0 mb-0">想查看详细更新日志？</h2>
-            <a
-              href="/changelog"
-              @click.stop="handleViewLog"
-              class="link link-primary no-underline"
-            >
-              点击此处<i class="ri-arrow-right-up-line"></i>
-            </a>
-          </section>
-        </div>
-      </div>
     </h2>
 
     <ul class="list-none p-0">
-      <template
-        v-for="([type, descriptions], typeIndex) in Object.entries(
-          props.changes,
-        )"
-        :key="typeIndex"
+      <li
+        v-for="(item, index) in displayedItems"
+        :key="index"
+        class="grid grid-cols-[auto_1fr] gap-2 items-start"
       >
-        <li
-          v-for="(description, descIndex) in descriptions"
-          :key="`${type}-${descIndex}`"
-          class="grid grid-cols-[auto_1fr] gap-2 items-start"
+        <strong
+          :class="`badge badge-soft badge-sm font-bold badge-${typeColor(item.type)} text-${typeColor(item.type)} translate-y-0.5`"
         >
-          <strong
-            :class="`badge badge-soft badge-sm font-bold ${typeColor(type)} translate-y-0.5`"
-          >
-            {{ typeText(type) }}
-          </strong>
-          {{ description }}
-        </li>
-      </template>
+          {{ typeText(item.type) }}
+        </strong>
+        {{ item.desc }}
+      </li>
+      <li v-if="remainingCount > 0" class="text-base-content/50 pt-1">
+        <a
+          href="/changelog"
+          target="_blank"
+          @click.stop="handleViewLog"
+          class="btn btn-sm btn-outline no-underline"
+        >
+          <i class="ri-eye-line mr-1"></i>
+          查看完整更新日志
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </li>
     </ul>
 
     <p
@@ -72,6 +58,11 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { typeColor, typeText } from "@/utils/type-changelog";
+
+const MAX_VISIBLE = 8;
+
 const props = defineProps({
   version: String,
   date: String,
@@ -85,5 +76,19 @@ const handleViewLog = (e) => {
   props.onViewLog?.();
 };
 
-import { typeColor, typeText } from "@/utils/type-changelog";
+const allItems = computed(() => {
+  const items = [];
+  if (props.changes) {
+    for (const [type, descriptions] of Object.entries(props.changes)) {
+      for (const desc of descriptions) {
+        items.push({ type, desc });
+      }
+    }
+  }
+  return items;
+});
+
+const displayedItems = computed(() => allItems.value.slice(0, MAX_VISIBLE));
+
+const remainingCount = computed(() => allItems.value.length - MAX_VISIBLE);
 </script>
