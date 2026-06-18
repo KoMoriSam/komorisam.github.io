@@ -41,7 +41,9 @@ export function useGlobalStorage() {
       return value;
     }
 
-    return defaultValue;
+    // 初始化默认值到新结构，确保后续引用修改能被持久化
+    GLOBAL_INFO.value[newKey] = defaultValue;
+    return GLOBAL_INFO.value[newKey];
   };
 
   // 通用设置函数

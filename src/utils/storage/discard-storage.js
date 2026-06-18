@@ -1,4 +1,11 @@
+import { useStorage } from "@vueuse/core";
+
 export function useDiscardStorage() {
+  const discardDone = useStorage("DISCARD_STORAGE_V1", false);
+  if (discardDone.value) {
+    return;
+  }
+
   const keysToClear = [
     "READ_CHAPTER",
     "READ_CH",
@@ -21,4 +28,7 @@ export function useDiscardStorage() {
       localStorage.removeItem(key);
     }
   });
+
+  discardDone.value = true;
+  console.log("旧键清理完成");
 }

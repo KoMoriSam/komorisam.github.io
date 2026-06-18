@@ -20,17 +20,26 @@ const containerMeta = {
   },
   tip: {
     icon: "ri-lightbulb-flash-line",
-    title: "Tip",
+    title: "提示",
   },
 };
 
 export function alertPlugin(md) {
   Object.keys(containerMeta).forEach((type) => {
-    const { icon, title } = containerMeta[type];
+    const { icon, title: defaultTitle } = containerMeta[type];
     md.use(MarkdownItContainer, type, {
       render(tokens, idx) {
         const token = tokens[idx];
         if (token.nesting === 1) {
+          // 解析自定义标题：格式为 "type | 自定义标题"
+          const info = token.info.trim();
+          const separatorIndex = info.indexOf("|");
+          const customTitle =
+            separatorIndex !== -1
+              ? info.slice(separatorIndex + 1).trim()
+              : null;
+          const title = customTitle || defaultTitle;
+
           return `<div role="alert" class="alert alert-${type} alert-soft alert-vertical sm:alert-horizontal sm:gap-2">
             <i class="${icon}"></i>
             <div>

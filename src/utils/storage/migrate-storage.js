@@ -10,8 +10,6 @@ export function useStorageMigration() {
 
     if (migrationFlag.value) {
       console.log("迁移已完成，跳过");
-      // 清理旧键名（可选，建议先注释掉测试）
-      cleanupOldKeys();
       return;
     }
 
@@ -26,8 +24,8 @@ export function useStorageMigration() {
     // 迁移阅读状态信息
     migrateReadingState();
 
-    // 清理旧键名（可选，建议先注释掉测试）
-    // cleanupOldKeys();
+    // 清理旧键名
+    cleanupOldKeys();
 
     migrationFlag.value = true;
     console.log("迁移完成");

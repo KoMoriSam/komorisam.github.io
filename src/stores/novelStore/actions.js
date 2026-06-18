@@ -128,8 +128,10 @@ export const useNovelActions = (state, getters) => {
       const parsedContent = splitMarkdown(content);
       state.currentChapterContent.value = parsedContent;
 
-      state.contentCache.value[state.currentChapterUuid.value] =
-        state.currentChapterContent.value;
+      state.contentCache.value = {
+        ...state.contentCache.value,
+        [state.currentChapterUuid.value]: state.currentChapterContent.value,
+      };
       if (forceUpdate) {
         console.log("loadChapterContent: Force update");
         toast.success("章节内容已刷新！");
@@ -150,7 +152,9 @@ export const useNovelActions = (state, getters) => {
   const refreshContent = useDebounceFn(async () => {
     try {
       state.isLoadingContent.value = true;
-      delete state.contentCache.value[state.currentChapterUuid.value];
+      const { [state.currentChapterUuid.value]: _removed, ...rest } =
+        state.contentCache.value;
+      state.contentCache.value = rest;
       console.log("refreshContent: Clear cache");
       await loadChapterContent(true);
 

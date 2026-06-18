@@ -21,10 +21,9 @@ export function useReadingStateStorage() {
       return READING_STATE.value[newKey];
     }
 
-    // 尝试从旧键名获取
+    // 尝试从旧键名获取（带类型转换，与 migrateReadingState 保持一致）
     const oldValue = localStorage.getItem(key);
     if (oldValue !== null) {
-      // 根据类型转换（与 migrateReadingState 保持一致）
       let value = oldValue;
       try {
         if (/^[\[{]/.test(oldValue)) {

@@ -29,6 +29,8 @@ export async function checkUpdateNotice() {
   const latestLog = changelogStore.getVersionInfo(latestVersion);
   const { date, changes, note, warning } = latestLog;
 
+  console.log("当前版本:", currentVersion);
+
   console.log("latestLog", latestLog);
 
   const updateVersion = () => {

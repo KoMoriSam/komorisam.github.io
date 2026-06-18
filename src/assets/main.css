@@ -66,7 +66,9 @@
 
 @font-face {
   font-family: "LXGW Neo ZhiSong";
-  src: local("LXGW Neo ZhiSong"), local("LXGWNeoZhiSong"),
+  src:
+    local("LXGW Neo ZhiSong"),
+    local("LXGWNeoZhiSong"),
     url("/assets/fonts/LXGWNeoZhiSong.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -75,7 +77,9 @@
 
 @font-face {
   font-family: "LXGW Neo XiHei";
-  src: local("LXGW Neo XiHei"), local("LXGWNeoXiHei"),
+  src:
+    local("LXGW Neo XiHei"),
+    local("LXGWNeoXiHei"),
     url("/assets/fonts/LXGWNeoXiHei.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -84,7 +88,9 @@
 
 @font-face {
   font-family: "LXGW WenKai GB Lite";
-  src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
+  src:
+    local("LXGW WenKai GB Lite"),
+    local("LXGWWenKaiGBLite"),
     url("/assets/fonts/LXGWWenKaiGBLite-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
@@ -93,7 +99,9 @@
 
 @font-face {
   font-family: "LXGW WenKai GB Lite";
-  src: local("LXGW WenKai GB Lite"), local("LXGWWenKaiGBLite"),
+  src:
+    local("LXGW WenKai GB Lite"),
+    local("LXGWWenKaiGBLite"),
     url("/assets/fonts/LXGWWenKaiGBLite-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -102,7 +110,8 @@
 
 @font-face {
   font-family: "Zhuque Fangsong (technical preview)";
-  src: local("Zhuque Fangsong (technical preview)"),
+  src:
+    local("Zhuque Fangsong (technical preview)"),
     local("ZhuqueFangsong(technicalpreview)"),
     url("/assets/fonts/ZhuqueFangsong-Regular.woff2") format("woff2");
   font-weight: normal;
@@ -114,8 +123,8 @@
   --font-song: "LXGW Neo ZhiSong", "STSong", "SimSun", serif;
   --font-hei: "LXGW Neo XiHei", "STHeiti", "STXihei", "SimHei", sans-serif;
   --font-kai: "LXGW WenKai GB Lite", "STKaiti", "KaiTi", cursive;
-  --font-fang: "Zhuque Fangsong (technical preview)", "STFangsong", "FangSong",
-    serif;
+  --font-fang:
+    "Zhuque Fangsong (technical preview)", "STFangsong", "FangSong", serif;
 }
 
 @layer utilities {
@@ -138,12 +147,12 @@
 
   /* 段落与列表 */
   #markdown-content.prose p {
-    @apply text-(length:--para-font-size)/(--para-line-height) my-(--para-margin-inline) indent-(--para-text-indent);
+    @apply text-pretty text-(length:--para-font-size)/(--para-line-height) my-(--para-margin-inline) indent-(--para-text-indent);
     letter-spacing: var(--para-letter-spacing);
   }
 
   #markdown-content.prose button.comment-trigger {
-    @apply whitespace-nowrap md:opacity-0 group-hover:opacity-100 transition-opacity btn btn-primary btn-circle btn-soft btn-xs mb-2;
+    @apply whitespace-nowrap opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity btn btn-primary btn-circle btn-soft btn-xs -translate-y-0.75 scale-80;
   }
 
   #markdown-content.prose button.comment-trigger i {
@@ -181,11 +190,13 @@
 
   /* Alert 警告框样式 */
   #markdown-content.prose .alert {
+    @apply items-start;
     margin-bottom: var(--para-margin-inline);
   }
 
-  #markdown-content.prose .alert i {
-    font-size: calc(var(--para-font-size) * 1.5);
+  #markdown-content.prose .alert > i {
+    @apply mt-1;
+    font-size: var(--para-font-size);
   }
 
   #markdown-content.prose .alert h3,

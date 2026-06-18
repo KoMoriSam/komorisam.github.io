@@ -25,7 +25,7 @@ export const useParagraphComments = () => {
   const { addEventListener } = useGlobalEventListener(
     "click",
     handleCommentClick,
-    true
+    true,
   );
 
   const paragraphPlugin = (uuid, page) => {
@@ -45,11 +45,12 @@ export const useParagraphComments = () => {
         idx,
         options,
         env,
-        self
+        self,
       ) {
         const paragraphId = `${uuid}-${page}-${idx}`;
         tokens[idx].attrSet("id", paragraphId);
         tokens[idx].attrSet("class", "group");
+        tokens[idx].attrSet("tabindex", "0");
         return defaultRender(tokens, idx, options, env, self);
       };
 
@@ -58,15 +59,11 @@ export const useParagraphComments = () => {
         idx,
         options,
         env,
-        self
+        self,
       ) {
         const paragraphId = `${uuid}-${page}-${idx - 2}`;
 
-        return `
-          <button class="comment-trigger" data-paragraph-id="${paragraphId}">
-            <i class="ri-chat-3-line"></i>
-          </button>
-        </p>`;
+        return `<button class="comment-trigger" data-paragraph-id="${paragraphId}"><i class="ri-chat-3-line"></i></button></p>`;
       };
     };
   };
