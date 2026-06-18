@@ -352,4 +352,9 @@
   #markdown-content.prose span.katex-html {
     @apply hidden;
   }
+
+  /* 输入验证相关样式 */
+  .validator:has(:user-invalid) ~ .label-hint {
+    display: none;
+  }
 }

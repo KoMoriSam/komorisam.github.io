@@ -1,10 +1,12 @@
 import { useFetch } from "@vueuse/core";
 
+const API_BASE = "https://list.mczfw.cn/api/";
+const DEFAULT_SERVER = "frp-ice.com:31024";
+
 export function useServerApi() {
-  const getServerInfo = async () => {
-    const { data, error } = await useFetch(
-      `https://list.mczfw.cn/api/frp-ice.com:31024`
-    ).json();
+  const getServerInfo = async (serverAddress) => {
+    const addr = serverAddress || DEFAULT_SERVER;
+    const { data, error } = await useFetch(`${API_BASE}${addr}`).json();
     if (error.value) {
       throw new Error("获取服务器信息失败");
     }
@@ -12,5 +14,6 @@ export function useServerApi() {
   };
   return {
     getServerInfo,
+    DEFAULT_SERVER,
   };
 }
