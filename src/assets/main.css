@@ -276,6 +276,30 @@
     @apply m-0;
   }
 
+  /* Moments 朋友圈样式 */
+  #markdown-content.prose .moments-card {
+    @apply card bg-base-200/60 border border-base-300 mb-4;
+  }
+
+  #markdown-content.prose .moments-actions {
+    @apply flex justify-between mt-1 pt-2 border-t border-base-300;
+  }
+
+  #markdown-content.prose .moments-content p {
+    @apply indent-0 my-0 text-justify;
+  }
+
+  #markdown-content.prose .moments-comments p {
+    @apply indent-0;
+    font-size: calc(var(--para-font-size) * 0.75);
+    line-height: calc(var(--para-line-height) * 0.75);
+  }
+
+  #markdown-content.prose .moments-comments .user-name {
+    @apply font-bold text-primary/80;
+    font-size: calc(var(--para-font-size) * 0.6);
+  }
+
   /* 引用与强调文本 */
   #markdown-content.prose blockquote,
   #markdown-content.prose em {
@@ -324,7 +348,11 @@
 
   /* 代码块样式 */
   #markdown-content.prose .code-wrapper {
-    @apply mockup-code w-full;
+    @apply mockup-code w-full my-0;
+  }
+
+  #markdown-content.prose .code-wrapper + .code-wrapper {
+    @apply mt-4;
   }
 
   #markdown-content.prose pre {

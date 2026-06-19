@@ -25,6 +25,11 @@ export default defineConfig({
     seoPrerender({
       // 要渲染的路由
       routes: ["/", "/novel", "/about", "/contact", "/changelog"],
+      // 指定系统已安装的 Chrome 浏览器路径
+      puppeteer: {
+        executablePath:
+          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      },
     }),
     {
       name: "copy-404",
@@ -68,14 +73,14 @@ export default defineConfig({
           }
           if (
             [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"].some((ext) =>
-              assetInfo.name.endsWith(ext)
+              assetInfo.name.endsWith(ext),
             )
           ) {
             return "assets/images/[name]-[hash].[ext]";
           }
           if (
             [".ttf", ".otf", ".woff", ".woff2", ".eot"].some((ext) =>
-              assetInfo.name.endsWith(ext)
+              assetInfo.name.endsWith(ext),
             )
           ) {
             return "assets/fonts/[name]-[hash].[ext]";

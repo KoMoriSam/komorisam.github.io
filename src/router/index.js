@@ -48,6 +48,17 @@ const router = createRouter({
       component: () => import("@/views/Changelog.vue"),
       meta: { title: "更新日志 | KoMoriSam" },
     },
+    // 🧪 仅在开发环境可见，生产构建自动移除
+    ...(import.meta.env.DEV
+      ? [
+          {
+            path: "/test",
+            name: "test",
+            component: () => import("@/views/Test.vue"),
+            meta: { title: "测试 | KoMoriSam" },
+          },
+        ]
+      : []),
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",

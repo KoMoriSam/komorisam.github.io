@@ -63,7 +63,7 @@ export function chatContainerPlugin(md) {
               footers
                 .map((footer) => {
                   const matched = footerStyleMap.find(({ keyword }) =>
-                    footer.includes(keyword)
+                    footer.includes(keyword),
                   );
                   const cls = matched ? matched.className : "";
                   return `<span class="join-item badge badge-soft ${cls}">${footer}</span>`;
@@ -152,24 +152,61 @@ export function chatHeaderPlugin(md) {
 }
 
 export function momentsPlugin(md) {
+  let _momentsLike = ""; // 闭包变量，在开/闭标签间传递 like
+  let _momentsComment = ""; // 评论数
+  let _momentsShare = ""; // 分享数
+  let _hasMomentsComments = false; // 标记当前 moments 是否包含 moments-comments
+
+  const renderActions = () => `
+        <div class="moments-actions">
+          <button class="btn btn-ghost btn-sm">
+            <i class="ri-thumb-up-line"></i>
+            <span class="hidden sm:inline">点赞</span>
+            ${_momentsLike ? `<span class="hidden sm:inline">·</span><span>${_momentsLike}</span>` : ""}
+          </button>
+          <button class="btn btn-ghost btn-sm">
+            <i class="ri-chat-3-line"></i>
+            <span class="hidden sm:inline">评论</span>
+            ${_momentsComment ? `<span class="hidden sm:inline">·</span><span>${_momentsComment}</span>` : ""}
+          </button>
+          <button class="btn btn-ghost btn-sm">
+            <i class="ri-share-forward-line"></i>
+            <span class="hidden sm:inline">分享</span>
+            ${_momentsShare ? `<span class="hidden sm:inline">·</span><span>${_momentsShare}</span>` : ""}
+          </button>
+        </div>`;
+
   md.use(MarkdownItContainer, "moments", {
     validate: (params) => /^moments\s+.+\|.+/.test(params.trim()),
     render(tokens, idx) {
       const token = tokens[idx];
-      const match = token.info
-        .trim()
-        .match(/^moments\s+(.+?)\s*\|\s*(.+?)(?:\s*\|\s*(.+))?$/);
-      const username = match?.[1]?.trim() || "用户";
-      const time = match?.[2]?.trim() || "";
-      const location = match?.[3]?.trim() || "";
-
-      const avatar =
-        avatarMap[username] || "/assets/images/avatar/default.webp";
-      const isSelf = selfNames.includes(username);
 
       if (token.nesting === 1) {
+        _hasMomentsComments = false;
+        // 只在开标签解析参数（闭标签 token.info 不含参数）
+        const params = token.info
+          .trim()
+          .replace(/^moments\s+/, "")
+          .split("|")
+          .map((s) => s.trim());
+        const [
+          username = "用户",
+          time = "",
+          location = "",
+          like = "",
+          comment = "",
+          share = "",
+        ] = params;
+        _momentsLike = like;
+        _momentsComment = comment;
+        _momentsShare = share;
+
+        const avatar =
+          avatarMap[username] || "/assets/images/avatar/default.webp";
+        const isSelf = selfNames.includes(username);
+
         return `
-        <div class="card card-compact bg-base-100 shadow-sm mb-4">
+        <div class="moments-card not-prose">
           <div class="card-body">
             <div class="flex items-center gap-3">
               <div class="avatar">
@@ -180,8 +217,8 @@ export function momentsPlugin(md) {
               <div class="flex-1">
                 <div class="text-lg font-bold">${username}</div>
                 <div class="text-xs opacity-70 flex gap-2">
-                  <span>${time}</span>
-                  ${location ? `<span>· ${location}</span>` : ""}
+                  <span><i class="ri-time-line"></i> ${time}</span>
+                  ${location ? `<span><i class="ri-map-pin-2-line"></i> ${location}</span>` : ""}
                 </div>
               </div>
               ${isSelf ? '<i class="ri-more-2-line"></i>' : ""}
@@ -189,22 +226,16 @@ export function momentsPlugin(md) {
             <div class="moments-content mt-3">
         `;
       } else {
+        // moments 闭合标签：若没有 moments-comments，则自行关闭 moments-content + 渲染 actions + 关闭 card
+        if (_hasMomentsComments) {
+          return `
+          </div>
+        </div>
+        `;
+        }
         return `
             </div>
-            <div class="moments-actions flex justify-between mt-3 pt-2 border-t border-base-200">
-              <button class="btn btn-ghost btn-sm">
-                <i class="ri-thumb-up-line"></i>
-                <span class="hidden sm:inline">点赞</span>
-              </button>
-              <button class="btn btn-ghost btn-sm">
-                <i class="ri-chat-3-line"></i>
-                <span class="hidden sm:inline">评论</span>
-              </button>
-              <button class="btn btn-ghost btn-sm">
-                <i class="ri-share-forward-line"></i>
-                <span class="hidden sm:inline">分享</span>
-              </button>
-            </div>
+            ${renderActions()}
           </div>
         </div>
         `;
@@ -212,32 +243,48 @@ export function momentsPlugin(md) {
     },
   });
 
-  // 朋友圈图片组插件
+  // 朋友圈图片组插件（使用 ; 标记符，避免与外层 ::: 容器冲突）
   md.use(MarkdownItContainer, "moments-images", {
+    marker: ";",
     validate: (params) => params.trim() === "moments-images",
     render(tokens, idx) {
       if (tokens[idx].nesting === 1) {
-        return `<div class="moments-images grid gap-2 mt-3">\n`;
+        return `<div class="moments-images grid gap-2 mt-3 not-prose">\n`;
       } else {
         return `</div>\n`;
       }
     },
   });
 
-  // 朋友圈评论插件
+  // 朋友圈评论插件（使用 ^ 标记符，避免与外层 ::: 容器冲突）
+  // 用法: ^moments-comments [用户名]  — 用户名可选，默认 "小群主"
   md.use(MarkdownItContainer, "moments-comments", {
-    validate: (params) => params.trim() === "moments-comments",
+    marker: "^",
+    validate: (params) => /^moments-comments/.test(params.trim()),
     render(tokens, idx) {
       if (tokens[idx].nesting === 1) {
+        _hasMomentsComments = true;
+        const userParam = tokens[idx].info
+          .trim()
+          .replace(/^moments-comments\s*/, "")
+          .trim();
+        const commentUser = userParam || "小群主";
+        const commentAvatar =
+          avatarMap[commentUser] || "/assets/images/avatar/default.webp";
         return `
-        <div class="moments-comments mt-3 border-t border-base-200 pt-3">
-          <div class="flex items-center gap-2 mb-2">
+            </div>
+            ${renderActions()}
+        <div class="moments-comments">
+          <div class="flex items-center gap-2 mb-2 w-full">
             <div class="avatar">
               <div class="w-8 rounded-full">
-                <img src="${avatarMap["小群主"]}" alt="小群主" />
+                <img src="${commentAvatar}" alt="${commentUser}" />
               </div>
             </div>
-            <input type="text" placeholder="说点什么..." class="input input-bordered input-sm flex-1" />
+            <div class="join w-full">
+              <input type="text" placeholder="说点什么……" class="input input-bordered input-sm join-item w-full" />
+              <button class="btn btn-primary btn-sm join-item">发送</button>
+            </div>
           </div>
           <div class="comments-list">
         `;
@@ -250,30 +297,77 @@ export function momentsPlugin(md) {
     },
   });
 
-  // 单条评论插件
+  // 单条评论插件（使用 ^ 标记符，避免与外层 ::: 容器冲突）
+  // 用法: ^^^ comment 用户名 | 时间 | 评论内容
   md.use(MarkdownItContainer, "comment", {
+    marker: "^",
     validate: (params) => /^comment\s+.+\|.+/.test(params.trim()),
     render(tokens, idx) {
       const token = tokens[idx];
-      const match = token.info.trim().match(/^comment\s+(.+?)\s*\|\s*(.+)/);
-      const username = match?.[1]?.trim() || "用户";
-      const content = match?.[2]?.trim() || "";
+      const raw = token.info.trim().replace(/^comment\s+/, "");
+      const parts = raw.split("|").map((s) => s.trim());
+      const [username = "用户", time = "", content = ""] = parts;
       const avatar =
         avatarMap[username] || "/assets/images/avatar/default.webp";
       const isSelf = selfNames.includes(username);
 
       if (token.nesting === 1) {
         return `
-        <div class="flex gap-2 mb-2">
+        <div class="flex items-center gap-2 not-prose">
           <div class="avatar">
-            <div class="w-6 rounded-full">
+            <div class="w-8 h-8 rounded-full">
               <img class="m-0!" src="${avatar}" alt="${username}" />
             </div>
           </div>
-          <p class="indent-0 px-3 py-1 text-xs">
-            ${
-              !isSelf ? `<span class="font-bold">${username}</span>` : ""
-            } : ${content}
+          <p>
+            <span class="user-name">${!isSelf ? `${username}` : "我"}</span>
+            ${time ? `<span class="opacity-50 text-xs ml-1">${time}</span>` : ""}
+            <br />
+            ${content}
+          </p>
+        </div>
+        `;
+      } else {
+        return "";
+      }
+    },
+  });
+
+  // 回复评论插件（使用 ^ 标记符，避免与外层 ::: 容器冲突）
+  // 用法: ^^^ reply 回复者 -> 被回复者 | 时间 | 回复内容
+  md.use(MarkdownItContainer, "reply", {
+    marker: "^",
+    validate: (params) => /^reply\s+.+->.+\|.+/.test(params.trim()),
+    render(tokens, idx) {
+      const token = tokens[idx];
+      const raw = token.info.trim().replace(/^reply\s+/, "");
+      const parts = raw.split("|").map((s) => s.trim());
+      const [head = "", time = "", content = ""] = parts;
+
+      // 从 head 中解析 回复者 -> 被回复者
+      const arrowIdx = head.indexOf("->");
+      const replier = arrowIdx > -1 ? head.substring(0, arrowIdx).trim() : head;
+      const target =
+        arrowIdx > -1 ? head.substring(arrowIdx + 2).trim() : "用户";
+
+      const avatar = avatarMap[replier] || "/assets/images/avatar/default.webp";
+      const isSelf = selfNames.includes(replier);
+
+      if (token.nesting === 1) {
+        return `
+        <div class="flex items-center gap-2 ml-10 not-prose">
+          <div class="avatar">
+            <div class="w-8 h-8 rounded-full">
+              <img class="m-0!" src="${avatar}" alt="${replier}" />
+            </div>
+          </div>
+          <p>
+            <span class="user-name">${!isSelf ? `${replier}` : "我"}
+            <span class="opacity-60"> 回复 </span>
+            ${target}</span>
+            ${time ? `<span class="opacity-50 text-xs ml-1">${time}</span>` : ""}
+            <br />
+            ${content}
           </p>
         </div>
         `;
