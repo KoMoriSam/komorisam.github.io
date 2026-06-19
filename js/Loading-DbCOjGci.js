@@ -1,1 +1,0 @@
-import{c as a,b as n,d as t,G as r}from"./index-BV8smtUS.js";const o={__name:"Loading",props:{size:{type:String,default:""}},setup(s){return(i,e)=>(n(),a("main",{class:r(["flex items-center justify-center",s.size])},e[0]||(e[0]=[t("span",{class:"loading loading-spinner loading-xl text-primary"},null,-1)]),2))}};export{o as _};
