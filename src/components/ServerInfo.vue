@@ -86,8 +86,10 @@
         >
           <i class="ri-server-fill text-3xl text-base-content/40"></i>
         </div>
-        <p class="text-sm text-base-content/75">{{ serverInfo.version }}</p>
-        <p class="text-sm text-base-content/75">{{ serverInfo.city }}</p>
+        <p class="text-sm text-base-content/75">
+          <i class="ri-map-pin-line"></i>
+          {{ serverInfo.city }}
+        </p>
       </article>
 
       <!-- 卡片：当前状态 -->
@@ -112,14 +114,18 @@
           {{ serverInfo.ping === null ? "离线或不存在" : "在线" }}
         </p>
         <p class="text-rotate text-sm text-base-content/75">
-          <span v-if="serverInfo.ping === null">
+          <span>
             <span>
               <i class="ri-link"></i>
               {{ queriedAddress }}
             </span>
-            <span>
+            <span v-if="serverInfo.ping === null">
               <i class="ri-information-line"></i>
               请联系相关管理员或检查地址是否正确
+            </span>
+            <span v-else>
+              <i class="ri-information-line"></i>
+              {{ serverInfo.version }}
             </span>
           </span>
         </p>
