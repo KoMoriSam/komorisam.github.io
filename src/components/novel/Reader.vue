@@ -58,7 +58,7 @@
         </section>
 
         <section
-          class="flex-1 mx-12 max-lg:mt-0 mt-6 md:w-[10%] md:sticky md:top-12 basis-xs prose"
+          class="flex-1 mx-6 max-lg:mt-0 mt-6 md:w-[10%] md:sticky md:top-12 basis-xs prose"
         >
           <h1 class="inline">
             {{ currentMapping === "title" ? "本章说" : "本书说" }}
