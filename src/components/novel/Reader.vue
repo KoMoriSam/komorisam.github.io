@@ -32,7 +32,7 @@
                   icon: 'ri-time-line',
                   text: useDateFormat(
                     currentChapter.uploadDate,
-                    'YYYY/M/D H:mm 上传'
+                    'YYYY/M/D H:mm 上传',
                   ),
                 },
                 ...(currentChapter.modifiedDate
@@ -41,7 +41,7 @@
                         icon: 'ri-file-edit-line',
                         text: useDateFormat(
                           currentChapter.modifiedDate,
-                          'YYYY/M/D H:mm 修改'
+                          'YYYY/M/D H:mm 修改',
                         ),
                       },
                     ]
@@ -71,12 +71,12 @@
           </button>
           <Giscus
             :key="currentChapter?.title"
-            repo="KoMoriSam/komorisam.github.io"
-            repo-id="R_kgDOJxn8KA"
-            category="General"
-            category-id="DIC_kwDOJxn8KM4Cnp6m"
+            :repo="GISCUS.repo"
+            :repo-id="GISCUS.repoId"
+            :category="GISCUS.categories.general.name"
+            :category-id="GISCUS.categories.general.id"
             :mapping="currentMapping"
-            term="向远方"
+            :term="GISCUS.defaultTerm"
             strict="0"
             reactions-enabled="1"
             emit-metadata="0"
@@ -122,6 +122,9 @@ import Markdown from "@/components/articles/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import Dock from "@/components/novel/Dock.vue";
 
+import CONFIG from "@/constants/config";
+const { GISCUS } = CONFIG;
+
 import { useDateFormat } from "@vueuse/core";
 import { useFullscreen } from "@vueuse/core";
 import { useChapters } from "@/composables/useChapters";
@@ -154,7 +157,7 @@ import { ref, watch } from "vue";
 import { useReaderSettingsStorage } from "@/utils/storage/new-reader-settings";
 const { getSetting, setSetting } = useReaderSettingsStorage();
 const sideCurrentComponent = ref(
-  getSetting("NOVEL_SIDE_CURRENT_COMPONENT", "Chapters")
+  getSetting("NOVEL_SIDE_CURRENT_COMPONENT", "Chapters"),
 );
 
 // 同样监听侧边栏组件变化
@@ -162,7 +165,7 @@ watch(
   () => getSetting("NOVEL_SIDE_CURRENT_COMPONENT"),
   (newValue) => {
     sideCurrentComponent.value = newValue;
-  }
+  },
 );
 
 const handleSideComponentUpdate = (component) => {

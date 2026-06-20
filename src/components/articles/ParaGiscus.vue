@@ -1,10 +1,10 @@
 <template>
   <Giscus
     :key="paragraphId"
-    repo="KoMoriSam/komorisam.github.io"
-    repo-id="R_kgDOJxn8KA"
-    category="Ideas"
-    category-id="DIC_kwDOJxn8KM4Cnp6p"
+    :repo="GISCUS.repo"
+    :repo-id="GISCUS.repoId"
+    :category="GISCUS.categories.ideas.name"
+    :category-id="GISCUS.categories.ideas.id"
     mapping="specific"
     :term="paragraphId"
     strict="0"
@@ -21,6 +21,9 @@
 import { storeToRefs } from "pinia";
 import Giscus from "@giscus/vue";
 import { useThemeStore } from "@/stores/themeStore";
+
+import CONFIG from "@/constants/config";
+const { GISCUS } = CONFIG;
 
 const themeStore = useThemeStore();
 const { giscusTheme } = storeToRefs(themeStore);

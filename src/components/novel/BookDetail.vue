@@ -51,12 +51,12 @@
 
     <Giscus
       class="basis-sm"
-      repo="KoMoriSam/komorisam.github.io"
-      repo-id="R_kgDOJxn8KA"
-      category="General"
-      category-id="DIC_kwDOJxn8KM4Cnp6m"
+      :repo="GISCUS.repo"
+      :repo-id="GISCUS.repoId"
+      :category="GISCUS.categories.general.name"
+      :category-id="GISCUS.categories.general.id"
       mapping="specific"
-      term="向远方"
+      :term="GISCUS.defaultTerm"
       strict="0"
       reactions-enabled="1"
       emit-metadata="0"
@@ -75,6 +75,9 @@ import Giscus from "@giscus/vue";
 
 import { useChapters } from "@/composables/useChapters";
 import { useImageLoad } from "@/composables/useImageLoad";
+
+import CONFIG from "@/constants/config";
+const { GISCUS } = CONFIG;
 
 import { storeToRefs } from "pinia";
 import { useNovelStore } from "@/stores/novelStore";
