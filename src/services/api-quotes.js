@@ -1,9 +1,12 @@
 import { useFetch } from "@vueuse/core";
 
+const MXNZP_APP_ID = import.meta.env.VITE_MXNZP_APP_ID;
+const MXNZP_APP_SECRET = import.meta.env.VITE_MXNZP_APP_SECRET;
+
 export function useQuotesApi() {
   const getQuotes = async () => {
     const { data, error } = await useFetch(
-      `https://www.mxnzp.com/api/daily_word/recommend?count=10&app_id=kvtghjtkt6tclvlf&app_secret=BhJ1vygt9FBVokES3z07GeHVj74na2OU`
+      `https://www.mxnzp.com/api/daily_word/recommend?count=10&app_id=${MXNZP_APP_ID}&app_secret=${MXNZP_APP_SECRET}`,
     ).json();
     if (error.value) {
       throw new Error("获取每日一句失败");
