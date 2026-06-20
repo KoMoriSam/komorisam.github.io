@@ -82,7 +82,8 @@
   --font-kai:
     "LXGW WenKai GB", "LXGW WenKai GB Lite", "STKaiti", "KaiTi", cursive;
   --font-fang:
-    "Zhuque Fangsong (technical preview)", "STFangsong", "FangSong", serif;
+    "Zhuque Fangsong (technical preview)", "LXGW Neo ZhiSong CHS",
+    "LXGW Neo ZhiSong", "STFangsong", "FangSong", serif;
 }
 
 @layer utilities {
