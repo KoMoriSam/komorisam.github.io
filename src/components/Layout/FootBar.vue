@@ -34,6 +34,7 @@
           <a
             class="link link-primary no-underline hover:underline"
             href="/archive/home/index.html"
+            target="_blank"
           >
             这里跳转
             <i class="ri-arrow-right-up-line"></i>
