@@ -65,50 +65,6 @@
 @import "remixicon/fonts/remixicon.css";
 
 @font-face {
-  font-family: "LXGW Neo ZhiSong";
-  src:
-    local("LXGW Neo ZhiSong"),
-    local("LXGWNeoZhiSong"),
-    url("/assets/fonts/LXGWNeoZhiSong.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "LXGW Neo XiHei";
-  src:
-    local("LXGW Neo XiHei"),
-    local("LXGWNeoXiHei"),
-    url("/assets/fonts/LXGWNeoXiHei.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "LXGW WenKai GB Lite";
-  src:
-    local("LXGW WenKai GB Lite"),
-    local("LXGWWenKaiGBLite"),
-    url("/assets/fonts/LXGWWenKaiGBLite-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "LXGW WenKai GB Lite";
-  src:
-    local("LXGW WenKai GB Lite"),
-    local("LXGWWenKaiGBLite"),
-    url("/assets/fonts/LXGWWenKaiGBLite-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Zhuque Fangsong (technical preview)";
   src:
     local("Zhuque Fangsong (technical preview)"),
@@ -120,9 +76,11 @@
 }
 
 @theme {
-  --font-song: "LXGW Neo ZhiSong", "STSong", "SimSun", serif;
+  --font-song:
+    "LXGW Neo ZhiSong CHS", "LXGW Neo ZhiSong", "STSong", "SimSun", serif;
   --font-hei: "LXGW Neo XiHei", "STHeiti", "STXihei", "SimHei", sans-serif;
-  --font-kai: "LXGW WenKai GB Lite", "STKaiti", "KaiTi", cursive;
+  --font-kai:
+    "LXGW WenKai GB", "LXGW WenKai GB Lite", "STKaiti", "KaiTi", cursive;
   --font-fang:
     "Zhuque Fangsong (technical preview)", "STFangsong", "FangSong", serif;
 }
@@ -281,6 +239,20 @@
     @apply card bg-base-200/60 border border-base-300 mb-4;
   }
 
+  #markdown-content.prose .moments-header {
+    @apply flex-1;
+  }
+
+  #markdown-content.prose .moments-header .header-title {
+    @apply font-bold;
+    font-size: calc(var(--para-font-size) * 0.75);
+  }
+
+  #markdown-content.prose .moments-header .header-info {
+    @apply opacity-70 flex gap-2;
+    font-size: calc(var(--para-font-size) * 0.5);
+  }
+
   #markdown-content.prose .moments-actions {
     @apply flex justify-between mt-1 pt-2 border-t border-base-300;
   }
@@ -289,15 +261,41 @@
     @apply indent-0 my-0 text-justify;
   }
 
+  #markdown-content.prose .moments-content .moments-images {
+    @apply grid gap-1 mt-2;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 恰好 4 张图 → 四宫格，容器缩为 2/3 以保持单格大小与九宫格一致 */
+  #markdown-content.prose
+    .moments-content
+    .moments-images:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(100% * 2 / 3);
+  }
+
+  #markdown-content.prose .moments-content .moments-images img {
+    @apply w-full aspect-square object-cover;
+  }
+
   #markdown-content.prose .moments-comments p {
     @apply indent-0;
     font-size: calc(var(--para-font-size) * 0.75);
     line-height: calc(var(--para-line-height) * 0.75);
   }
 
+  #markdown-content.prose .moments-comments .comments-info {
+    @apply flex items-center gap-1;
+  }
+
   #markdown-content.prose .moments-comments .user-name {
-    @apply font-bold text-primary/80;
+    @apply font-bold text-primary/80 hover:text-primary text-nowrap;
     font-size: calc(var(--para-font-size) * 0.6);
+  }
+
+  #markdown-content.prose .moments-comments .comment-time {
+    @apply opacity-50 text-nowrap;
+    font-size: calc(var(--para-font-size) * 0.5);
   }
 
   /* 引用与强调文本 */

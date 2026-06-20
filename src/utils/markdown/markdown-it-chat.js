@@ -214,9 +214,9 @@ export function momentsPlugin(md) {
                   <img class="m-0!" src="${avatar}" alt="${username}" />
                 </div>
               </div>
-              <div class="flex-1">
-                <div class="text-lg font-bold">${username}</div>
-                <div class="text-xs opacity-70 flex gap-2">
+              <div class="moments-header">
+                <div class="header-title">${username}</div>
+                <div class="header-info">
                   <span><i class="ri-time-line"></i> ${time}</span>
                   ${location ? `<span><i class="ri-map-pin-2-line"></i> ${location}</span>` : ""}
                 </div>
@@ -243,16 +243,34 @@ export function momentsPlugin(md) {
     },
   });
 
-  // 朋友圈图片组插件（使用 ; 标记符，避免与外层 ::: 容器冲突）
+  // 朋友圈图片组插件（使用 ^ 标记符，避免与外层 ::: 容器冲突）
   md.use(MarkdownItContainer, "moments-images", {
-    marker: ";",
+    marker: "^",
     validate: (params) => params.trim() === "moments-images",
     render(tokens, idx) {
       if (tokens[idx].nesting === 1) {
-        return `<div class="moments-images grid gap-2 mt-3 not-prose">\n`;
+        return `<div class="moments-images not-prose">\n`;
       } else {
         return `</div>\n`;
       }
+    },
+  });
+
+  // 朋友圈单张图片插件（使用 ^ 标记符，直接渲染 <img>，不经过 markdown-it 段落包裹）
+  // 用法: ^^^ image url | alt
+  md.use(MarkdownItContainer, "image", {
+    marker: "^",
+    validate: (params) => /^image\s+.+/.test(params.trim()),
+    render(tokens, idx) {
+      const token = tokens[idx];
+      if (token.nesting === 1) {
+        const raw = token.info.trim().replace(/^image\s+/, "");
+        const sepIdx = raw.lastIndexOf("|");
+        const url = (sepIdx > -1 ? raw.substring(0, sepIdx) : raw).trim();
+        const alt = sepIdx > -1 ? raw.substring(sepIdx + 1).trim() : "";
+        return `<img src="${url}" alt="${alt}" loading="lazy" />\n`;
+      }
+      return "";
     },
   });
 
@@ -320,9 +338,10 @@ export function momentsPlugin(md) {
             </div>
           </div>
           <p>
-            <span class="user-name">${!isSelf ? `${username}` : "我"}</span>
-            ${time ? `<span class="opacity-50 text-xs ml-1">${time}</span>` : ""}
-            <br />
+            <span class="comments-info">
+              <span class="user-name">${!isSelf ? `${username}` : "我"}</span>
+              ${time ? `<span class="comment-time">${time}</span>` : ""}
+            </span>
             ${content}
           </p>
         </div>
@@ -355,18 +374,19 @@ export function momentsPlugin(md) {
 
       if (token.nesting === 1) {
         return `
-        <div class="flex items-center gap-2 ml-10 not-prose">
+        <div class="flex items-center gap-2 ml-10 -translate-y-1.5 not-prose">
           <div class="avatar">
             <div class="w-8 h-8 rounded-full">
               <img class="m-0!" src="${avatar}" alt="${replier}" />
             </div>
           </div>
           <p>
-            <span class="user-name">${!isSelf ? `${replier}` : "我"}
-            <span class="opacity-60"> 回复 </span>
-            ${target}</span>
-            ${time ? `<span class="opacity-50 text-xs ml-1">${time}</span>` : ""}
-            <br />
+            <span class="comments-info">
+              <span class="user-name">${!isSelf ? `${replier}` : "我"}
+              <span class="opacity-60"> 回复 </span>
+              ${target}</span>
+              ${time ? `<span class="comment-time">${time}</span>` : ""}
+            </span>
             ${content}
           </p>
         </div>
