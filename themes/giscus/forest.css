@@ -5,6 +5,11 @@
  */
 
 main {
+  /* ========== 字体（与主站 daisyUI --default-font-family 风格一致） ========== */
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
   /* ========== 语法高亮 ========== */
   --color-prettylights-syntax-comment: oklch(60% 0.02 160);
   --color-prettylights-syntax-constant: oklch(75% 0.15 220);
@@ -76,7 +81,7 @@ main {
   /* ========== 画布/背景 ========== */
   --color-canvas-default: oklch(20.84% 0.008 17.911);
   --color-canvas-overlay: oklch(18.522% 0.007 17.911);
-  --color-canvas-inset: oklch(16.203% 0.007 17.911);
+  --color-canvas-inset: oklch(19.703% 0.007 17.911);
   --color-canvas-subtle: oklch(18.522% 0.007 17.911);
 
   /* ========== 边框 ========== */

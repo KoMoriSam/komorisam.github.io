@@ -5,6 +5,11 @@
  */
 
 main {
+  /* ========== 字体 ========== */
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
   /* ========== 语法高亮 ========== */
   --color-prettylights-syntax-comment: oklch(55% 0.02 260);
   --color-prettylights-syntax-constant: oklch(50% 0.16 245);

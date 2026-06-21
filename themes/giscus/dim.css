@@ -5,11 +5,18 @@
  */
 
 main {
+  /* ========== 字体（与主站 daisyUI --default-font-family 风格一致） ========== */
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
   /* ========== 语法高亮 ========== */
   --color-prettylights-syntax-comment: oklch(55% 0.02 260);
   --color-prettylights-syntax-constant: oklch(78% 0.12 210);
   --color-prettylights-syntax-entity: oklch(76% 0.12 315);
-  --color-prettylights-syntax-storage-modifier-import: oklch(82.901% 0.031 222.959);
+  --color-prettylights-syntax-storage-modifier-import: oklch(
+    82.901% 0.031 222.959
+  );
   --color-prettylights-syntax-entity-tag: oklch(78% 0.12 145);
   --color-prettylights-syntax-keyword: oklch(75% 0.14 35);
   --color-prettylights-syntax-string: oklch(75% 0.08 220);
@@ -35,7 +42,9 @@ main {
   --color-prettylights-syntax-meta-diff-range: oklch(76% 0.12 315);
   --color-prettylights-syntax-brackethighlighter-angle: oklch(55% 0.02 260);
   --color-prettylights-syntax-sublimelinter-gutter-mark: oklch(38% 0.018 260);
-  --color-prettylights-syntax-constant-other-reference-link: oklch(75% 0.08 220);
+  --color-prettylights-syntax-constant-other-reference-link: oklch(
+    75% 0.08 220
+  );
 
   /* ========== 按钮 ========== */
   --color-btn-text: oklch(82.901% 0.031 222.959);
@@ -76,7 +85,7 @@ main {
   /* ========== 画布/背景 ========== */
   --color-canvas-default: oklch(30.857% 0.023 264.149);
   --color-canvas-overlay: oklch(28.036% 0.019 264.182);
-  --color-canvas-inset: oklch(26.346% 0.018 262.177);
+  --color-canvas-inset: oklch(28.906% 0.018 262.177);
   --color-canvas-subtle: oklch(28.036% 0.019 264.182);
 
   /* ========== 边框 ========== */

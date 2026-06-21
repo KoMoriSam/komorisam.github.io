@@ -5,6 +5,11 @@
  */
 
 main {
+  /* ========== 字体（与主站 daisyUI --default-font-family 风格一致） ========== */
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
   /* ========== 语法高亮 ========== */
   --color-prettylights-syntax-comment: oklch(55% 0.03 120);
   --color-prettylights-syntax-constant: oklch(45% 0.18 250);
