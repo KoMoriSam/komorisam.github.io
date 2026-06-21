@@ -55,7 +55,7 @@ export function alertPlugin(md) {
             : "";
 
           return `<div role="alert" class="alert alert-${type} alert-soft ${alertLayoutClass} sm:gap-2">
-            ${titleRow || `<i class="${icon} translate-y-0.75 scale-150"></i>`}
+            ${titleRow || `<i class="${icon} alert-icon"></i>`}
             <div>`;
         } else {
           return "</div></div>\n";
