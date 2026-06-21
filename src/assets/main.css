@@ -89,37 +89,56 @@
 @layer utilities {
   /* 标题样式 */
   #markdown-content.prose h2 {
-    @apply font-hei mt-4 mb-0;
-    font-size: calc(var(--para-font-size) * 1.25);
+    @apply font-hei mt-3 mb-2
+    text-[calc(var(--para-font-size)*1.25)]
+    leading-[calc(var(--para-font-size)*1.25)]
+    tracking-[calc(var(--para-letter-spacing)*1.25)];
   }
 
   #markdown-content.prose h3 {
-    @apply font-kai font-bold!;
+    @apply font-bold! 
+    text-(length:--para-font-size) 
+    leading-(--para-line-height) 
+    tracking-(--para-letter-spacing);
   }
 
   #markdown-content.prose h3,
   #markdown-content.prose h4,
   #markdown-content.prose h5,
   #markdown-content.prose h6 {
-    @apply font-normal mt-2 mb-0 text-(length:--para-font-size)/(--para-line-height);
+    @apply font-normal mt-2 mb-0 
+    text-(length:--para-font-size) 
+    leading-(--para-line-height) 
+    tracking-(--para-letter-spacing);
   }
 
   /* 段落与列表 */
   #markdown-content.prose p {
-    @apply text-pretty text-(length:--para-font-size)/(--para-line-height) my-(--para-margin-inline) indent-(--para-text-indent);
-    letter-spacing: var(--para-letter-spacing);
+    @apply text-pretty 
+    text-(length:--para-font-size) 
+    leading-(--para-line-height) 
+    my-(--para-margin-inline) 
+    indent-(--para-text-indent) 
+    tracking-(--para-letter-spacing);
   }
 
   #markdown-content.prose button.comment-trigger {
-    @apply whitespace-nowrap opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity btn btn-primary btn-circle btn-soft btn-xs -translate-y-0.75 scale-80;
+    @apply whitespace-nowrap 
+    opacity-0 hover:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity 
+    btn btn-primary btn-circle btn-soft btn-xs 
+    -translate-y-0.75 scale-80;
   }
 
   #markdown-content.prose button.comment-trigger i {
-    font-size: calc(var(--para-font-size) * 0.5);
+    @apply text-[calc(var(--para-font-size)*0.5)];
   }
 
   #markdown-content.prose li {
-    @apply text-(length:--para-font-size);
+    @apply text-(length:--para-font-size) tracking-(--para-letter-spacing);
+  }
+
+  #markdown-content.prose li p {
+    @apply indent-0;
   }
 
   #markdown-content.prose table,
@@ -127,11 +146,11 @@
   #markdown-content.prose ol,
   #markdown-content.prose blockquote,
   #markdown-content.prose pre {
-    margin: var(--para-margin-inline) 0;
+    @apply my-[var(--para-margin-inline)] mx-0;
   }
 
   #markdown-content.prose hr {
-    margin: calc(var(--para-font-size) * 1.5) 0;
+    @apply my-[calc(var(--para-font-size)*1.5)] mx-0;
   }
 
   /* 包裹元素与标题锚点 (.heading-wrapper) */
@@ -149,28 +168,30 @@
 
   /* Alert 警告框样式 */
   #markdown-content.prose .alert {
-    @apply items-start;
-    margin-bottom: var(--para-margin-inline);
+    @apply items-start mb-[var(--para-margin-inline)];
+  }
+
+  #markdown-content.prose .alert .alert-icon {
+    @apply translate-y-[calc(var(--para-font-size)*(var(--para-line-height))/4.5)]
+    text-(length:--para-font-size);
   }
 
   #markdown-content.prose .alert h3 {
-    @apply indent-0 m-1 font-hei translate-y-0.75;
-    font-size: calc(var(--para-font-size) * 0.85);
-    color: inherit;
-    line-height: unset;
-    letter-spacing: unset;
+    @apply indent-0 m-1 font-hei translate-y-0.75
+    text-[calc(var(--para-font-size)*0.85)]
+    text-inherit leading-[calc(var(--para-line-height)*0.85)];
   }
 
   #markdown-content.prose .alert p {
-    @apply indent-0 m-1 text-base-content;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: unset;
-    letter-spacing: unset;
+    @apply indent-0 m-1 text-base-content
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)]
+    tracking-[calc(var(--para-letter-spacing)*0.75)];
   }
 
   /* Chat 聊天样式 */
   #markdown-content.prose .chat {
-    @apply mx-6 md:mx-16;
+    @apply mx-6 md:mx-16 overflow-visible;
   }
 
   #markdown-content.prose .chat a {
@@ -178,28 +199,36 @@
   }
 
   #markdown-content.prose .chat-bar {
-    @apply flex items-center gap-2 mb-4 bg-base-200/75 p-2 rounded-xl mx-4 md:mx-12;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: 1;
-    letter-spacing: unset;
+    @apply flex items-center gap-2 mb-4 bg-base-200/75 p-2 rounded-xl mx-4 md:mx-12
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)]
+    tracking-[calc(var(--para-letter-spacing)*0.75)];
   }
 
   #markdown-content.prose .chat-content p {
-    @apply indent-0 text-center text-base-content/50;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: unset;
-    letter-spacing: unset;
+    @apply indent-0 text-center text-base-content/50
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)]
+    tracking-[calc(var(--para-letter-spacing)*0.75)];
   }
 
   #markdown-content.prose .chat-bubble {
-    @apply px-1 py-2 bg-base-200/75;
+    @apply px-1 py-2 bg-base-200/75 overflow-visible;
   }
 
   #markdown-content.prose .chat-bubble p {
-    @apply indent-0 m-1;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: 1;
-    letter-spacing: unset;
+    @apply indent-0 m-1 text-justify relative
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)]
+    tracking-[calc(var(--para-letter-spacing)*0.75)];
+  }
+
+  #markdown-content.prose .chat-end .chat-bubble p button.comment-trigger {
+    @apply absolute right-full top-0 -translate-x-3;
+  }
+
+  #markdown-content.prose .chat-start .chat-bubble p button.comment-trigger {
+    @apply absolute left-full top-0 translate-x-3;
   }
 
   #markdown-content.prose .chat-bubble img {
@@ -219,15 +248,16 @@
   }
 
   #markdown-content.prose .chat-header {
-    font-size: calc(var(--para-font-size) * 0.5);
-    line-height: unset;
-    letter-spacing: unset;
+    @apply mb-1
+    text-[calc(var(--para-font-size)*0.5)]
+    leading-[calc(var(--para-line-height)*0.5)]
+    tracking-[calc(var(--para-letter-spacing)*0.5)];
   }
 
   #markdown-content.prose .chat-footer {
-    font-size: calc(var(--para-font-size) * 0.5);
-    line-height: unset;
-    letter-spacing: unset;
+    @apply text-[calc(var(--para-font-size)*0.5)]
+    leading-[calc(var(--para-line-height)*0.5)]
+    tracking-[calc(var(--para-letter-spacing)*0.5)];
   }
 
   #markdown-content.prose .chat img,
@@ -245,13 +275,13 @@
   }
 
   #markdown-content.prose .moments-header .header-title {
-    @apply font-bold;
-    font-size: calc(var(--para-font-size) * 0.75);
+    @apply font-bold
+    text-[calc(var(--para-font-size)*0.75)];
   }
 
   #markdown-content.prose .moments-header .header-info {
-    @apply opacity-70 flex gap-2;
-    font-size: calc(var(--para-font-size) * 0.5);
+    @apply opacity-70 flex gap-2
+    text-[calc(var(--para-font-size)*0.5)];
   }
 
   #markdown-content.prose .moments-actions {
@@ -263,16 +293,13 @@
   }
 
   #markdown-content.prose .moments-content .moments-images {
-    @apply grid gap-1 mt-2;
-    grid-template-columns: repeat(3, 1fr);
+    @apply grid grid-cols-3 gap-1 mt-2;
   }
 
-  /* 恰好 4 张图 → 四宫格，容器缩为 2/3 以保持单格大小与九宫格一致 */
   #markdown-content.prose
     .moments-content
     .moments-images:has(> :nth-child(4):last-child) {
-    grid-template-columns: repeat(2, 1fr);
-    width: calc(100% * 2 / 3);
+    @apply grid-cols-2 w-[calc(100%*2/3)];
   }
 
   #markdown-content.prose .moments-content .moments-images img {
@@ -280,9 +307,9 @@
   }
 
   #markdown-content.prose .moments-comments p {
-    @apply indent-0;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: calc(var(--para-line-height) * 0.75);
+    @apply indent-0
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)];
   }
 
   #markdown-content.prose .moments-comments .comments-info {
@@ -290,20 +317,19 @@
   }
 
   #markdown-content.prose .moments-comments .user-name {
-    @apply font-bold text-primary/80 hover:text-primary text-nowrap;
-    font-size: calc(var(--para-font-size) * 0.6);
+    @apply font-bold text-primary/80 hover:text-primary text-nowrap
+    text-[calc(var(--para-font-size)*0.6)];
   }
 
   #markdown-content.prose .moments-comments .comment-time {
-    @apply opacity-50 text-nowrap;
-    font-size: calc(var(--para-font-size) * 0.5);
+    @apply opacity-50 text-nowrap
+    text-[calc(var(--para-font-size)*0.5)];
   }
 
   /* 引用与强调文本 */
   #markdown-content.prose blockquote,
   #markdown-content.prose em {
-    @apply font-fang not-italic;
-    quotes: none;
+    @apply italic [quotes:none];
   }
 
   #markdown-content.prose blockquote p,
@@ -312,56 +338,67 @@
   }
 
   #markdown-content.prose strong {
-    @apply font-hei;
+    @apply font-bold;
   }
 
   /* 脚注样式 */
   #markdown-content.prose .footnote-ref a {
-    @apply badge badge-sm hover:badge-info no-underline indent-0 px-1.5 font-hei;
+    @apply badge badge-sm hover:badge-info hover:text-info-content no-underline indent-0 px-1.5 font-hei;
   }
 
   #markdown-content.prose .footnote-backref {
-    @apply badge badge-sm hover:badge-info px-1.5 no-underline;
-    font-size: calc(var(--para-font-size) * 0.5);
+    @apply badge badge-sm hover:badge-info hover:text-info-content px-1.5 no-underline
+    text-[calc(var(--para-font-size)*0.5)];
   }
 
   #markdown-content.prose .footnotes,
   #markdown-content.prose .footnotes p {
-    @apply font-song;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: calc(var(--para-line-height) * 0.75);
-    margin: calc(var(--para-margin-inline) * 0.75) 0;
+    @apply font-song
+    text-[calc(var(--para-font-size)*0.75)]
+    leading-[calc(var(--para-line-height)*0.75)]
+    my-[calc(var(--para-margin-inline)*0.75)]
+    mx-0;
   }
 
   #markdown-content.prose li.footnote-item::marker {
-    @apply font-hei;
-    font-size: calc(var(--para-font-size) * 0.75);
-    list-style-type: decimal;
+    @apply font-hei
+    text-[calc(var(--para-font-size)*0.75)] list-decimal;
     /* content: counter(list-item); */
   }
 
   #markdown-content.prose li.footnote-item ul,
   #markdown-content.prose li.footnote-item ul li {
-    font-size: calc(var(--para-font-size) * 0.75);
+    @apply text-[calc(var(--para-font-size)*0.75)];
   }
 
   /* 代码块样式 */
   #markdown-content.prose .code-wrapper {
-    @apply mockup-code w-full my-0;
+    @apply mockup-code w-full my-0 relative text-sm;
   }
 
   #markdown-content.prose .code-wrapper + .code-wrapper {
     @apply mt-4;
   }
 
+  #markdown-content.prose .code-wrapper .lang-tag {
+    @apply font-mono badge badge-sm absolute left-20 top-3.75
+    text-[calc(var(--para-font-size)*0.4)]
+    md:text-[calc(var(--para-font-size)*0.55)];
+  }
+
   #markdown-content.prose pre {
-    @apply mt-0 py-0;
+    @apply my-0 py-0;
+  }
+
+  #markdown-content.prose pre::before {
+    @apply content-none;
   }
 
   #markdown-content.prose pre code.hljs {
-    @apply bg-transparent! mt-0! py-0!;
-    font-size: calc(var(--para-font-size) * 0.75);
-    line-height: unset;
+    @apply bg-transparent! m-0! px-2! py-1!
+    text-[calc(var(--para-font-size)*0.5)]
+    md:text-[calc(var(--para-font-size)*0.75)]
+    leading-[unset];
   }
 
   /* Task List 任务列表 */
@@ -388,6 +425,6 @@
 
   /* 输入验证相关样式 */
   .validator:has(:user-invalid) ~ .label-hint {
-    display: none;
+    @apply text-error hidden;
   }
 }
