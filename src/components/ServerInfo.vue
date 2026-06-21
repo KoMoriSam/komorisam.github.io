@@ -29,14 +29,21 @@
             <i class="ri-information-line"></i>
             <span class="text-rotate">
               <span>
-                <span> 请输入服务器地址 </span>
-                <span> 默认端口为 25565 </span>
+                <span>请输入服务器地址</span>
+                <span>默认端口为 25565</span>
               </span>
             </span>
           </p>
-          <p class="validator-hint [grid-area:2/1] mt-0 text-wrap">
+          <p
+            class="validator-hint [grid-area:2/1] mt-0 text-nowrap! inline-flex! gap-1.5! items-center!"
+          >
             <i class="ri-error-warning-line"></i>
-            请输入有效的服务器地址！
+            <span class="text-rotate">
+              <span>
+                <span>请输入有效的服务器地址！</span>
+                <span>如：mc.example.com:25565</span>
+              </span>
+            </span>
           </p>
         </div>
         <button
@@ -121,7 +128,7 @@
             </span>
             <span v-if="serverInfo.ping === null">
               <i class="ri-information-line"></i>
-              请联系相关管理员或检查地址是否正确
+              请联系管理员或检查地址是否正确
             </span>
             <span v-else>
               <i class="ri-information-line"></i>
