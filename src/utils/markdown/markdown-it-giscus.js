@@ -61,6 +61,9 @@ export const useParagraphComments = () => {
         env,
         self,
       ) {
+        if (tokens[idx].hidden) {
+          return "";
+        }
         const paragraphId = `${uuid}-${page}-${idx - 2}`;
 
         return `<button class="comment-trigger" data-paragraph-id="${paragraphId}"><i class="ri-chat-3-line"></i></button></p>`;
