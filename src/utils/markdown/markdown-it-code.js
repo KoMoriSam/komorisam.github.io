@@ -15,11 +15,9 @@ export function codePlugin(md) {
     const mountId = `code-block-${Date.now()}-${idx}`;
 
     return `
-  <div class="code-wrapper relative group" id="${mountId}">
-	${highlightedHtml}
-	<span class="font-mono badge absolute left-20 top-3.75 text-xs">
-		${lang || "代码块"}
-	</span>
+    <div class="code-wrapper group" id="${mountId}">
+	  ${highlightedHtml}
+	${lang ? `<span class="lang-tag">${lang}</span>` : ""}
 	<div 
 	  class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity tooltip tooltip-left tooltip-accent"
 	  data-tip="复制到剪贴板">
