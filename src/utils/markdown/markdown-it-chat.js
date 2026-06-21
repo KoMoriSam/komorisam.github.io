@@ -82,7 +82,7 @@ export function chatContainerPlugin(md) {
             ${username}
             <time class="opacity-50">${time}</time>
           </div>
-		  ${footerHTML}
+		        ${footerHTML}
           <div class="chat-bubble ${isSelf ? "chat-bubble-primary" : ""}">\n`;
       } else {
         return `</div></div>\n`;
