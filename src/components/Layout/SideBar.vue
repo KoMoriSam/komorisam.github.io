@@ -2,7 +2,7 @@
   <section class="drawer lg:drawer-open">
     <input id="novel-sidebar" type="checkbox" class="drawer-toggle" />
     <section
-      class="drawer-content flex flex-wrap h-full w-full items-start justify-center gap-4 lg:pr-16 pb-16 lg:pb-12"
+      class="drawer-content flex flex-wrap h-full min-w-0 w-full max-w-full items-start justify-center gap-4 lg:pr-16 pb-16 lg:pb-12"
     >
       <slot name="content"></slot>
     </section>
