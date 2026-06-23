@@ -6,7 +6,7 @@ export function anchorPlugin(md) {
       style: "visually-hidden",
       assistiveText: (title) => `跳转至 “${title}”`,
       visuallyHiddenClass: "hidden",
-      wrapper: ['<div class="heading-wrapper">', "</div>"],
+      wrapper: ['<div class="heading-wrapper group" tabindex="0">', "</div>"],
     }),
   });
 }
