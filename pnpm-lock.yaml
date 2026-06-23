@@ -8,6 +8,27 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/fraunces':
+        specifier: ^5.2.9
+        version: 5.2.9
+      '@fontsource-variable/manrope':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource-variable/noto-sans-sc':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource-variable/noto-sans-sinhala':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource-variable/noto-serif-sc':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource-variable/noto-serif-sinhala':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/maname':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@giscus/vue':
         specifier: ^3.1.1
         version: 3.1.1(vue@3.5.13)
@@ -796,6 +817,27 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/fraunces@5.2.9':
+    resolution: {integrity: sha512-Y6IjunlN9Ni723np+GIgAaKzCDBrPRrqNi01TZxHs5wtHYROWFM9W6yiT+/gGwSjWIRD18oX17kD/BRWekc/Lw==}
+
+  '@fontsource-variable/manrope@5.2.8':
+    resolution: {integrity: sha512-nc9lOuCRz73UHnovDE2bwXUdghE2SEOc7Aii0qGe3CLyE03W1a7VnY5Z6euRiapiKbCkGS+eXbY3s/kvWeGeSw==}
+
+  '@fontsource-variable/noto-sans-sc@5.2.10':
+    resolution: {integrity: sha512-zdk10i5HrDQTXI7ldD61zToX1fsgig8vDTsu7zB48SXOitWfuX0e5viZAwnkHuhwh096PU6X6i1AyAsbBCISpA==}
+
+  '@fontsource-variable/noto-sans-sinhala@5.2.10':
+    resolution: {integrity: sha512-okO+kq6M7Vf0/5ohwkTNMFvrGkvqmz20vsbL4P35N6pQFGGe3S78ebdFL9GO1R5N3o8a5Ww9BIo+pcO2FzBaEA==}
+
+  '@fontsource-variable/noto-serif-sc@5.2.10':
+    resolution: {integrity: sha512-TRhuDxWAnqUUtRZFCy8aoJB3/7HsuCaW/4B3wBTE0hzE8QVapklTjE2aY7s/wXWFXHLdflYNroloZoXekoKClw==}
+
+  '@fontsource-variable/noto-serif-sinhala@5.2.8':
+    resolution: {integrity: sha512-Zshx+ZQMMP9o7y9XTOpUHP2WBuq8oWeUBq9zXF2st+1M1/LhoGR7bTLI7eRm+w2SPb03y8e1nkaQpmTeLsTSYQ==}
+
+  '@fontsource/maname@5.2.7':
+    resolution: {integrity: sha512-wM3CqttPFbVrz9r6njEbHiIOrqqfaZWON2Kv0Mig00xFganVPV37R/8C4MX+WnpOoQP+DiCP1rC/8VULWdaQ/g==}
 
   '@giscus/vue@3.1.1':
     resolution: {integrity: sha512-xgsc93MibRQ0d1glBxN1BrEREHTIf3BPYs/3R+UZHNqawFFoWBV6iJ7uVCXMqoEKZdE2c78B3aKt5gfGqo8I5A==}
@@ -3507,6 +3549,20 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.2':
     optional: true
+
+  '@fontsource-variable/fraunces@5.2.9': {}
+
+  '@fontsource-variable/manrope@5.2.8': {}
+
+  '@fontsource-variable/noto-sans-sc@5.2.10': {}
+
+  '@fontsource-variable/noto-sans-sinhala@5.2.10': {}
+
+  '@fontsource-variable/noto-serif-sc@5.2.10': {}
+
+  '@fontsource-variable/noto-serif-sinhala@5.2.8': {}
+
+  '@fontsource/maname@5.2.7': {}
 
   '@giscus/vue@3.1.1(vue@3.5.13)':
     dependencies:
