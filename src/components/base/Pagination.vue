@@ -1,52 +1,369 @@
 <template>
-  <div class="join flex items-center justify-center">
-    <button
-      class="join-item btn px-2"
-      @click="handleAnyPage(currentChapterPage - 1)"
-      :disabled="currentChapterPage === 1"
-    >
-      <i class="ri-arrow-left-s-line"></i>
-    </button>
-    <button
-      class="join-item lg:hidden btn text-xs md:text-sm px-2 md:px-auto cursor-default"
-    >
-      <span class="hidden md:inline">第</span>
-      {{ currentChapterPage }}
-      <span class="hidden md:inline">页</span>
-      /
-      <span class="hidden md:inline">共</span>
-      {{ totalPages }}
-      <span class="hidden md:inline">页</span>
-    </button>
-    <button
-      v-for="(page, idx) in totalPages"
-      :key="idx"
-      @click="handleAnyPage(idx + 1)"
-      :class="idx === currentChapterPage - 1 ? 'btn-primary' : ''"
-      class="hidden lg:flex join-item btn"
-    >
-      {{ page }}
-    </button>
-    <button
-      class="join-item btn px-2"
-      @click="handleAnyPage(currentChapterPage + 1)"
-      :disabled="currentChapterPage === totalPages"
-    >
-      <i class="ri-arrow-right-s-line"></i>
-    </button>
+  <div
+    ref="paginationRef"
+    class="relative flex w-full min-w-0 justify-center px-2 sm:px-3"
+  >
+    <!-- 分页按钮组 -->
+    <div class="join max-w-full">
+      <!-- 上一页 -->
+      <button
+        type="button"
+        class="btn join-item min-w-9 px-2 min-h-10 h-10 sm:min-w-10"
+        :disabled="currentChapterPage === 1"
+        aria-label="上一页"
+        @click="handleAnyPage(currentChapterPage - 1)"
+      >
+        <i class="ri-arrow-left-s-line text-lg"></i>
+      </button>
+
+      <!-- 移动端中间按钮 -->
+      <button
+        type="button"
+        class="btn join-item min-w-0 max-w-[calc(100vw-7rem)] gap-1 overflow-hidden px-3 text-xs h-10 min-h-10 sm:max-w-48 sm:px-4 sm:text-sm lg:hidden"
+        :class="{ 'btn-active': isPageMenuOpen }"
+        :aria-expanded="isPageMenuOpen"
+        aria-haspopup="dialog"
+        @click="togglePageMenu"
+      >
+        <span class="truncate">
+          <span class="hidden xs:inline">第 </span>
+          <span class="font-semibold">{{ currentChapterPage }}</span>
+          <span class="hidden xs:inline"> 页</span>
+
+          <span class="mx-1 opacity-40">/</span>
+
+          <span class="opacity-70">
+            <span class="hidden xs:inline">共 </span>
+            {{ totalPages }}
+            <span class="hidden xs:inline"> 页</span>
+          </span>
+        </span>
+
+        <i
+          class="ri-arrow-up-s-line shrink-0 text-base transition-transform duration-200"
+          :class="{ 'rotate-180': !isPageMenuOpen }"
+        ></i>
+      </button>
+
+      <!-- 桌面端页码 -->
+      <template v-for="item in visiblePages" :key="item.key">
+        <button
+          v-if="item.type === 'page'"
+          type="button"
+          class="btn join-item hidden min-w-10 px-3 lg:flex"
+          :class="{ 'btn-primary': item.page === currentChapterPage }"
+          @click="handleAnyPage(item.page)"
+        >
+          {{ item.page }}
+        </button>
+
+        <button
+          v-else
+          type="button"
+          class="btn join-item hidden min-w-10 cursor-default px-2 lg:flex"
+          disabled
+        >
+          …
+        </button>
+      </template>
+
+      <!-- 下一页 -->
+      <button
+        type="button"
+        class="btn join-item min-w-9 px-2 min-h-10 h-10 sm:min-w-10"
+        :disabled="currentChapterPage === totalPages"
+        aria-label="下一页"
+        @click="handleAnyPage(currentChapterPage + 1)"
+      >
+        <i class="ri-arrow-right-s-line text-lg"></i>
+      </button>
+    </div>
+
+    <!-- 移动端页码弹层 -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition-opacity duration-200"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition-opacity duration-150"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="isPageMenuOpen"
+          class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-[1px] lg:hidden"
+          @click.self="closePageMenu"
+        >
+          <Transition
+            appear
+            enter-active-class="transition-transform duration-200 ease-out"
+            enter-from-class="translate-y-full"
+            enter-to-class="translate-y-0"
+            leave-active-class="transition-transform duration-150 ease-in"
+            leave-from-class="translate-y-0"
+            leave-to-class="translate-y-full"
+          >
+            <section
+              ref="pageMenuRef"
+              role="dialog"
+              aria-modal="true"
+              aria-label="选择页码"
+              class="fixed inset-x-3 bottom-3 z-[101] flex max-h-[min(38rem,calc(100dvh-1.5rem))] flex-col overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-2xl sm:left-1/2 sm:right-auto sm:w-[min(30rem,calc(100vw-2rem))] sm:-translate-x-1/2"
+            >
+              <!-- 拖动提示 -->
+              <div class="flex shrink-0 justify-center pb-1 pt-2.5">
+                <span class="h-1 w-10 rounded-full bg-base-content/15"></span>
+              </div>
+
+              <!-- 头部 -->
+              <header
+                class="flex shrink-0 items-center justify-between gap-4 border-b border-base-300 px-4 pb-3 pt-2 sm:px-5 sm:pb-4"
+              >
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-semibold">选择页码</h3>
+
+                  <p class="mt-1 text-sm text-base-content/60">
+                    当前第
+                    <span class="font-medium text-base-content">
+                      {{ currentChapterPage }}
+                    </span>
+                    页，共
+                    <span class="font-medium text-base-content">
+                      {{ totalPages }}
+                    </span>
+                    页
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-circle btn-ghost btn-sm shrink-0"
+                  aria-label="关闭页码列表"
+                  @click="closePageMenu"
+                >
+                  <i class="ri-close-line text-xl"></i>
+                </button>
+              </header>
+
+              <!-- 页码列表 -->
+              <div
+                ref="pageListRef"
+                class="grid min-h-0 flex-1 grid-cols-4 gap-2.5 overflow-y-auto overscroll-contain px-4 py-4 min-[390px]:grid-cols-5 sm:grid-cols-6 sm:gap-3 sm:px-5"
+              >
+                <button
+                  v-for="page in totalPages"
+                  :key="page"
+                  type="button"
+                  class="btn h-11 min-h-11 min-w-0 px-2 text-sm"
+                  :class="
+                    page === currentChapterPage
+                      ? 'btn-primary'
+                      : 'btn-ghost bg-base-200/70 hover:bg-base-300'
+                  "
+                  :aria-current="
+                    page === currentChapterPage ? 'page' : undefined
+                  "
+                  @click="selectPage(page)"
+                >
+                  {{ page }}
+                </button>
+              </div>
+
+              <!-- 底部快捷操作 -->
+              <footer
+                class="grid shrink-0 grid-cols-2 gap-3 border-t border-base-300 bg-base-200/40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-5"
+              >
+                <button
+                  type="button"
+                  class="btn min-w-0 gap-2"
+                  :disabled="currentChapterPage === 1"
+                  @click="selectPage(1)"
+                >
+                  <i class="ri-skip-left-line shrink-0"></i>
+                  <span>第一页</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="btn min-w-0 gap-2"
+                  :disabled="currentChapterPage === totalPages"
+                  @click="selectPage(totalPages)"
+                >
+                  <span>最后一页</span>
+                  <i class="ri-skip-right-line shrink-0"></i>
+                </button>
+              </footer>
+            </section>
+          </Transition>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useNovelStore } from "@/stores/novelStore";
+import { useChapters } from "@/composables/useChapters";
 
-// 状态管理
 const novelStore = useNovelStore();
 const { currentChapterPage, totalPages } = storeToRefs(novelStore);
 
-import { useChapters } from "@/composables/useChapters";
-
 const { handleAnyPage } = useChapters();
+
+const paginationRef = ref(null);
+const pageMenuRef = ref(null);
+const pageListRef = ref(null);
+const isPageMenuOpen = ref(false);
+const maxVisibleItems = ref(9);
+
+let resizeObserver;
+
+const updateVisibleCount = (width) => {
+  if (width < 1100) {
+    maxVisibleItems.value = 7;
+  } else if (width < 1280) {
+    maxVisibleItems.value = 9;
+  } else {
+    maxVisibleItems.value = 11;
+  }
+};
+
+const scrollToCurrentPage = async () => {
+  await nextTick();
+
+  const currentButton = pageListRef.value?.querySelector(
+    '[aria-current="page"]',
+  );
+
+  currentButton?.scrollIntoView({
+    block: "center",
+    behavior: "auto",
+  });
+};
+
+const togglePageMenu = async () => {
+  isPageMenuOpen.value = !isPageMenuOpen.value;
+
+  if (isPageMenuOpen.value) {
+    await scrollToCurrentPage();
+  }
+};
+
+const closePageMenu = () => {
+  isPageMenuOpen.value = false;
+};
+
+const selectPage = async (page) => {
+  closePageMenu();
+
+  if (page !== currentChapterPage.value) {
+    await handleAnyPage(page);
+  }
+};
+
+const handleClickOutside = (event) => {
+  if (
+    isPageMenuOpen.value &&
+    paginationRef.value &&
+    !paginationRef.value.contains(event.target)
+  ) {
+    closePageMenu();
+  }
+};
+
+const handleEscape = (event) => {
+  if (event.key === "Escape") {
+    closePageMenu();
+  }
+};
+
+onMounted(() => {
+  if (paginationRef.value) {
+    resizeObserver = new ResizeObserver(([entry]) => {
+      updateVisibleCount(entry.contentRect.width);
+    });
+
+    resizeObserver.observe(paginationRef.value);
+  }
+
+  document.addEventListener("pointerdown", handleClickOutside);
+  document.addEventListener("keydown", handleEscape);
+});
+
+onBeforeUnmount(() => {
+  resizeObserver?.disconnect();
+
+  document.removeEventListener("pointerdown", handleClickOutside);
+  document.removeEventListener("keydown", handleEscape);
+});
+
+const visiblePages = computed(() => {
+  const total = totalPages.value;
+  const current = currentChapterPage.value;
+  const limit = maxVisibleItems.value;
+
+  if (total <= limit) {
+    return Array.from({ length: total }, (_, index) => ({
+      type: "page",
+      page: index + 1,
+      key: `page-${index + 1}`,
+    }));
+  }
+
+  const siblingCount = Math.max(0, Math.floor((limit - 5) / 2));
+
+  let start = Math.max(2, current - siblingCount);
+  let end = Math.min(total - 1, current + siblingCount);
+
+  if (current <= siblingCount + 3) {
+    start = 2;
+    end = limit - 2;
+  }
+
+  if (current >= total - siblingCount - 2) {
+    start = total - limit + 3;
+    end = total - 1;
+  }
+
+  const items = [
+    {
+      type: "page",
+      page: 1,
+      key: "page-1",
+    },
+  ];
+
+  if (start > 2) {
+    items.push({
+      type: "ellipsis",
+      key: "ellipsis-left",
+    });
+  }
+
+  for (let page = start; page <= end; page++) {
+    items.push({
+      type: "page",
+      page,
+      key: `page-${page}`,
+    });
+  }
+
+  if (end < total - 1) {
+    items.push({
+      type: "ellipsis",
+      key: "ellipsis-right",
+    });
+  }
+
+  items.push({
+    type: "page",
+    page: total,
+    key: `page-${total}`,
+  });
+
+  return items;
+});
 </script>
