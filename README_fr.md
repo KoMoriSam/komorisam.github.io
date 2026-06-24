@@ -2,139 +2,202 @@
   <a href="https://komorisam.github.io/">
     <img src="https://komorisam.github.io/favicon.webp" alt="Logo" width="80" height="80">
   </a>
+</p>
 
-  <h1 align="center">✨ Blog personnel reconstruit avec Vite + Vue3 ✨</h1>
-  <p align="center">
-    🎨 Design propulsé par <a href="https://daisyui.com">daisyUI</a>
-    <br />
-    <br />
-    <span>
-      📂 <a href="https://github.com/KoMoriSam/komorisam.github.io">Voir le code source</a>
-    </span>
-    ·
-    <span>
-      🐞 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Signaler un bug</a>
-    </span>
-    ·
-    <span>
-      🚀 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Proposer une fonctionnalité</a>
-    </span>
-  </p>
+<h1 align="center">KoMoriSam</h1>
+
+<p align="center">
+  Un site personnel construit avec Vite, Vue 3 et daisyUI, réunissant une page d'accueil, un flux d'articles, un lecteur de roman, un système de commentaires, un journal des modifications et des pages de profil.
+</p>
+
+<p align="center">
+  <a href="https://komorisam.github.io/">Site en ligne</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io">Code source</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Signaler un problème</a>
+</p>
+
+<p align="center">
+  Dernière version : <strong>1.11.0</strong>
+  ·
+  <a href="https://komorisam.github.io/changelog">Voir le journal des modifications</a>
+</p>
 
 ---
 
-## 🚀 Démarrage rapide
+## Vue d'ensemble
 
-Quelques étapes suffisent pour exécuter ce projet de blog en local :
+Ce dépôt n'est plus une simple page de blog personnelle. Il s'agit désormais d'une application orientée contenu, centrée sur l'expérience de lecture et la publication de textes longs.
+
+Sections actuellement disponibles :
+
+- page d'accueil avec salutation et informations serveur
+- liste d'articles et lecteur d'article
+- catalogue de roman et lecteur basés sur Markdown
+- commentaires Giscus, y compris au niveau du paragraphe
+- pages à propos, contact et journal des modifications
+- améliorations de typographie et de lecture pour ordinateur et mobile
+
+Routes actuelles :
+
+- /
+- /article
+- /novel
+- /about
+- /contact
+- /changelog
+
+En développement, une route supplémentaire /test est disponible pour tester les composants et les interactions.
+
+## Stack technique
+
+- Vite 6
+- Vue 3
+- Vue Router
+- Pinia
+- Tailwind CSS 4
+- daisyUI 5
+- VueUse
+- vue-markdown-render
+- Giscus
+- highlight.js
+
+## Fonctionnalités
+
+### 1. Système d'articles
+
+- vues séparées pour la liste et le détail
+- rendu d'articles en Markdown
+- prise en charge des images au format Obsidian et normalisation des bannières
+- commentaires au niveau de l'article et du paragraphe
+
+Le contenu des articles provient actuellement de :
+
+- mock/article
+- mock/article/generate-index.mjs
+
+### 2. Système de lecture de roman
+
+- catalogue et lecteur séparés
+- chargement des chapitres via index et fichiers Markdown
+- persistance des réglages du lecteur et de l'état de lecture
+- améliorations dédiées à la typographie, au défilement et à la lecture longue
+
+Le contenu des romans se trouve actuellement dans :
+
+- mock/novel
+
+### 3. Commentaires et interactions
+
+- Giscus est utilisé comme backend de commentaires
+- des thèmes Giscus personnalisés suivent les thèmes du site
+- les commentaires de paragraphe peuvent récupérer le texte courant pour une discussion plus précise
+
+### 4. Données externes et fonctions annexes
+
+- bloc d'information serveur sur la page d'accueil
+- encapsulation de l'API de citation quotidienne conservée dans le projet
+- page de changelog alimentée par public/changelog.json
+
+## Démarrage rapide
+
+### Installer les dépendances
 
 ```bash
-# 1. Cloner le dépôt
-git clone https://github.com/KoMoriSam/komorisam.github.io.git
-
-# 2. Accéder au répertoire du projet
-cd komorisam.github.io
-
-# 3. Installer les dépendances
-npm install
-
-# 4. Lancer le serveur de développement
-npm run dev
-
-# 5. Générer une version de production
-npm run build
+pnpm install
 ```
 
-## 🗂️ Structure du projet
-
-Aperçu de la structure du projet pour une navigation rapide :
+### Lancer le serveur de développement
 
 ```bash
-KoMoriSam  
-├─ 📁src                    # Répertoire principal du code source  
-│  ├─ 📁assets              # Ressources statiques (images, polices, fichiers CSS)  
-│  ├─ 📁components          # Composants Vue (organisés par fonction/usage)  
-│  │  ├─ 📁base             # Composants de base/réutilisables (boutons, champs, etc.)  
-│  │  ├─ 📁layout           # Composants de mise en page (en-tête, pied de page, barre latérale)  
-│  │  ├─ 📁novel            # Composants liés aux romans  
-│  │  └─ 📁ui               # Composants d'interface (cartes, fenêtres modales, etc.)  
-│  ├─ 📁composables         # Fonctions composables Vue 3 (logique réutilisable)  
-│  ├─ 📁constants           # Valeurs constantes et configurations  
-│  ├─ 📁directive           # Directives Vue personnalisées  
-│  ├─ 📁router              # Configuration du routeur Vue  
-│  ├─ 📁services            # Services API et logique métier  
-│  ├─ 📁stores              # Stores de gestion d'état Pinia  
-│  ├─ 📁utils               # Fonctions utilitaires/d'aide  
-│  ├─ 📁views               # Composants de niveau page (composants de route)  
-│  ├─ 📄App.vue             # Composant racine Vue  
-│  ├─ 📄config.js           # Configuration de l'application  
-│  └─ 📄main.js             # Point d'entrée de l'application (création de l'instance Vue)  
-├─ 📄index.html             # Modèle HTML principal  
-├─ 📄package.json           # Métadonnées et dépendances du projet  
-└─ 📄vite.config.js         # Configuration de l'outil de build Vite  
+pnpm dev
 ```
 
----
+### Construire pour la production
 
-## ✅ Frameworks utilisés
+```bash
+pnpm build
+```
 
-- ⚡ [Vite](https://vite.dev/)
-- 🧩 [Vue3](https://vuejs.org/)
+### Prévisualiser la build
 
-## 🧱 Librairies de composants
+```bash
+pnpm preview
+```
 
-- 🌼 [daisyUI](https://daisyui.com/)
+## Variables d'environnement
 
-## 🔌 Plugins principaux
+Le projet utilise actuellement les variables Vite suivantes :
 
-- 🎨 [Tailwind CSS](https://tailwindcss.com/)
-- 🖼️ [Remix Icon](https://remixicon.com/)
-- 📄 [vue-markdown-render](https://github.com/cloudacy/vue-markdown-render)
+```bash
+VITE_API_ARTICLE_URL=
+VITE_API_NOVEL_URL=
+VITE_SERVER_ADDRESS=
+VITE_MXNZP_APP_ID=
+VITE_MXNZP_APP_SECRET=
+VITE_HOMEPAGE_URL=
+```
 
----
+Utilisation :
 
-## 🤝 Contribuer
+- VITE_API_ARTICLE_URL : source de l'index et des fichiers Markdown des articles
+- VITE_API_NOVEL_URL : source de l'index et du contenu des chapitres de roman
+- VITE_SERVER_ADDRESS : adresse serveur par défaut affichée sur l'accueil
+- VITE_MXNZP_APP_ID / VITE_MXNZP_APP_SECRET : identifiants pour l'API de citation quotidienne
+- VITE_HOMEPAGE_URL : URL de base du site pour certaines ressources liées au thème
 
-Toutes les contributions sont les bienvenues, y compris :
+Si vous utilisez uniquement le contenu statique local, veillez à faire pointer les URL d'API des articles et des romans vers les répertoires statiques correspondants ou vers un proxy local.
 
-- 🐞 Signalement de bugs
-- ✨ Propositions de nouvelles fonctionnalités
-- 🧹 Amélioration du code ou de la documentation
+## Organisation du contenu et du projet
 
-Avant de soumettre une Pull Request, merci de :
+```bash
+src/
+  components/
+    articles/      # liste d'articles, lecteur, commentaires de paragraphe, rendu Markdown
+    novel/         # détail du roman, infos de chapitre, contrôles du lecteur
+    reader/        # réglages et panneaux de style du lecteur
+    layout/        # mise en page et navigation
+  composables/     # logique réutilisable pour le scroll, les modales, les commentaires, les images, etc.
+  services/        # articles, chapitres, serveur, citations quotidiennes
+  stores/          # thème, changelog, état du lecteur
+  utils/           # Markdown, stockage, notifications de mise à jour, aides diverses
+  views/           # pages de niveau route
 
-- Respecter le style de code défini
-- Vérifier que votre fonctionnalité fonctionne correctement
-- Rédiger un message de commit clair et concis
+mock/
+  article/         # fichiers Markdown des articles, ressources et générateur d'index
+  novel/           # fichiers Markdown des romans et générateur d'index
 
----
+public/
+  changelog.json   # données du changelog
+  archive/         # anciennes pages statiques archivées
 
-## 🧪 Compatibilité
+themes/
+  giscus/          # thèmes Giscus personnalisés
+```
 
-Ce projet a été testé avec succès sur :
+## Notes de développement
 
-- ✅ Chrome (dernière version)
-- ✅ Firefox (dernière version)
-- ✅ Microsoft Edge
-- ✅ Navigateurs mobiles (iOS / Android)
+- le routage est défini dans src/router/index.js
+- les données du changelog sont lues depuis public/changelog.json
+- la configuration Giscus est centralisée dans src/constants/config.js
+- les API de contenu sont implémentées dans src/services/api-articles.js et src/services/api-chapters.js
+- les index des articles et des romans sont maintenus via des scripts generate-index.mjs
 
----
+## Compatibilité
 
-## 📜 Licence
+Le projet vise principalement les navigateurs modernes :
 
-Ce projet est sous licence MIT. Voir 📄 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) pour plus de détails.
+- Chrome
+- Firefox
+- Microsoft Edge
+- navigateurs mobiles courants
 
----
+## Licence
 
-## 🙏 Remerciements
+Ce projet est distribué sous licence MIT. Voir [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) pour plus de détails.
 
-- 📚 [Choose an Open Source License](https://choosealicense.com/)
-- 🌐 [GitHub Pages](https://pages.github.com/)
+## Langues
 
----
-
-## 🌍 Support multilingue
-
-📖 Ce fichier `README.md` supporte plusieurs langues :
-
-- 🇨🇳 [中文文档](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
-- 🌐 [English Version](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)
+- 中文: [README.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
+- English: [README_en.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)

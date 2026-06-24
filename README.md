@@ -2,139 +2,200 @@
   <a href="https://komorisam.github.io/">
     <img src="https://komorisam.github.io/favicon.webp" alt="Logo" width="80" height="80">
   </a>
+</p>
 
-  <h1 align="center">✨ 基于 Vite + Vue3 重构的个人博客 ✨</h1>
-  <p align="center">
-    🎨 视觉支持 <a href="https://daisyui.com">daisyUI</a>
-    <br />
-    <br />
-    <span>
-      📂 <a href="https://github.com/KoMoriSam/komorisam.github.io">查看源代码</a>
-    </span>
-    ·
-    <span>
-      🐞 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">报告 Bug</a>
-    </span>
-    ·
-    <span>
-      🚀 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">提出新特性</a>
-    </span>
-  </p>
+<h1 align="center">KoMoriSam</h1>
+
+<p align="center">
+  一个基于 Vite、Vue 3 与 daisyUI 构建的个人站点，包含首页、博客文章流、小说阅读器、评论系统、更新日志与联系页面。
+</p>
+
+<p align="center">
+  <a href="https://komorisam.github.io/">在线访问</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io">查看源代码</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">报告问题</a>
+</p>
+
+<p align="center">
+  当前版本：<strong>1.11.0</strong>
+  ·
+  <a href="https://komorisam.github.io/changelog">查看更新日志</a>
+</p>
 
 ---
 
-## 🚀 快速开始
+## 项目简介
 
-只需几步，即可在本地运行本博客项目：
+这个仓库已经不再只是一个简单的博客主页，而是一个围绕“内容展示与阅读体验”持续演进的个人站点应用。目前主要包含：
+
+- 首页问候与服务器信息展示
+- 博客文章列表与文章详情页
+- 基于 Markdown 的小说目录页与阅读器
+- Giscus 评论系统，以及段落级评论能力
+- 独立的关于、联系、更新日志页面
+- 针对桌面端与移动端优化过的阅读与排版体验
+
+站点当前路由包括：
+
+- /
+- /article
+- /novel
+- /about
+- /contact
+- /changelog
+
+开发环境下额外提供 /test 页面用于调试组件与交互。
+
+## 技术栈
+
+- Vite 6
+- Vue 3
+- Vue Router
+- Pinia
+- Tailwind CSS 4
+- daisyUI 5
+- VueUse
+- vue-markdown-render
+- Giscus
+- highlight.js
+
+## 主要功能
+
+### 1. 博客文章系统
+
+- 文章列表与详情页分离，支持从列表进入阅读
+- 文章内容使用 Markdown 渲染
+- 支持 Obsidian 风格图片引用与横幅图规范化
+- 支持文章级评论与段落级评论
+
+文章数据默认通过文章索引与 Markdown 文件提供：
+
+- 开发/静态内容来源：mock/article
+- 文章索引生成脚本：mock/article/generate-index.mjs
+
+### 2. 小说阅读系统
+
+- 小说目录页与阅读页分离
+- 章节内容通过索引文件与 Markdown 动态加载
+- 支持阅读器设置、阅读状态持久化与评论区集成
+- 针对长文本阅读做了字体、行高、滚动和分页相关优化
+
+小说内容当前位于：
+
+- mock/novel
+
+### 3. 评论与交互
+
+- 使用 Giscus 作为评论后端
+- 为全站主题适配自定义 Giscus 样式
+- 文章段落评论支持获取当前段落文本，方便定位讨论内容
+
+### 4. 附加信息流与外部数据
+
+- 首页包含服务器信息展示
+- 项目内保留每日一句接口服务封装
+- 更新日志通过 public/changelog.json 驱动页面展示
+
+## 快速开始
+
+### 安装依赖
 
 ```bash
-# 1. 克隆项目
-git clone https://github.com/KoMoriSam/komorisam.github.io.git
-
-# 2. 进入项目目录
-cd komorisam.github.io
-
-# 3. 安装依赖
-npm install
-
-# 4. 启动本地开发服务器
-npm run dev
-
-# 5. 构建生产版本
-npm run build
+pnpm install
 ```
 
-## 🗂️ 项目结构
-
-项目目录结构一览，便于快速定位：
+### 启动开发环境
 
 ```bash
-KoMoriSam  
-├─ 📁src                    # 主源代码目录  
-│  ├─ 📁assets              # 静态资源（图片、字体、CSS 文件）  
-│  ├─ 📁components          # Vue 组件（按功能/用途分类）  
-│  │  ├─ 📁base             # 基础/可复用组件（按钮、输入框等）  
-│  │  ├─ 📁layout           # 布局组件（页眉、页脚、侧边栏）  
-│  │  ├─ 📁novel            # 小说相关组件  
-│  │  └─ 📁ui               # UI 组件（卡片、弹窗等）  
-│  ├─ 📁composables         # Vue 3 组合式函数（可复用逻辑）  
-│  ├─ 📁constants           # 常量值和配置  
-│  ├─ 📁directive           # 自定义 Vue 指令  
-│  ├─ 📁router              # Vue Router 路由配置  
-│  ├─ 📁services            # API 服务和业务逻辑  
-│  ├─ 📁stores              # Pinia 状态管理存储  
-│  ├─ 📁utils               # 工具/辅助函数  
-│  ├─ 📁views               # 页面级组件（路由组件）  
-│  ├─ 📄App.vue             # 根 Vue 组件  
-│  ├─ 📄config.js           # 应用配置  
-│  └─ 📄main.js             # 应用入口（创建 Vue 实例）  
-├─ 📄index.html             # 主 HTML 模板  
-├─ 📄package.json           # 项目元数据和依赖  
-└─ 📄vite.config.js         # Vite 构建工具配置  
+pnpm dev
 ```
 
----
+### 构建生产版本
 
-## ✅ 使用到的框架
+```bash
+pnpm build
+```
 
-- ⚡ [Vite](https://vite.dev/)
-- 🧩 [Vue3](https://vuejs.org/)
+### 本地预览构建结果
 
-## 🧱 使用到的组件库
+```bash
+pnpm preview
+```
 
-- 🌼 [daisyUI](https://daisyui.com/)
+## 环境变量
 
-## 🔌 使用到的主要插件
+项目当前依赖以下 Vite 环境变量：
 
-- 🎨 [Tailwind CSS](https://tailwindcss.com/)
-- 🖼️ [Remix Icon](https://remixicon.com/)
-- 📄 [vue-markdown-render](https://github.com/cloudacy/vue-markdown-render)
+```bash
+VITE_API_ARTICLE_URL=
+VITE_API_NOVEL_URL=
+VITE_SERVER_ADDRESS=
+VITE_MXNZP_APP_ID=
+VITE_MXNZP_APP_SECRET=
+VITE_HOMEPAGE_URL=
+```
 
----
+说明：
 
-## 🤝 贡献指南
+- VITE_API_ARTICLE_URL：文章索引与文章 Markdown 的来源地址
+- VITE_API_NOVEL_URL：小说章节索引与正文来源地址
+- VITE_SERVER_ADDRESS：默认服务器地址
+- VITE_MXNZP_APP_ID / VITE_MXNZP_APP_SECRET：每日一句接口凭据
+- VITE_HOMEPAGE_URL：站点基地址，用于主题等静态资源引用
 
-欢迎任何形式的贡献，包括但不限于：
+如果你只在本地使用仓库内的静态内容，通常需要保证文章与小说接口地址能指向相应的静态目录或代理地址。
 
-- 🐞 报告 Bug
-- ✨ 提出新特性
-- 🧹 优化文档或代码结构
+## 内容与数据组织
 
-请通过 Issue 或 Pull Request 与我联系，在提交代码前请确保：
+```bash
+src/
+  components/
+    articles/      # 文章列表、文章阅读、段落评论、Markdown 渲染
+    novel/         # 小说详情、章节信息、阅读器控制
+    reader/        # 阅读器设置与样式相关组件
+    layout/        # 页面布局与导航
+  composables/     # 滚动、弹窗、评论、图片加载等可复用逻辑
+  services/        # 文章、小说、服务器、每日一句等接口封装
+  stores/          # 主题、更新日志、阅读器状态管理
+  utils/           # Markdown、storage、更新通知等工具
+  views/           # 页面路由入口
 
-- 遵循统一的代码风格
-- 功能已测试
-- 提交信息清晰简洁
+mock/
+  article/         # 博客文章 Markdown、图片与索引生成脚本
+  novel/           # 小说章节 Markdown 与索引生成脚本
 
----
+public/
+  changelog.json   # 更新日志数据
+  archive/         # 历史静态页面归档
 
-## 🧪 兼容性
+themes/
+  giscus/          # Giscus 自定义主题
+```
 
-该项目已在以下环境中测试通过：
+## 开发约定
 
-- ✅ Chrome（最新）
-- ✅ Firefox（最新）
-- ✅ Microsoft Edge
-- ✅ 移动端（iOS / Android）主流浏览器
+- 路由定义在 src/router/index.js
+- 更新日志页面数据来自 public/changelog.json
+- Giscus 配置集中在 src/constants/config.js
+- 文章与小说内容接口分别封装在 src/services/api-articles.js 与 src/services/api-chapters.js
+- 文章索引和小说索引通过 generate-index.mjs 脚本维护
 
----
+## 兼容性
 
-## 📜 版权说明
+当前主要面向现代浏览器：
 
-该项目签署了 MIT 授权许可，详情请参阅 📄 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE)
+- Chrome
+- Firefox
+- Microsoft Edge
+- 移动端主流浏览器
 
----
+## 许可证
 
-## 🙏 鸣谢
+本项目采用 MIT License，详见 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE)。
 
-- 📚 [Choose an Open Source License](https://choosealicense.com/)
-- 🌐 [GitHub Pages](https://pages.github.com/)
+## 多语言文档
 
----
-
-## 🌍 多语言支持
-
-📖 本 `README.md` 支持多语言：
-
-- 🌐 [English Version](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)
-- 🇫🇷 [Version française](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)
+- English: [README_en.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_en.md)
+- Français: [README_fr.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)

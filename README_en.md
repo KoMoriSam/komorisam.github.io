@@ -2,142 +2,202 @@
   <a href="https://komorisam.github.io/">
     <img src="https://komorisam.github.io/favicon.webp" alt="Logo" width="80" height="80">
   </a>
+</p>
 
-  <h1 align="center">✨ A Personal Blog Rebuilt with Vite + Vue 3 ✨</h1>
-  <p align="center">
-    🎨 UI powered by <a href="https://daisyui.com">daisyUI</a>
-    <br />
-    <br />
-    <span>
-      📂 <a href="https://github.com/KoMoriSam/komorisam.github.io">View Source</a>
-    </span>
-    ·
-    <span>
-      🐞 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Report Bug</a>
-    </span>
-    ·
-    <span>
-      🚀 <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Request Feature</a>
-    </span>
-  </p>
+<h1 align="center">KoMoriSam</h1>
+
+<p align="center">
+  A personal website built with Vite, Vue 3, and daisyUI, combining a homepage, blog article flow, novel reader, comments, changelog, and profile pages.
+</p>
+
+<p align="center">
+  <a href="https://komorisam.github.io/">Live Site</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io">Source Code</a>
+  ·
+  <a href="https://github.com/KoMoriSam/komorisam.github.io/issues">Issues</a>
+</p>
+
+<p align="center">
+  Latest version: <strong>1.11.0</strong>
+  ·
+  <a href="https://komorisam.github.io/changelog">View changelog</a>
+</p>
 
 ---
 
-## 🚀 Getting Started
+## Overview
 
-To run this project locally:
+This repository has evolved beyond a simple personal blog landing page. It is now a content-focused site application centered on reading experience and long-form publishing.
+
+Current sections include:
+
+- homepage greeting and server info
+- article list and article reader
+- Markdown-driven novel catalog and reader
+- Giscus comments, including paragraph-level discussion
+- about, contact, and changelog pages
+- responsive reading and typography improvements for desktop and mobile
+
+Current routes:
+
+- /
+- /article
+- /novel
+- /about
+- /contact
+- /changelog
+
+In development mode, an additional /test route is available for component and interaction testing.
+
+## Tech Stack
+
+- Vite 6
+- Vue 3
+- Vue Router
+- Pinia
+- Tailwind CSS 4
+- daisyUI 5
+- VueUse
+- vue-markdown-render
+- Giscus
+- highlight.js
+
+## Features
+
+### 1. Article System
+
+- dedicated article list and detail views
+- Markdown-based article rendering
+- Obsidian-style image reference support and banner normalization
+- article-level and paragraph-level comments
+
+Article content currently comes from:
+
+- mock/article
+- mock/article/generate-index.mjs
+
+### 2. Novel Reading System
+
+- separate catalog and reader views
+- chapter loading through index files and Markdown content
+- persisted reader settings and reading state
+- reader-focused typography, scrolling, and long-text experience improvements
+
+Novel content currently lives in:
+
+- mock/novel
+
+### 3. Comments and Interaction
+
+- Giscus is used as the comment backend
+- custom Giscus themes are mapped to site themes
+- paragraph comments can capture the current paragraph text for more precise discussion
+
+### 4. External Data and Side Features
+
+- homepage server info block
+- daily quote service wrapper kept in the project
+- changelog page driven by public/changelog.json
+
+## Quick Start
+
+### Install dependencies
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/KoMoriSam/komorisam.github.io.git
-
-# 2. Navigate to the project directory
-cd komorisam.github.io
-
-# 3. Install dependencies
-npm install
-
-# 4. Start the development server
-npm run dev
-
-# 5. Build for production
-npm run build
+pnpm install
 ```
 
----
-
-## 🗂️ Project Structure
-
-Here is a basic overview of the project structure:
+### Start development server
 
 ```bash
-KoMoriSam  
-├─ 📁src                    # Main source code directory  
-│  ├─ 📁assets              # Static assets (images, fonts, CSS files)  
-│  ├─ 📁components          # Vue components (organized by feature/use)  
-│  │  ├─ 📁base             # Base/reusable components (buttons, inputs, etc.)  
-│  │  ├─ 📁layout           # Layout components (header, footer, sidebar)  
-│  │  ├─ 📁novel            # Novel-related components  
-│  │  └─ 📁ui               # UI components (cards, modals, etc.)  
-│  ├─ 📁composables         # Vue 3 composable functions (reusable logic)  
-│  ├─ 📁constants           # Constant values and configurations  
-│  ├─ 📁directive           # Custom Vue directives  
-│  ├─ 📁router              # Vue Router configuration  
-│  ├─ 📁services            # API services and business logic  
-│  ├─ 📁stores              # Pinia state management stores  
-│  ├─ 📁utils               # Utility/helper functions  
-│  ├─ 📁views               # Page-level components (route components)  
-│  ├─ 📄App.vue             # Root Vue component  
-│  ├─ 📄config.js           # Application configuration  
-│  └─ 📄main.js             # Application entry (Vue instance creation)  
-├─ 📄index.html             # Main HTML template  
-├─ 📄package.json           # Project metadata and dependencies  
-└─ 📄vite.config.js         # Vite build tool configuration  
+pnpm dev
 ```
 
----
+### Build for production
 
-## ✅ Frameworks Used
+```bash
+pnpm build
+```
 
-- ⚡ [Vite](https://vite.dev/)
-- 🧩 [Vue 3](https://vuejs.org/)
+### Preview production build
 
-## 🧱 UI Library
+```bash
+pnpm preview
+```
 
-- 🌼 [daisyUI](https://daisyui.com/)
+## Environment Variables
 
-## 🔌 Main Plugins
+The project currently relies on these Vite environment variables:
 
-- 🎨 [Tailwind CSS](https://tailwindcss.com)
-- 🖼️ [Remix Icon](https://remixicon.com)
-- 📄 [vue-markdown-render](https://github.com/cloudacy/vue-markdown-render)
+```bash
+VITE_API_ARTICLE_URL=
+VITE_API_NOVEL_URL=
+VITE_SERVER_ADDRESS=
+VITE_MXNZP_APP_ID=
+VITE_MXNZP_APP_SECRET=
+VITE_HOMEPAGE_URL=
+```
 
----
+What they are used for:
 
-## 🤝 Contributing
+- VITE_API_ARTICLE_URL: article index and Markdown source
+- VITE_API_NOVEL_URL: novel chapter index and content source
+- VITE_SERVER_ADDRESS: default server address shown on the homepage
+- VITE_MXNZP_APP_ID / VITE_MXNZP_APP_SECRET: credentials for the daily quote API
+- VITE_HOMEPAGE_URL: site base URL used by theme-related assets
 
-Contributions are welcome! You can:
+If you want to use only local static content, make sure the article and novel API URLs point to the corresponding static directories or a local proxy.
 
-- 🐞 Report bugs
-- ✨ Suggest new features
-- 🧹 Improve documentation or refactor code
+## Content and Project Layout
 
-Please open an issue or submit a pull request. Before contributing, ensure that:
+```bash
+src/
+  components/
+    articles/      # article list, reader, paragraph comments, Markdown rendering
+    novel/         # novel detail, chapter info, reader controls
+    reader/        # reader settings and style panels
+    layout/        # layout and navigation
+  composables/     # reusable logic for scroll, modal, comments, images, etc.
+  services/        # articles, novel chapters, server info, daily quotes
+  stores/          # theme, changelog, reader state
+  utils/           # Markdown, storage, update notice, helpers
+  views/           # route-level pages
 
-- Your code follows the style guide
-- Your changes are tested
-- Your commit messages are clear and concise
+mock/
+  article/         # article Markdown files, assets, and index generator
+  novel/           # novel Markdown files and index generator
 
----
+public/
+  changelog.json   # changelog data
+  archive/         # archived static pages
 
-## 🧪 Compatibility
+themes/
+  giscus/          # custom Giscus themes
+```
 
-Tested and works on the following environments:
+## Development Notes
 
-- ✅ Chrome (latest)
-- ✅ Firefox (latest)
-- ✅ Microsoft Edge
-- ✅ Mobile browsers (iOS / Android)
+- routing is defined in src/router/index.js
+- changelog data is read from public/changelog.json
+- Giscus configuration is centralized in src/constants/config.js
+- content APIs are implemented in src/services/api-articles.js and src/services/api-chapters.js
+- article and novel indexes are maintained by generate-index.mjs scripts
 
----
+## Compatibility
 
-## 📜 License
+The project is primarily intended for modern browsers:
 
-This project is licensed under the MIT License.  
-See 📄 [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) for details.
+- Chrome
+- Firefox
+- Microsoft Edge
+- mainstream mobile browsers
 
----
+## License
 
-## 🙏 Acknowledgements
+This project is licensed under the MIT License. See [LICENSE](https://github.com/KoMoriSam/komorisam.github.io/blob/master/LICENSE) for details.
 
-- 📚 [Choose an Open Source License](https://choosealicense.com)
-- 🌐 [GitHub Pages](https://pages.github.com)
+## Languages
 
----
-
-## 🌍 Language Support
-
-📖 This `README.md` supports multiple languages:
-
-- 🇨🇳 [中文文档](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
-- 🇫🇷 [Version française](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)
+- 中文: [README.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README.md)
+- Français: [README_fr.md](https://github.com/KoMoriSam/komorisam.github.io/blob/main/README_fr.md)
