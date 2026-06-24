@@ -4,10 +4,19 @@
     class="fab max-lg:hidden"
     :class="fabClass"
   >
-    <div class="tooltip tooltip-left" :data-tip="mainLabel">
+    <div
+      class="tooltip tooltip-left"
+      :class="mainVisible ? 'opacity-100' : 'opacity-0'"
+      :data-tip="mainLabel"
+    >
       <button
         type="button"
-        :class="['btn btn-lg', mainShapeClass, mainButtonClass]"
+        :class="[
+          'btn btn-lg',
+          mainShapeClass,
+          mainButtonClass,
+          mainVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
+        ]"
         :aria-label="mainLabel"
         @click="mainOnClick()"
       >
