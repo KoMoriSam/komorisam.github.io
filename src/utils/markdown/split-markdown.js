@@ -27,6 +27,39 @@ export function splitMarkdown(content) {
   };
 
   const isHeading = (line) => /^#{1,6}\s/.test(line.trim());
+  const isBlockquoteLine = (line) => /^\s*>/.test(line);
+  const isCalloutStartLine = (line) =>
+    /^\s*>\s*\[![a-z][a-z0-9_-]*\](?:[+-])?(?:[ \t]+[^\r\n]*)?\s*$/i.test(line);
+  const collectBlockquoteBlock = (startIndex) => {
+    let block = paras[startIndex];
+    let j = startIndex + 1;
+
+    while (j < paras.length) {
+      const line = paras[j];
+      const trimmed = line.trim();
+      const nextLine = paras[j + 1] || "";
+
+      if (isBlockquoteLine(line)) {
+        block += "\n" + line;
+        j++;
+        continue;
+      }
+
+      if (!trimmed) {
+        // A real blank line separates adjacent blockquote/callout blocks.
+        break;
+      }
+
+      // Markdown blockquote lazy continuation line.
+      block += "\n" + line;
+      j++;
+    }
+
+    return {
+      block,
+      nextIndex: j,
+    };
+  };
 
   for (let i = 0; i < paras.length; i++) {
     const para = paras[i];
@@ -45,6 +78,44 @@ export function splitMarkdown(content) {
 
     if (inCodeBlock || inCustomContainer) {
       currentPage = candidate;
+      continue;
+    }
+
+    const isCalloutStart = isCalloutStartLine(para);
+
+    if (isCalloutStart) {
+      const { block, nextIndex } = collectBlockquoteBlock(i);
+      tempBuffer += (tempBuffer ? "\n" : "") + block;
+
+      const calloutCandidate =
+        (currentPage ? currentPage + "\n" : "") + tempBuffer;
+      if (visualLength(calloutCandidate) > PAGE_SIZE) {
+        flushPage();
+        currentPage = tempBuffer;
+      } else {
+        currentPage = calloutCandidate;
+      }
+
+      tempBuffer = "";
+      i = nextIndex - 1;
+      continue;
+    }
+
+    const isBlockquote = isBlockquoteLine(para);
+
+    if (isBlockquote) {
+      const { block, nextIndex } = collectBlockquoteBlock(i);
+      tempBuffer += (tempBuffer ? "\n" : "") + block;
+      const blockquoteCandidate =
+        (currentPage ? currentPage + "\n" : "") + tempBuffer;
+      if (visualLength(blockquoteCandidate) > PAGE_SIZE) {
+        flushPage();
+        currentPage = tempBuffer;
+      } else {
+        currentPage = blockquoteCandidate;
+      }
+      tempBuffer = "";
+      i = nextIndex - 1;
       continue;
     }
 
