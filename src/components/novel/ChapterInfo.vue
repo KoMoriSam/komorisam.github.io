@@ -1,5 +1,5 @@
 <template>
-  <section class="flex justify-between gap-2">
+  <section class="flex justify-between gap-2 w-full">
     <a
       :class="[
         'btn justify-start font-bold flex-2 gap-2 md:gap-4 truncate group',
@@ -7,10 +7,13 @@
       ]"
       @click="onClick"
     >
-      <!-- <span class="badge badge-secondary badge-xs group-hover:badge-soft">
-        {{ badge }}
-      </span> -->
-      <i class="ri-star-fill text-2xl md:text-lg"></i>
+      <span v-if="badge">
+        <span class="badge badge-xs group-hover:badge-soft mr-2">
+          {{ badge }}
+        </span>
+        {{ content }}
+      </span>
+      <i v-else class="ri-star-fill text-2xl md:text-lg"></i>
       <slot name="content"></slot>
     </a>
     <slot name="aside"></slot>
