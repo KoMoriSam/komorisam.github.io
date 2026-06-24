@@ -5,6 +5,7 @@ import { useGlobalEventListener } from "@/composables/useGlobalEventListener";
 
 export const useParagraphComments = () => {
   const modal = useModal();
+  const MAX_TITLE_LENGTH = 36;
 
   const handleCommentClick = (e) => {
     const trigger = e.target.closest(".comment-trigger");
@@ -19,7 +20,22 @@ export const useParagraphComments = () => {
       return;
     }
 
-    modal.info("当前段评", h(ParaGiscus, { paragraphId }));
+    const paragraphElement = document.getElementById(paragraphId);
+    const paragraphText = paragraphElement?.textContent?.trim() || "当前段评";
+    const truncatedTitle =
+      paragraphText.length > MAX_TITLE_LENGTH
+        ? `${paragraphText.slice(0, MAX_TITLE_LENGTH)}...`
+        : paragraphText;
+    const titleNode = h("div", { class: "space-y-1" }, [
+      h("p", { class: "text-xs font-medium opacity-60" }, "当前段评"),
+      h(
+        "p",
+        { class: "text-sm font-semibold font-serif leading-snug break-all" },
+        truncatedTitle,
+      ),
+    ]);
+
+    modal.info(titleNode, h(ParaGiscus, { paragraphId }));
   };
 
   const { addEventListener } = useGlobalEventListener(
