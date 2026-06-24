@@ -29,6 +29,11 @@ const navLinks = computed(() => [
     to: { name: "home" },
   },
   {
+    name: "博客",
+    icon: "ri-article-line lg:text-xl",
+    to: { name: "article" },
+  },
+  {
     name: "小说",
     icon: "ri-book-3-line lg:text-xl",
     to: { name: "novel" },

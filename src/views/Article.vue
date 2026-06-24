@@ -1,0 +1,132 @@
+<template>
+  <KeepAlive>
+    <ArticleList
+      v-if="currentComponent === 'ArticleList'"
+      :articles="articles"
+      :loading="loadingList"
+      @select="goToDetail"
+    />
+    <ArticleDetail
+      v-else-if="currentComponent === 'ArticleDetail'"
+      :article="currentArticle"
+      :content="articleContent"
+      :loading="loadingContent"
+      :error="errorContent"
+      @refresh="refreshCurrentArticle"
+      @back="goToList"
+    />
+  </KeepAlive>
+</template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useArticleApi } from "@/services/api-articles";
+
+import { useScrollTo } from "@/composables/useScrollTo";
+
+import ArticleList from "@/components/articles/ArticleList.vue";
+import ArticleDetail from "@/components/articles/ArticleReader.vue";
+
+const route = useRoute();
+const router = useRouter();
+
+const { scrollToTop } = useScrollTo();
+
+const { fetchArticleList, fetchArticleContent } = useArticleApi();
+
+// 当前显示组件
+const currentComponent = ref("ArticleList");
+
+// 列表数据
+const articles = ref([]);
+const loadingList = ref(false);
+
+// 详情数据
+const currentArticle = ref(null);
+const articleContent = ref("");
+const loadingContent = ref(false);
+const errorContent = ref("");
+
+// 加载文章列表
+const loadArticles = async () => {
+  loadingList.value = true;
+  try {
+    articles.value = await fetchArticleList();
+  } catch (err) {
+    console.error("加载文章列表失败:", err);
+  } finally {
+    loadingList.value = false;
+  }
+};
+
+// 进入文章详情
+const goToDetail = (id) => {
+  currentComponent.value = "ArticleDetail";
+  router.push({ query: { article: id } });
+  scrollToTop();
+};
+
+// 返回文章列表
+const goToList = () => {
+  currentComponent.value = "ArticleList";
+  router.push({ query: {} });
+  scrollToTop();
+};
+
+// 加载文章内容
+const loadArticleContent = async (id) => {
+  const article = articles.value.find((a) => a.id === id);
+  if (!article) {
+    errorContent.value = "文章不存在";
+    return;
+  }
+
+  currentArticle.value = article;
+  loadingContent.value = true;
+  errorContent.value = "";
+
+  try {
+    articleContent.value = await fetchArticleContent(article.path);
+  } catch (err) {
+    console.error("加载文章内容失败:", err);
+    errorContent.value = "加载文章内容失败";
+  } finally {
+    loadingContent.value = false;
+  }
+};
+
+const refreshCurrentArticle = async () => {
+  const id = route.query.article || currentArticle.value?.id;
+
+  if (!id) return;
+
+  await loadArticleContent(String(id));
+};
+
+// 监听路由 query 参数
+import { watch } from "vue";
+watch(
+  () => route.query.article,
+  (newId) => {
+    if (newId) {
+      currentComponent.value = "ArticleDetail";
+      loadArticleContent(newId);
+    } else {
+      currentComponent.value = "ArticleList";
+    }
+  },
+);
+
+// 初始加载
+onMounted(async () => {
+  await loadArticles();
+
+  // 恢复上次阅读的文章
+  const articleId = route.query.article;
+  if (articleId) {
+    currentComponent.value = "ArticleDetail";
+    await loadArticleContent(articleId);
+  }
+});
+</script>
