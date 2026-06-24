@@ -6,7 +6,9 @@
     @keydown.esc="handleSubmit"
   >
     <section ref="modalRef" class="modal-box">
-      <h3 class="text-lg font-bold">{{ title }}</h3>
+      <slot name="title">
+        <h3 class="text-lg font-bold">{{ title }}</h3>
+      </slot>
       <section class="py-4">
         <slot name="description">
           <p>{{ description }}</p>
@@ -28,7 +30,7 @@ import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps({
   title: {
-    type: String,
+    type: [String, Object],
     default: "Hello!",
   },
   description: {

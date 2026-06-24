@@ -53,11 +53,15 @@ const modal = {
               visible: visible.value,
             },
             {
+              title: () =>
+                typeof title === "string"
+                  ? h("h3", { class: "text-lg font-bold" }, title)
+                  : h("div", { class: "text-lg font-bold" }, title),
               description: () =>
                 typeof description === "string"
                   ? h("p", description)
                   : h("div", description),
-            }
+            },
           );
       },
     });
