@@ -42,7 +42,7 @@ export const useNovelState = () => {
   const title = ref("向远方 | KoMoriSam");
   const { getSetting, setSetting } = useReaderSettingsStorage();
   const currentComponent = computed({
-    get: () => getSetting("NOVEL_CURRENT_COMPONENT", "BookDetail"),
+    get: () => getSetting("NOVEL_CURRENT_COMPONENT", "NovelDetail"),
     set: (value) => setSetting("NOVEL_CURRENT_COMPONENT", value),
   });
   const isLoadingList = ref(true);

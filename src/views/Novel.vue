@@ -10,14 +10,14 @@
 <script setup>
 import { useChapterSetup } from "@/composables/useChapterSetup";
 
-import BookDetail from "@/components/novel/BookDetail.vue";
-import Reader from "@/components/novel/Reader.vue";
+import NovelDetail from "@/components/novel/NovelDetail.vue";
+import Reader from "@/components/novel/NovelReader.vue";
 
 const { setupWatchers } = useChapterSetup();
 setupWatchers();
 
 const components = {
-  BookDetail,
+  NovelDetail,
   Reader,
 };
 
@@ -28,7 +28,7 @@ const { getSetting, setSetting } = useReaderSettingsStorage();
 
 // 主组件切换逻辑
 const currentComponent = ref(
-  getSetting("NOVEL_CURRENT_COMPONENT", "BookDetail")
+  getSetting("NOVEL_CURRENT_COMPONENT", "NovelDetail"),
 );
 
 // 监听存储变化，确保响应式更新
@@ -36,7 +36,7 @@ watch(
   () => getSetting("NOVEL_CURRENT_COMPONENT"),
   (newValue) => {
     currentComponent.value = newValue;
-  }
+  },
 );
 
 const toggleComponent = () => {

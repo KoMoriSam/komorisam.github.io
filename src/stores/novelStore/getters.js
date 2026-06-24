@@ -9,18 +9,22 @@ export const useNovelGetters = (state) => {
   return {
     currentChapter: computed(() => {
       return state.flatChapters.value.find(
-        (chapter) => chapter.uuid === state.currentChapterUuid.value
+        (chapter) => chapter.uuid === state.currentChapterUuid.value,
       );
     }),
 
     currentChapterIndex: computed(() => {
       return state.flatChapters.value.findIndex(
-        (chapter) => chapter.uuid === state.currentChapterUuid.value
+        (chapter) => chapter.uuid === state.currentChapterUuid.value,
       );
     }),
 
     latestChapter: computed(() => {
-      const recentChapters = state.flatChapters.value.filter((chapter) => {
+      const visibleChapters = state.flatChapters.value.filter((chapter) => {
+        return !chapter.volumeTitle?.toLowerCase().includes("test");
+      });
+
+      const recentChapters = visibleChapters.filter((chapter) => {
         const dateToCheck = chapter.modifiedDate || chapter.uploadDate;
         return isRecent(dateToCheck);
       });
@@ -29,7 +33,7 @@ export const useNovelGetters = (state) => {
         return recentChapters[recentChapters.length - 1];
       }
 
-      return state.flatChapters.value[state.flatChapters.value.length - 1];
+      return visibleChapters[visibleChapters.length - 1];
     }),
 
     totalPages: computed(() => {
@@ -40,7 +44,7 @@ export const useNovelGetters = (state) => {
     currentPageContent: computed(
       () =>
         state.currentChapterContent.value[state.currentChapterPage.value - 1] ||
-        ""
+        "",
     ),
   };
 };

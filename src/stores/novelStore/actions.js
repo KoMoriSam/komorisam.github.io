@@ -26,7 +26,7 @@ export const useNovelActions = (state, getters) => {
   };
 
   const setRead = () => {
-    if (state.currentComponent.value === "BookDetail") {
+    if (state.currentComponent.value === "NovelDetail") {
       console.log("setRead: not in Reader component, skipping");
       return;
     }
@@ -181,7 +181,7 @@ export const useNovelActions = (state, getters) => {
   }, 500);
 
   const updateTitle = () => {
-    if (state.currentComponent.value === "BookDetail") {
+    if (state.currentComponent.value === "NovelDetail") {
       state.title.value = "向远方 | KoMoriSam";
       useTitle(state.title.value);
     }

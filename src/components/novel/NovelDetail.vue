@@ -84,7 +84,7 @@ import { useNovelStore } from "@/stores/novelStore";
 import { useThemeStore } from "@/stores/themeStore";
 
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
-import Chapters from "@/components/novel/Chapters.vue";
+import Chapters from "@/components/novel/ChapterList.vue";
 import ToTop from "@/components/base/ToTop.vue";
 import FootBar from "@/components/layout/FootBar.vue";
 

@@ -1,42 +1,10 @@
 <template>
-  <header v-if="headerData" class="flex flex-wrap md:items-end gap-2 group">
-    <h1 class="text-4xl font-black text-pretty">
-      <span
-        v-if="headerData.meta"
-        class="badge badge-outline badge-info font-normal mb-2"
-      >
-        <i class="ri-bookmark-line"></i>
-        {{ headerData.meta }}
-      </span>
-      <br />
-      <!-- <i v-if="headerData.icon" :class="headerData.icon + ' font-normal'"></i> -->
-      {{ headerData.title }}
-      <div
-        v-if="showRefresh"
-        class="tooltip tooltip-bottom md:opacity-0 group-hover:opacity-100 transition-opacity mb-2.75"
-        data-tip="刷新内容"
-      >
-        <button class="btn btn-xs" @click="$emit('refresh')">
-          <i class="ri-refresh-line"></i>
-        </button>
-      </div>
-    </h1>
-    <ul v-if="headerData.stats" class="max-md:min-w-full md:ml-auto">
-      <li v-for="(stat, index) in headerData.stats" :key="index">
-        <span class="badge badge-sm">
-          <i v-if="stat.icon" :class="stat.icon"></i>
-          {{ stat.text }}
-        </span>
-      </li>
-    </ul>
-  </header>
-
   <Loading :size="`my-64`" v-if="isLoading" />
 
   <article
     v-else
     id="markdown-content"
-    class="prose prose-2xl max-w-none prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
+    class="prose prose-2xl min-w-0 w-full max-w-full prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
     :class="styleConfigs.fontStyle"
     :style="{
       '--para-font-size': `${styleConfigs.fontSize}px`,
@@ -57,7 +25,6 @@
       :options="options"
       :plugins="plugins"
     />
-    <h1 v-else-if="!headerData">请选择内容</h1>
     <h1 v-else>加载失败，请稍后重试。</h1>
   </article>
 </template>
@@ -79,12 +46,10 @@ const props = defineProps({
   headerData: {
     type: Object,
     default: () => ({
-      title: "", // 主标题
-      uuid: "", // 唯一章节 ID
-      page: 1, // 当前页码
-      meta: "", // 元信息（副标题）
-      icon: "", // 标题图标
-      stats: [], // 统计信息数组
+      title: "",
+      uuid: "",
+      page: 1,
+      meta: "",
     }),
   },
 
@@ -105,15 +70,13 @@ const props = defineProps({
     type: Object,
     default: () => ({
       fontStyle: "font-kai", // 字体样式类名
-      fontSize: 24, // 字体大小(px)
+      fontSize: 22, // 字体大小(px)
       fontGap: 0, // 字间距
-      lineHeight: 1.5, // 行间距
+      lineHeight: 1.6, // 行间距
       paraHeight: 1, // 段间距
     }),
   },
 });
-
-console.log("Markdown.vue props:", props);
 
 const emit = defineEmits(["refresh"]);
 
@@ -146,6 +109,30 @@ import { useParagraphComments } from "@/utils/markdown/markdown-it-giscus";
 
 const paragraphPlugin = useParagraphComments();
 
+const tableWrapperPlugin = (md) => {
+  const defaultTableOpen =
+    md.renderer.rules.table_open ||
+    function (tokens, idx, options, env, self) {
+      return self.renderToken(tokens, idx, options);
+    };
+  const defaultTableClose =
+    md.renderer.rules.table_close ||
+    function (tokens, idx, options, env, self) {
+      return self.renderToken(tokens, idx, options);
+    };
+
+  md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
+    return (
+      '<div class="markdown-table-wrapper">' +
+      defaultTableOpen(tokens, idx, options, env, self)
+    );
+  };
+
+  md.renderer.rules.table_close = function (tokens, idx, options, env, self) {
+    return defaultTableClose(tokens, idx, options, env, self) + "</div>";
+  };
+};
+
 const plugins = computed(() => [
   paragraphPlugin(props.headerData.uuid, props.headerData.page),
   MarkdownItAbbr,
@@ -162,5 +149,6 @@ const plugins = computed(() => [
   MarkdownItSup,
   MarkdownItKatex,
   MarkdownItTaskLists,
+  tableWrapperPlugin,
 ]);
 </script>

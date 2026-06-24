@@ -33,7 +33,7 @@
               class="block"
               :class="{
                 'menu-active':
-                  currentComponent !== 'BookDetail' &&
+                  currentComponent !== 'NovelDetail' &&
                   chapter.uuid === currentChapterUuid,
                 'btn-disabled': isDisabled,
               }"
@@ -104,7 +104,7 @@ const { isRead, handleAnyChapter, isRecent } = useChapters();
 
 const handleChapter = (newId) => {
   handleAnyChapter(newId);
-  if (currentComponent.value === "BookDetail") {
+  if (currentComponent.value === "NovelDetail") {
     props.togglePage();
   }
 };
