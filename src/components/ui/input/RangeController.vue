@@ -4,7 +4,7 @@
     :min="min"
     :max="max"
     :step="step"
-    class="range range-info join-item text-center"
+    class="range range-accent range-xs join-item text-center"
     :value="modelValue"
     @input="updateValue($event.target.value)"
   />
@@ -17,6 +17,7 @@ const props = defineProps({
   places: { type: Number, default: 2 },
   min: Number, // 可选最小值
   max: Number, // 可选最大值
+  additionalClasses: { type: String, default: "" }, // 额外的类名
 });
 
 const emit = defineEmits(["update:modelValue"]);

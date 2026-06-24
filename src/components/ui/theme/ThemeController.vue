@@ -7,12 +7,12 @@
     </div>
     <ul
       tabindex="0"
-      class="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-5 w-max p-0 shadow"
+      class="menu menu-sm dropdown-content bg-base-200 rounded-box z-20 mt-5 w-max p-0 shadow"
     >
       <li v-for="style in themeList" :key="style.value">
         <div class="relative inline-block">
           <i
-            class="absolute translate-x-2.25 translate-y-3 lg:translate-y-3.25 z-1"
+            class="absolute translate-x-2.25 translate-y-3 lg:translate-y-3.25 z-20"
             :class="`${style.icon} ${
               style.name === currentTheme.name ? 'text-primary-content' : ''
             }`"

@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center justify-between my-6 gap-1 md:gap-2">
+  <nav class="flex items-center justify-between my-4 gap-1 md:gap-2">
     <!-- 上一章 -->
     <button
       class="btn btn-primary px-2 md:px-auto"

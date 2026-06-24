@@ -13,7 +13,7 @@
         </div>
         <ul
           tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-5 w-max p-0 shadow"
+          class="menu menu-sm dropdown-content bg-base-200 rounded-box z-20 mt-5 w-max p-0 shadow"
         >
           <NavLinks />
         </ul>

@@ -1,16 +1,17 @@
 <template>
-  <main>
-    <div class="join flex items-center">
+  <main class="space-y-1">
+    <div class="flex items-center join">
       <button
-        class="btn btn-soft btn-info join-item"
+        type="button"
+        class="btn btn-soft btn-accent join-item"
         :disabled="isMin"
         @click="decrease"
       >
         <i class="ri-subtract-line"></i>
       </button>
       <input
-        class="input validator join-item text-center w-36"
-        type="Number"
+        class="input validator join-item w-full text-center font-medium"
+        type="number"
         :step="step"
         :min="min"
         :max="max"
@@ -18,13 +19,15 @@
         @input="updateValue($event.target.value)"
       />
       <button
-        class="btn btn-soft btn-info join-item"
+        type="button"
+        class="btn btn-soft btn-accent join-item"
         :disabled="isMax"
         @click="increase"
       >
         <i class="ri-add-line"></i>
       </button>
     </div>
+
     <RangeController
       v-model="formattedValue"
       :step="step"
@@ -57,10 +60,10 @@ const formattedValue = computed({
 
 // 计算是否禁用按钮
 const isMin = computed(
-  () => props.min !== undefined && props.modelValue <= props.min
+  () => props.min !== undefined && props.modelValue <= props.min,
 );
 const isMax = computed(
-  () => props.max !== undefined && props.modelValue >= props.max
+  () => props.max !== undefined && props.modelValue >= props.max,
 );
 
 const updateValue = (val) => {

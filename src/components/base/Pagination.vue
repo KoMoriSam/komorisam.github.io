@@ -1,14 +1,14 @@
 <template>
   <div
     ref="paginationRef"
-    class="relative flex w-full min-w-0 justify-center px-2 sm:px-3"
+    class="relative flex w-full min-w-0 justify-center px-1 sm:px-2"
   >
     <!-- 分页按钮组 -->
     <div class="join max-w-full">
       <!-- 上一页 -->
       <button
         type="button"
-        class="btn join-item min-w-9 px-2 min-h-10 h-10 sm:min-w-10"
+        class="btn join-item min-w-9 px-1 min-h-10 h-10 sm:min-w-10"
         :disabled="currentChapterPage === 1"
         aria-label="上一页"
         @click="handleAnyPage(currentChapterPage - 1)"
@@ -19,7 +19,7 @@
       <!-- 移动端中间按钮 -->
       <button
         type="button"
-        class="btn join-item min-w-0 max-w-[calc(100vw-7rem)] gap-1 overflow-hidden px-3 text-xs h-10 min-h-10 sm:max-w-48 sm:px-4 sm:text-sm lg:hidden"
+        class="btn join-item min-w-0 max-w-[calc(100vw-7rem)] gap-1 overflow-hidden px-2 text-xs h-10 min-h-10 sm:max-w-48 sm:px-3 sm:text-sm lg:hidden"
         :class="{ 'btn-active': isPageMenuOpen }"
         :aria-expanded="isPageMenuOpen"
         aria-haspopup="dialog"
@@ -60,7 +60,7 @@
         <button
           v-else
           type="button"
-          class="btn join-item hidden min-w-10 cursor-default px-2 lg:flex"
+          class="btn join-item hidden min-w-10 cursor-default px-1 lg:flex"
           disabled
         >
           …
@@ -70,7 +70,7 @@
       <!-- 下一页 -->
       <button
         type="button"
-        class="btn join-item min-w-9 px-2 min-h-10 h-10 sm:min-w-10"
+        class="btn join-item min-w-9 px-1 min-h-10 h-10 sm:min-w-10"
         :disabled="currentChapterPage === totalPages"
         aria-label="下一页"
         @click="handleAnyPage(currentChapterPage + 1)"
