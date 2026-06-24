@@ -7,7 +7,7 @@ export const STYLE_CONFIG_KEYS = [
   {
     key: "fontSize",
     storageKey: "STYLE_FONT_SIZE",
-    default: 24,
+    default: 22,
   },
   {
     key: "fontGap",
@@ -17,7 +17,7 @@ export const STYLE_CONFIG_KEYS = [
   {
     key: "lineHeight",
     storageKey: "CONTENT_LINE_HEIGHT",
-    default: 1.5,
+    default: 1.6,
   },
   {
     key: "paraHeight",
