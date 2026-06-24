@@ -4,17 +4,84 @@ export function useScrollTo() {
   const showButton = ref(false);
   const scrollRef = ref(null);
 
-  const scrollToTop = (position = 0) => {
-    window.scrollTo({ top: position, behavior: "smooth" });
+  const isScrollableElement = (element) => {
+    if (!element) return false;
+
+    const style = window.getComputedStyle(element);
+    const overflowY = style.overflowY;
+    const canScroll = overflowY === "auto" || overflowY === "scroll";
+
+    return canScroll && element.scrollHeight > element.clientHeight;
   };
+
+  const getScrollContainer = () => {
+    const element = scrollRef.value;
+
+    if (!element) return window;
+
+    let parent = element.parentElement;
+    while (parent) {
+      if (isScrollableElement(parent)) {
+        return parent;
+      }
+
+      parent = parent.parentElement;
+    }
+
+    return window;
+  };
+
+  const scrollContainerTo = (container, top) => {
+    if (container === window) {
+      window.scrollTo({ top, behavior: "smooth" });
+      return;
+    }
+
+    container.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const scrollToTop = (position = 0) => {
+    const container = getScrollContainer();
+    scrollContainerTo(container, position);
+  };
+
   const scrollToBottom = () => {
-    setTimeout(() => {
-      console.log("内容增加时", scrollRef.value.scrollHeight);
-      window.scrollTo({
-        top: scrollRef.value.scrollHeight,
-        behavior: "smooth",
-      });
-    }, 20); // 延迟 20ms 以获取到更新后的 dom 节点
+    const container = getScrollContainer();
+
+    if (container === window) {
+      const target = scrollRef.value;
+
+      if (target) {
+        const top =
+          target.getBoundingClientRect().top +
+          window.scrollY +
+          target.scrollHeight -
+          window.innerHeight;
+
+        scrollContainerTo(window, Math.max(0, top));
+        return;
+      }
+
+      const maxTop = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+      );
+      scrollContainerTo(window, Math.max(0, maxTop - window.innerHeight));
+      return;
+    }
+
+    const target = scrollRef.value;
+    if (target && container.contains(target)) {
+      const top =
+        target.offsetTop + target.scrollHeight - container.clientHeight;
+      scrollContainerTo(container, Math.max(0, top));
+      return;
+    }
+
+    scrollContainerTo(
+      container,
+      Math.max(0, container.scrollHeight - container.clientHeight),
+    );
   };
 
   const handleScroll = () => {
