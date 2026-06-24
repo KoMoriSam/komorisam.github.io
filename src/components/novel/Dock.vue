@@ -1,67 +1,14 @@
 <template>
   <aside class="max-lg:dock">
-    <FloatingButton
-      for="novel-sidebar"
-      icon="ri-settings-3-line"
-      label="设置"
-      position-classes="lg:bottom-88"
-      button-class="lg:btn-primary"
-      :onClick="() => emitToolChange('FormatToolbox')"
-    />
-    <FloatingButton
-      for="novel-sidebar"
-      icon="ri-file-list-2-line"
-      label="目录"
-      position-classes="lg:bottom-74"
-      button-class="lg:btn-primary"
-      :onClick="() => emitToolChange('Chapters')"
-    />
-    <FloatingButton
-      for=""
-      icon="ri-arrow-go-back-line"
-      label="封面页"
-      position-classes="lg:bottom-60"
-      button-class="lg:btn-secondary"
-      :onClick="
-        () => {
-          scrollToTop();
-          togglePage();
-        }
-      "
-    />
-    <FloatingButton
-      for=""
-      :icon="
-        isFullscreen ? 'ri-collapse-diagonal-fill' : 'ri-expand-diagonal-fill'
-      "
-      label="全屏"
-      position-classes="lg:bottom-46"
-      button-class="lg:btn-secondary"
-      :onClick="toggle"
-    />
-    <FloatingButton
-      for=""
-      icon="ri-skip-up-line"
-      label="回到顶部"
-      position-classes="lg:bottom-32"
-      button-class="lg:btn-info"
-      :onClick="() => scrollToTop()"
-    />
-    <FloatingButton
-      for=""
-      icon="ri-skip-down-line"
-      label="回到底部"
-      position-classes="lg:bottom-18"
-      button-class="lg:btn-info"
-      :onClick="() => scrollToBottom()"
-    />
+    <FloatingActionButton main-icon="ri-more-line" :actions="fabActions" />
   </aside>
 </template>
 
 <script setup>
-import FloatingButton from "@/components/ui/button/FloatingButton.vue";
+import { computed } from "vue";
+import FloatingActionButton from "@/components/ui/button/FloatingActionButton.vue";
 
-defineProps({
+const props = defineProps({
   togglePage: {
     type: Function,
     required: true,
@@ -93,4 +40,56 @@ const emit = defineEmits(["update:sideCurrentComponent"]);
 const emitToolChange = (component) => {
   emit("update:sideCurrentComponent", component);
 };
+
+const fabActions = computed(() => [
+  {
+    key: "bottom",
+    label: "至底部",
+    icon: "ri-skip-down-line",
+    buttonClass: "btn-info btn-soft",
+    onClick: () => props.scrollToBottom(),
+  },
+  {
+    key: "top",
+    label: "至顶部",
+    icon: "ri-skip-up-line",
+    buttonClass: "btn-info btn-soft",
+    onClick: () => props.scrollToTop(),
+  },
+  {
+    key: "settings",
+    for: "novel-sidebar",
+    label: "阅读器设置",
+    icon: "ri-settings-3-line",
+    buttonClass: "btn-primary btn-soft",
+    onClick: () => emitToolChange("FormatToolbox"),
+  },
+  // {
+  //   key: "fullscreen",
+  //   label: "全屏",
+  //   icon: props.isFullscreen
+  //     ? "ri-collapse-diagonal-fill"
+  //     : "ri-expand-diagonal-fill",
+  //   buttonClass: "btn-secondary btn-soft",
+  //   onClick: () => props.toggle(),
+  // },
+  {
+    key: "chapters",
+    for: "novel-sidebar",
+    label: "目录",
+    icon: "ri-file-list-2-line",
+    buttonClass: "btn-primary btn-soft",
+    onClick: () => emitToolChange("Chapters"),
+  },
+  {
+    key: "cover",
+    label: "封面页",
+    icon: "ri-arrow-go-back-line",
+    buttonClass: "btn-secondary btn-soft",
+    onClick: () => {
+      props.scrollToTop();
+      props.togglePage();
+    },
+  },
+]);
 </script>

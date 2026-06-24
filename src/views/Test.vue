@@ -200,21 +200,8 @@
     </TestCard>
 
     <!-- ═══════════ 9. 浮动按钮 & 回到顶部 ═══════════ -->
-    <TestCard title="🔘 浮动按钮 (FloatingButton) & 回到顶部">
-      <div class="flex flex-wrap gap-2 mb-3">
-        <FloatingButton
-          icon="ri-star-line"
-          label="测试浮动"
-          button-class="lg:btn-secondary"
-          :on-click="() => toast.success('浮动按钮')"
-        />
-        <FloatingButton
-          icon="ri-refresh-line"
-          label="刷新"
-          position-classes="lg:bottom-30"
-          :on-click="() => toast.info('刷新')"
-        />
-      </div>
+    <TestCard title="🔘 浮动按钮 & 回到顶部">
+      <Dock />
       <p class="text-xs opacity-50 mb-3">
         大屏滚动即可看到右下角浮动按钮，点击下方测试回到顶部：
       </p>
@@ -357,10 +344,10 @@ import Modal from "@/components/ui/Modal.vue";
 import NumberController from "@/components/ui/input/NumberController.vue";
 import Pagination from "@/components/base/Pagination.vue";
 import CodeBlock from "@/components/ui/CodeBlock.vue";
-import FloatingButton from "@/components/ui/button/FloatingButton.vue";
 import ToTop from "@/components/base/ToTop.vue";
 import TestCard from "@/components/test/_TestCard.vue";
 import TestControlRow from "@/components/test/_TestControlRow.vue";
+import Dock from "@/components/novel/Dock.vue";
 
 const router = useRouter();
 const toast = useToast({
