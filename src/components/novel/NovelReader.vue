@@ -1,9 +1,8 @@
 <template>
-  <Reader drawer drawer-id="novel-reader-sidebar" toc>
+  <Reader drawer drawer-id="novel-reader-sidebar" toc tocTitle="本页已读">
     <section :ref="scrollRef" class="min-w-0 w-full max-w-full overflow-x-clip">
       <ChapterInfo
         v-if="latestChapter"
-        badge="最新"
         :additionalClasses="`max-lg:btn-sm btn-outline btn-secondary py-6 ${
           isDisabled ? 'btn-disabled' : ''
         }`"
@@ -39,7 +38,7 @@
             @click="handleSideComponentUpdate('Chapters')"
           >
             <i class="ri-book-marked-line text-2xl md:text-lg"></i>
-            章节目录
+            目录
           </label>
         </template>
       </ChapterInfo>
@@ -143,6 +142,7 @@
         </div>
       </section>
     </template>
+
     <template #floating>
       <aside class="max-lg:dock">
         <FloatingActionButton main-icon="ri-more-line" :actions="fabActions" />
