@@ -13,9 +13,11 @@
         class="drawer-overlay"
       ></label>
       <section
-        class="menu bg-base-200 text-base-content min-h-full p-4 w-80 md:w-96 items-center"
+        class="menu bg-base-200 text-base-content min-h-full w-80 items-stretch p-4 md:w-96"
       >
-        <aside class="flex-1 flex flex-col mb-12 lg:mb-0 lg:sticky lg:top-12">
+        <aside
+          class="mb-12 flex w-full min-w-0 flex-1 flex-col overflow-auto scrollbar-none lg:sticky lg:top-12 lg:mb-0"
+        >
           <slot name="aside"></slot>
         </aside>
       </section>
