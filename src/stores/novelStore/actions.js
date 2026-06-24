@@ -4,7 +4,7 @@ import { useToast } from "@/composables/useToast";
 
 import { useChapterApi } from "@/services/api-chapters";
 
-import { splitMarkdown } from "@/utils/split-markdown";
+import { splitMarkdown } from "@/utils/markdown/split-markdown";
 
 import CONFIG from "@/constants/config.js";
 import fm from "front-matter";
