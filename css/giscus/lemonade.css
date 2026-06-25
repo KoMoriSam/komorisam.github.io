@@ -4,10 +4,19 @@
  * daisyUI lemonade: light color-scheme, 温暖黄绿色调
  */
 
+@font-face {
+  font-family: "Manrope";
+  src: url("https://cdn.jsdelivr.net/npm/manrope@2.0.0/fonts/manrope-variable.woff2")
+    format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 main {
   /* ========== 字体（与主站 daisyUI --default-font-family 风格一致） ========== */
   font-family:
-    "Manrope Variable", "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
+    "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
     "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
