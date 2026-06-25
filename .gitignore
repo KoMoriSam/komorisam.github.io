@@ -10,5 +10,3 @@ mock
 .output
 *.old*
 .github
-
-public
