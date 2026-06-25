@@ -507,7 +507,7 @@ const debouncedKeyword = refDebounced(keyword, 200);
 
 const resolveBannerUrl = (banner) => {
   if (!banner) return "";
-  return banner.startsWith("/") ? banner : `/mock/article/${banner}`;
+  return banner;
 };
 
 const estimateReadingTime = (length = 0) => {

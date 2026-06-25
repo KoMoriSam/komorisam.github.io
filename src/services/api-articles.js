@@ -4,6 +4,15 @@ import fm from "front-matter";
 const BASE_URL = import.meta.env.VITE_API_ARTICLE_URL;
 const OBSIDIAN_LINK_REGEX = /^\[\[(.+)\]\]$/;
 const OBSIDIAN_IMAGE_REGEX = /!\[\[([^\]]+)\]\]/g;
+const MARKDOWN_IMAGE_REGEX = /!\[([^\]]*)\]\(([^)]+)\)/g;
+
+const normalizeBaseUrl = (value = "") =>
+  String(value || "").replace(/\/+$/, "");
+
+const BASE_URL_NORMALIZED = normalizeBaseUrl(BASE_URL);
+const CONTENT_BASE_URL = BASE_URL_NORMALIZED.replace(/\/images$/i, "");
+const IMAGE_BASE_URL = `${CONTENT_BASE_URL}/images`;
+const BANNER_DIRECTORY = "banners";
 
 const escapeHtmlAttr = (value = "") => {
   return String(value)
@@ -13,8 +22,21 @@ const escapeHtmlAttr = (value = "") => {
     .replaceAll(">", "&gt;");
 };
 
-const normalizeImageSrc = (rawTarget = "") => {
+const extractImageTarget = (rawTarget = "") => {
   const target = String(rawTarget || "").trim();
+  if (!target) return "";
+
+  const obsidianMatch = target.match(OBSIDIAN_LINK_REGEX);
+  const targetValue = obsidianMatch ? obsidianMatch[1] : target;
+
+  return targetValue
+    .replace(/^<([^>]+)>$/, "$1")
+    .replace(/\s+"[^"]*"$/, "")
+    .trim();
+};
+
+const normalizeImageSrc = (rawTarget = "", { bannerName = "" } = {}) => {
+  const target = extractImageTarget(rawTarget);
   if (!target) return "";
 
   if (
@@ -25,21 +47,33 @@ const normalizeImageSrc = (rawTarget = "") => {
     return target;
   }
 
-  if (target.includes("/")) {
-    return `/mock/article/${encodeURI(target)}`;
-  }
+  const normalizedRelativeTarget = target
+    .replace(/^\.\//, "")
+    .replace(/^images\//i, "")
+    .replace(/^banner\//i, `${BANNER_DIRECTORY}/`)
+    .replace(/^banners\//i, `${BANNER_DIRECTORY}/`);
 
-  return `/mock/article/images/${encodeURI(target)}`;
+  if (!normalizedRelativeTarget) return "";
+
+  const shouldUseBannerDirectory =
+    bannerName &&
+    !normalizedRelativeTarget.includes("/") &&
+    normalizedRelativeTarget === bannerName;
+
+  return `${IMAGE_BASE_URL}/${
+    shouldUseBannerDirectory
+      ? `${BANNER_DIRECTORY}/${normalizedRelativeTarget}`
+      : normalizedRelativeTarget
+  }`;
 };
 
 const normalizeBanner = (banner) => {
-  const value = String(banner || "").trim();
+  const value = extractImageTarget(banner);
   if (!value) return "";
 
-  const match = value.match(OBSIDIAN_LINK_REGEX);
-  const target = (match ? match[1] : value).split("|")[0]?.trim() || "";
+  const target = value.split("|")[0]?.trim() || "";
 
-  return normalizeImageSrc(target);
+  return normalizeImageSrc(target, { bannerName: target });
 };
 
 const formatImageWidth = (raw = "") => {
@@ -57,14 +91,14 @@ const formatImageWidth = (raw = "") => {
   return "";
 };
 
-const normalizeObsidianImages = (markdown = "") => {
+const normalizeObsidianImages = (markdown = "", { bannerName = "" } = {}) => {
   return String(markdown || "").replaceAll(OBSIDIAN_IMAGE_REGEX, (_, inner) => {
     const parts = String(inner)
       .split("|")
       .map((item) => item.trim());
 
     const rawTarget = parts.shift() || "";
-    const src = normalizeImageSrc(rawTarget);
+    const src = normalizeImageSrc(rawTarget, { bannerName });
     if (!src) return "";
 
     let align = "";
@@ -96,6 +130,19 @@ const normalizeObsidianImages = (markdown = "") => {
   });
 };
 
+const normalizeMarkdownImages = (markdown = "", { bannerName = "" } = {}) => {
+  return String(markdown || "").replaceAll(
+    MARKDOWN_IMAGE_REGEX,
+    (_, altText, target) => {
+      const src = normalizeImageSrc(target, { bannerName });
+      if (!src) return _;
+
+      const alt = String(altText || "").trim();
+      return `![${alt}](${src})`;
+    },
+  );
+};
+
 const normalizeArticleMeta = (article = {}) => {
   if (!article || typeof article !== "object") return article;
 
@@ -117,7 +164,9 @@ export function useArticleApi() {
    * @returns {Promise<Array<{id, title, summary, date, tags, path, banner?}>>}
    */
   const fetchArticleList = async () => {
-    const { data, error } = await useFetch(`${BASE_URL}/index.json`).json();
+    const { data, error } = await useFetch(
+      `${CONTENT_BASE_URL}/index.json`,
+    ).json();
     if (error.value) {
       throw new Error("获取文章列表失败");
     }
@@ -138,13 +187,21 @@ export function useArticleApi() {
    * @returns {Promise<string>}
    */
   const fetchArticleContent = async (path) => {
-    const { data, error } = await useFetch(`${BASE_URL}/${path}`).text();
+    const { data, error } = await useFetch(
+      `${CONTENT_BASE_URL}/${path}`,
+    ).text();
     if (error.value) {
       throw new Error("获取文章内容失败");
     }
     const raw = data.value;
     const parsed = fm(raw);
-    return normalizeObsidianImages(parsed.body);
+    const bannerName = extractImageTarget(parsed?.attributes?.banner || "")
+      .split("|")[0]
+      .trim();
+    const normalizedObsidian = normalizeObsidianImages(parsed.body, {
+      bannerName,
+    });
+    return normalizeMarkdownImages(normalizedObsidian, { bannerName });
   };
 
   return {

@@ -135,7 +135,7 @@
           >
             <time v-if="article?.date" class="inline-flex items-center gap-1.5">
               <i class="ri-calendar-line"></i>
-              {{ article.date }}
+              {{ useDateFormat(article.date, "YYYY/M/D") }}
             </time>
 
             <span
@@ -227,6 +227,8 @@ import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import Giscus from "@giscus/vue";
 
+import { useDateFormat } from "@vueuse/core";
+
 import { useReaderStore } from "@/stores/readerStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useScrollTo } from "@/composables/useScrollTo";
@@ -272,8 +274,7 @@ const { scrollRef, scrollToTop, scrollToBottom } = useScrollTo();
 
 const resolveBannerUrl = (banner) => {
   if (!banner) return "";
-
-  return banner.startsWith("/") ? banner : `/mock/article/${banner}`;
+  return banner;
 };
 
 const estimateReadingTime = (length) => {
@@ -358,6 +359,13 @@ const fabActions = computed(() => {
       icon: props.loading ? "ri-loader-4-line animate-spin" : "ri-refresh-line",
       buttonClass: "btn-success btn-soft",
       onClick: handleRefresh,
+    },
+    {
+      key: "back",
+      label: "返回文章列表",
+      icon: "ri-arrow-go-back-line",
+      buttonClass: "btn-secondary btn-soft",
+      onClick: handleBack,
     },
   ];
 
