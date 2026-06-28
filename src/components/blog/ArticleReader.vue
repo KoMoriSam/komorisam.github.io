@@ -195,16 +195,16 @@
     </template>
 
     <template #aside>
-      <div
+      <aside
         v-if="content && article?.id != null"
-        class="not-prose min-w-0 w-full max-w-full overflow-hidden"
+        class="min-w-0 w-full max-w-full"
       >
         <Giscus
           :key="`article-comments-${article.id}`"
-          :repo="GISCUS.repo"
-          :repo-id="GISCUS.repoId"
-          :category="GISCUS.categories.general.name"
-          :category-id="GISCUS.categories.general.id"
+          :repo="GISCUS.blogRepo.name"
+          :repo-id="GISCUS.blogRepo.id"
+          :category="GISCUS.categories.announcements.name"
+          :category-id="GISCUS.categories.announcements.id"
           mapping="specific"
           :term="String(article.id)"
           strict="0"
@@ -215,7 +215,7 @@
           lang="zh-CN"
           loading="lazy"
         />
-      </div>
+      </aside>
     </template>
   </Reader>
 
@@ -239,7 +239,7 @@ import FootBar from "@/components/layout/FootBar.vue";
 import Reader from "@/components/reader/Reader.vue";
 import FormatSetting from "@/components/reader/FormatSetting.vue";
 import Loading from "@/components/base/Loading.vue";
-import Markdown from "@/components/articles/Markdown.vue";
+import Markdown from "@/components/reader/Markdown.vue";
 
 const props = defineProps({
   article: {
@@ -321,6 +321,7 @@ const headerData = computed(() => {
     title: props.article.title || "",
     uuid: props.article.id || "",
     page: 1,
+    sourceType: "article",
     meta: props.article.tags || [],
     stats: [
       {

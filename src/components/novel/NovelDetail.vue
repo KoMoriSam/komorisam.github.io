@@ -51,8 +51,8 @@
 
     <Giscus
       class="basis-sm"
-      :repo="GISCUS.repo"
-      :repo-id="GISCUS.repoId"
+      :repo="GISCUS.novelRepo.name"
+      :repo-id="GISCUS.novelRepo.id"
       :category="GISCUS.categories.general.name"
       :category-id="GISCUS.categories.general.id"
       mapping="specific"

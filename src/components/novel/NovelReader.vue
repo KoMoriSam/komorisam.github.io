@@ -122,11 +122,11 @@
           </button>
         </div>
 
-        <div class="min-w-0 w-full max-w-full">
+        <aside class="min-w-0 w-full max-w-full">
           <Giscus
             :key="currentChapter?.title"
-            :repo="GISCUS.repo"
-            :repo-id="GISCUS.repoId"
+            :repo="GISCUS.novelRepo.name"
+            :repo-id="GISCUS.novelRepo.id"
             :category="GISCUS.categories.general.name"
             :category-id="GISCUS.categories.general.id"
             :mapping="currentMapping"
@@ -139,7 +139,7 @@
             lang="zh-CN"
             loading="lazy"
           />
-        </div>
+        </aside>
       </section>
     </template>
 
@@ -168,7 +168,7 @@ import Reader from "@/components/reader/Reader.vue";
 import Chapters from "@/components/novel/ChapterList.vue";
 import ChapterController from "@/components/novel/ChapterController.vue";
 import FormatSetting from "@/components/reader/FormatSetting.vue";
-import Markdown from "@/components/articles/Markdown.vue";
+import Markdown from "@/components/reader/Markdown.vue";
 import ChapterInfo from "@/components/novel/ChapterInfo.vue";
 import FloatingActionButton from "@/components/ui/button/FloatingActionButton.vue";
 
@@ -227,6 +227,7 @@ const chapterHeaderData = computed(() => ({
   title: currentChapter.value?.title || "",
   uuid: currentChapterUuid.value,
   page: currentChapterPage.value,
+  sourceType: "novel",
   meta: currentChapter.value?.volumeTitle,
 }));
 
