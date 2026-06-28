@@ -19,21 +19,57 @@ const getDynamicCacheExpiration = (updateFrequency) => {
  * @see https://giscus.app/zh-CN
  */
 const GISCUS = {
-  repo: "KoMoriSam/komorisam.github.io",
-  repoId: "R_kgDOJxn8KA",
+  defaultRepo: {
+    name: "KoMoriSam/komorisam.github.io",
+    id: "R_kgDOJxn8KA",
+  },
+  blogRepo: {
+    name: "KoMoriSam/theWake",
+    id: "R_kgDOTElB5w",
+  },
+  novelRepo: {
+    name: "KoMoriSam/theHorizon",
+    id: "R_kgDOOWZUkw",
+  },
   categories: {
-    // 小说章节评论用
+    // 小说章评
     general: {
-      id: "DIC_kwDOJxn8KM4Cnp6m",
       name: "General",
+      id: "DIC_kwDOOWZUk84C_2_B",
     },
-    // 段落级评论用
-    ideas: {
-      id: "DIC_kwDOJxn8KM4Cnp6p",
-      name: "Ideas",
+    // 推文评论
+    announcements: {
+      name: "Announcements",
+      id: "DIC_kwDOTElB584C_2-6",
     },
   },
-  // 全站默认
+  paragraphComments: {
+    article: {
+      repo: {
+        name: "KoMoriSam/theWake",
+        id: "R_kgDOTElB5w",
+      },
+      category: {
+        name: "Ideas",
+        id: "DIC_kwDOTElB584C_2-9",
+      },
+    },
+    novel: {
+      repo: {
+        name: "KoMoriSam/theHorizon",
+        id: "R_kgDOOWZUkw",
+      },
+      category: {
+        name: "Ideas",
+        id: "DIC_kwDOOWZUk84C_2_D",
+      },
+    },
+  },
+  paragraphCountsApi: {
+    endpoint: import.meta.env.VITE_PARAGRAPH_COUNTS_API || "",
+    timeout: 8000,
+  },
+  // 小说书评
   defaultTerm: "向远方",
 };
 
