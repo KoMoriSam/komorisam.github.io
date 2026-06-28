@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Latest version: <strong>1.12.0</strong>
+  Latest version: <strong>1.12.1</strong>
   ·
   <a href="https://komorisam.github.io/changelog">View changelog</a>
 </p>

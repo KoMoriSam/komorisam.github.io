@@ -1,6 +1,6 @@
 {
-  "name": "komorisam",
-  "version": "1.12.0",
+  "name": "KoMoriSam",
+  "version": "1.12.1",
   "homepage": "https://komorisam.github.io/",
   "private": true,
   "type": "module",
@@ -9,7 +9,8 @@
     "build": "vite build",
     "deploy": "gh-pages -d dist -r https://github.com/KoMoriSam/komorisam.github.io.git",
     "preview": "vite preview --host 0.0.0.0",
-    "generate": "node mock/generateIndex.js"
+    "novel": "node mock/novel/generate-index.js",
+    "blog": "node mock/article/generate-index.js"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.2.9",
