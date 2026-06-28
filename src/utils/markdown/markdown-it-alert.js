@@ -120,9 +120,9 @@ function findBlockquoteCloseIndex(tokens, startIndex) {
 
 function retokenizeInline(md, token, content, env) {
   token.content = content;
-  const children = [];
-  md.inline.parse(content, md, env, children);
-  token.children = children;
+  // 内置的 `inline` 核心规则会在此自定义核心规则之后运行。
+  // 此处仅保留内容变更，以避免对子元素进行两次解析。
+  token.children = [];
 }
 
 export function alertPlugin(md) {
