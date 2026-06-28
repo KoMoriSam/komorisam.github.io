@@ -31,7 +31,7 @@ const navLinks = computed(() => [
   {
     name: "博客",
     icon: "ri-article-line lg:text-xl",
-    to: { name: "article" },
+    to: { name: "blog" },
   },
   {
     name: "小说",

@@ -2,6 +2,7 @@
   <Loading :size="`my-64`" v-if="isLoading" />
 
   <article
+    ref="articleRef"
     v-else
     id="markdown-content"
     class="prose prose-2xl min-w-0 w-full max-w-full prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl prose-p:text-justify quotes-none prose-blockquote:prose-p:not-italic prose-blockquote:prose-p:indent-0 prose-blockquote:ps-4 lg:prose-blockquote:ps-8 prose-blockquote:prose-p:text-left"
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 
 import VueMarkdown from "vue-markdown-render";
 import Loading from "@/components/base/Loading.vue";
@@ -50,6 +51,7 @@ const props = defineProps({
       uuid: "",
       page: 1,
       meta: "",
+      sourceType: "article",
     }),
   },
 
@@ -106,8 +108,69 @@ import {
 import { codePlugin } from "@/utils/markdown/markdown-it-code";
 import { footnotePlugin } from "@/utils/markdown/markdown-it-footnote";
 import { useParagraphComments } from "@/utils/markdown/markdown-it-giscus";
+import {
+  fetchParagraphCountsBatch,
+  hasParagraphCountsApi,
+} from "@/services/api-paragraph-comments";
 
 const paragraphPlugin = useParagraphComments();
+const articleRef = ref(null);
+const latestBatchToken = ref(0);
+
+const collectPrefetchParagraphIds = () => {
+  if (!articleRef.value) {
+    return [];
+  }
+
+  const triggerNodes = articleRef.value.querySelectorAll(
+    "button.comment-trigger[data-paragraph-id]",
+  );
+
+  return Array.from(triggerNodes)
+    .map((node) => node.dataset.paragraphId)
+    .filter(Boolean);
+};
+
+const emitBatchCounts = (paragraphIds, counts) => {
+  paragraphIds.forEach((paragraphId) => {
+    const totalCommentCount = Number(counts?.[paragraphId] ?? 0);
+
+    document.dispatchEvent(
+      new CustomEvent("paragraph-comment-metadata", {
+        detail: {
+          paragraphId,
+          sourceType: props.headerData.sourceType,
+          totalCommentCount: Number.isFinite(totalCommentCount)
+            ? Math.max(0, totalCommentCount)
+            : 0,
+        },
+      }),
+    );
+  });
+};
+
+const loadBatchCounts = async (paragraphIds, token) => {
+  if (!hasParagraphCountsApi || !paragraphIds.length) {
+    return false;
+  }
+
+  try {
+    const counts = await fetchParagraphCountsBatch({
+      sourceType: props.headerData.sourceType,
+      paragraphIds,
+    });
+
+    if (token !== latestBatchToken.value || !counts) {
+      return false;
+    }
+
+    emitBatchCounts(paragraphIds, counts);
+    return true;
+  } catch (error) {
+    console.error("段评批量查询失败（未回退元数据模式）", error);
+    return false;
+  }
+};
 
 const tableWrapperPlugin = (md) => {
   const defaultTableOpen =
@@ -134,7 +197,11 @@ const tableWrapperPlugin = (md) => {
 };
 
 const plugins = computed(() => [
-  paragraphPlugin(props.headerData.uuid, props.headerData.page),
+  paragraphPlugin(
+    props.headerData.uuid,
+    props.headerData.page,
+    props.headerData.sourceType,
+  ),
   MarkdownItAbbr,
   anchorPlugin,
   alertPlugin,
@@ -151,4 +218,38 @@ const plugins = computed(() => [
   MarkdownItTaskLists,
   tableWrapperPlugin,
 ]);
+
+watch(
+  () => [
+    props.isLoading,
+    props.content,
+    props.headerData.uuid,
+    props.headerData.page,
+    props.headerData.sourceType,
+  ],
+  async ([isLoading]) => {
+    if (isLoading) {
+      return;
+    }
+
+    if (!hasParagraphCountsApi) {
+      console.warn("未配置 VITE_PARAGRAPH_COUNTS_API，已禁用段评批量查询");
+      return;
+    }
+
+    const token = latestBatchToken.value + 1;
+    latestBatchToken.value = token;
+
+    await nextTick();
+    requestAnimationFrame(async () => {
+      const paragraphIds = collectPrefetchParagraphIds();
+      await loadBatchCounts(paragraphIds, token);
+
+      if (token !== latestBatchToken.value) {
+        return;
+      }
+    });
+  },
+  { immediate: true },
+);
 </script>

@@ -25,8 +25,8 @@ import { useArticleApi } from "@/services/api-articles";
 
 import { useScrollTo } from "@/composables/useScrollTo";
 
-import ArticleList from "@/components/articles/ArticleList.vue";
-import ArticleDetail from "@/components/articles/ArticleReader.vue";
+import ArticleList from "@/components/blog/ArticleList.vue";
+import ArticleDetail from "@/components/blog/ArticleReader.vue";
 
 const route = useRoute();
 const router = useRouter();
