@@ -106,11 +106,28 @@ export const useParagraphComments = () => {
         md.renderer.rules = {};
       }
 
-      const defaultRender =
+      const defaultParagraphOpen =
         md.renderer.rules.paragraph_open ||
         function (tokens, idx, options, env, self) {
           return self.renderToken(tokens, idx, options);
         };
+
+      const defaultParagraphClose =
+        md.renderer.rules.paragraph_close ||
+        function (tokens, idx, options, env, self) {
+          return self.renderToken(tokens, idx, options);
+        };
+
+      const getParagraphState = (env) => {
+        if (!env.__paragraphComments) {
+          env.__paragraphComments = {
+            counter: 0,
+            stack: [],
+          };
+        }
+
+        return env.__paragraphComments;
+      };
 
       md.renderer.rules.paragraph_open = function (
         tokens,
@@ -119,11 +136,21 @@ export const useParagraphComments = () => {
         env,
         self,
       ) {
-        const paragraphId = `${uuid}-${page}-${idx}`;
+        const state = getParagraphState(env);
+        const paragraphId = `${uuid}-${page}-${state.counter}`;
+
+        state.counter += 1;
+        state.stack.push(paragraphId);
+
         tokens[idx].attrSet("id", paragraphId);
         tokens[idx].attrSet("class", "group");
         tokens[idx].attrSet("tabindex", "0");
-        return defaultRender(tokens, idx, options, env, self);
+        tokens[idx].meta = {
+          ...(tokens[idx].meta || {}),
+          paragraphId,
+        };
+
+        return defaultParagraphOpen(tokens, idx, options, env, self);
       };
 
       md.renderer.rules.paragraph_close = function (
@@ -136,7 +163,14 @@ export const useParagraphComments = () => {
         if (tokens[idx].hidden) {
           return "";
         }
-        const paragraphId = `${uuid}-${page}-${idx - 2}`;
+
+        const state = getParagraphState(env);
+        const paragraphId = state.stack.pop();
+
+        if (!paragraphId) {
+          return defaultParagraphClose(tokens, idx, options, env, self);
+        }
+
         const count = getCount(paragraphId, sourceType);
         const countClass =
           count > 0
@@ -145,7 +179,7 @@ export const useParagraphComments = () => {
         const triggerClass =
           count > 0 ? "comment-trigger has-count" : "comment-trigger";
 
-        return `<button class="${triggerClass}" data-paragraph-id="${paragraphId}" data-source-type="${sourceType}" aria-label="打开段评"><i class="ri-chat-3-line"></i><span class="${countClass}" data-paragraph-id="${paragraphId}" data-source-type="${sourceType}" aria-label="当前段评评论数">${count > 0 ? `${count}` : ""}</span></button></p>`;
+        return `<button class="${triggerClass} group" data-paragraph-id="${paragraphId}" data-source-type="${sourceType}" aria-label="打开段评"><i class="ri-more-fill text-lg"></i><span class="${countClass}" data-paragraph-id="${paragraphId}" data-source-type="${sourceType}" aria-label="当前段评评论数">${count > 0 && count < 100 ? `${count}` : ""}${count > 99 ? `99+` : ""}</span></button></p>`;
       };
     };
   };
