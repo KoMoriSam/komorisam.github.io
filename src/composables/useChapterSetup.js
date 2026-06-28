@@ -15,8 +15,12 @@ export function useChapterSetup() {
 
   const novelStore = useNovelStore();
 
-  const { currentComponent, currentChapterUuid, currentChapterPage } =
-    storeToRefs(novelStore);
+  const {
+    currentComponent,
+    currentChapter,
+    currentChapterUuid,
+    currentChapterPage,
+  } = storeToRefs(novelStore);
 
   // 检查并补充路由参数
   const checkAndSupplementRouteParams = () => {
@@ -45,7 +49,7 @@ export function useChapterSetup() {
           }
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
   };
 
@@ -57,7 +61,7 @@ export function useChapterSetup() {
         if (newId) {
           await novelStore.setChapter(newId);
         }
-      }
+      },
     );
 
     watch(
@@ -66,7 +70,7 @@ export function useChapterSetup() {
         if (newPage) {
           novelStore.setPage(Number(newPage));
         }
-      }
+      },
     );
   };
 
@@ -77,7 +81,7 @@ export function useChapterSetup() {
       () => {
         console.log("currentComponent changed:", currentComponent.value);
         novelStore.updateTitle();
-      }
+      },
     );
   };
 
@@ -87,7 +91,7 @@ export function useChapterSetup() {
       await novelStore.setChapters();
       checkAndSupplementRouteParams();
       novelStore.updateTitle();
-      usePosTracker(router);
+      usePosTracker(router, () => novelStore.updateTitle());
       setTimeout(() => {
         toast.success("已继续上次阅读！");
       }, 750);
@@ -99,10 +103,11 @@ export function useChapterSetup() {
   // 监听章节变化，自动更新标题
   const watchChapterChanges = () => {
     watch(
-      () => [novelStore.currentChapterUuid, novelStore.currentChapterPage],
+      () => [currentChapter.value, currentComponent.value],
       () => {
         novelStore.updateTitle();
-      }
+      },
+      { immediate: true },
     );
   };
 

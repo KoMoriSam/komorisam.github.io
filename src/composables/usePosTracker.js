@@ -2,7 +2,7 @@ import { useEventListener, useThrottleFn } from "@vueuse/core";
 import { computed } from "vue";
 import { useReadingStateStorage } from "@/utils/storage/new-reading-state";
 
-export function usePosTracker(router) {
+export function usePosTracker(router, onRestoreTitle) {
   // const READ_POS_KEY = "READ_POS";
   // const readPos = useStorage(READ_POS_KEY, "");
   const { getState, setState } = useReadingStateStorage();
@@ -115,6 +115,7 @@ export function usePosTracker(router) {
     el.scrollIntoView({ behavior: "smooth" });
     setTimeout(() => {
       isManualHashChange = false;
+      onRestoreTitle?.();
     }, 1000);
   }
 

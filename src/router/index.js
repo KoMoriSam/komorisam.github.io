@@ -49,9 +49,9 @@ const router = createRouter({
       meta: { title: "更新日志 | KoMoriSam" },
     },
     {
-      path: "/article",
-      name: "article",
-      component: () => import("@/views/Article.vue"),
+      path: "/blog",
+      name: "blog",
+      component: () => import("@/views/Blog.vue"),
       meta: { title: "博客 | KoMoriSam" },
     },
     // 🧪 仅在开发环境可见，生产构建自动移除
@@ -78,6 +78,20 @@ export default router;
 
 router.beforeEach((to, from, next) => {
   NProgress.start();
+
+  const currentPath = to.fullPath.split("#")[0];
+  const previousPath = from.fullPath.split("#")[0];
+
+  if (currentPath === previousPath && to.hash !== from.hash) {
+    next();
+    return;
+  }
+
+  if (to.path === "/novel") {
+    next();
+    return;
+  }
+
   document.title = to.meta.title || "Welcome KoMoriSam's Website!";
 
   next();
@@ -85,4 +99,17 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from) => {
   NProgress.done();
+
+  const currentPath = to.fullPath.split("#")[0];
+  const previousPath = from.fullPath.split("#")[0];
+
+  if (currentPath === previousPath && to.hash !== from.hash) {
+    return;
+  }
+
+  if (to.path === "/novel") {
+    return;
+  }
+
+  document.title = to.meta.title || "Welcome KoMoriSam's Website!";
 });
