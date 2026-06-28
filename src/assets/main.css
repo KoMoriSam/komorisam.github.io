@@ -91,6 +91,28 @@
     "Noto Serif Sinhala", serif;
 }
 
+@utility mask-bubble {
+  -webkit-mask-image: url("/assets/images/icons/review-bubble.svg");
+  mask-image: url("/assets/images/icons/review-bubble.svg");
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+}
+
+@utility mask-bubble-fill {
+  -webkit-mask-image: url("/assets/images/icons/review-bubble-hover.svg");
+  mask-image: url("/assets/images/icons/review-bubble-hover.svg");
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+}
+
 @layer base {
   :root {
     --font-sans:
@@ -146,31 +168,6 @@
     my-(--para-margin-inline) 
     indent-(--para-text-indent) 
     tracking-(--para-letter-spacing);
-  }
-
-  #markdown-content.prose button.comment-trigger {
-    @apply whitespace-nowrap 
-    relative overflow-visible
-    opacity-0 hover:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity 
-    btn btn-primary btn-circle btn-ghost btn-sm 
-    -translate-y-0.75 scale-80;
-  }
-
-  #markdown-content.prose button.comment-trigger.has-count {
-    @apply opacity-100;
-  }
-
-  #markdown-content.prose button.comment-trigger .paragraph-comment-count {
-    @apply absolute left-1/2 top-1/2 whitespace-nowrap
-    text-sm leading-none
-    -translate-x-1/2 -translate-y-1/2
-    font-serif font-black;
-  }
-
-  #markdown-content.prose button.comment-trigger i {
-    @apply absolute left-1/2 top-1/2
-    -translate-x-1/2 -translate-y-1/2
-    text-2xl;
   }
 
   #markdown-content.prose li {
@@ -237,6 +234,50 @@
   #markdown-content.prose th,
   #markdown-content.prose td {
     @apply whitespace-normal;
+  }
+
+  /* 段落评论按钮 */
+  #markdown-content.prose button.comment-trigger {
+    @apply whitespace-nowrap
+    relative overflow-visible
+    inline-flex items-center justify-center
+    h-4 min-h-0 w-6 min-w-6 pl-0.5 pb-0.25
+    opacity-0 group-hover:opacity-100
+    group-focus-within:opacity-100
+    transition-[opacity,scale]
+    -translate-y-0.5
+    text-primary
+    z-0
+    
+    before:content-['']
+    before:absolute before:inset-0
+    before:bg-primary
+    before:mask-bubble
+    
+    hover:text-primary-content
+    hover:before:mask-bubble-fill
+
+    active:scale-80
+    active:text-primary-content
+    active:before:mask-bubble-fill;
+  }
+
+  #markdown-content.prose button.comment-trigger i {
+    @apply z-10;
+  }
+
+  #markdown-content.prose button.comment-trigger.has-count {
+    @apply opacity-100;
+  }
+
+  #markdown-content.prose button.comment-trigger.has-count i {
+    @apply hidden;
+  }
+
+  #markdown-content.prose button.comment-trigger .paragraph-comment-count {
+    @apply whitespace-nowrap
+    text-xs leading-none
+    font-sans font-bold z-10;
   }
 
   /* 代码块 (.code-wrapper) */
@@ -333,7 +374,7 @@
   }
 
   #markdown-content.prose .chat-content p {
-    @apply indent-0 text-center text-base-content/50
+    @apply indent-0 text-center
     text-[calc(var(--para-font-size)*0.75)]
     leading-[calc(var(--para-line-height)*0.75)]
     tracking-[calc(var(--para-letter-spacing)*0.75)];
@@ -351,11 +392,11 @@
   }
 
   #markdown-content.prose .chat-end .chat-bubble p button.comment-trigger {
-    @apply absolute right-full top-0 -translate-x-3;
+    @apply absolute right-full top-0 -translate-x-4 translate-y-0.75 scale-x-[-1];
   }
 
   #markdown-content.prose .chat-start .chat-bubble p button.comment-trigger {
-    @apply absolute left-full top-0 translate-x-3;
+    @apply absolute left-full top-0 translate-x-4 translate-y-1;
   }
 
   #markdown-content.prose .chat-bubble img {
