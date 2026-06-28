@@ -150,13 +150,27 @@
 
   #markdown-content.prose button.comment-trigger {
     @apply whitespace-nowrap 
+    relative overflow-visible
     opacity-0 hover:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity 
-    btn btn-primary btn-circle btn-soft btn-xs 
+    btn btn-primary btn-circle btn-ghost btn-sm 
     -translate-y-0.75 scale-80;
   }
 
+  #markdown-content.prose button.comment-trigger.has-count {
+    @apply opacity-100;
+  }
+
+  #markdown-content.prose button.comment-trigger .paragraph-comment-count {
+    @apply absolute left-1/2 top-1/2 whitespace-nowrap
+    text-sm leading-none
+    -translate-x-1/2 -translate-y-1/2
+    font-serif font-black;
+  }
+
   #markdown-content.prose button.comment-trigger i {
-    @apply text-[calc(var(--para-font-size)*0.5)];
+    @apply absolute left-1/2 top-1/2
+    -translate-x-1/2 -translate-y-1/2
+    text-2xl;
   }
 
   #markdown-content.prose li {
@@ -225,17 +239,18 @@
     @apply whitespace-normal;
   }
 
+  /* 代码块 (.code-wrapper) */
   #markdown-content.prose .code-wrapper {
-    @apply mockup-code w-full max-w-full overflow-x-auto my-0 relative text-sm;
+    @apply mockup-code w-full max-w-full overflow-x-auto my-0 relative;
   }
 
-  #markdown-content.prose pre {
-    @apply my-0 py-0 w-full max-w-full min-w-0 overflow-x-auto;
-    white-space: pre;
+  #markdown-content.prose .code-wrapper pre {
+    @apply my-0 py-0 w-full max-w-full min-w-0 overflow-x-auto whitespace-pre;
   }
 
-  #markdown-content.prose pre::before {
-    @apply content-none;
+  #markdown-content.prose .code-wrapper pre code {
+    @apply md:text-[calc(var(--para-font-size)*0.75)]
+    text-[calc(var(--para-font-size)*0.7)];
   }
 
   #markdown-content.prose hr {
