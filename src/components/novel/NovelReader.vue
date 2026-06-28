@@ -124,13 +124,13 @@
 
         <aside class="min-w-0 w-full max-w-full">
           <Giscus
-            :key="currentChapter?.title"
+            :key="giscusKey"
             :repo="GISCUS.novelRepo.name"
             :repo-id="GISCUS.novelRepo.id"
             :category="GISCUS.categories.general.name"
             :category-id="GISCUS.categories.general.id"
-            :mapping="currentMapping"
-            :term="GISCUS.defaultTerm"
+            :mapping="giscusMapping"
+            :term="giscusTerm"
             strict="0"
             reactions-enabled="1"
             emit-metadata="0"
@@ -189,6 +189,7 @@ const {
   currentChapterUuid,
   currentChapterPage,
   isLoadingContent,
+  currentComponent,
 } = storeToRefs(novelStore);
 
 const readerStore = useReaderStore();
@@ -222,6 +223,34 @@ const handleSideComponentUpdate = (component) => {
 };
 
 const { currentMapping, commentToggle } = useGiscus();
+
+const giscusVersion = ref(0);
+const giscusMapping = "specific";
+const giscusTerm = computed(() =>
+  currentMapping.value === "title"
+    ? `${currentChapter.value?.title || ""} | KoMoriSam`
+    : GISCUS.defaultTerm,
+);
+const giscusKey = computed(
+  () => `${currentMapping.value}-${giscusTerm.value}-${giscusVersion.value}`,
+);
+
+const remountGiscus = () => {
+  giscusVersion.value += 1;
+};
+
+watch(
+  () => [
+    currentChapterUuid.value,
+    currentMapping.value,
+    currentComponent.value,
+  ],
+  () => {
+    if (currentComponent.value !== "Reader") return;
+    remountGiscus();
+  },
+  { immediate: true },
+);
 
 const chapterHeaderData = computed(() => ({
   title: currentChapter.value?.title || "",
@@ -260,9 +289,10 @@ const chapterStats = computed(() => {
   return stats;
 });
 
-const handleRefreshContent = () => {
+const handleRefreshContent = async () => {
   if (isLoadingContent.value) return;
-  novelStore.refreshContent();
+  await novelStore.refreshContent();
+  remountGiscus();
 };
 
 const fabActions = computed(() => [
