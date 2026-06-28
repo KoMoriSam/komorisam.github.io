@@ -1,5 +1,5 @@
 <template>
-  <Loading :size="`my-64`" v-if="isLoading" />
+  <Loading :size="`my-64`" v-if="isLoading || markdownPreparing" />
 
   <article
     ref="articleRef"
@@ -91,10 +91,8 @@ const options = {
 // 引入常用插件
 import MarkdownItAbbr from "markdown-it-abbr";
 import { full as emojiPlugin } from "markdown-it-emoji";
-import MarkdownItHighlightjs from "markdown-it-highlightjs";
 import MarkdownItSub from "markdown-it-sub";
 import MarkdownItSup from "markdown-it-sup";
-import MarkdownItKatex from "@vscode/markdown-it-katex";
 import MarkdownItTaskLists from "markdown-it-task-lists";
 
 // 引入自定义插件
@@ -109,6 +107,12 @@ import { codePlugin } from "@/utils/markdown/markdown-it-code";
 import { footnotePlugin } from "@/utils/markdown/markdown-it-footnote";
 import { useParagraphComments } from "@/utils/markdown/markdown-it-giscus";
 import {
+  collectFenceLanguages,
+  hasMathSyntax,
+  highlightLazyPlugin,
+  preloadHighlightLanguages,
+} from "@/utils/markdown/markdown-feature-loader";
+import {
   fetchParagraphCountsBatch,
   hasParagraphCountsApi,
 } from "@/services/api-paragraph-comments";
@@ -116,6 +120,9 @@ import {
 const paragraphPlugin = useParagraphComments();
 const articleRef = ref(null);
 const latestBatchToken = ref(0);
+const markdownRenderVersion = ref(0);
+const markdownPreparing = ref(false);
+const katexPlugin = ref(null);
 
 const collectPrefetchParagraphIds = () => {
   if (!articleRef.value) {
@@ -196,6 +203,26 @@ const tableWrapperPlugin = (md) => {
   };
 };
 
+const loadMarkdownFeaturePlugins = async (content = "") => {
+  const markdownText = String(content || "");
+  const languages = collectFenceLanguages(markdownText);
+
+  if (languages.length) {
+    await preloadHighlightLanguages(languages);
+  }
+
+  if (katexPlugin.value || !hasMathSyntax(markdownText)) {
+    return;
+  }
+
+  try {
+    const katexModule = await import("@vscode/markdown-it-katex");
+    katexPlugin.value = katexModule?.default || katexModule;
+  } catch (error) {
+    console.warn("KaTeX 插件加载失败，已跳过数学公式渲染", error);
+  }
+};
+
 const plugins = computed(() => [
   paragraphPlugin(
     props.headerData.uuid,
@@ -203,6 +230,7 @@ const plugins = computed(() => [
     props.headerData.sourceType,
   ),
   MarkdownItAbbr,
+  highlightLazyPlugin,
   anchorPlugin,
   alertPlugin,
   chatHeaderPlugin,
@@ -211,24 +239,51 @@ const plugins = computed(() => [
   codePlugin,
   emojiPlugin,
   footnotePlugin,
-  MarkdownItHighlightjs,
   MarkdownItSub,
   MarkdownItSup,
-  MarkdownItKatex,
   MarkdownItTaskLists,
+  ...(katexPlugin.value ? [katexPlugin.value] : []),
   tableWrapperPlugin,
 ]);
 
 watch(
+  () => props.content,
+  async (content) => {
+    if (!content) {
+      markdownPreparing.value = false;
+      return;
+    }
+
+    const currentVersion = markdownRenderVersion.value + 1;
+    markdownRenderVersion.value = currentVersion;
+    markdownPreparing.value = true;
+
+    await loadMarkdownFeaturePlugins(content);
+
+    if (currentVersion !== markdownRenderVersion.value) {
+      return;
+    }
+
+    markdownPreparing.value = false;
+  },
+  { immediate: true },
+);
+
+watch(
   () => [
     props.isLoading,
+    markdownPreparing.value,
     props.content,
     props.headerData.uuid,
     props.headerData.page,
     props.headerData.sourceType,
   ],
-  async ([isLoading]) => {
+  async ([isLoading, isPreparing]) => {
     if (isLoading) {
+      return;
+    }
+
+    if (isPreparing) {
       return;
     }
 
