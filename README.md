@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  当前版本：<strong>1.11.0</strong>
+  当前版本：<strong>1.12.0</strong>
   ·
   <a href="https://komorisam.github.io/changelog">查看更新日志</a>
 </p>
@@ -40,7 +40,7 @@
 站点当前路由包括：
 
 - /
-- /article
+- /blog
 - /novel
 - /about
 - /contact
@@ -152,9 +152,9 @@ VITE_HOMEPAGE_URL=
 ```bash
 src/
   components/
-    articles/      # 文章列表、文章阅读、段落评论、Markdown 渲染
+    blog/          # 博客文章列表、文章阅读
     novel/         # 小说详情、章节信息、阅读器控制
-    reader/        # 阅读器设置与样式相关组件
+    reader/        # 阅读器设置、样式相关组件、段落评论与 Markdown 渲染
     layout/        # 页面布局与导航
   composables/     # 滚动、弹窗、评论、图片加载等可复用逻辑
   services/        # 文章、小说、服务器、每日一句等接口封装
@@ -167,11 +167,9 @@ mock/
   novel/           # 小说章节 Markdown 与索引生成脚本
 
 public/
-  changelog.json   # 更新日志数据
+  css/giscus/      # Giscus 自定义主题
   archive/         # 历史静态页面归档
-
-themes/
-  giscus/          # Giscus 自定义主题
+  changelog.json   # 更新日志数据
 ```
 
 ## 开发约定

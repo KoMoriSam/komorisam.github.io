@@ -1,4 +1,21 @@
 {
+  "1.12.0": {
+    "date": "2026-06-28",
+    "changes": {
+      "feature": [
+        "新增段评数量接口，支持从 GitHub Discussions 获取段落评论计数",
+        "新增 Markdown 特性加载器，支持按需懒加载代码高亮语言，优化打包体积",
+        "为 Giscus 评论引入 Manrope 字体，与主站字体样式统一"
+      ],
+      "fix": ["修复 Giscus 在博客页面创建新评论失效的问题"],
+      "refactor": [
+        "重构 Giscus 配置结构，新增主题映射、mappings 和 configs 分组，提升可维护性",
+        "优化章节和位置跟踪逻辑，更新路由配置"
+      ],
+      "improve": ["调整代码块样式并添加段落评论计数样式"],
+      "chore": ["整理组件目录结构（articles → blog/reader），提高可维护性"]
+    }
+  },
   "1.11.1": {
     "date": "2026-06-25",
     "changes": {

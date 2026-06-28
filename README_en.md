@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Latest version: <strong>1.11.0</strong>
+  Latest version: <strong>1.12.0</strong>
   ·
   <a href="https://komorisam.github.io/changelog">View changelog</a>
 </p>
@@ -42,7 +42,7 @@ Current sections include:
 Current routes:
 
 - /
-- /article
+- /blog
 - /novel
 - /about
 - /contact
@@ -154,9 +154,9 @@ If you want to use only local static content, make sure the article and novel AP
 ```bash
 src/
   components/
-    articles/      # article list, reader, paragraph comments, Markdown rendering
+    blog/          # article list, reader
     novel/         # novel detail, chapter info, reader controls
-    reader/        # reader settings and style panels
+    reader/        # reader settings, style panels, paragraph comments, Markdown rendering
     layout/        # layout and navigation
   composables/     # reusable logic for scroll, modal, comments, images, etc.
   services/        # articles, novel chapters, server info, daily quotes
@@ -169,11 +169,9 @@ mock/
   novel/           # novel Markdown files and index generator
 
 public/
-  changelog.json   # changelog data
+  css/giscus/      # custom Giscus themes
   archive/         # archived static pages
-
-themes/
-  giscus/          # custom Giscus themes
+  changelog.json   # changelog data
 ```
 
 ## Development Notes

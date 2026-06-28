@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Dernière version : <strong>1.11.0</strong>
+  Dernière version : <strong>1.12.0</strong>
   ·
   <a href="https://komorisam.github.io/changelog">Voir le journal des modifications</a>
 </p>
@@ -42,7 +42,7 @@ Sections actuellement disponibles :
 Routes actuelles :
 
 - /
-- /article
+- /blog
 - /novel
 - /about
 - /contact
@@ -154,9 +154,9 @@ Si vous utilisez uniquement le contenu statique local, veillez à faire pointer 
 ```bash
 src/
   components/
-    articles/      # liste d'articles, lecteur, commentaires de paragraphe, rendu Markdown
+    blog/          # liste d'articles, lecteur
     novel/         # détail du roman, infos de chapitre, contrôles du lecteur
-    reader/        # réglages et panneaux de style du lecteur
+    reader/        # réglages, panneaux de style du lecteur, commentaires de paragraphe, rendu Markdown
     layout/        # mise en page et navigation
   composables/     # logique réutilisable pour le scroll, les modales, les commentaires, les images, etc.
   services/        # articles, chapitres, serveur, citations quotidiennes
@@ -169,11 +169,9 @@ mock/
   novel/           # fichiers Markdown des romans et générateur d'index
 
 public/
-  changelog.json   # données du changelog
+  css/giscus/      # thèmes Giscus personnalisés
   archive/         # anciennes pages statiques archivées
-
-themes/
-  giscus/          # thèmes Giscus personnalisés
+  changelog.json   # données du changelog
 ```
 
 ## Notes de développement
