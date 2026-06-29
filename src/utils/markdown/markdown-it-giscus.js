@@ -9,6 +9,52 @@ export const useParagraphComments = () => {
   const MAX_TITLE_LENGTH = 36;
   const { getCount, setCount } = useParagraphCommentsStorage();
 
+  const normalizeParagraphText = (value = "") => {
+    return String(value)
+      .replace(/ /g, " ")
+      .replace(/[↩︎️]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  };
+
+  const removeIgnoredTitleNodes = (root) => {
+    root
+      .querySelectorAll(
+        [
+          ".comment-trigger",
+          ".paragraph-comment-count",
+          ".footnote-ref",
+          ".footnote-backref",
+          ".comments-info",
+          "[data-paragraph-comment-meta]",
+          "[data-footnote-ref]",
+          "[data-footnote-backref]",
+          "[role='doc-noteref']",
+          "[role='doc-backlink']",
+          "[id^='fnref']",
+          "a[href^='#fn']",
+          "a[href^='#fnref']",
+        ].join(","),
+      )
+      .forEach((element) => element.remove());
+  };
+
+  const getParagraphTitleText = (paragraphElement) => {
+    if (!paragraphElement) return "当前段评";
+
+    const clonedElement = paragraphElement.cloneNode(true);
+    removeIgnoredTitleNodes(clonedElement);
+
+    const contentNode = clonedElement.querySelector(
+      "[data-paragraph-comment-content]",
+    );
+    const paragraphText = normalizeParagraphText(
+      contentNode?.textContent || clonedElement.textContent || "",
+    );
+
+    return paragraphText || "当前段评";
+  };
+
   const updateCountIndicators = (paragraphId, sourceType, count) => {
     const indicators = document.querySelectorAll(
       ".comment-trigger .paragraph-comment-count",
@@ -49,15 +95,7 @@ export const useParagraphComments = () => {
     }
 
     const paragraphElement = document.getElementById(paragraphId);
-    let paragraphText = "当前段评";
-
-    if (paragraphElement) {
-      const clonedElement = paragraphElement.cloneNode(true);
-      clonedElement
-        .querySelectorAll(".comment-trigger")
-        .forEach((element) => element.remove());
-      paragraphText = clonedElement.textContent?.trim() || "当前段评";
-    }
+    const paragraphText = getParagraphTitleText(paragraphElement);
     const truncatedTitle =
       paragraphText.length > MAX_TITLE_LENGTH
         ? `${paragraphText.slice(0, MAX_TITLE_LENGTH)}...`

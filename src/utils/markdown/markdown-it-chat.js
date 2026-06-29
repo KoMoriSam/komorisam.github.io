@@ -462,9 +462,9 @@ function parseMomentComments(lines) {
       continue;
     }
 
-    if (currentReply && /^\s{4,}\S/.test(line)) {
+    if (currentReply) {
       currentReply.content += `${currentReply.content ? "\n" : ""}${line.trim()}`;
-    } else if (currentComment && /^\s{2,}\S/.test(line)) {
+    } else if (currentComment) {
       currentComment.content += `${currentComment.content ? "\n" : ""}${line.trim()}`;
     }
   }
@@ -477,7 +477,15 @@ function injectCommentInfoIntoFirstParagraph(html, infoHTML) {
   const trimmed = String(html || "").trim();
   if (!trimmed) return `<p>${infoHTML}</p>`;
 
-  return trimmed.replace(/<p([^>]*)>/, `<p$1>${infoHTML}`);
+  return trimmed.replace(/<p([^>]*)>([\s\S]*?)<\/p>/, (match, attrs, body) => {
+    const triggerMatch = body.match(
+      /([\s\S]*?)(<button\b[^>]*\bcomment-trigger\b[\s\S]*?<\/button>\s*)$/,
+    );
+    const bodyHTML = triggerMatch ? triggerMatch[1] : body;
+    const triggerHTML = triggerMatch ? triggerMatch[2] : "";
+
+    return `<p${attrs}>${infoHTML}<span data-paragraph-comment-content="true">${bodyHTML}</span>${triggerHTML}</p>`;
+  });
 }
 
 function renderMomentComment(md, comment, options, env, self) {
@@ -485,7 +493,7 @@ function renderMomentComment(md, comment, options, env, self) {
   const avatar = avatarMap[username] || DEFAULT_AVATAR;
   const isSelf = selfNames.includes(username);
   const infoHTML = `
-            <span class="comments-info">
+            <span class="comments-info" data-paragraph-comment-meta="true">
               <span class="user-name">${!isSelf ? escapeHtml(md, username) : "我"}</span>
               ${comment.time ? `<span class="comment-time">${escapeHtml(md, comment.time)}</span>` : ""}
             </span>
@@ -515,7 +523,7 @@ function renderMomentReply(md, reply, options, env, self) {
   const avatar = avatarMap[replier] || DEFAULT_AVATAR;
   const isSelf = selfNames.includes(replier);
   const infoHTML = `
-            <span class="comments-info">
+            <span class="comments-info" data-paragraph-comment-meta="true">
               <span class="user-name">${!isSelf ? escapeHtml(md, replier) : "我"}
               <span class="opacity-60"> 回复 </span>
               ${escapeHtml(md, target)}</span>
