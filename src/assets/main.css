@@ -373,8 +373,8 @@
     tracking-[calc(var(--para-letter-spacing)*0.75)];
   }
 
-  #markdown-content.prose .chat-content p {
-    @apply indent-0 text-center
+  #markdown-content.prose .chat-content > p.chat-info {
+    @apply indent-0 text-center text-base-content/60
     text-[calc(var(--para-font-size)*0.75)]
     leading-[calc(var(--para-line-height)*0.75)]
     tracking-[calc(var(--para-letter-spacing)*0.75)];
@@ -392,11 +392,16 @@
   }
 
   #markdown-content.prose .chat-end .chat-bubble p button.comment-trigger {
-    @apply absolute right-full top-0 -translate-x-4 translate-y-0.75 scale-x-[-1];
+    @apply absolute right-full top-0 
+    -translate-x-4 translate-y-0.75 
+    scale-x-[-1] 
+    active:scale-x-[-80%]
+    active:scale-y-[80%];
   }
 
   #markdown-content.prose .chat-start .chat-bubble p button.comment-trigger {
-    @apply absolute left-full top-0 translate-x-4 translate-y-1;
+    @apply absolute left-full top-0 
+    translate-x-4 translate-y-0.75;
   }
 
   #markdown-content.prose .chat-bubble img {
@@ -460,6 +465,10 @@
     @apply indent-0 my-0 text-justify;
   }
 
+  #markdown-content.prose .moments-content blockquote p {
+    @apply border-l-3 border-base-content/25 pl-3 text-[calc(var(--para-font-size)*0.75)];
+  }
+
   #markdown-content.prose .moments-content .moments-images {
     @apply grid grid-cols-3 gap-1 mt-2;
   }
@@ -506,7 +515,11 @@
   }
 
   #markdown-content.prose strong {
-    @apply font-bold;
+    @apply font-bold text-inherit;
+  }
+
+  #markdown-content.prose mark {
+    @apply bg-accent text-accent-content px-1;
   }
 
   /* 脚注样式 */
@@ -516,7 +529,7 @@
   }
 
   #markdown-content.prose .footnote-ref a {
-    @apply badge badge-sm hover:badge-info hover:text-info-content no-underline indent-0 px-1.5 font-hei;
+    @apply badge badge-sm hover:badge-info hover:text-info-content no-underline indent-0 px-1.5 font-serif;
   }
 
   #markdown-content.prose .footnote-backref {
@@ -526,7 +539,7 @@
 
   #markdown-content.prose .footnotes,
   #markdown-content.prose .footnotes p {
-    @apply font-song
+    @apply font-serif
     text-[calc(var(--para-font-size)*0.75)]
     leading-[calc(var(--para-line-height)*0.75)]
     my-[calc(var(--para-margin-inline)*0.75)]
@@ -534,7 +547,7 @@
   }
 
   #markdown-content.prose li.footnote-item::marker {
-    @apply font-hei
+    @apply font-serif
     text-[calc(var(--para-font-size)*0.75)] list-decimal;
     /* content: counter(list-item); */
   }
