@@ -94,6 +94,7 @@ import { full as emojiPlugin } from "markdown-it-emoji";
 import MarkdownItSub from "markdown-it-sub";
 import MarkdownItSup from "markdown-it-sup";
 import MarkdownItTaskLists from "markdown-it-task-lists";
+import MarkdownItMark from "markdown-it-mark";
 
 // 引入自定义插件
 import { anchorPlugin } from "@/utils/markdown/markdown-it-anchor";
@@ -243,6 +244,7 @@ const plugins = computed(() => [
   MarkdownItSup,
   MarkdownItTaskLists,
   ...(katexPlugin.value ? [katexPlugin.value] : []),
+  MarkdownItMark,
   tableWrapperPlugin,
 ]);
 
