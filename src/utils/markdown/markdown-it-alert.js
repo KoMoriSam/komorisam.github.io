@@ -125,7 +125,62 @@ function retokenizeInline(md, token, content, env) {
   token.children = [];
 }
 
+function installInlineCollector(md) {
+  if (md.__komorisamInlineCollectorInstalled) return;
+  md.__komorisamInlineCollectorInstalled = true;
+
+  md.core.ruler.at("inline", (state) => {
+    const { tokens } = state;
+
+    for (const token of tokens) {
+      if (token.type === "inline") {
+        token.children = [];
+        state.md.inline.parse(token.content, state.md, state.env, token.children);
+        continue;
+      }
+
+      if (token.type === "komorisam_collect_inline") {
+        const targetToken = token.meta?.targetToken || token;
+        const children = [];
+        state.md.inline.parse(
+          targetToken.content || token.content || "",
+          state.md,
+          state.env,
+          children,
+        );
+        targetToken.children = children;
+        token.children = children;
+      }
+    }
+  });
+
+  md.renderer.rules.komorisam_collect_inline = () => "";
+}
+
+function createPreparedInlineToken(state, content) {
+  const token = new state.Token("inline", "", 0);
+  token.content = content || "";
+  token.children = [];
+  token.meta = { ...(token.meta || {}), komorisamPreparedInline: true };
+  return token;
+}
+
+function createInlineCollectorToken(state, targetToken) {
+  const token = new state.Token("komorisam_collect_inline", "", 0);
+  token.content = targetToken.content || "";
+  token.children = [];
+  token.meta = { ...(token.meta || {}), targetToken };
+  return token;
+}
+
+function renderPreparedInlineToken(token, options, env, self) {
+  if (!token?.children) return "";
+  return self.renderInline(token.children, options, env);
+}
+
 export function alertPlugin(md) {
+  installInlineCollector(md);
+
   md.core.ruler.after("block", "github_callout_to_alert", (state) => {
     const { tokens } = state;
 
@@ -135,6 +190,7 @@ export function alertPlugin(md) {
 
       const closeIndex = findBlockquoteCloseIndex(tokens, i);
       if (closeIndex === -1) continue;
+      const closeToken = tokens[closeIndex];
 
       const firstInlineIndex = i + 2;
       if (
@@ -163,18 +219,26 @@ export function alertPlugin(md) {
 
       const title = parsed.customTitle || parsed.meta.title;
       const hasTitle = !!title;
+      const titleToken = createPreparedInlineToken(state, title);
+      const titleCollectorToken = createInlineCollectorToken(state, titleToken);
 
       token.meta = {
         alert: {
           type: parsed.meta.type,
           icon: parsed.meta.icon,
           title,
+          titleToken,
           hasTitle,
           foldable: parsed.foldable,
           collapsed: parsed.collapsed,
         },
       };
-      tokens[closeIndex].meta = token.meta;
+      closeToken.meta = token.meta;
+
+      // 让标题里的 [^x] 按原文位置参与全局脚注收集；
+      // collector 只负责解析，不负责输出，避免标题在 summary 外重复渲染。
+      tokens.splice(i + 1, 0, titleCollectorToken);
+      i += 1;
     }
   });
 
@@ -200,7 +264,7 @@ export function alertPlugin(md) {
     const alert = tokens[idx].meta?.alert;
     if (!alert) return defaultBlockquoteOpen(tokens, idx, options, env, self);
 
-    const title = md.utils.escapeHtml(alert.title || "");
+    const title = renderPreparedInlineToken(alert.titleToken, options, env, self);
     const summaryTitle = alert.hasTitle ? title : "";
 
     if (alert.foldable) {

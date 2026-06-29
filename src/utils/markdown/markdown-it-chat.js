@@ -40,15 +40,70 @@ function escapeHtml(md, value = "") {
   return md.utils.escapeHtml(String(value));
 }
 
-function createNestedRenderEnv(env) {
-  const nestedEnv = env && typeof env === "object" ? { ...env } : {};
-  // 避免继承外层渲染收集到的脚注，防止在气泡/评论内追加脚注列表
-  delete nestedEnv.footnotes;
-  return nestedEnv;
+function installInlineCollector(md) {
+  if (md.__komorisamInlineCollectorInstalled) return;
+  md.__komorisamInlineCollectorInstalled = true;
+
+  md.core.ruler.at("inline", (state) => {
+    const { tokens } = state;
+
+    for (const token of tokens) {
+      if (token.type === "inline") {
+        token.children = [];
+        state.md.inline.parse(token.content, state.md, state.env, token.children);
+        continue;
+      }
+
+      if (token.type === "komorisam_collect_inline") {
+        const targetToken = token.meta?.targetToken || token;
+        const children = [];
+        state.md.inline.parse(
+          targetToken.content || token.content || "",
+          state.md,
+          state.env,
+          children,
+        );
+        targetToken.children = children;
+        token.children = children;
+      }
+    }
+  });
+
+  md.renderer.rules.komorisam_collect_inline = () => "";
 }
 
-function renderNestedMarkdown(md, source = "", env) {
-  return md.render(String(source), createNestedRenderEnv(env)).trim();
+function parsePreparedMarkdownTokens(md, source = "", env) {
+  const content = String(source || "").trim();
+  if (!content) return [];
+
+  const tokens = [];
+  md.block.parse(content, md, env, tokens);
+  return tokens;
+}
+
+function createInlineCollectorToken(targetToken) {
+  const token = new targetToken.constructor("komorisam_collect_inline", "", 0);
+  token.content = targetToken.content || "";
+  token.children = [];
+  token.meta = { ...(token.meta || {}), targetToken };
+  return token;
+}
+
+function collectInlineCollectorTokens(tokens = []) {
+  const collectorTokens = [];
+
+  for (const token of tokens) {
+    if (token.type === "inline") {
+      collectorTokens.push(createInlineCollectorToken(token));
+    }
+  }
+
+  return collectorTokens;
+}
+
+function renderPreparedMarkdownTokens(tokens, options, env, self) {
+  if (!tokens?.length) return "";
+  return self.render(tokens, options, env).trim();
 }
 
 function stripOuterQuote(line) {
@@ -152,6 +207,16 @@ function renderChatBar(md, headLine) {
 function parseChatMessages(lines) {
   const messages = [];
   let current = null;
+  let systemLines = [];
+
+  const pushSystem = () => {
+    if (!systemLines.length) return;
+    messages.push({
+      type: "system",
+      content: systemLines.join("\n").trim(),
+    });
+    systemLines = [];
+  };
 
   const pushCurrent = () => {
     if (current) {
@@ -165,7 +230,14 @@ function parseChatMessages(lines) {
     const line = rawLine.trimEnd();
 
     if (!line.trim()) continue;
-    if (!line.startsWith(">")) continue;
+
+    if (!line.startsWith(">")) {
+      pushCurrent();
+      systemLines.push(line.trim());
+      continue;
+    }
+
+    pushSystem();
 
     const innerLine = stripInnerQuote(line).trimEnd();
     const head = parseStrongHead(innerLine);
@@ -187,10 +259,22 @@ function parseChatMessages(lines) {
   }
 
   pushCurrent();
+  pushSystem();
   return messages;
 }
 
-function renderChatMessage(md, message, env) {
+function renderChatMessage(md, message, options, env, self) {
+  if (message.type === "system") {
+    const lines = String(message.content || "")
+      .split("\n")
+      .map((line) => escapeHtml(md, line.trim()))
+      .filter(Boolean);
+    const contentHTML = lines.join("<br/>");
+
+    return `
+        <p class="chat-info">${contentHTML}</p>`;
+  }
+
   const username = message.username || "用户";
   const time = message.time || "";
   const footers = message.footers || [];
@@ -199,8 +283,8 @@ function renderChatMessage(md, message, env) {
   const footerHTML = renderFooterBadges(
     footers.map((item) => escapeHtml(md, item)),
   );
-  const contentHTML = message.content
-    ? renderNestedMarkdown(md, message.content, env)
+  const contentHTML = message.contentTokens?.length
+    ? renderPreparedMarkdownTokens(message.contentTokens, options, env, self)
     : "";
 
   return `
@@ -221,13 +305,28 @@ function renderChatMessage(md, message, env) {
         </div>`;
 }
 
-function renderChatCallout(md, lines, env) {
-  const headLine = parseCalloutHead(lines[0], "chat");
+function prepareChatCallout(md, lines, env) {
+  const headLine = parseCalloutHead(lines[0] || "", "chat");
   const messages = parseChatMessages(lines.slice(1));
 
+  for (const message of messages) {
+    if (message.type === "system") continue;
+    message.contentTokens = parsePreparedMarkdownTokens(md, message.content, env);
+  }
+
+  return {
+    headLine,
+    messages,
+    collectorTokens: messages.flatMap((message) =>
+      collectInlineCollectorTokens(message.contentTokens || []),
+    ),
+  };
+}
+
+function renderChatCallout(md, prepared, options, env, self) {
   return `
-        ${renderChatBar(md, headLine)}
-        ${messages.map((message) => renderChatMessage(md, message, env)).join("\n")}
+        ${renderChatBar(md, prepared.headLine)}
+        ${prepared.messages.map((message) => renderChatMessage(md, message, options, env, self)).join("\n")}
         </div>
 `;
 }
@@ -381,7 +480,7 @@ function injectCommentInfoIntoFirstParagraph(html, infoHTML) {
   return trimmed.replace(/<p([^>]*)>/, `<p$1>${infoHTML}`);
 }
 
-function renderMomentComment(md, comment, env) {
+function renderMomentComment(md, comment, options, env, self) {
   const username = comment.username || "用户";
   const avatar = avatarMap[username] || DEFAULT_AVATAR;
   const isSelf = selfNames.includes(username);
@@ -392,7 +491,9 @@ function renderMomentComment(md, comment, env) {
             </span>
             `;
   const contentHTML = injectCommentInfoIntoFirstParagraph(
-    comment.content ? renderNestedMarkdown(md, comment.content, env) : "",
+    comment.contentTokens?.length
+      ? renderPreparedMarkdownTokens(comment.contentTokens, options, env, self)
+      : "",
     infoHTML,
   );
 
@@ -405,10 +506,10 @@ function renderMomentComment(md, comment, env) {
           </div>
           ${contentHTML}
         </div>
-        ${comment.replies.map((reply) => renderMomentReply(md, reply, env)).join("\n")}`;
+        ${comment.replies.map((reply) => renderMomentReply(md, reply, options, env, self)).join("\n")}`;
 }
 
-function renderMomentReply(md, reply, env) {
+function renderMomentReply(md, reply, options, env, self) {
   const replier = reply.replier || "用户";
   const target = reply.target || "用户";
   const avatar = avatarMap[replier] || DEFAULT_AVATAR;
@@ -422,7 +523,9 @@ function renderMomentReply(md, reply, env) {
             </span>
             `;
   const contentHTML = injectCommentInfoIntoFirstParagraph(
-    reply.content ? renderNestedMarkdown(md, reply.content, env) : "",
+    reply.contentTokens?.length
+      ? renderPreparedMarkdownTokens(reply.contentTokens, options, env, self)
+      : "",
     infoHTML,
   );
 
@@ -437,7 +540,7 @@ function renderMomentReply(md, reply, env) {
         </div>`;
 }
 
-function renderMomentComments(md, comments, env) {
+function renderMomentComments(md, comments, options, env, self) {
   if (!comments.length) return "";
 
   const commentUser = "小群主";
@@ -457,16 +560,13 @@ function renderMomentComments(md, comments, env) {
             </div>
           </div>
           <div class="comments-list">
-            ${comments.map((comment) => renderMomentComment(md, comment, env)).join("\n")}
+            ${comments.map((comment) => renderMomentComment(md, comment, options, env, self)).join("\n")}
           </div>
         </div>`;
 }
 
-function renderMomentCallout(md, lines, env) {
-  const { username, time, location } = parseMomentHead(lines[0]);
-  const avatar = avatarMap[username] || DEFAULT_AVATAR;
-  const isSelf = selfNames.includes(username);
-
+function parseMomentCalloutData(lines) {
+  const { username, time, location } = parseMomentHead(lines[0] || "");
   const contentLines = [];
   const images = [];
   let stats = { like: "", comment: "", share: "" };
@@ -474,8 +574,9 @@ function renderMomentCallout(md, lines, env) {
   let inComments = false;
 
   for (const rawLine of lines.slice(1)) {
-    const line = rawLine.trimEnd();
-    const trimmed = line.trim();
+    // Keep trailing spaces so markdown line-break markers (two-space newline) still work.
+    const line = rawLine;
+    const trimmed = rawLine.trim();
 
     if (/^\*\*评论\*\*$/.test(trimmed)) {
       inComments = true;
@@ -502,8 +603,48 @@ function renderMomentCallout(md, lines, env) {
     contentLines.push(line);
   }
 
-  const contentHTML = contentLines.join("\n").trim()
-    ? renderNestedMarkdown(md, contentLines.join("\n").trim(), env)
+  return {
+    username,
+    time,
+    location,
+    content: contentLines.join("\n").trim(),
+    images,
+    stats,
+    comments: parseMomentComments(commentLines),
+  };
+}
+
+function prepareMomentCallout(md, lines, env) {
+  const data = parseMomentCalloutData(lines);
+  data.contentTokens = parsePreparedMarkdownTokens(md, data.content, env);
+
+  for (const comment of data.comments) {
+    comment.contentTokens = parsePreparedMarkdownTokens(md, comment.content, env);
+    for (const reply of comment.replies) {
+      reply.contentTokens = parsePreparedMarkdownTokens(md, reply.content, env);
+    }
+  }
+
+  data.collectorTokens = [
+    ...collectInlineCollectorTokens(data.contentTokens),
+    ...data.comments.flatMap((comment) => [
+      ...collectInlineCollectorTokens(comment.contentTokens),
+      ...comment.replies.flatMap((reply) =>
+        collectInlineCollectorTokens(reply.contentTokens),
+      ),
+    ]),
+  ];
+
+  return data;
+}
+
+function renderMomentCallout(md, prepared, options, env, self) {
+  const { username, time, location, images, stats, comments } = prepared;
+  const avatar = avatarMap[username] || DEFAULT_AVATAR;
+  const isSelf = selfNames.includes(username);
+
+  const contentHTML = prepared.contentTokens?.length
+    ? renderPreparedMarkdownTokens(prepared.contentTokens, options, env, self)
     : "";
   const imagesHTML = images.length
     ? `<div class="moments-images not-prose">\n${images
@@ -513,7 +654,6 @@ function renderMomentCallout(md, lines, env) {
         )
         .join("\n")}\n</div>`
     : "";
-  const comments = parseMomentComments(commentLines);
 
   return `
         <div class="moments-card not-prose">
@@ -538,7 +678,7 @@ function renderMomentCallout(md, lines, env) {
               ${imagesHTML}
             </div>
             ${renderActions(stats.like, stats.comment, stats.share)}
-            ${renderMomentComments(md, comments, env)}
+            ${renderMomentComments(md, comments, options, env, self)}
           </div>
         </div>
 `;
@@ -547,25 +687,56 @@ function renderMomentCallout(md, lines, env) {
 function installCalloutPlugin(md) {
   if (md.__komorisamChatCalloutPluginInstalled) return;
   md.__komorisamChatCalloutPluginInstalled = true;
+  installInlineCollector(md);
+
 
   md.renderer.rules.komorisam_chat_moment_callout = function (
     tokens,
     idx,
     options,
     env,
+    self,
   ) {
-    const { type, lines } = tokens[idx].meta || {};
+    const { type, prepared } = tokens[idx].meta || {};
 
-    if (type === "chat") {
-      return renderChatCallout(md, lines || [], env);
+    if (type === "chat" && prepared) {
+      return renderChatCallout(md, prepared, options, env, self);
     }
 
-    if (type === "moment") {
-      return renderMomentCallout(md, lines || [], env);
+    if (type === "moment" && prepared) {
+      return renderMomentCallout(md, prepared, options, env, self);
     }
 
     return "";
   };
+
+  md.core.ruler.after("block", "komorisam_prepare_chat_moment_callouts", (state) => {
+    const { tokens } = state;
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
+      if (token.type !== "komorisam_chat_moment_callout") continue;
+      if (token.meta?.prepared) continue;
+
+      const { type, lines = [] } = token.meta || {};
+      const prepared =
+        type === "chat"
+          ? prepareChatCallout(md, lines, state.env)
+          : type === "moment"
+            ? prepareMomentCallout(md, lines, state.env)
+            : null;
+
+      if (!prepared) continue;
+      token.meta.prepared = prepared;
+
+      const collectorTokens = prepared.collectorTokens || [];
+      if (collectorTokens.length) {
+        // collector 只参与 inline 阶段的全局脚注收集，不直接输出 HTML。
+        tokens.splice(i, 0, ...collectorTokens);
+        i += collectorTokens.length;
+      }
+    }
+  });
 
   md.block.ruler.before(
     "blockquote",
