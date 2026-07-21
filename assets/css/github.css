@@ -232,10 +232,7 @@ a:hover {
 .branch-button svg,
 .code-button svg {
   display: block;
-  width: 1rem;
-  height: 1rem;
-  overflow: visible;
-  fill: currentColor;
+  width: 16px;
 }
 
 /* README 正文容器 */
