@@ -283,12 +283,12 @@ a:hover {
   background: var(--bg-color);
   --fontStack-monospace:
     Ubuntu Mono, 等距更纱黑体 SC, Noto Sans Sinhala, ui-monospace,
-    SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
   --fontStack-sansSerif:
     "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
     "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+    "Noto Color Emoji" !important;
 }
 
 /*
