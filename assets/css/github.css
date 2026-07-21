@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Manrope";
+  src: url("https://cdn.jsdelivr.net/npm/manrope@2.0.0/complete/manrope-regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("https://cdn.jsdelivr.net/npm/manrope@2.0.0/complete/manrope-bold.woff2")
+    format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -28,8 +46,10 @@ body {
   color: var(--text-color);
   background: var(--bg-color);
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
+    "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
   font-size: 14px;
   line-height: 1.5;
 }
@@ -112,7 +132,20 @@ a:hover {
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.repo-title a {
+  display: inline-block;
+  color: var(--text-color);
+  background: var(--header-bg);
+  border-radius: 3px;
+  padding: 3px 6px;
+  text-decoration-line: none;
+}
+
+.repo-title a:hover {
+  background: var(--bg-color);
 }
 
 .repo-title svg {
@@ -129,7 +162,7 @@ a:hover {
   color: var(--muted-color);
   border: 1px solid var(--border-color);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -698,7 +731,7 @@ a:hover {
   }
 
   .repo-title {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .repo-tabs {
