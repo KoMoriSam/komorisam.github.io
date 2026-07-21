@@ -1,0 +1,28 @@
+<nav class="repo-tabs" aria-label="站点导航">
+  <a
+    class="repo-tab {% if page.url == '/' %}active{% endif %}"
+    href="{{ '/' | relative_url }}"
+  >
+    首页
+  </a>
+
+  <a
+    class="repo-tab {% if page.url contains '/docs/' %}active{% endif %}"
+    href="{{ '/docs/' | relative_url }}"
+  >
+    文档
+    <span class="counter">{{ site.docs.size }}</span>
+  </a>
+
+  <a
+    class="repo-tab {% if page.url contains '/posts/' %}active{% endif %}"
+    href="{{ '/posts/' | relative_url }}"
+  >
+    推文
+    <span class="counter">{{ site.posts.size }}</span>
+  </a>
+
+  <a class="repo-tab" href="https://github.com/KoMoriSam/komorisam.github.io">
+    仓库
+  </a>
+</nav>

@@ -47,33 +47,7 @@
         </div>
       </div>
 
-      <nav class="repo-tabs" aria-label="仓库导航">
-        <a class="repo-tab active" href="{{ '/' | relative_url }}">
-          <span>⌘</span>
-          Code
-        </a>
-
-        <a
-          class="repo-tab"
-          href="https://github.com/KoMoriSam/komorisam.github.io/issues"
-        >
-          Issues
-        </a>
-
-        <a
-          class="repo-tab"
-          href="https://github.com/KoMoriSam/komorisam.github.io/discussions"
-        >
-          Discussions
-        </a>
-
-        <a
-          class="repo-tab"
-          href="https://github.com/KoMoriSam/komorisam.github.io"
-        >
-          Repository
-        </a>
-      </nav>
+      {% include site-nav.html %}
     </header>
 
     <!-- 主体 -->
@@ -100,7 +74,29 @@
 
       <article class="readme-box">
         <header class="readme-header">
-          <strong> {{ page.filename | default: "README.md" }} </strong>
+          <div class="file-heading">
+            <nav class="breadcrumb" aria-label="当前位置">
+              <a href="{{ '/' | relative_url }}"> komorisam.github.io </a>
+
+              {% if page.collection == "docs" %}
+              <span>/</span>
+              <a href="{{ '/docs/' | relative_url }}">docs</a>
+              {% elsif page.collection == "posts" %}
+              <span>/</span>
+              <a href="{{ '/posts/' | relative_url }}">posts</a>
+              {% endif %} {% unless page.url == "/" %}
+              <span>/</span>
+              <strong>{{ page.title | default: page.name }}</strong>
+              {% endunless %}
+            </nav>
+
+            <a
+              class="github-source-link"
+              href="{% if page.github_url %}{{ page.github_url }}{% else %}https://github.com/KoMoriSam/komorisam.github.io{% endif %}"
+            >
+              View on GitHub
+            </a>
+          </div>
 
           <a href="https://github.com/KoMoriSam/komorisam.github.io">
             View on GitHub

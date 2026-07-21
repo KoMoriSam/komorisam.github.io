@@ -35,6 +35,32 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
+permalink: /posts/:year/:month/:day/:title/
+
+collections:
+  docs:
+    output: true
+    permalink: /docs/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+  - scope:
+      path: ""
+      type: docs
+    values:
+      layout: default
+
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
 # Build settings
 plugins:
   - jekyll-feed

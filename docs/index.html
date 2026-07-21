@@ -1,0 +1,28 @@
+---
+layout: default
+title: 文档
+permalink: /docs/
+---
+
+<h1>文档</h1>
+
+<div class="github-file-list">
+  {% assign docs = site.docs | sort: "order" %} {% for doc in docs %}
+  <a class="github-file-row" href="{{ doc.url | relative_url }}">
+    <span class="file-icon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" width="16" height="16">
+        <path
+          fill="currentColor"
+          d="M2.75 1A1.75 1.75 0 0 0 1 2.75v10.5C1 14.216 1.784 15 2.75 15h10.5A1.75 1.75 0 0 0 15 13.25V5.5a.75.75 0 0 0-.22-.53l-3.75-3.75A.75.75 0 0 0 10.5 1Zm0 1.5H9.5v3.25c0 .414.336.75.75.75h3.25v6.75a.25.25 0 0 1-.25.25H2.75a.25.25 0 0 1-.25-.25Z"
+        />
+      </svg>
+    </span>
+
+    <span class="file-name"> {{ doc.title | default: doc.name }} </span>
+
+    <span class="file-description"> {{ doc.description }} </span>
+  </a>
+  {% else %}
+  <p>暂无文档。</p>
+  {% endfor %}
+</div>
