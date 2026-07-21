@@ -229,6 +229,158 @@ a:hover {
   background: #1a7f37;
 }
 
+/* README 正文容器 */
+
+.readme-content {
+  padding: 0;
+}
+
+.readme-content > .markdown-body {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  padding: 32px;
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+/*
+ * 不要使用下面这种全局覆盖：
+ *
+ * .markdown-body * {
+ *   all: unset;
+ * }
+ *
+ * 或：
+ *
+ * .markdown-body h1,
+ * .markdown-body h2,
+ * .markdown-body p {
+ *   margin: 0;
+ * }
+ */
+
+/* 页面标题 */
+
+.post-header,
+.collection-header {
+  margin-bottom: 24px;
+}
+
+.post-header h1,
+.collection-header h1 {
+  margin-top: 0;
+}
+
+.post-meta,
+.collection-header > p {
+  color: var(--muted-color);
+}
+
+/* 文档与推文列表 */
+
+.github-file-list {
+  overflow: hidden;
+  margin: 16px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.github-file-row {
+  display: grid;
+  grid-template-columns:
+    20px
+    minmax(160px, 0.55fr)
+    minmax(0, 1fr)
+    auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 16px;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.github-file-row:last-child {
+  border-bottom: 0;
+}
+
+.github-file-row:hover {
+  background: var(--subtle-bg);
+  text-decoration: none;
+}
+
+.file-icon {
+  display: inline-flex;
+  color: var(--muted-color);
+}
+
+.file-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--link-color);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-description,
+.file-date {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted-color);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 文章翻页 */
+
+.post-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.post-navigation-next {
+  text-align: right;
+}
+
+.post-navigation-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted-color);
+  font-size: 12px;
+}
+
+/* 移动端 */
+
+@media (max-width: 767px) {
+  .readme-content > .markdown-body {
+    padding: 16px;
+  }
+
+  .github-file-row {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+
+  .file-description,
+  .file-date {
+    display: none;
+  }
+
+  .post-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .post-navigation-next {
+    text-align: left;
+  }
+}
+
 /* README 卡片 */
 
 .readme-box {

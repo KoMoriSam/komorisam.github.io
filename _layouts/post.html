@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 
 <header class="post-header">
@@ -9,25 +9,31 @@ layout: post
     <time datetime="{{ page.date | date_to_xmlschema }}">
       {{ page.date | date: "%Y 年 %-m 月 %-d 日" }}
     </time>
+
+    {% if page.author %}
+    <span> · {{ page.author }}</span>
+    {% endif %}
   </p>
 </header>
 
-{{ content }}
-
+{{ content }} {% if page.previous or page.next %}
 <nav class="post-navigation" aria-label="文章翻页">
-  <div>
+  <div class="post-navigation-item">
     {% if page.previous %}
-    <span>上一篇</span>
+    <span class="post-navigation-label"> 上一篇 </span>
+
     <a href="{{ page.previous.url | relative_url }}">
       {{ page.previous.title }}
     </a>
     {% endif %}
   </div>
 
-  <div>
+  <div class="post-navigation-item post-navigation-next">
     {% if page.next %}
-    <span>下一篇</span>
+    <span class="post-navigation-label"> 下一篇 </span>
+
     <a href="{{ page.next.url | relative_url }}"> {{ page.next.title }} </a>
     {% endif %}
   </div>
 </nav>
+{% endif %}
