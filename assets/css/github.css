@@ -1,0 +1,348 @@
+:root {
+  color-scheme: light dark;
+
+  --bg-color: #ffffff;
+  --header-bg: #f6f8fa;
+  --subtle-bg: #f6f8fa;
+  --border-color: #d0d7de;
+  --border-muted: #d8dee4;
+  --text-color: #1f2328;
+  --muted-color: #59636e;
+  --link-color: #0969da;
+  --button-bg: #f6f8fa;
+  --button-hover-bg: #f3f4f6;
+  --selected-border: #fd8c73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--bg-color);
+}
+
+body {
+  margin: 0;
+  color: var(--text-color);
+  background: var(--bg-color);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 顶栏 */
+
+.site-header {
+  color: var(--text-color);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 16px;
+}
+
+.github-logo {
+  display: inline-flex;
+  flex: none;
+  color: var(--text-color);
+}
+
+.site-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(350px, 40vw);
+  min-height: 32px;
+  padding: 5px 12px;
+  color: var(--muted-color);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.search-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.header-actions a {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* 仓库标题 */
+
+.repo-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.repo-header-inner {
+  padding: 16px 32px 8px;
+}
+
+.repo-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 20px;
+}
+
+.repo-title svg {
+  color: var(--muted-color);
+}
+
+.repo-name {
+  font-weight: 600;
+}
+
+.visibility-badge {
+  margin-left: 4px;
+  padding: 1px 7px;
+  color: var(--muted-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 标签页 */
+
+.repo-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 0 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.repo-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.repo-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 7px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: var(--text-color);
+  border-radius: 6px 6px 0 0;
+  font-weight: 500;
+}
+
+.repo-tab:hover {
+  background: rgb(208 215 222 / 32%);
+  text-decoration: none;
+}
+
+.repo-tab.active {
+  font-weight: 600;
+}
+
+.repo-tab.active::after {
+  position: absolute;
+  right: 8px;
+  bottom: -1px;
+  left: 8px;
+  height: 2px;
+  background: var(--selected-border);
+  border-radius: 2px 2px 0 0;
+  content: "";
+}
+
+/* 主体 */
+
+.repo-content {
+  width: min(100% - 32px, 1280px);
+  margin: 24px auto 48px;
+}
+
+.branch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.branch-button,
+.code-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 5px 12px;
+  color: var(--text-color);
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgb(31 35 40 / 4%);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.branch-button:hover,
+.code-button:hover {
+  background: var(--button-hover-bg);
+  text-decoration: none;
+}
+
+.code-button {
+  color: #ffffff;
+  background: #1f883d;
+  border-color: rgb(31 35 40 / 15%);
+}
+
+.code-button:hover {
+  color: #ffffff;
+  background: #1a7f37;
+}
+
+/* README 卡片 */
+
+.readme-box {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.readme-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+  padding: 8px 16px;
+  background: var(--subtle-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.readme-header a {
+  font-size: 12px;
+}
+
+.readme-content {
+  padding: 32px;
+}
+
+.markdown-body {
+  max-width: none;
+  color: var(--text-color);
+  background: transparent;
+}
+
+/* 避免 Markdown 图片撑宽 */
+
+.markdown-body img {
+  max-width: 100%;
+}
+
+/* 页脚 */
+
+.site-footer {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: min(100% - 32px, 1280px);
+  margin: 0 auto;
+  padding: 32px 16px;
+  color: var(--muted-color);
+  border-top: 1px solid var(--border-muted);
+  font-size: 12px;
+}
+
+/* 深色模式 */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0d1117;
+    --header-bg: #010409;
+    --subtle-bg: #161b22;
+    --border-color: #3d444d;
+    --border-muted: #21262d;
+    --text-color: #f0f6fc;
+    --muted-color: #9198a1;
+    --link-color: #4493f8;
+    --button-bg: #212830;
+    --button-hover-bg: #262c36;
+    --selected-border: #f78166;
+  }
+
+  .site-search {
+    background: #0d1117;
+  }
+
+  .repo-tab:hover {
+    background: rgb(177 186 196 / 12%);
+  }
+}
+
+/* 移动端 */
+
+@media (max-width: 767px) {
+  .site-header-inner {
+    min-height: 56px;
+  }
+
+  .site-search {
+    display: none;
+  }
+
+  .repo-header-inner {
+    padding: 14px 16px 6px;
+  }
+
+  .repo-title {
+    font-size: 16px;
+  }
+
+  .repo-tabs {
+    padding: 0 8px;
+  }
+
+  .repo-content {
+    width: min(100% - 16px, 1280px);
+    margin-top: 16px;
+  }
+
+  .readme-content {
+    padding: 16px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}

@@ -2,10 +2,10 @@
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-layout: home
+layout: default
+title: 文件仓库这一块
+filename: README.md
 ---
-
-# 文件仓库这一块
 
 > [!CAUTION]
 >
