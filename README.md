@@ -7,8 +7,9 @@
 
 你还可以找到为了配合[我的网站](https://komori.cc)设计风格而自定义的 Giscus css 文件：
 
-- [日间（默认）](https://raw.komori.cc/css/giscus/lemonade.css)
-- [夜间（偏低调）](https://raw.komori.cc/css/giscus/dim.css)
-
-- [日间（偏商务）](https://raw.komori.cc/css/giscus/corporate.css)
-- [夜间（默认）](https://raw.komori.cc/css/giscus/forest.css)
+- 默认主题
+  - [日间（默认）](https://raw.komori.cc/css/giscus/lemonade.css)
+  - [夜间（默认）](https://raw.komori.cc/css/giscus/forest.css)
+- 个性主题
+  - [日间（偏商务）](https://raw.komori.cc/css/giscus/corporate.css)
+  - [夜间（偏低调）](https://raw.komori.cc/css/giscus/dim.css)
