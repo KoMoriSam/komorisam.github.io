@@ -281,6 +281,11 @@ a:hover {
   padding: 32px;
   color: var(--text-color);
   background: var(--bg-color);
+  font-family:
+    "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
+    "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 }
 
 /*
