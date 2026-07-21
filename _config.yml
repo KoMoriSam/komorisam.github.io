@@ -35,6 +35,8 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
+permalink: /posts/:year/:month/:day/:title/
+
 collections:
   docs:
     output: true
