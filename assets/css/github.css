@@ -268,13 +268,8 @@ a:hover {
   width: 16px;
 }
 
-/* README 正文容器 */
-
-.readme-content {
-  padding: 0;
-}
-
-.readme-content > .markdown-body {
+/* 正文容器 */
+.markdown-body {
   width: 100%;
   max-width: none;
   min-width: 0;
@@ -708,6 +703,11 @@ a:hover {
   color: var(--muted-color);
   border-top: 1px solid var(--border-muted);
   font-size: 12px;
+}
+
+.site-footer a svg,
+.site-footer a img {
+  width: 12px;
 }
 
 /* 深色模式 */
