@@ -270,7 +270,7 @@ a:hover {
 
 /* 正文容器 */
 .markdown-body {
-  width: 100%;
+  width: 80%;
   max-width: none;
   min-width: 0;
   padding: 32px;
@@ -414,7 +414,7 @@ a:hover {
 /* 移动端 */
 
 @media (max-width: 767px) {
-  .readme-content > .markdown-body {
+  .article-content > .markdown-body {
     padding: 16px;
   }
 
@@ -438,13 +438,13 @@ a:hover {
 
 /* README 卡片 */
 
-.readme-box {
+.article-box {
   overflow: hidden;
   border: 1px solid var(--border-color);
   border-radius: 6px;
 }
 
-.readme-header {
+.article-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -455,11 +455,11 @@ a:hover {
   border-bottom: 1px solid var(--border-color);
 }
 
-.readme-header a {
+.article-header a {
   font-size: 12px;
 }
 
-.readme-content {
+.article-content {
   padding: 32px;
 }
 
@@ -705,6 +705,14 @@ a:hover {
   font-size: 12px;
 }
 
+.site-footer a {
+  color: var(--text-color);
+}
+
+.site-footer a:hover {
+  color: var(--link-color);
+}
+
 .site-footer a svg,
 .site-footer a img {
   width: 12px;
@@ -764,7 +772,7 @@ a:hover {
     margin-top: 16px;
   }
 
-  .readme-content {
+  .article-content {
     padding: 16px;
   }
 
