@@ -708,7 +708,9 @@ a:hover {
 
 .site-footer address {
   display: flex;
-  gap: 4px;
+  justify-items: center;
+  align-items: center;
+  gap: 6px;
 }
 
 .site-footer address a {
