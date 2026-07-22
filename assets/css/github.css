@@ -270,7 +270,7 @@ a:hover {
 
 /* 正文容器 */
 .markdown-body {
-  width: 80%;
+  width: 100%;
   max-width: none;
   min-width: 0;
   padding: 32px;
@@ -414,7 +414,7 @@ a:hover {
 /* 移动端 */
 
 @media (max-width: 767px) {
-  .article-content > .markdown-body {
+  .markdown-body {
     padding: 16px;
   }
 
