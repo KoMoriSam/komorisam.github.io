@@ -696,6 +696,7 @@ a:hover {
 .site-footer {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 24px;
   width: min(100% - 32px, 1280px);
   margin: 0 auto;
@@ -705,16 +706,16 @@ a:hover {
   font-size: 12px;
 }
 
-.site-footer a {
+.site-footer address a {
   color: var(--text-color);
 }
 
-.site-footer a:hover {
+.site-footer address a:hover {
   color: var(--link-color);
 }
 
-.site-footer a svg,
-.site-footer a img {
+.site-footer address a svg,
+.site-footer address a img {
   width: 12px;
 }
 
