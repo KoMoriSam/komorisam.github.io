@@ -706,6 +706,11 @@ a:hover {
   font-size: 12px;
 }
 
+.site-footer address {
+  display: flex;
+  gap: 4px;
+}
+
 .site-footer address a {
   color: var(--text-color);
 }
@@ -714,9 +719,12 @@ a:hover {
   color: var(--link-color);
 }
 
-.site-footer address a svg,
 .site-footer address a img {
   width: 12px;
+}
+
+.site-footer address a svg {
+  width: 16px;
 }
 
 /* 深色模式 */
