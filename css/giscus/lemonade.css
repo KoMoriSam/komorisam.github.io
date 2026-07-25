@@ -147,3 +147,8 @@ main .pagination-loader-container {
 main .gsc-loading-image {
   background-image: url("https://github.githubassets.com/images/mona-loading-default.gif");
 }
+
+/* ========== 边距空白大小 ========== */
+.gsc-main {
+  padding: 0 1px;
+}
