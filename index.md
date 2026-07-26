@@ -7,7 +7,7 @@ title: 文件仓库这一块
 filename: README.md
 ---
 
-> [!CAUTION]
+> [!IMPORTANT]
 >
 > 如果你要访问我的个人网站，它已经搬家啦！  
 > 现在它拥有自己的域名，欢迎来做客：
