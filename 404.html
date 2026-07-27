@@ -3,23 +3,36 @@ permalink: /404.html
 layout: page
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
+<main>
   <h1>404</h1>
 
   <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+  <p>无法找到所请求的页面</p>
+
+  <h1>如果你想访问的是我的个人网站相关页面</h1>
+
+  <p>那么当前页面很可能已经迁移至新的域名。请点击下方链接前往对应页面。</p>
+
+  <a id="redirect-link" href="https://komori.cc">
+    <div id="target-url" class="url"></div>
+  </a>
+</main>
+
+<script>
+  (() => {
+    // 替换成你的新域名，不要在末尾添加斜杠
+    const newOrigin = "https://komori.cc";
+
+    const targetUrl =
+      newOrigin +
+      window.location.pathname +
+      window.location.search +
+      window.location.hash;
+
+    const link = document.getElementById("redirect-link");
+    const targetText = document.getElementById("target-url");
+
+    link.href = targetUrl;
+    targetText.textContent = targetUrl;
+  })();
+</script>
