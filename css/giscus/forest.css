@@ -159,6 +159,7 @@ main .gsc-loading-image {
 
 /* ========== GitHub Alerts ========== */
 .markdown .markdown-alert {
+  padding-left: 1rem;
   border-left: 0.25em solid var(--color-border-default);
 }
 
