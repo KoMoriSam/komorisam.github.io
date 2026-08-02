@@ -122,11 +122,18 @@ main {
   --color-accent-subtle: oklch(86.133% 0.141 139.549 / 12%);
 
   /* ========== 语义色 ========== */
+  --color-info-fg: oklch(86.078% 0.142 206.182);
+  --color-info-emphasis: oklch(86.078% 0.142 206.182);
   --color-success-fg: oklch(86.171% 0.142 166.534);
+  --color-success-emphasis: oklch(86.171% 0.142 166.534);
+  --color-done-fg: oklch(74.229% 0.133 311.379);
+  --color-done-emphasis: oklch(74.229% 0.133 311.379);
   --color-attention-fg: oklch(86.163% 0.142 94.818);
+  --color-attention-emphasis: oklch(86.163% 0.142 94.818);
   --color-attention-muted: oklch(86.163% 0.142 94.818 / 35%);
   --color-attention-subtle: oklch(86.163% 0.142 94.818 / 12%);
   --color-danger-fg: oklch(82.418% 0.099 33.756);
+  --color-danger-emphasis: oklch(82.418% 0.099 33.756);
   --color-danger-muted: oklch(82.418% 0.099 33.756 / 35%);
   --color-danger-subtle: oklch(82.418% 0.099 33.756 / 12%);
 
@@ -152,4 +159,49 @@ main .gsc-loading-image {
 /* ========== 边距空白大小 ========== */
 .gsc-main {
   padding: 0 1px;
+}
+
+/* ========== GitHub Alerts ========== */
+.markdown-body .markdown-alert {
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.markdown-body .markdown-alert-note {
+  border-left-color: var(--color-info-emphasis);
+}
+
+.markdown-body .markdown-alert-note .markdown-alert-title {
+  color: var(--color-info-fg);
+}
+
+.markdown-body .markdown-alert-tip {
+  border-left-color: var(--color-success-emphasis);
+}
+
+.markdown-body .markdown-alert-tip .markdown-alert-title {
+  color: var(--color-success-fg);
+}
+
+.markdown-body .markdown-alert-important {
+  border-left-color: var(--color-done-emphasis);
+}
+
+.markdown-body .markdown-alert-important .markdown-alert-title {
+  color: var(--color-done-fg);
+}
+
+.markdown-body .markdown-alert-warning {
+  border-left-color: var(--color-attention-emphasis);
+}
+
+.markdown-body .markdown-alert-warning .markdown-alert-title {
+  color: var(--color-attention-fg);
+}
+
+.markdown-body .markdown-alert-caution {
+  border-left-color: var(--color-danger-emphasis);
+}
+
+.markdown-body .markdown-alert-caution .markdown-alert-title {
+  color: var(--color-danger-fg);
 }

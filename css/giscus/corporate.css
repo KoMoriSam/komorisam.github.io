@@ -120,11 +120,18 @@ main {
   --color-accent-subtle: oklch(58% 0.158 241.966 / 8%);
 
   /* ========== 语义色 ========== */
+  --color-info-fg: oklch(50% 0.126 221.723);
+  --color-info-emphasis: oklch(60% 0.126 221.723);
   --color-success-fg: oklch(50% 0.18 150);
+  --color-success-emphasis: oklch(62% 0.194 149.214);
+  --color-done-fg: oklch(50% 0.118 184.704);
+  --color-done-emphasis: oklch(60% 0.118 184.704);
   --color-attention-fg: oklch(55% 0.18 90);
+  --color-attention-emphasis: oklch(85% 0.199 91.936);
   --color-attention-muted: oklch(85% 0.199 91.936 / 40%);
   --color-attention-subtle: oklch(85% 0.199 91.936 / 25%);
   --color-danger-fg: oklch(55% 0.2 20);
+  --color-danger-emphasis: oklch(70% 0.191 22.216);
   --color-danger-muted: oklch(70% 0.191 22.216 / 35%);
   --color-danger-subtle: oklch(70% 0.191 22.216 / 10%);
 
@@ -150,4 +157,49 @@ main .gsc-loading-image {
 /* ========== 边距空白大小 ========== */
 .gsc-main {
   padding: 0 1px;
+}
+
+/* ========== GitHub Alerts ========== */
+.markdown-body .markdown-alert {
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.markdown-body .markdown-alert-note {
+  border-left-color: var(--color-info-emphasis);
+}
+
+.markdown-body .markdown-alert-note .markdown-alert-title {
+  color: var(--color-info-fg);
+}
+
+.markdown-body .markdown-alert-tip {
+  border-left-color: var(--color-success-emphasis);
+}
+
+.markdown-body .markdown-alert-tip .markdown-alert-title {
+  color: var(--color-success-fg);
+}
+
+.markdown-body .markdown-alert-important {
+  border-left-color: var(--color-done-emphasis);
+}
+
+.markdown-body .markdown-alert-important .markdown-alert-title {
+  color: var(--color-done-fg);
+}
+
+.markdown-body .markdown-alert-warning {
+  border-left-color: var(--color-attention-emphasis);
+}
+
+.markdown-body .markdown-alert-warning .markdown-alert-title {
+  color: var(--color-attention-fg);
+}
+
+.markdown-body .markdown-alert-caution {
+  border-left-color: var(--color-danger-emphasis);
+}
+
+.markdown-body .markdown-alert-caution .markdown-alert-title {
+  color: var(--color-danger-fg);
 }

@@ -121,11 +121,18 @@ main {
   --color-accent-subtle: oklch(58.92% 0.199 134.6 / 10%);
 
   /* ========== 语义色 ========== */
+  --color-info-fg: oklch(50% 0.1 224.14);
+  --color-info-emphasis: oklch(86.19% 0.047 224.14);
   --color-success-fg: oklch(45% 0.18 145);
+  --color-success-emphasis: oklch(86.19% 0.047 157.85);
+  --color-done-fg: oklch(50% 0.16 100.73);
+  --color-done-emphasis: oklch(85.39% 0.201 100.73);
   --color-attention-fg: oklch(50% 0.18 85);
+  --color-attention-emphasis: oklch(86.19% 0.047 102.15);
   --color-attention-muted: oklch(77.75% 0.196 111.09 / 40%);
   --color-attention-subtle: oklch(85.39% 0.201 100.73 / 30%);
   --color-danger-fg: oklch(50% 0.22 25);
+  --color-danger-emphasis: oklch(86.19% 0.047 25.85);
   --color-danger-muted: oklch(50% 0.22 25 / 35%);
   --color-danger-subtle: oklch(86.19% 0.047 25.85 / 40%);
 
@@ -151,4 +158,49 @@ main .gsc-loading-image {
 /* ========== 边距空白大小 ========== */
 .gsc-main {
   padding: 0 1px;
+}
+
+/* ========== GitHub Alerts ========== */
+.markdown-body .markdown-alert {
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.markdown-body .markdown-alert-note {
+  border-left-color: var(--color-info-emphasis);
+}
+
+.markdown-body .markdown-alert-note .markdown-alert-title {
+  color: var(--color-info-fg);
+}
+
+.markdown-body .markdown-alert-tip {
+  border-left-color: var(--color-success-emphasis);
+}
+
+.markdown-body .markdown-alert-tip .markdown-alert-title {
+  color: var(--color-success-fg);
+}
+
+.markdown-body .markdown-alert-important {
+  border-left-color: var(--color-done-emphasis);
+}
+
+.markdown-body .markdown-alert-important .markdown-alert-title {
+  color: var(--color-done-fg);
+}
+
+.markdown-body .markdown-alert-warning {
+  border-left-color: var(--color-attention-emphasis);
+}
+
+.markdown-body .markdown-alert-warning .markdown-alert-title {
+  color: var(--color-attention-fg);
+}
+
+.markdown-body .markdown-alert-caution {
+  border-left-color: var(--color-danger-emphasis);
+}
+
+.markdown-body .markdown-alert-caution .markdown-alert-title {
+  color: var(--color-danger-fg);
 }

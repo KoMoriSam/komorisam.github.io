@@ -118,11 +118,18 @@ main {
   --color-accent-subtle: oklch(68.628% 0.185 148.958 / 12%);
 
   /* ========== 语义色 ========== */
+  --color-info-fg: oklch(72.06% 0.191 231.6);
+  --color-info-emphasis: oklch(72.06% 0.191 231.6);
   --color-success-fg: oklch(64.8% 0.15 160);
+  --color-success-emphasis: oklch(64.8% 0.15 160);
+  --color-done-fg: oklch(70.628% 0.119 185.713);
+  --color-done-emphasis: oklch(70.628% 0.119 185.713);
   --color-attention-fg: oklch(84.71% 0.199 83.87);
+  --color-attention-emphasis: oklch(84.71% 0.199 83.87);
   --color-attention-muted: oklch(84.71% 0.199 83.87 / 35%);
   --color-attention-subtle: oklch(84.71% 0.199 83.87 / 12%);
   --color-danger-fg: oklch(71.76% 0.221 22.18);
+  --color-danger-emphasis: oklch(71.76% 0.221 22.18);
   --color-danger-muted: oklch(71.76% 0.221 22.18 / 35%);
   --color-danger-subtle: oklch(71.76% 0.221 22.18 / 12%);
 
@@ -148,4 +155,49 @@ main .gsc-loading-image {
 /* ========== 边距空白大小 ========== */
 .gsc-main {
   padding: 0 1px;
+}
+
+/* ========== GitHub Alerts ========== */
+.markdown-body .markdown-alert {
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.markdown-body .markdown-alert-note {
+  border-left-color: var(--color-info-emphasis);
+}
+
+.markdown-body .markdown-alert-note .markdown-alert-title {
+  color: var(--color-info-fg);
+}
+
+.markdown-body .markdown-alert-tip {
+  border-left-color: var(--color-success-emphasis);
+}
+
+.markdown-body .markdown-alert-tip .markdown-alert-title {
+  color: var(--color-success-fg);
+}
+
+.markdown-body .markdown-alert-important {
+  border-left-color: var(--color-done-emphasis);
+}
+
+.markdown-body .markdown-alert-important .markdown-alert-title {
+  color: var(--color-done-fg);
+}
+
+.markdown-body .markdown-alert-warning {
+  border-left-color: var(--color-attention-emphasis);
+}
+
+.markdown-body .markdown-alert-warning .markdown-alert-title {
+  color: var(--color-attention-fg);
+}
+
+.markdown-body .markdown-alert-caution {
+  border-left-color: var(--color-danger-emphasis);
+}
+
+.markdown-body .markdown-alert-caution .markdown-alert-title {
+  color: var(--color-danger-fg);
 }
