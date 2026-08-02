@@ -160,46 +160,46 @@ main .gsc-loading-image {
 }
 
 /* ========== GitHub Alerts ========== */
-.markdown-body .markdown-alert {
+.markdown .markdown-alert {
   border-left: 0.25em solid var(--color-border-default);
 }
 
-.markdown-body .markdown-alert-note {
+.markdown .markdown-alert-note {
   border-left-color: var(--color-info-emphasis);
 }
 
-.markdown-body .markdown-alert-note .markdown-alert-title {
+.markdown .markdown-alert-note .markdown-alert-title {
   color: var(--color-info-fg);
 }
 
-.markdown-body .markdown-alert-tip {
+.markdown .markdown-alert-tip {
   border-left-color: var(--color-success-emphasis);
 }
 
-.markdown-body .markdown-alert-tip .markdown-alert-title {
+.markdown .markdown-alert-tip .markdown-alert-title {
   color: var(--color-success-fg);
 }
 
-.markdown-body .markdown-alert-important {
+.markdown .markdown-alert-important {
   border-left-color: var(--color-done-emphasis);
 }
 
-.markdown-body .markdown-alert-important .markdown-alert-title {
+.markdown .markdown-alert-important .markdown-alert-title {
   color: var(--color-done-fg);
 }
 
-.markdown-body .markdown-alert-warning {
+.markdown .markdown-alert-warning {
   border-left-color: var(--color-attention-emphasis);
 }
 
-.markdown-body .markdown-alert-warning .markdown-alert-title {
+.markdown .markdown-alert-warning .markdown-alert-title {
   color: var(--color-attention-fg);
 }
 
-.markdown-body .markdown-alert-caution {
+.markdown .markdown-alert-caution {
   border-left-color: var(--color-danger-emphasis);
 }
 
-.markdown-body .markdown-alert-caution .markdown-alert-title {
+.markdown .markdown-alert-caution .markdown-alert-title {
   color: var(--color-danger-fg);
 }
