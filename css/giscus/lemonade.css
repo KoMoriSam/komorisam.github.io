@@ -22,15 +22,24 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Kaiming Punctuation Sans";
+  src: url("https://raw.komori.cc/kaiming/Sans-VF.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+2014, U+2018-2019, U+201C-201D, U+2026, U+3001-3002, U+3008-300F,
+    U+3010-3011, U+3014-3017, U+FF01, U+FF08-FF09, U+FF0C, U+FF1A-FF1B, U+FF1F,
+    U+FF3B, U+FF3D, U+FF5B, U+FF5D;
+}
+
 main {
   /* ========== 字体（与主站 daisyUI --default-font-family 风格一致） ========== */
   font-family:
-    "Manrope", "Noto Sans SC Variable", "Noto Sans SC",
-    "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
-
-  font-feature-settings: "halt";
+    "Kaiming Punctuation Sans", "Manrope", "Noto Sans SC Variable",
+    "Noto Sans SC", "Noto Sans Sinhala Variable", "Noto Sans Sinhala",
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   /* ========== 语法高亮 ========== */
   --color-prettylights-syntax-comment: oklch(55% 0.03 120);
