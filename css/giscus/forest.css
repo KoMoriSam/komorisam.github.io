@@ -158,7 +158,7 @@ main .pagination-loader-container {
 }
 
 main .gsc-loading-image {
-  background-image: url("https://komori.cc/assets/images/turn.gif");
+  background-image: url("https://raw.komori.cc/images/turn.gif");
 }
 
 /* ========== 边距空白大小 ========== */
