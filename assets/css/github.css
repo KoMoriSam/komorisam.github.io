@@ -215,19 +215,10 @@ body {
   color: var(--text-color);
   background: var(--bg-color);
   font-family:
-    "Kaiming Punctuation Sans",
-    "Inter Variable",
-    "Inter" "Noto Sans SC Variable",
-    "Noto Sans SC",
-    "Noto Sans Sinhala Variable",
-    "Noto Sans Sinhala",
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji";
+    "Kaiming Punctuation Sans", "Inter Variable", "Inter",
+    "Noto Sans SC Variable", "Noto Sans SC", "Noto Sans Sinhala Variable",
+    "Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 14px;
   line-height: 1.5;
 }
@@ -455,17 +446,9 @@ a:hover {
   color: var(--text-color);
   background: var(--bg-color);
   font-family:
-    "Inter Variable",
-    "Inter" "Noto Sans SC Variable",
-    "Noto Sans SC",
-    "Noto Sans Sinhala Variable",
-    "Noto Sans Sinhala",
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
+    "Inter Variable", "Inter", "Noto Sans SC Variable", "Noto Sans SC",
+    "Noto Sans Sinhala Variable", "Noto Sans Sinhala", ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji" !important;
 }
 
