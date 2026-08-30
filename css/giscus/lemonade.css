@@ -288,20 +288,20 @@ main {
   --color-accent-subtle: oklch(58.92% 0.199 134.6 / 10%);
 
   /* ========== 语义色 ========== */
-  --color-info-fg: oklch(50% 0.1 224.14);
-  --color-info-emphasis: oklch(86.19% 0.047 224.14);
-  --color-success-fg: oklch(45% 0.18 145);
-  --color-success-emphasis: oklch(86.19% 0.047 157.85);
-  --color-done-fg: oklch(50% 0.16 100.73);
-  --color-done-emphasis: oklch(85.39% 0.201 100.73);
-  --color-attention-fg: oklch(50% 0.18 85);
-  --color-attention-emphasis: oklch(86.19% 0.047 102.15);
-  --color-attention-muted: oklch(77.75% 0.196 111.09 / 40%);
-  --color-attention-subtle: oklch(85.39% 0.201 100.73 / 30%);
-  --color-danger-fg: oklch(50% 0.22 25);
-  --color-danger-emphasis: oklch(86.19% 0.047 25.85);
-  --color-danger-muted: oklch(50% 0.22 25 / 35%);
-  --color-danger-subtle: oklch(86.19% 0.047 25.85 / 40%);
+  --color-info-fg: oklch(60% 0.165 254.624);
+  --color-info-emphasis: oklch(70% 0.165 254.624);
+  --color-success-fg: oklch(59% 0.17 162.48);
+  --color-success-emphasis: oklch(69% 0.17 162.48);
+  --color-done-fg: oklch(40% 0.16 100.73);
+  --color-done-emphasis: oklch(50% 0.16 100.73);
+  --color-attention-fg: oklch(69% 0.184 86.047);
+  --color-attention-emphasis: oklch(79% 0.184 86.047);
+  --color-attention-muted: oklch(79% 0.184 86.047 / 40%);
+  --color-attention-subtle: oklch(79% 0.184 86.047 / 30%);
+  --color-danger-fg: oklch(41% 0.222 16.935);
+  --color-danger-emphasis: oklch(51% 0.222 16.935);
+  --color-danger-muted: oklch(51% 0.222 16.935 / 35%);
+  --color-danger-subtle: oklch(51% 0.222 16.935 / 40%);
 
   /* ========== 阴影 ========== */
   --color-primer-shadow-inset: inset 0 1px 0 oklch(19.742% 0.004 123.72 / 8%);
