@@ -12,7 +12,7 @@
 
 - [博客](https://raw.komori.cc/post/index.json)
   - [Discussions](https://github.com/KoMoriSam/theWake/discussions)
-- [小说](https://raw.komori.cc/novel/index/json)
+- [小说](https://raw.komori.cc/novel/index.json)
   - [Discussions](https://github.com/KoMoriSam/theHorizon/discussions)
 
 你还可以找到为了配合我的网站设计风格而自定义的 [Giscus 样式](https://raw.komori.cc/giscus/themes.css)
