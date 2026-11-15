@@ -13,7 +13,7 @@ filename: README.md
 > 现在它拥有自己的域名，欢迎来做客：
 >
 > - **_<https://komori.cc>_**  
->   网站的源码仓库现已改名为 [MoriWebsite](https://github.com/KoMoriSam/MoriWebsite)
+>   网站的源码仓库现已改名为 [mori-website](https://github.com/KoMoriSam/mori-website)
 
 当然，在这里你仍然可以找到我的博客推文和小说原文件，以及它们的评论区：
 
